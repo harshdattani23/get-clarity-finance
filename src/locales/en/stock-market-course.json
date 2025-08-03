@@ -58,7 +58,37 @@
     }
   },
   "what-is-a-stock-market": {
-    "title": "What is a Stock Market?"
+    "title": "What is a Stock Market?",
+    "description": "Discover the central marketplace where stocks are bought and sold, and understand its vital role in the economy.",
+    "analogy": {
+      "title": "A Simple Analogy: The Supermarket",
+      "p1": "Think of a stock market like a giant, well-organized supermarket. But instead of selling fruits, vegetables, and groceries, it sells stocks (ownership pieces) of publicly listed companies.",
+      "supermarket": {
+        "title": "A Supermarket...",
+        "p": "Connects buyers (shoppers) with sellers (farmers, brands)."
+      },
+      "stockMarket": {
+        "title": "A Stock Market...",
+        "p": "Connects buyers (investors) with sellers (other investors or companies)."
+      }
+    },
+    "coreFunctions": {
+      "title": "Core Functions of a Stock Market",
+      "p1": "The stock market serves two primary functions that are crucial for the economy:",
+      "item1": {
+        "title": "Connecting Buyers and Sellers",
+        "p": "It provides a centralized, regulated, and transparent platform where people who want to buy stocks can easily find people who want to sell them. This creates liquidity, making it easy to enter and exit investments."
+      },
+      "item2": {
+        "title": "Facilitating Capital Formation",
+        "p": "It allows companies to raise money (capital) by selling ownership stakes (stocks) to the public. This capital is then used to grow the business, create jobs, and innovate."
+      }
+    },
+    "takeaways": {
+      "item1": "The stock market is a <strong>centralized marketplace</strong> for buying and selling stocks.",
+      "item2": "It provides <strong>liquidity</strong>, making it easy to trade stocks.",
+      "item3": "It is crucial for <strong>capital formation</strong>, helping companies raise money to grow."
+    }
   },
   "how-stocks-are-traded": {
     "title": "How Stocks Are Traded"
