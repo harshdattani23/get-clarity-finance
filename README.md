@@ -1,29 +1,47 @@
-# SEBI Verify: Your Intelligent Investment Shield
+# Get Clarity Finance
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Welcome to **Get Clarity Finance**, an AI-powered platform designed to protect investors from securities fraud and misinformation. Our mission is to empower users with the tools and knowledge needed to make safe and informed investment decisions.
+---
 
-## 🚀 Key Features
+### 🏆 Submission for the [Securities Market Hackathon at GFF 2025](https://uat.globalfintechfest.com/sebi-hackathon)
 
-- **🔍 AI Content Analyzer**: Paste any suspicious financial news, article, or social media post, and our AI will analyze it for signs of fraud, bias, or manipulation.
-- **✅ Entity Verification**: Quickly check if a stockbroker, investment advisor, or other financial entity is registered with regulatory bodies. Our system cross-references a database of registered entities and a blacklist of known fraudulent actors.
-- **📚 Investment Education**: Learn the fundamentals of safe investing through our structured, easy-to-follow curriculum. Build your financial literacy and confidence.
-- **🌐 Multilingual Support**: The platform supports multiple languages to ensure accessibility for a diverse user base.
+This project is a submission for the **Securities Market Hackathon**, powered by BSE, CDSL, KFINTECH, NSDL and SEBI.
+
+**Problem Statement:** [Fraud Prevention](https://uat.globalfintechfest.com/sebi-hackathon)
+
+> Fraudsters employ a range of deceptive tactics to exploit or mislead investors... These activities cause financial losses to retail investors, erode their trust in the securities market and undermine market integrity.
+
+---
+
+## Our Solution
+
+**Get Clarity Finance** is an AI-powered platform designed to directly address the "Fraud Prevention" challenge. We provide a tool that helps investors protect themselves by scanning online content, verifying advisor credentials, and flagging high-risk promotions before they can cause harm.
+
+## 🚀 Key Features & Hackathon Outcomes
+
+Our features are designed to meet the specific outcomes desired by the hackathon's "Fraud Prevention" problem statement:
+
+- **🔍 AI Content Analyzer**: Fulfills the need for a tool that "**scans online platforms, identifies suspicious investment offers / videos / audios / documents**". Users can paste any suspicious financial news, article, or social media post, and our AI will analyze it for signs of fraud, bias, or manipulation.
+
+- **✅ Entity Verification**: Addresses the need to "**verify advisor credentials against a regulatory database**". Our system allows users to quickly check if a stockbroker or investment advisor is a registered entity, helping to identify fraudulent advisors and impersonators.
+
+- **📊 Trending Threats Dashboard**: Our platform is built to identify and link suspicious stock tips to market activity, fulfilling the need for a "**solution that monitors social media platforms...and provides a dashboard for regulators or exchanges to take action.**"
+
+- **📚 Integrated Investor Education**: Aligned with SEBI’s mandate for investor protection, we provide a structured curriculum to build financial literacy and help users recognize and avoid common types of fraud.
 
 ## 🛠️ Tech Stack
 
-This project is built with a modern, robust, and scalable tech stack:
+This project is built with a modern, robust, and scalable tech stack, chosen to meet the hackathon's evaluation criteria for the use of advanced technology:
 
 - **Framework**: [Next.js](https://nextjs.org/) (v15) with Turbopack
+- **AI/ML**: [Google Gemini](https://ai.google/discover/gemini/) (LLM for content analysis)
 - **Authentication**: [Clerk](https://clerk.com/)
-- **AI/ML**: [Google Gemini](https://ai.google/discover/gemini/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: 
   - [Lucide React](https://lucide.dev/) for icons
   - [Framer Motion](https://www.framer.com/motion/) for animations
   - [Recharts](https://recharts.org/) for charts
-- **Internationalization (i18n)**: [i18next](https://www.i18next.com/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 
 ## 🏁 Getting Started
@@ -39,7 +57,7 @@ To get a local copy up and running, follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username/your_project_name.git
+   git clone https://github.com/harshdattani23/get-clarity-finance.git
    ```
 2. Install NPM packages
    ```sh
@@ -62,11 +80,3 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your_username/your_project_name/issues).
-
----
-
-Thank you for checking out Get Clarity Finance!
