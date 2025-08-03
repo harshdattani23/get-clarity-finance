@@ -3,7 +3,7 @@ import LessonLayout from '../LessonLayout';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const ReadingAStockQuote = () => {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation();
 
   return (
     <LessonLayout

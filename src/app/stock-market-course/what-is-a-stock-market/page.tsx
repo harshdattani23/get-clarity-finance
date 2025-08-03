@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Building, Store, Users, ShoppingCart } from 'lucide-react';
 
 const WhatIsAStockMarket = () => {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation();
 
   return (
     <LessonLayout
