@@ -526,7 +526,31 @@
     "risk-management-position-sizing-and-stop-loss-orders": {
         "title": "Risk Management: Position Sizing and Stop-Loss Orders"
     },
-    "the-investors-mind-managing-psychological-biases": {
-        "title": "The Investor's Mind: Managing Psychological Biases"
+    "the-investor's-mind-managing-psychological-biases": {
+        "title": "The Investor's Mind: Managing Psychological Biases",
+        "description": "Your biggest enemy in the market is often yourself. This lesson explores the common psychological biases that can lead to poor investment decisions and provides strategies to overcome them.",
+        "intro": "Investing is not just about numbers and charts; it's also about managing your emotions and thought processes. Our brains are wired with mental shortcuts and biases that, while useful in daily life, can be disastrous in the financial markets. Understanding these biases is the first step to becoming a more rational and successful investor.",
+        "confirmationBias": {
+            "title": "Confirmation Bias: Seeking 'Proof'",
+            "p1": "This is the tendency to search for, interpret, favor, and recall information that confirms or supports your pre-existing beliefs. In investing, it means you're more likely to look for news and analysis that validates your decision to buy a particular stock, while ignoring any information that contradicts it.",
+            "example": "You buy a stock and then only read positive news articles about it, dismissing any negative reports as 'fake news' or 'market noise'."
+        },
+        "overconfidenceBias": {
+            "title": "Overconfidence Bias: The Illusion of Skill",
+            "p1": "This bias leads investors to overestimate their own ability and knowledge. They might believe they can consistently pick winning stocks or time the market perfectly, causing them to take on excessive risk or trade too frequently, which racks up costs and often leads to underperformance.",
+            "example": "After a few successful trades, an investor believes they have a 'golden touch' and starts making larger, riskier bets without proper research."
+        },
+        "herdingBias": {
+            "title": "Herding Bias: Following the Crowd",
+            "p1": "This is the tendency for individuals to mimic the actions of a larger group. In investing, this often manifests as buying a 'hot' stock just because everyone else is, or panic-selling during a market downturn because of widespread fear. This can lead to buying high and selling low – the exact opposite of a sound investment strategy.",
+            "example": "A stock becomes a viral sensation on social media, and thousands of new investors pile in, driving the price to unsustainable levels, only for it to crash later."
+        },
+        "howToMitigate": {
+            "title": "How to Mitigate These Biases",
+            "item1": "<strong>Create a Rules-Based Investment Plan:</strong> Define your investment criteria, entry and exit points, and risk management rules before you invest. Stick to your plan.",
+            "item2": "<strong>Keep an Investment Journal:</strong> Write down why you made each investment. This forces you to be objective and allows you to review your decisions later, identifying where biases may have crept in.",
+            "item3": "<strong>Seek Out Contrarian Opinions:</strong> Actively look for information and analysis that challenges your investment thesis. This helps to counteract confirmation bias.",
+            "item4": "<strong>Focus on the Long Term:</strong> Adopt a long-term perspective. This reduces the temptation to react to short-term market noise and the herding behavior of others."
+        }
     }
 }

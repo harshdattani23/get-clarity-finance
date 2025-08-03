@@ -67,7 +67,6 @@
         "title": "Ek Supermarket...",
         "p": "Buyers (shoppers) ko sellers (farmers, brands) se connect karta hai."
       },
-
       "stockMarket": {
         "title": "Ek Stock Market...",
         "p": "Buyers (investors) ko sellers (dusre investors ya companies) se connect karta hai."
@@ -438,6 +437,30 @@
         "title": "Risk Management: Position Sizing and Stop-Loss Orders"
     },
     "the-investors-mind-managing-psychological-biases": {
-        "title": "The Investor's Mind: Managing Psychological Biases"
+        "title": "Investor ka Dimag: Psychological Biases ko Manage Karna",
+        "description": "Market mein aapka sabse bada dushman aksar aap khud hote hain. Yeh lesson un common psychological biases ko explore karta hai jo galat investment decisions ka kaaran ban sakte hain aur unse bachne ke liye strategies provide karta hai.",
+        "intro": "Investing sirf numbers aur charts ke baare mein nahi hai; yeh aapki emotions aur thought processes ko manage karne ke baare mein bhi hai. Hamare dimaag mental shortcuts aur biases se wired hain, jo daily life mein toh useful hote hain, lekin financial markets mein disastrous ho sakte hain. In biases ko samajhna ek rational aur successful investor banne ka pehla step hai.",
+        "confirmationBias": {
+            "title": "Confirmation Bias: 'Proof' Dhoondna",
+            "p1": "Yeh woh tendency hai jismein hum aisi information ko dhoondhte, interpret karte, favor karte, aur yaad rakhte hain jo hamare pehle se maujood beliefs ko confirm ya support karti hai. Investing mein, iska matlab hai ki aap kisi particular stock ko khareedne ke apne decision ko validate karne wali news aur analysis ko hi dekhenge, aur uske khilaf kisi bhi information ko ignore kar denge.",
+            "example": "Aap ek stock khareedte hain aur fir sirf uske baare mein positive news articles padhte hain, kisi bhi negative report ko 'fake news' ya 'market ka shor' kehkar dismiss kar dete hain."
+        },
+        "overconfidenceBias": {
+            "title": "Overconfidence Bias: Skill ka Bhram",
+            "p1": "Yeh bias investors ko apni ability aur knowledge ko overestimate karne par majboor karta hai. Woh yeh maan sakte hain ki woh hamesha winning stocks chun sakte hain ya market ko perfectly time kar sakte hain, jiske kaaran woh zaroorat se zyada risk lete hain ya bahut zyada trade karte hain, jisse costs badhti hain aur aksar underperformance hota hai.",
+            "example": "Kuch safal trades ke baad, ek investor ko lagta hai ki uske paas 'golden touch' hai aur woh bina proper research ke bade, riskier bets lagana shuru kar deta hai."
+        },
+        "herdingBias": {
+            "title": "Herding Bias: Bhedchaal",
+            "p1": "Yeh individuals ki ek bade group ke actions ko copy karne ki tendency hai. Investing mein, yeh aksar ek 'hot' stock khareedne ke roop mein dikhta hai sirf isliye ki baaki sab bhi khareed rahe hain, ya market downturn ke dauran panic-selling karna kyunki sab taraf dar ka mahaul hai. Isse high par khareedna aur low par bechna ho sakta hai - jo ek sound investment strategy ka bilkul ulta hai.",
+            "example": "Ek stock social media par viral ho jaata hai, aur hazaron naye investors usmein paisa laga dete hain, jisse price unsustainable levels tak pahunch jaati hai, aur fir baad mein crash ho jaati hai."
+        },
+        "howToMitigate": {
+            "title": "In Biases ko Kaise Kam Karein",
+            "item1": "<strong>Ek Rules-Based Investment Plan Banayein:</strong> Invest karne se pehle apne investment criteria, entry aur exit points, aur risk management rules define karein. Apne plan par adig rahein.",
+            "item2": "<strong>Ek Investment Journal Banayein:</strong> Likhein ki aapne har investment kyun kiya. Yeh aapko objective rehne par majboor karta hai aur aapko baad mein apne decisions review karne ka mauka deta hai, jisse aap pehchan sakte hain ki kahan biases ghus gaye the.",
+            "item3": "<strong>Contrarian Opinions Dhoondhein:</strong> Active roop se aisi information aur analysis dhoondhein jo aapki investment thesis ko challenge karti ho. Yeh confirmation bias ka muqabla karne mein madad karta hai.",
+            "item4": "<strong>Long Term par Focus Karein:</strong> Ek long-term perspective apnayein. Yeh short-term market noise aur dusron ke herding behavior par react karne ke temptation ko kam karta hai."
+        }
     }
 }

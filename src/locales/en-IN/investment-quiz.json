@@ -1,0 +1,174 @@
+{
+  "pageTitle": "Investment Knowledge Assessment",
+  "pageSubtitle": "Apne investment knowledge ko test karein aur fraud se bachna seekhein",
+  "expertiseTitle": "Aapka investment expertise level kya hai?",
+  "quizTitle": "Investment Knowledge Quiz",
+  "questionLabel": "Sawaal",
+  "ofLabel": "of",
+  "submitAnswer": "Answer Submit Karein",
+  "explanation": "Explanation:",
+  "nextQuestion": "Agla Sawaal",
+  "seeResults": "Results Dekhein",
+  "resultsTitle": "Quiz ke Results",
+  "investmentKnowledge": "Investment Knowledge",
+  "fraudProtection": "Fraud se Suraksha",
+  "takeQuizAgain": "Dobara Quiz Dein",
+  "fraudProtectionGuide": "Fraud Protection Guide",
+  "expertiseLevels": {
+    "beginner": {
+      "name": "Beginner",
+      "description": "Investment mein naye hain, basics seekh rahe hain"
+    },
+    "intermediate": {
+      "name": "Intermediate",
+      "description": "Thoda experience hai, main concepts samajhte hain"
+    },
+    "advanced": {
+      "name": "Advanced",
+      "description": "Experienced investor, market ki gehri jaankari"
+    }
+  },
+  "recommendations": {
+    "excellent": "Excellent! Aapko strong investment knowledge hai. Options trading ya international markets jaise advanced topics par vichar karein.",
+    "good": "Acchi foundation! Portfolio diversification aur risk management strategies par focus karein.",
+    "basic": "Basic samajh. Fundamental analysis aur alag-alag investment vehicles ka study karein.",
+    "beginner": "Beginner level. Compound interest aur alag-alag asset classes jaise basic concepts se shuru karein."
+  },
+  "fraudAwareness": {
+    "excellent": "Excellent fraud awareness!",
+    "good": "Acchi awareness hai, lekin savdhan rahein!",
+    "poor": "Kripya fraud protection ke baare mein aur dhyan se padhein."
+  },
+  "questions": {
+    "1": {
+      "question": "Agar koi guaranteed high returns ka vaada kare to aapko kya karna chahiye?",
+      "options": [
+        "Miss na karne ke liye turant invest karein",
+        "Shak karein aur acchi tarah se research karein",
+        "Doston se unki rai poochein",
+        "Agar woh professional lagein to un par bharosa karein"
+      ],
+      "explanation": "Guaranteed high returns ek bada red flag hai. Legitimate investments mein risk hota hai aur koi bhi returns ki guarantee nahi de sakta."
+    },
+    "2": {
+      "question": "Inmein se kaun sa ek common fraud tactic hai?",
+      "options": [
+        "Detailed financial statements dena",
+        "Jaldi invest karne ke liye urgency create karna",
+        "Transparent fee structures offer karna",
+        "Regulatory compliance documents dena"
+      ],
+      "explanation": "Urgency create karna victims par jaldi decisions lene ke liye pressure daalne ka ek classic fraud tactic hai."
+    },
+    "3": {
+      "question": "Investment opportunity ko verify karne ka sabse accha tarika kya hai?",
+      "options": [
+        "Salesperson ki baat par bharosa karein",
+        "Regulatory authorities se check karein",
+        "Scheme mein doosre investors se poochein",
+        "Unki website ka design dekhein"
+      ],
+      "explanation": "Hamesha SEBI, RBI, ya doosre relevant bodies jaise regulatory authorities se verify karein."
+    },
+    "4": {
+      "question": "Investing mein diversification kya hai?",
+      "options": [
+        "Saara paisa ek stock mein lagana",
+        "Investments ko alag-alag assets mein failana",
+        "Sirf bonds mein invest karna",
+        "Saara paisa savings account mein rakhna"
+      ],
+      "explanation": "Diversification alag-alag assets, sectors, aur geographies mein investments ko faila kar risk kam karta hai."
+    },
+    "5": {
+      "question": "P/E ratio ka kya matlab hai?",
+      "options": [
+        "Price to Earnings ratio",
+        "Profit to Expense ratio",
+        "Purchase to Equity ratio",
+        "Performance to Expectation ratio"
+      ],
+      "explanation": "P/E ratio ek company ke stock price ko uske earnings per share ke relative measure karta hai."
+    },
+    "6": {
+      "question": "Compound interest kya hai?",
+      "options": [
+        "Sirf principal amount par interest",
+        "Principal aur accumulated interest dono par kamaya gaya interest",
+        "Har mahine pay kiya gaya interest",
+        "Har saal calculate kiya gaya interest"
+      ],
+      "explanation": "Compound interest initial principal aur pichle periods se accumulated interest dono par kamaya gaya interest hai."
+    },
+    "7": {
+      "question": "Mutual fund kya hai?",
+      "options": [
+        "Ek single stock investment",
+        "Kai investors se jama kiya gaya paisa",
+        "Ek government bond",
+        "Ek bank savings account"
+      ],
+      "explanation": "Ek mutual fund kai investors se paisa jama karke ek diversified portfolio of securities mein invest karta hai."
+    },
+    "8": {
+      "question": "Market volatility kya hai?",
+      "options": [
+        "Steady market growth",
+        "Tezi se aur unpredictable price changes",
+        "Low trading volume",
+        "High interest rates"
+      ],
+      "explanation": "Market volatility samay ke saath trading prices mein variation ki degree ko refer karti hai."
+    },
+    "9": {
+      "question": "Bull market kya hai?",
+      "options": [
+        "Ek market jo gir raha hai",
+        "Ek market jo badh raha hai",
+        "Kam volume wala market",
+        "High volatility wala market"
+      ],
+      "explanation": "Ek bull market badhti keematon aur optimistic investor sentiment se pehchana jaata hai."
+    },
+    "10": {
+      "question": "Bonds ka primary purpose kya hai?",
+      "options": [
+        "High growth potential dena",
+        "Regular income dena aur capital ko preserve karna",
+        "Price movements par speculate karna",
+        "Sabhi investment risk se bachna"
+      ],
+      "explanation": "Bonds mukhya roop se interest payments ke zariye regular income dete hain aur capital ko preserve karne mein madad karte hain."
+    },
+    "11": {
+      "question": "Asset allocation kya hai?",
+      "options": [
+        "Individual stocks chunna",
+        "Investments ko alag-alag asset classes mein baantna",
+        "Market ko time karna",
+        "Mutual funds select karna"
+      ],
+      "explanation": "Asset allocation stocks, bonds, aur cash jaise alag-alag asset classes ke beech investments ko baantne ka process hai."
+    },
+    "12": {
+      "question": "Investments par inflation ka kya asar hota hai?",
+      "options": [
+        "Yeh real returns badhata hai",
+        "Yeh returns ki purchasing power kam karta hai",
+        "Iska koi asar nahi hota",
+        "Yeh sirf bonds ko prabhavit karta hai"
+      ],
+      "explanation": "Inflation samay ke saath investment returns ki purchasing power kam karta hai."
+    },
+    "13": {
+      "question": "Risk-return tradeoff kya hai?",
+      "options": [
+        "Zyada risk ka matlab hamesha zyada returns hota hai",
+        "Aam taur par, zyada potential returns ke saath zyada risk aata hai",
+        "Kam risk wale investments hamesha behtar perform karte hain",
+        "Risk aur return ka koi sambandh nahi hai"
+      ],
+      "explanation": "Risk-return tradeoff ka matlab hai ki zyada potential returns wale investments mein aam taur par zyada risk hota hai."
+    }
+  }
+}

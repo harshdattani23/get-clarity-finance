@@ -1,0 +1,174 @@
+{
+  "pageTitle": "Investment Knowledge Assessment",
+  "pageSubtitle": "Test your investment knowledge and learn to protect yourself from fraud",
+  "expertiseTitle": "What's your investment expertise level?",
+  "quizTitle": "Investment Knowledge Quiz",
+  "questionLabel": "Question",
+  "ofLabel": "of",
+  "submitAnswer": "Submit Answer",
+  "explanation": "Explanation:",
+  "nextQuestion": "Next Question",
+  "seeResults": "See Results",
+  "resultsTitle": "Quiz Results",
+  "investmentKnowledge": "Investment Knowledge",
+  "fraudProtection": "Fraud Protection",
+  "takeQuizAgain": "Take Quiz Again",
+  "fraudProtectionGuide": "Fraud Protection Guide",
+  "expertiseLevels": {
+    "beginner": {
+      "name": "Beginner",
+      "description": "New to investing, learning the basics"
+    },
+    "intermediate": {
+      "name": "Intermediate",
+      "description": "Some experience, understanding key concepts"
+    },
+    "advanced": {
+      "name": "Advanced",
+      "description": "Experienced investor, deep market knowledge"
+    }
+  },
+  "recommendations": {
+    "excellent": "Excellent! You have strong investment knowledge. Consider advanced topics like options trading or international markets.",
+    "good": "Good foundation! Focus on portfolio diversification and risk management strategies.",
+    "basic": "Basic understanding. Study fundamental analysis and different investment vehicles.",
+    "beginner": "Beginner level. Start with basic concepts like compound interest and different asset classes."
+  },
+  "fraudAwareness": {
+    "excellent": "Excellent fraud awareness!",
+    "good": "Good awareness, but stay vigilant!",
+    "poor": "Please study fraud protection more carefully."
+  },
+  "questions": {
+    "1": {
+      "question": "What should you do if someone promises guaranteed high returns?",
+      "options": [
+        "Invest immediately to not miss out",
+        "Be skeptical and research thoroughly",
+        "Ask friends for their opinion",
+        "Trust them if they seem professional"
+      ],
+      "explanation": "Guaranteed high returns are a major red flag. Legitimate investments carry risk and no one can guarantee returns."
+    },
+    "2": {
+      "question": "Which of these is a common fraud tactic?",
+      "options": [
+        "Providing detailed financial statements",
+        "Creating urgency to invest quickly",
+        "Offering transparent fee structures",
+        "Providing regulatory compliance documents"
+      ],
+      "explanation": "Creating urgency is a classic fraud tactic to pressure victims into making hasty decisions."
+    },
+    "3": {
+      "question": "What's the best way to verify an investment opportunity?",
+      "options": [
+        "Trust the salesperson's word",
+        "Check with regulatory authorities",
+        "Ask other investors in the scheme",
+        "Look at their website design"
+      ],
+      "explanation": "Always verify with regulatory authorities like SEBI, RBI, or other relevant bodies."
+    },
+    "4": {
+      "question": "What is diversification in investing?",
+      "options": [
+        "Putting all money in one stock",
+        "Spreading investments across different assets",
+        "Investing only in bonds",
+        "Keeping all money in savings account"
+      ],
+      "explanation": "Diversification reduces risk by spreading investments across different assets, sectors, and geographies."
+    },
+    "5": {
+      "question": "What does P/E ratio stand for?",
+      "options": [
+        "Price to Earnings ratio",
+        "Profit to Expense ratio",
+        "Purchase to Equity ratio",
+        "Performance to Expectation ratio"
+      ],
+      "explanation": "P/E ratio measures a company's stock price relative to its earnings per share."
+    },
+    "6": {
+      "question": "What is compound interest?",
+      "options": [
+        "Interest only on the principal amount",
+        "Interest earned on both principal and accumulated interest",
+        "Interest paid monthly",
+        "Interest calculated annually"
+      ],
+      "explanation": "Compound interest is interest earned on both the initial principal and accumulated interest from previous periods."
+    },
+    "7": {
+      "question": "What is a mutual fund?",
+      "options": [
+        "A single stock investment",
+        "A pool of money from multiple investors",
+        "A government bond",
+        "A bank savings account"
+      ],
+      "explanation": "A mutual fund pools money from multiple investors to invest in a diversified portfolio of securities."
+    },
+    "8": {
+      "question": "What is market volatility?",
+      "options": [
+        "Steady market growth",
+        "Rapid and unpredictable price changes",
+        "Low trading volume",
+        "High interest rates"
+      ],
+      "explanation": "Market volatility refers to the degree of variation in trading prices over time."
+    },
+    "9": {
+      "question": "What is a bull market?",
+      "options": [
+        "A market that's falling",
+        "A market that's rising",
+        "A market with low volume",
+        "A market with high volatility"
+      ],
+      "explanation": "A bull market is characterized by rising prices and optimistic investor sentiment."
+    },
+    "10": {
+      "question": "What is the primary purpose of bonds?",
+      "options": [
+        "To provide high growth potential",
+        "To provide regular income and preserve capital",
+        "To speculate on price movements",
+        "To avoid all investment risk"
+      ],
+      "explanation": "Bonds primarily provide regular income through interest payments and help preserve capital."
+    },
+    "11": {
+      "question": "What is asset allocation?",
+      "options": [
+        "Choosing individual stocks",
+        "Dividing investments among different asset classes",
+        "Timing the market",
+        "Selecting mutual funds"
+      ],
+      "explanation": "Asset allocation is the process of dividing investments among different asset classes like stocks, bonds, and cash."
+    },
+    "12": {
+      "question": "What is inflation's impact on investments?",
+      "options": [
+        "It increases real returns",
+        "It reduces purchasing power of returns",
+        "It has no impact",
+        "It only affects bonds"
+      ],
+      "explanation": "Inflation reduces the purchasing power of investment returns over time."
+    },
+    "13": {
+      "question": "What is the risk-return tradeoff?",
+      "options": [
+        "Higher risk always means higher returns",
+        "Generally, higher potential returns come with higher risk",
+        "Lower risk investments always perform better",
+        "Risk and return are unrelated"
+      ],
+      "explanation": "The risk-return tradeoff means that investments with higher potential returns typically carry higher risk."
+    }
+  }
+}

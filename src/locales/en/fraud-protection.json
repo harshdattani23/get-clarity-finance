@@ -1,0 +1,106 @@
+{
+  "mainTitle": "Investment Fraud Protection Guide",
+  "mainSubtitle": "Learn to identify and protect yourself from common investment fraud schemes",
+  "redFlagsTitle": "Red Flags to Watch For",
+  "protectiveActionsTitle": "Protective Actions",
+  "rememberTitle": "Remember",
+  "rememberContent": "If something sounds too good to be true, it probably is. Always do your own research (DYOR) and consult with licensed financial professionals before making investment decisions.",
+  "disclaimerTitle": "Important Disclaimer",
+  "disclaimerContent": "This information is for educational purposes only. It does not constitute financial advice. Always consult with qualified financial professionals before making investment decisions. Past performance does not guarantee future results.",
+  "guaranteed-returns": {
+    "title": "Guaranteed High Returns",
+    "description": "Be extremely wary of anyone promising guaranteed high returns. Legitimate investments always carry risk.",
+    "redFlags": [
+      "Promises of 20%+ monthly returns",
+      "Claims of 'risk-free' investments",
+      "Pressure to invest quickly",
+      "Complex explanations that don't make sense"
+    ],
+    "protectiveActions": [
+      "Research the company thoroughly",
+      "Check with regulatory authorities (SEBI, RBI)",
+      "Consult with a licensed financial advisor",
+      "Never invest more than you can afford to lose"
+    ]
+  },
+  "urgency-pressure": {
+    "title": "Urgency and Pressure Tactics",
+    "description": "Fraudsters often create artificial urgency to prevent you from doing proper research.",
+    "redFlags": [
+      "'Limited time offer' or 'act now'",
+      "Pressure to make immediate decisions",
+      "Threats of missing out on opportunities",
+      "Refusal to provide written documentation"
+    ],
+    "protectiveActions": [
+      "Take your time to research thoroughly",
+      "Get everything in writing",
+      "Consult with trusted advisors",
+      "Walk away from high-pressure situations"
+    ]
+  },
+  "unregistered-entities": {
+    "title": "Unregistered Investment Entities",
+    "description": "Always verify that investment entities are properly registered with regulatory authorities.",
+    "redFlags": [
+      "Cannot provide registration numbers",
+      "Not listed on official regulatory websites",
+      "Vague or evasive answers about registration",
+      "Claims of 'special exemptions' from registration"
+    ],
+    "protectiveActions": [
+      "Check SEBI website for mutual funds and PMS",
+      "Verify RBI registration for NBFCs",
+      "Confirm AMFI registration for mutual funds",
+      "Ask for official registration certificates"
+    ]
+  },
+  "unsolicited-offers": {
+    "title": "Unsolicited Investment Offers",
+    "description": "Be cautious of investment opportunities that come to you unsolicited.",
+    "redFlags": [
+      "Cold calls or unsolicited emails",
+      "Social media investment opportunities",
+      "Friends or family pushing investments",
+      "Celebrity endorsements of investment schemes"
+    ],
+    "protectiveActions": [
+      "Never invest based on unsolicited offers",
+      "Research the company independently",
+      "Verify all claims independently",
+      "Be skeptical of 'insider information'"
+    ]
+  },
+  "complex-schemes": {
+    "title": "Overly Complex Investment Schemes",
+    "description": "Fraudsters often use complex schemes to confuse investors and hide the truth.",
+    "redFlags": [
+      "Investment strategies you don't understand",
+      "Claims of 'proprietary' or 'secret' methods",
+      "Complex fee structures",
+      "Promises of tax benefits that seem too good"
+    ],
+    "protectiveActions": [
+      "If you don't understand it, don't invest",
+      "Get independent professional advice",
+      "Ask for simple explanations",
+      "Verify all claims with experts"
+    ]
+  },
+  "pyramid-schemes": {
+    "title": "Pyramid or Ponzi Schemes",
+    "description": "These schemes rely on recruiting new investors to pay existing ones.",
+    "redFlags": [
+      "Focus on recruiting others to invest",
+      "Promises of commissions for bringing in new investors",
+      "Complex compensation structures",
+      "No real product or service being sold"
+    ],
+    "protectiveActions": [
+      "Avoid any scheme focused on recruitment",
+      "Research the business model thoroughly",
+      "Check if there's a real product or service",
+      "Be wary of 'network marketing' investment schemes"
+    ]
+  }
+}
