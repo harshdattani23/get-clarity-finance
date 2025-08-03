@@ -57,6 +57,24 @@
       "item3": "Investment style (growth vs. value) helps investors align their stock choices with their financial goals and risk tolerance."
     }
   },
+  "what-is-a-stock-market": {
+    "title": "What is a Stock Market?"
+  },
+  "how-stocks-are-traded": {
+    "title": "How Stocks Are Traded"
+  },
+  "reading-a-stock-quote": {
+    "title": "Reading a Stock Quote"
+  },
+  "bull-vs-bear-markets": {
+    "title": "Bull vs. Bear Markets"
+  },
+  "market-indices": {
+    "title": "Market Indices (Sensex & Nifty)"
+  },
+  "role-of-sebi": {
+    "title": "The Role of SEBI"
+  },
   "navigation": {
     "backToModules": "Back to Course Modules",
     "previous": "Previous",
@@ -66,8 +84,12 @@
     "title": "Stock Market Course",
     "description": "Your journey to becoming a savvy investor starts here.",
     "module1": {
-        "title": "Module 1: Introduction to Investing",
-        "description": "Learn the fundamental concepts of the stock market."
+        "title": "Module 1: The Basics",
+        "description": "Learn the fundamental concepts of the stock market and its components."
+    },
+    "module2": {
+        "title": "Module 2: How the Market Works",
+        "description": "Understand the forces and entities that shape the stock market."
     }
   }
 }
