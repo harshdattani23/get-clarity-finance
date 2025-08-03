@@ -14,6 +14,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Declare the build argument
+ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+# Expose it as an environment variable
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
