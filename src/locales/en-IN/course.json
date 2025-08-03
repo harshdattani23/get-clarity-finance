@@ -1,50 +1,88 @@
 {
-  "awareness_hub": {
-    "title": "Indian Market ki Jaankari",
-    "description": "Indian market ko confidence ke saath samjhein. Fundamentals se lekar strategic insights tak, ek 3-level ka course.",
-    "level_1_title": "Level 1: Buniyaad",
-    "level_1_description": "Indian market ke zaroori concepts ke saath ek mazboot base banayein.",
-    "level_2_title": "Level 2: Professional",
-    "level_2_description": "India mein kaam karne ki barikiyon mein gehrai se utrein.",
-    "level_3_title": "Level 3: Ranneetik",
-    "level_3_description": "Lambi avadhi ki safalta ke liye unnat ranneetiyon mein maharat haasil karein."
-  },
-  "foundation": {
-    "title": "Level 1: Buniyaad - Zaroori Baatein",
-    "description": "Indian market mein apna safar shuru karein. Yeh foundational lessons aapko India ke complex aur dynamic environment ko samajhne ke liye zaroori knowledge denge.",
-    "module_1_title": "Module 1: Badi Picture",
-    "module_1_description": "India ki economy aur society ki badi picture ko samajhna.",
-    "economic_overview": "Economic Overview: Hype se Pare",
-    "political_landscape": "Political and Administrative Landscape",
-    "cultural_diversity": "Cultural Diversity: Ek Desh, Anek Rashtra",
-    "module_2_title": "Module 2: Business ka Mahol",
-    "module_2_description": "India mein business karne ke mukhya pehlu.",
-    "ease_of_doing_business": "Ease of Doing Business: Sachai vs. Afwahein",
-    "indian_contracts": "Indian Contracts ke Bhool Bhulaiya mein Navigate karna",
-    "taxation": "Taxation: Jaankari aur Gair-Jaankari",
-    "module_3_title": "Module 3: Bhartiya Grahak",
-    "module_3_description": "Sabse zaroori insaan ko samajhna: aapka customer.",
-    "urban_rural_divide": "Shehri-Gramin Vibhajan",
-    "digital_native": "Digital Native ka Uday",
-    "winning_trust": "Kam Vishwas Wale Samaj Mein Vishwas Jeetna"
-  },
-  "professional": {
-    "title": "Level 2: Professional - Barikiyon ko Samajhna",
-    "description": "Yeh level unke liye hai jinko Indian market ki basic samajh hai aur ab operational aur strategic chunautiyon mein gehrai se utarna chahte hain.",
-    "module_4_title": "Module 4: Regulatory Bhool Bhulaiya",
-    "module_4_description": "Kanooni aur naukarshahi ke landscape mein gehrai se utarna.",
-    "ease_of_doing_business": "Ease of Doing Business: Myth vs. Reality",
-    "indian_contracts": "Navigating the Labyrinth of Indian Contracts",
-    "taxation": "Taxation: The Knowns and Unknowns",
-    "module_5_title": "Module 5: Bhartiya Grahak",
-    "module_5_description": "Vividh aur viksit hote Bhartiya grahak ko samajhna.",
-    "urban_rural_divide": "The Urban-Rural Divide",
-    "digital_native": "The Rise of the Digital Native",
-    "winning_trust": "Winning Trust in a Low-Trust Society",
-    "module_6_title": "Module 6: Go-to-Market Ranneeti",
-    "module_6_description": "India mein apne business ko safaltapoorvak launch karne aur badhane ki ranneetiyan.",
-    "local_partnerships": "Sthaniya Sajhedari Banana",
-    "supply_chain": "Supply Chain & Logistics: Antim Chhor",
-    "digital_vs_brick": "Digital-First vs. Brick-and-Mortar"
+    "how-to-read-candlestick-charts": {
+      "title": "Candlestick Charts Kaise Padhe",
+      "description": "Market sentiment samajhne aur behtar trading decisions lene ke liye candlestick charts padhne ki kala mein mahir bane.",
+      "intro": "Candlestick charts technical analysis ke sabse popular aur powerful tools mein se ek hain. Inki shuruaat 18th century mein Japanese rice traders ne ki thi. Ye price movements ka ek visual representation provide karte hain aur market psychology ke baare mein gehri jaankari de sakte hain. Har candlestick ek specific time period mein khareedar (bulls) aur bechne wale (bears) ke beech ki ladai ki kahani batata hai.",
+      "anatomy": {
+        "title": "Ek Candlestick ki Anatomy",
+        "p1": "Candlestick patterns ko samajhne ke liye, pehle aapko har candlestick ke char mukhya data points ko jaanna hoga:",
+        "image_alt": "Bullish aur bearish candlesticks ki anatomy dikhane wala diagram, jisme body, wicks (shadows), open, close, high, aur low shamil hain.",
+        "body": {
+          "title": "The Body",
+          "p1": "Opening aur closing price ke beech ki range ko represent karta hai. Body ka rang price direction ko indicate karta hai."
+        },
+        "wicks": {
+          "title": "The Wicks (ya Shadows)",
+          "p1": "Body ke upar aur neeche badhne wali lines ko wicks ya shadows kehte hain. Ye us time period ke dauran sabse zyada aur sabse kam prices dikhate hain."
+        },
+        "color": {
+          "title": "The Color",
+          "p1": "Aam taur par, ek green (ya white) candlestick ka matlab hai ki closing price opening price se zyada thi (ek bullish candle). Ek red (ya black) candlestick ka matlab hai ki closing price opening price se kam thi (ek bearish candle)."
+        }
+      },
+      "patterns": {
+        "title": "Basic Candlestick Patterns",
+        "intro": "Individual candlesticks aur chhote patterns powerful trading signals de sakte hain. Shuruaat karne ke liye yahan kuch fundamental patterns diye gaye hain:",
+        "doji": {
+          "title": "Doji",
+          "p1": "Doji ek unique candle hai jahan opening aur closing prices bahut kareeb ya same hoti hain, jisse ek chhoti ya na ke barabar body banti hai. Ye ek cross jaisa dikhta hai. Doji market mein anirnay (indecision) ko darshata hai; na khareedar na bechne wale control mein hain. Ye aksar ek potential trend reversal ka sanket de sakta hai.",
+          "image_alt": "Doji candlestick pattern ki tasveer, jo iske cross jaise aakar ko highlight karti hai."
+        },
+        "hammer": {
+          "title": "Hammer",
+          "p1": "Hammer ek bullish reversal pattern hai jo ek downtrend ke dauran banta hai. Iski ek chhoti body aur ek lambi nichli wick hoti hai, jo ek hathode (hammer) jaisi dikhti hai. Ye pattern batata hai ki bhale hi bechne walon ne price ko neeche dhakel diya, lekin strong buying pressure ne price ko uske open ke paas close karne ke liye majboor kar diya.",
+          "image_alt": "Ek downtrend ke neeche Hammer candlestick pattern ki tasveer."
+        },
+        "engulfing": {
+          "title": "Engulfing Pattern",
+          "p1": "Ek Engulfing pattern tab hota hai jab ek candlestick ki body pichhli candle ki body ko poori tarah se 'nigal' leti hai. Ek Bullish Engulfing pattern (ek badi green candle jo ek chhoti red candle ko nigal leti hai) ek strong buying signal hai. Ek Bearish Engulfing pattern (ek badi red candle jo ek chhoti green candle ko nigal leti hai) ek strong selling signal hai.",
+          "image_alt": "Bullish aur Bearish Engulfing dono patterns dikhane wali tasveer."
+        }
+      },
+      "keyTakeaways": {
+        "title": "Mukhya Baatein",
+        "takeaway1": "Har candlestick ek period ke liye chaar mukhya jaankari deta hai: <strong>open, close, high, aur low</strong> price.",
+        "takeaway2": "Body ka <strong>rang aur lambai</strong> khareedari ya bechne ke pressure ki shakti ko darshata hai.",
+        "takeaway3": "<strong>Doji, Hammer, aur Engulfing patterns</strong> jaise patterns anirnay, reversals, aur continuations ka sanket de sakte hain.",
+        "takeaway4": "Candlestick analysis ek skill hai jo practice ke saath behtar hoti hai. Real charts par in patterns ko observe karke shuruaat karein."
+      }
+    },
+    "identifying-trends-support-and-resistance": {
+        "title": "Trends, Support, aur Resistance Pehchane",
+        "description": "Technical analysis ke moolbhut skills seekhein: market trends kaise pehchane aur mukhya support aur resistance levels ka pata kaise lagaye.",
+        "intro": "Agar candlestick patterns market ki bhasha ke 'shabd' hain, to trends, support, aur resistance us bhasha ka 'vyakaran' hain. In teen concepts ko samajhna technical analysis ke liye bahut zaroori hai. Ye aapko price movements ko context mein rakhne aur market ke bade structure ko samajhkar behtar trading decisions lene mein madad karte hain.",
+        "image_alt": "Ek stock chart jo saaf uptrend dikha raha hai, trendline ke saath, aur support aur resistance levels bhi label kiye gaye hain.",
+        "trends": {
+          "title": "Trend Aapka Dost Hai",
+          "p1": "Trend woh samanya disha hai jismein ek stock ki keemat badh rahi hai. Teen tarah ke trends hote hain:",
+          "uptrend": {
+            "title": "Uptrend (Upar Jaate Highs aur Upar Jaate Lows)",
+            "p1": "Ek uptrend mein, har agla peak aur trough pehle walon se uncha hota hai. Ye ek bullish market ka sanket hai jahan khareedari ka dabav zyada hota hai."
+          },
+          "downtrend": {
+            "title": "Downtrend (Neeche Jaate Highs aur Neeche Jaate Lows)",
+            "p1": "Ek downtrend ki pehchan lagatar neeche jaate peaks aur troughs se hoti hai. Ye ek bearish market ka sanket hai jahan bechne ka dabav zyada hota hai."
+          },
+          "sideways": {
+            "title": "Sideways Trend (Ranging)",
+            "p1": "Ek sideways trend mein, price ek seemit range mein trade karti hai, bina kisi saaf disha ke. Ye consolidation ka samay darshata hai jahan khareedar aur bechne wale santulan mein hain."
+          }
+        },
+        "support": {
+          "title": "Support: Price ki Zameen",
+          "p1": "Support ek aisi price level hai jahan ek downtrend rukne ki ummeed ki ja sakti hai kyunki wahan demand ka kendra hota hai. Ise ek aisi zameen samjhein jiske neeche stock price ko girne mein mushkil hoti hai. Jab price support level ke paas aati hai, to khareedari mein ruchi badh jaati hai, jisse price wapas upar uchhal jaati hai."
+        },
+        "resistance": {
+          "title": "Resistance: Price ki Chhat",
+          "p1": "Resistance support ka ulta hai. Ye ek aisi price level hai jahan ek uptrend rukne ki ummeed ki ja sakti hai kyunki wahan supply ka kendra hota hai. Ye ek aisi chhat ki tarah kaam karta hai jiske upar stock price ko badhne mein mushkil hoti hai. Jaise hi price resistance level ke paas pahunchti hai, bechne mein ruchi badh jaati hai, jisse price neeche aa jaati hai."
+        },
+        "keyTakeaways": {
+          "title": "Mukhya Baatein",
+          "takeaway1": "<strong>Trend</strong> aapko market ki samanya disha batata hai (uptrend, downtrend, ya sideways).",
+          "takeaway2": "<strong>Support</strong> ek price 'zameen' hai jahan khareedari ka dabav bechne ke dabav par haavi ho jaata hai.",
+          "takeaway3": "<strong>Resistance</strong> ek price 'chhat' hai jahan bechne ka dabav khareedari ke dabav par haavi ho jaata hai.",
+          "takeaway4": "In levels ko pehchanna aapke trades ke liye entry aur exit points set karne ke liye bahut zaroori hai."
+        }
+      }
   }
-}
+  

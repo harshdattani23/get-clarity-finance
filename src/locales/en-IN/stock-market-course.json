@@ -1,241 +1,443 @@
 {
   "what-is-a-stock": {
-    "title": "Stock Kya Hai?",
-    "description": "Chaliye bilkul basics se shuru karte hain. Samjhein ki stock kya hai aur yeh market ka mool-bhoot hissa kyun hai.",
+    "title": "Stock kya hai?",
+    "description": "Chalo, bilkul basics se shuru karte hain. Stock kya hai aur yeh market ka fundamental building block kyun hai, yeh samjho.",
     "simpleDefinition": "Saral Paribhasha",
-    "simpleDefinitionP1": "Essentially, ek <strong>stock</strong> (jise share ya equity bhi kehte hain) ek prakar ki security hai jo ek corporation mein <strong>hissedari</strong> ko darshata hai aur corporation ki sampatti aur kamai ke ek hisse par dawa prastut karta hai.",
-    "simpleDefinitionP2": "Saral shabdon mein, jab aap kisi company ka stock kharidte hain, to aap us company ka ek chota sa hissa khareed rahe hote hain. Aap ek part-owner, ya ek <strong>shareholder</strong> ban jaate hain.",
-    "ownershipVisualTitle": "Ek Company ko Pizza Samjhein",
-    "ownershipVisualP1": "Pizza ka har slice company ke stock ka ek <strong>share</strong> darshata hai.",
-    "ownershipVisualP2": "Jab aap ek share kharidte hain, to aap us pizza ka ek slice khareed rahe hain. Aap ek part-owner ban jaate hain!",
-    "whyCompaniesIssue": "Companies Stock Kyun Issue Karti Hain?",
-    "whyCompaniesIssueP1": "Companies ownership ko maze ke liye nahi baantti. Ve mukhya roop se ek hi kaaran se stock issue karti hain: <strong>पूंजी (paisa) jutane ke liye</strong>.",
+    "simpleDefinitionP1": "Essentially, ek <strong>stock</strong> (jise share ya equity bhi kehte hain) ek type ki security hai jo ek corporation mein <strong>ownership</strong> signify karti hai aur corporation ke assets aur earnings ke ek hisse par claim represent karti hai.",
+    "simpleDefinitionP2": "Saral shabdon mein, jab aap kisi company ka stock khareedte hain, to aap us company ka ek chota sa tukda khareed rahe hote hain. Aap ek part-owner, ya <strong>shareholder</strong> ban jaate hain.",
+    "ownershipVisualTitle": "Ek Company ko Pizza Samjho",
+    "ownershipVisualP1": "Pizza ka har slice company ke stock ka ek <strong>share</strong> represent karta hai.",
+    "ownershipVisualP2": "Jab aap ek share khareedte hain, to aap us pizza ka ek slice khareed rahe hote hain. Aap ek part-owner ban jaate hain!",
+    "whyCompaniesIssue": "Companies stock kyun issue karti hain?",
+    "whyCompaniesIssueP1": "Companies fun ke liye ownership nahi de deti. Woh stock ek primary reason ke liye issue karti hain: <strong>capital (paisa) raise karne ke liye</strong>.",
     "fundingGrowth": "Growth ke liye Funding",
-    "fundingGrowthP": "Ek company ko naye factory banane, naye products develop karne, naye markets mein expand karne, ya aur logon ko hire karne ke liye paise ki zaroorat ho sakti hai. Stock bechne se bina karz liye iske liye cash mil jaata hai.",
-    "goingPublic": "Public Hona (IPO)",
-    "goingPublicP": "Jab ek private company pehli baar apne shares public ko bechti hai, to ise Initial Public Offering (IPO) kehte hain. Yeh ek bada event hai jo badi matra mein capital जुटा sakta hai aur company ki prestige aur public profile ko badha sakta hai.",
-    "whyPeopleBuy": "Log Stock Kyun Kharidte Hain?",
-    "whyPeopleBuyP": "Niveshak munafe ki ummeed se stock kharidte hain, jo mukhya roop se do tarikon se ho sakta hai:",
+    "fundingGrowthP": "Ek company ko naye factories banane, naye products develop karne, naye markets mein expand karne, ya aur logon ko hire karne ke liye paiso ki zaroorat ho sakti hai. Stock bechne se debt mein jaaye bina yeh sab karne ke liye cash mil jaata hai.",
+    "goingPublic": "Public Jaana (IPO)",
+    "goingPublicP": "Jab ek private company pehli baar apne shares public ko bechti hai, to use Initial Public Offering (IPO) kehte hain. Yeh ek major event hai jo badi matra mein capital raise kar sakta hai aur company ki prestige aur public profile badha sakta hai.",
+    "whyPeopleBuy": "Log stock kyun khareedte hain?",
+    "whyPeopleBuyP": "Investors profit kamane ki expectation se stock khareedte hain, jo do main tarikon se ho sakta hai:",
     "capitalGains": "Capital Gains",
-    "capitalGainsP": "Agar company achha karti hai, to uski value badhti hai, aur uske stock ki keemat bhi. Aap tab apne shares ko usse zyada mein bech sakte hain jitne mein aapne unhe kharida tha. Is munafe ko capital gain kehte hain.",
+    "capitalGainsP": "Agar company achha perform karti hai, to uski value badhti hai, aur uske stock ki price bhi. Fir aap apne shares unki khareedi hui keemat se zyada mein bech sakte hain. Is profit ko capital gain kehte hain.",
     "dividends": "Dividends",
-    "dividendsP": "Kuch companies apne munafe ka ek hissa apne shareholders ke saath baantti hain. In payments ko dividends kehte hain. Ve niveshakon ko niyamit aay ka ek srot pradan karte hain.",
-    "keyTakeaways": "Mukhya Baatein",
-    "takeaway1": "Ek stock ek company mein <strong>hissedari</strong> ko darshata hai.",
-    "takeaway2": "Companies vikas aur operations ke liye <strong>paisa jutane</strong> ke liye stock issue karti hain.",
-    "takeaway3": "Niveshak <strong>capital gains</strong> aur <strong>dividends</strong> ke zariye paisa kamane ke liye stock kharidte hain.",
-    "takeaway4": "Stock ka maalik hone ka matlab hai ki aap ek <strong>shareholder</strong> hain aur company ki sampatti par aapka dawa hai.",
-    "keyTerms": "Mukhya Shabd",
-    "term1": "<strong>Shareholder:</strong> Ek vyakti ya sanstha jo kisi company mein shares ka maalik hai.",
-    "term2": "<strong>IPO (Initial Public Offering):</strong> Jab ek private company pehli baar apne shares public ko offer karti hai.",
-    "term3": "<strong>Capital Gains:</strong> Ek nivesh ki bikri se hua munafe.",
-    "term4": "<strong>Dividends:</strong> Ek company ki kamai ka ek hissa jo uske shareholders ko pay kiya jaata hai."
+    "dividendsP": "Kuch companies apne profits ka ek hissa apne shareholders ke saath share karti hain. In payments ko dividends kehte hain. Yeh investors ko ek regular income stream provide karte hain.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "Ek stock company mein <strong>ownership</strong> represent karta hai.",
+    "takeaway2": "Companies growth aur operations ke liye <strong>paisa raise karne</strong> ke liye stock issue karti hain.",
+    "takeaway3": "Investors potentially <strong>capital gains</strong> aur <strong>dividends</strong> ke zariye paisa kamane ke liye stock khareedte hain.",
+    "takeaway4": "Stock own karne ka matlab hai aap ek <strong>shareholder</strong> hain aur company ke assets par aapka claim hai.",
+    "keyTerms": "Key Terms",
+    "term1": "<strong>Shareholder:</strong> Ek individual ya institution jo company mein shares own karta hai.",
+    "term2": "<strong>IPO (Initial Public Offering):</strong> Pehli baar jab ek private company apne shares public ko offer karti hai.",
+    "term3": "<strong>Capital Gains:</strong> Ek investment ki sale se hua profit.",
+    "term4": "<strong>Dividends:</strong> Ek company ki earnings ka ek portion jo uske shareholders ko pay kiya jaata hai."
   },
   "different-types-of-stocks": {
-    "title": "Alag Alag Prakar ke Stocks",
-    "description": "Sabhi stocks ek jaise nahi hote. Yeh lesson aapko stocks ki alag-alag categories se parichit karayega, jisse aap unki anokhi visheshtaon aur risk profiles ko samajh sakenge.",
+    "title": "Alag Alag Tarah ke Stocks",
+    "description": "Sabhi stocks ek jaise nahi hote. Yeh lesson aapko stocks ki alag-alag categories se introduce karega, jisse aap unke unique characteristics aur risk profiles ko samajh payenge.",
     "commonVsPreferred": {
       "title": "Common vs. Preferred Stocks",
-      "p1": "<strong>Common Stock:</strong> Jab log stocks ke baare mein baat karte hain to zyada tar unka matlab yahi hota hai. Ismein voting rights milte hain, jisse shareholders company ke faislon mein hissa le sakte hain. Common stockholders ko dividends mil sakte hain, lekin yeh guaranteed nahi hote.",
-      "p2": "<strong>Preferred Stock:</strong> In stocks mein aam taur par voting rights nahi hote. Lekin, ve aam taur par ek nishchit dividend dete hain jo common stock dividends se pehle pay kiya jaata hai. Liquidation ke mamle mein, preferred stockholders ka company ki sampatti par zyada dawa hota hai."
+      "p1": "<strong>Common Stock:</strong> Jab log stocks ke baare mein baat karte hain to zyada tar yahi matlab hota hai. Yeh voting rights deta hai, jisse shareholders ko company ke decisions mein apni baat kehne ka mauka milta hai. Common stockholders ko dividends mil sakte hain, lekin yeh guaranteed nahi hain.",
+      "p2": "<strong>Preferred Stock:</strong> In stocks mein aam taur par voting rights nahi hote. Lekin, yeh typically ek fixed dividend pay karte hain jo common stock dividends se pehle pay kiya jaata hai. Liquidation ke case mein, preferred stockholders ka company assets par zyada claim hota hai."
     },
     "byMarketCap": {
-      "title": "Market Capitalization ke Anusar Vargikaran",
-      "p1": "<strong>Large-Cap Stocks:</strong> Yeh badi, sthapit companies ke stocks hain jinka market capitalization $10 billion se zyada hai. Inhe aam taur par kam risk wala maana jaata hai.",
-      "p2": "<strong>Mid-Cap Stocks:</strong> Yeh un companies ke stocks hain jinka market capitalization $2 billion aur $10 billion ke beech hai. Ve vikas ki sambhavna aur sthirta ka santulan pradan karte hain.",
-      "p3": "<strong>Small-Cap Stocks:</strong> Yeh chhoti companies ke stocks hain jinka market capitalization $300 million aur $2 billion ke beech hai. Inmein vikas ki adhik sambhavna hoti hai lekin inke saath adhik risk bhi juda hota hai."
+      "title": "Market Capitalization ke Hisab se Classification",
+      "p1": "<strong>Large-Cap Stocks:</strong> Yeh badi, well-established companies ke stocks hain jinka market capitalization $10 billion se zyada hai. Inhe aam taur par kam risky mana jaata hai.",
+      "p2": "<strong>Mid-Cap Stocks:</strong> Yeh un companies ke stocks hain jinka market capitalization $2 billion se $10 billion ke beech hai. Yeh growth potential aur stability ka balance offer karte hain.",
+      "p3": "<strong>Small-Cap Stocks:</strong> Yeh chhoti companies ke stocks hain jinka market capitalization $300 million se $2 billion ke beech hai. Inme high growth potential hota hai lekin high risk bhi hota hai."
     },
     "byStyle": {
-      "title": "Nivesh Shaili ke Anusar Vargikaran",
-      "p1": "<strong>Growth Stocks:</strong> Yeh un companies ke stocks hain jinke market mein anya companies ki tulna mein ausat se adhik dar se badhne ki ummeed hai. Ve aksar dividends nahi dete hain, kyunki ve vistar ko badhava dene ke liye kamai ko reinvest karte hain.",
-      "p2": "<strong>Value Stocks:</strong> Yeh ve stocks hain jo apne fundamentals, jaise ki kamai, bikri, aur book value ki tulna mein kam keemat par trade karte hain. Ve aksar niveshakon dwara nazarandaz kar diye jaate hain aur unka mulyankan kam ho sakta hai."
+      "title": "Investment Style ke Hisab se Classification",
+      "p1": "<strong>Growth Stocks:</strong> Yeh un companies ke stocks hain jinke market mein average se zyada rate se grow karne ki umeed hai. Yeh aksar dividends nahi dete, kyunki yeh expansion ke liye earnings ko reinvest karte hain.",
+      "p2": "<strong>Value Stocks:</strong> Yeh aise stocks hain jo apne fundamentals, jaise ki earnings, sales, aur book value ke comparison mein kam price par trade karte hain. Yeh aksar investors dwara nazarandaaz kiye jaate hain aur undervalued ho sakte hain."
     },
     "keyTakeaways": {
-      "title": "Mukhya Baatein",
-      "item1": "Stocks ko mote taur par common aur preferred stocks mein vargikrit kiya ja sakta hai, har ek ke alag-alag adhikar aur labh hote hain.",
-      "item2": "Market capitalization (large-cap, mid-cap, small-cap) ek stock ke risk aur vikas ki sambhavna ka aakalan karne mein ek mukhya karak hai.",
-      "item3": "Nivesh shaili (growth vs. value) niveshakon ko unke vittiya lakshyon aur jokhim sahansheelta ke saath unke stock chayan ko sanrekhit karne mein madad karti hai."
+      "title": "Key Takeaways",
+      "item1": "Stocks ko broadly common aur preferred stocks mein categorize kiya ja sakta hai, har ek ke alag rights aur benefits hote hain.",
+      "item2": "Market capitalization (large-cap, mid-cap, small-cap) ek stock ke risk aur growth potential ko assess karne mein ek key factor hai.",
+      "item3": "Investment style (growth vs. value) investors ko apne financial goals aur risk tolerance ke saath apne stock choices align karne mein help karta hai."
     }
   },
   "what-is-a-stock-market": {
-    "title": "Stock Market Kya Hai?",
-    "description": "Us kendriya marketplace ko jaanein jahan stocks kharide aur beche jaate hain, aur economy mein uski mahatvapurna bhoomika ko samjhein.",
+    "title": "Stock Market kya hai?",
+    "description": "Us central marketplace ko discover karein jahan stocks khareede aur beche jaate hain, aur economy mein uske vital role ko samjhein.",
     "analogy": {
-      "title": "Ek Saral Udhaharan: Supermarket",
-      "p1": "Stock market ko ek vishal, suniyojit supermarket ki tarah samjhein. Lekin phal, sabjiyan, aur kirana bechne ke bajaye, yeh publicly listed companies ke stocks (maalikana hisse) bechta hai.",
+      "title": "Ek Simple Analogy: The Supermarket",
+      "p1": "Stock market ko ek giant, well-organized supermarket ki tarah socho. Lekin fruits, vegetables, aur groceries bechne ke bajaye, yeh publicly listed companies ke stocks (ownership ke tukde) bechta hai.",
       "supermarket": {
         "title": "Ek Supermarket...",
-        "p": "Kharidarono (shoppers) ko vikretaon (kisano, brands) se jodta hai."
+        "p": "Buyers (shoppers) ko sellers (farmers, brands) se connect karta hai."
       },
+
       "stockMarket": {
         "title": "Ek Stock Market...",
-        "p": "Kharidarono (niveshkon) ko vikretaon (anya niveshkon ya companies) se jodta hai."
+        "p": "Buyers (investors) ko sellers (dusre investors ya companies) se connect karta hai."
       }
     },
     "coreFunctions": {
-      "title": "Stock Market ke Mukhya Karya",
-      "p1": "Stock market do mukhya karya karta hai jo economy ke liye mahatvapurna hain:",
+      "title": "Stock Market ke Core Functions",
+      "p1": "Stock market do primary functions serve karta hai jo economy ke liye crucial hain:",
       "item1": {
-        "title": "Kharidarono aur Vikretaon ko Jodna",
-        "p": "Yeh ek kendrikrit, niyamit, aur pardarshi platform pradan karta hai jahan log jo stocks kharidna chahte hain ve aasani se un logon ko dhoondh sakte hain jo unhe bechna chahte hain. Isse liquidity banti hai, jisse nivesh mein pravesh karna aur bahar nikalna aasan ho jaata hai."
+        "title": "Buyers aur Sellers ko Connect Karna",
+        "p": "Yeh ek centralized, regulated, aur transparent platform provide karta hai jahan jo log stock khareedna chahte hain woh aasani se unhe bechne walon ko dhoond sakte hain. Isse liquidity create hoti hai, jisse investments mein enter aur exit karna aasan ho jaata hai."
       },
       "item2": {
-        "title": "Poonji Nirman mein Sahayata karna",
-        "p": "Yeh companies ko janta ko malkियत ki hisseदारी (stocks) bechkar paisa (punji) jutane ki anumati deta hai. Is punji ka upyog phir vyavasay ko badhane, naukriyan paida karne, aur navachar karne ke liye kiya jaata hai."
+        "title": "Capital Formation ko Facilitate Karna",
+        "p": "Yeh companies ko public ko ownership stakes (stocks) bechkar paisa (capital) raise karne ki anumati deta hai. Is capital ko fir business grow karne, jobs create karne, aur innovate karne ke liye use kiya jaata hai."
       }
     },
     "takeaways": {
-      "item1": "Stock market stocks kharidne aur bechne ke liye ek <strong>kendrikrit marketplace</strong> hai.",
-      "item2": "Yeh <strong>liquidity</strong> pradan karta hai, jisse stocks trade karna aasan ho jaata hai.",
-      "item3": "Yeh <strong>punji nirman</strong> ke liye mahatvapurna hai, companies ko vikas ke liye paisa jutane mein madad karta hai."
+      "item1": "Stock market stocks khareedne aur bechne ke liye ek <strong>centralized marketplace</strong> hai.",
+      "item2": "Yeh <strong>liquidity</strong> provide karta hai, jisse stocks trade karna aasan ho jaata hai.",
+      "item3": "Yeh <strong>capital formation</strong> ke liye crucial hai, companies ko grow karne ke liye paisa raise karne mein help karta hai."
     }
   },
   "how-stocks-are-traded": {
     "title": "Stocks Kaise Trade Hote Hain",
-    "description": "Parde ke peeche jaakar primary aur secondary markets ke beech ke antar ko samjhein, aur har transaction mein shaamil mukhya khiladiyon ko jaanein.",
+    "description": "Primary aur secondary markets ke beech ke difference ko samajhne ke liye behind the scenes jaayein, aur har transaction mein involved key players ko jaanein.",
     "primarySecondary": {
       "title": "Primary vs. Secondary Markets",
-      "p1": "Stock trading do alag-alag markets mein hota hai:",
+      "p1": "Stock trading do alag-alag markets mein hoti hai:",
       "primary": {
-        "title": "Primary Market",
-        "p": "Yahan stocks paida hote hain. Jab koi company Initial Public Offering (IPO) aayojit karti hai, to vah pehli baar apne shares seedhe niveshakon ko bechti hai. Paisa seedhe company ke paas jaata hai."
+        "title": "The Primary Market",
+        "p": "Yahan stocks paida hote hain. Jab ek company Initial Public Offering (IPO) hold karti hai, to woh apne shares સીधे investors ko pehli baar bechti hai. Paisa સીधे company ko jaata hai."
       },
       "secondary": {
-        "title": "Secondary Market",
-        "p": "Ise hum aam taur par 'stock market' kehte hain. Yahan niveshak aapas mein stocks trade karte hain, company ki ismein koi bhagidari nahi hoti. Keemat maang aur aapurti se tay hoti hai."
+        "title": "The Secondary Market",
+        "p": "Ise hi hum aam taur par 'the stock market' kehte hain. Yahan investors company ke involvement ke bina aapas mein stocks trade karte hain. Price supply aur demand se determine hoti hai."
       }
     },
     "keyPlayers": {
-      "title": "Mukhya Khiladi",
+      "title": "The Key Players",
       "exchanges": {
         "title": "Stock Exchanges",
-        "p": "Yeh sangathit marketplaces hain jahan trading hoti hai. Bharat mein, do mukhya exchanges <strong>National Stock Exchange (NSE)</strong> aur <strong>Bombay Stock Exchange (BSE)</strong> hain."
+        "p": "Yeh organized marketplaces hain jahan trading hoti hai. India mein, do main exchanges hain <strong>National Stock Exchange (NSE)</strong> aur <strong>Bombay Stock Exchange (BSE)</strong>."
       },
       "brokers": {
         "title": "Brokers",
-        "p": "Retail niveshak seedhe exchange par trade nahi kar sakte. Unhe ek licensed madhyasth ki zaroorat hoti hai jise stockbroker (jaise Zerodha, Upstox, aadi) kehte hain, jo unki or se trades execute karta hai."
+        "p": "Retail investors exchange par સીधे trade nahi kar sakte. Unhe apne behalf par trades execute karne ke liye ek licensed intermediary chahiye jise stockbroker (jaise Zerodha, Upstox, etc.) kehte hain."
       }
     },
     "takeaways": {
-      "item1": "<strong>Primary Market</strong> naye stocks (IPOs) ke liye hai, jahan paisa company ke paas jaata hai.",
-      "item2": "<strong>Secondary Market</strong> vah jagah hai jahan niveshak aapas mein maujooda stocks trade karte hain.",
-      "item3": "Aapko NSE aur BSE jaise pramukh <strong>stock exchanges</strong> par trade karne ke liye ek <strong>broker</strong> ki zaroorat hai."
+      "item1": "<strong>Primary Market</strong> naye stocks (IPOs) ke liye hai, jahan paisa company ko jaata hai.",
+      "item2": "<strong>Secondary Market</strong> woh jagah hai jahan investors ek dusre ke saath existing stocks trade karte hain.",
+      "item3": "Aapko NSE aur BSE jaise major <strong>stock exchanges</strong> par trade karne ke liye ek <strong>broker</strong> ki zaroorat hai."
     }
   },
   "reading-a-stock-quote": {
-    "title": "Stock Quote Kaise Padhein",
-    "description": "Ek stock quote mein numbers aur symbols ko decode karna seekhein taaki aap stock ke performance aur valuation ko jaldi se samajh sakein.",
-    "intro": "Ek stock quote ek stock ki avashyak vittiya jaankari ka ek snapshot hai. Pehli nazar mein yeh ankon ka ek jumble lag sakta hai, lekin ek baar jab aap jaan jaate hain ki kya dekhna hai, to ise samajhna aasan hai.",
-    "imageCaption": "Ek kalpanik company, 'Innovate Corp.' ke liye ek aam stock quote.",
+    "title": "Stock Quote Padhna",
+    "description": "Ek stock ke performance aur valuation ko jaldi se samajhne ke liye stock quote mein numbers aur symbols ko decode karna seekhein.",
+    "intro": "Ek stock quote ek stock ki essential financial information ka ek snapshot hai. Yeh pehli baar mein numbers ka jumble lag sakta hai, lekin ek baar aapko pata chal jaaye ki kya dekhna hai, to ise samajhna aasan hai.",
+    "imageCaption": "Ek fictional company, 'Innovate Corp.' ke liye ek typical stock quote.",
     "keyTerms": {
-      "title": "Mukhya Shabd Samjhaye Gaye",
+      "title": "Key Terms Samjhaye Gaye",
       "price": {
-        "term": "Keemat (udharan, ₹1,250.50)",
-        "def": "Stock ke ek share ke liye vartaman market keemat."
+        "term": "Price (e.g., ₹1,250.50)",
+        "def": "Stock ke ek share ke liye current market price."
       },
       "change": {
-        "term": "Badlav (udharan, +25.10 (2.05%))",
-        "def": "Pichhle din ke close se stock ki keemat mein badlav, purn man aur pratishat dono mein dikhaya gaya hai."
+        "term": "Change (e.g., +25.10 (2.05%))",
+        "def": "Pichle din ke close se stock ki price mein change, jo absolute value aur percentage dono mein dikhaya gaya hai."
       },
       "volume": {
         "term": "Volume",
-        "def": "Vartaman din ke dauran trade kiye gaye shares ki kul sankhya. Adhik volume adhik ruchi darshata hai."
+        "def": "Current din ke dauran trade hue total shares ki sankhya. High volume high interest indicate karta hai."
       },
       "marketCap": {
         "term": "Market Cap (Market Capitalization)",
-        "def": "Company ke sabhi shares ka kul moolya. Ise stock ki keemat ko kul shares ki sankhya se guna karke nikala jaata hai."
+        "def": "Company ke sabhi shares ki total value. Iski calculation stock price ko total number of shares se multiply karke ki jaati hai."
       }
     },
     "takeaways": {
-      "item1": "Ek stock quote ek stock ke vartaman trading data ka ek <strong>sankshipt saaransh</strong> pradan karta hai.",
-      "item2": "Mukhya metrics mein <strong>keemat, badlav, volume,</strong> aur <strong>market cap</strong> shaamil hain.",
-      "item3": "In shabdon ko samajhna ek stock ke performance ka vishleshan karne ka pehla kadam hai."
+      "item1": "Ek stock quote ek stock ke current trading data ka ek <strong>quick summary</strong> provide karta hai.",
+      "item2": "Key metrics mein <strong>price, change, volume,</strong> aur <strong>market cap</strong> shaamil hain.",
+      "item3": "In terms ko samajhna ek stock ke performance ko analyze karne ka pehla step hai."
     }
   },
   "bull-vs-bear-markets": {
     "title": "Bull vs. Bear Markets",
-    "description": "Do pramukh market trends aur unhe paribhashit karne wale niveshak bhavna ko samjhein.",
-    "intro": "Aap aksar tippanikarono ko 'bull' aur 'bear' markets ke baare mein baat karte sunenge. Yeh shabd market ki samagra disha aur mahaul ka varnan karte hain.",
+    "description": "Do major market trends aur unhe define karne wale investor sentiment ko samjhein.",
+    "intro": "Aap aksar commentators ko 'bull' aur 'bear' markets ke baare mein baat karte sunenge. Yeh terms market ki overall direction aur mood ko describe karte hain.",
     "bull": {
       "title": "Bull Market",
       "subtitle": "Market aage badh raha hai!",
-      "char1": "Keematein badh rahi hain",
-      "char2": "Niveshak ka vishwas uncha hai",
-      "char3": "Economy mazboot hai"
+      "char1": "Prices badh rahi hain",
+      "char2": "Investor confidence high hai",
+      "char3": "Economy strong hai"
     },
     "bear": {
       "title": "Bear Market",
-      "subtitle": "Market sushuptavastha mein hai.",
-      "char1": "Keematein gir rahi hain (aam taur par 20% ya adhik)",
-      "char2": "Niveshak ka vishwas kam hai",
+      "subtitle": "Market sust pada hai.",
+      "char1": "Prices gir rahi hain (typically 20% ya usse zyada)",
+      "char2": "Investor confidence low hai",
       "char3": "Economy kamzor ho rahi hai"
     },
     "takeaways": {
-      "item1": "Ek <strong>Bull Market</strong> badhti keematon aur aashavad se pehchana jaata hai.",
-      "item2": "Ek <strong>Bear Market</strong> girti keematon aur nirashavad se pehchana jaata hai.",
-      "item3": "Yeh trends chakriya hain aur market ka ek svabhavik hissa hain."
+      "item1": "Ek <strong>Bull Market</strong> badhti prices aur optimism se characterized hota hai.",
+      "item2": "Ek <strong>Bear Market</strong> girti prices aur pessimism se characterized hota hai.",
+      "item3": "Yeh trends cyclical hain aur market ka ek natural part hain."
     }
   },
   "market-indices": {
     "title": "Market Indices (Sensex & Nifty)",
-    "description": "Seekhein ki market indices stock market ke samagra swasthya ke liye ek barometer ke roop mein kaise kaam karte hain.",
-    "intro": "Ek market index stocks ke ek vishisht samuh ke pradarshan ka ek sankhyikiy map hai. Yeh market ke swasthya aur disha ka ek snapshot pradan karta hai. Bharat mein, do sabse prasiddh indices hain:",
+    "description": "Jaanein ki market indices stock market ki overall health ke liye ek barometer ke roop mein kaise kaam karte hain.",
+    "intro": "Ek market index stocks ke ek specific group ke performance ka ek statistical measure hai. Yeh market ki health aur direction ka ek snapshot provide karta hai. India mein, do sabse famous indices hain:",
     "sensex": {
       "title": "BSE Sensex",
       "p1": "<strong>Sensex</strong> <strong>Bombay Stock Exchange (BSE)</strong> ka benchmark index hai.",
-      "p2": "Ismein exchange par 30 sabse bade aur sabse sakriya roop se trade kiye jaane wale stocks shaamil hain, jo samagra market ka ek namoona pradan karte hain."
+      "p2": "Ismein exchange par 30 sabse bade aur sabse actively-traded stocks shaamil hain, jo overall market ka ek sample provide karte hain."
     },
     "nifty": {
       "title": "NSE Nifty 50",
       "p1": "<strong>Nifty 50</strong> <strong>National Stock Exchange (NSE)</strong> ka benchmark index hai.",
-      "p2": "Ismein 50 sabse badi Bhartiya companies shaamil hain, jo economy ke ek vyapak cross-section ka pratinidhitv karti hain."
+      "p2": "Ismein 50 sabse badi Indian companies shaamil hain, jo economy ke ek broad cross-section ko represent karti hain."
     },
     "takeaways": {
-      "item1": "Sensex aur Nifty jaise market indices <strong>samagra market ke liye ek barometer</strong> ke roop mein kaam karte hain.",
-      "item2": "<strong>BSE Sensex</strong> 30 pramukh stocks ko track karta hai.",
-      "item3": "<strong>NSE Nifty 50</strong> 50 pramukh stocks ko track karta hai."
+      "item1": "Sensex aur Nifty jaise market indices <strong>overall market ke liye ek barometer</strong> ke roop mein kaam karte hain.",
+      "item2": "<strong>BSE Sensex</strong> 30 major stocks ko track karta hai.",
+      "item3": "<strong>NSE Nifty 50</strong> 50 major stocks ko track karta hai."
     }
   },
   "role-of-sebi": {
-    "title": "SEBI ki Bhumika",
-    "description": "Bhartiya stock market ke watchdog se milie: Securities and Exchange Board of India.",
-    "intro": "Stock market sabke liye khula nahi hai. Yeh ek atyadhik niyamit vatavaran hai, aur Bharat mein mukhya niyamak <strong>SEBI (Securities and Exchange Board of India)</strong> hai.",
+    "title": "SEBI ka Role",
+    "description": "Indian stock market ke watchdog se milo: Securities and Exchange Board of India.",
+    "intro": "Stock market ek free-for-all nahi hai. Yeh ek highly regulated environment hai, aur India mein chief regulator <strong>SEBI (Securities and Exchange Board of India)</strong> hai.",
     "mandate": {
-      "title": "SEBI ka Prathmik Adesh",
+      "title": "SEBI ka Primary Mandate",
       "item1": {
-        "title": "Niveshakon ki Raksha Karna",
-        "p": "Yeh sunishchit karna ki market nyaypurn ho aur niveshakon ke saath dhokha na ho."
+        "title": "Investors ko Protect Karna",
+        "p": "Yeh sunishchit karna ki market fair hai aur investors ke saath cheat nahi hota hai."
       },
       "item2": {
-        "title": "Market ka Vikas Karna",
-        "p": "Securities market ke vikas aur swasthya ko badhava dena."
+        "title": "Market ko Develop Karna",
+        "p": "Securities market ke growth aur health ko promote karna."
       },
       "item3": {
-        "title": "Madhyasthon ko Niyamit Karna",
-        "p": "Brokers, exchanges, aur anya khiladiyon ke aacharan ki nigrani karna."
+        "title": "Intermediaries ko Regulate Karna",
+        "p": "Brokers, exchanges, aur dusre players ke conduct ko oversee karna."
       }
     },
     "takeaways": {
-      "item1": "<strong>SEBI</strong> Bhartiya securities market ka mukhya niyamak hai.",
-      "item2": "Iska mukhya mission <strong>niveshakon ki raksha karna</strong> hai.",
-      "item3": "SEBI market ko <strong>nyaypurn, pardarshi, aur kushal</strong> sunishchit karne ke liye niyam banata hai."
+      "item1": "<strong>SEBI</strong> Indian securities market ka main regulator hai.",
+      "item2": "Iska core mission <strong>investors ko protect karna</strong> hai.",
+      "item3": "SEBI market <strong>fair, transparent, aur efficient</strong> ho, yeh sunishchit karne ke liye rules set karta hai."
     }
   },
   "navigation": {
     "backToModules": "Course Modules par Wapas Jayein",
-    "previous": "Pichhla",
+    "previous": "Pichla",
     "next": "Agla"
   },
   "stockMarketCourse": {
     "title": "Stock Market Course",
-    "description": "Ek samajhdar niveshak banne ki aapki yatra yahan se shuru hoti hai.",
+    "description": "Ek savvy investor banne ka aapka safar yahan se shuru hota hai.",
     "module1": {
         "title": "Module 1: The Basics",
-        "description": "Stock market aur uske ghatakon ke maulik avdharnao ko seekhein."
+        "description": "Stock market ke fundamental concepts aur uske components ko seekhein."
     },
     "module2": {
         "title": "Module 2: Market Kaise Kaam Karta Hai",
-        "description": "Stock market ko aakar dene wale shaktiyon aur sansthaon ko samjhein."
+        "description": "Stock market ko shape dene wali forces aur entities ko samjhein."
+    },
+    "module3": {
+        "title": "Module 3: Market Mein Aapke Pehle Kadam",
+        "description": "Ek naye investor ko unki trading journey shuru karne ke liye practical, step-by-step guide provide karna."
+    },
+    "module4": {
+        "title": "Module 4: Stock Selection ki Kala: Fundamental Analysis",
+        "description": "Learner ko ek company ki financial health analyze karne aur uski intrinsic value determine karne ke skills se equip karna."
+    },
+    "module5": {
+        "title": "Module 5: Timing ka Vigyan: Technical Analysis",
+        "description": "Price action aur volume ke aadhar par market trends aur potential trading opportunities ko pehchanne ke liye technical analysis ke principles ko introduce karna."
+    },
+    "module6": {
+        "title": "Module 6: Advanced Instruments aur Strategies",
+        "description": "Hedging aur speculation mein unke primary uses ke liye financial derivatives (futures aur options) ka introduction provide karna."
+    },
+    "module7": {
+        "title": "Module 7: Ek Resilient Portfolio Banana aur Manage Karna",
+        "description": "Ek long-term investment portfolio banane, manage karne, aur maintain karne ke liye ek holistic approach mein sabhi seekhe gaye concepts ko synthesize karna."
     }
-  }
+  },
+    "opening-a-demat-and-trading-account": {
+        "title": "Demat aur Trading Account Kholna",
+        "description": "Stock market mein aapka pravesh dwar. Yeh lesson India mein investing aur trading shuru karne ke liye zaroori do essential accounts ko break down karta hai.",
+        "intro": "Aap apna pehla stock khareedne ya bechne se pehle, aapko do key accounts set up karne honge. Woh complex lag sakte hain, lekin woh bahut alag aur saral uddeshyon ki purti karte hain. Unhe ek hi ghar ke do alag-alag darwazon ke roop mein socho.",
+        "dematAccount": {
+            "title": "The Demat Account: Aapka Digital Vault",
+            "p1": "Ek <strong>Demat Account</strong> (Dematerialized Account ka short form) aapke securities ke liye ek digital vault ya bank account jaisa hai. Physical share certificates rakhne ke bajaye, aapke stocks, bonds, mutual funds, aur dusre investments ek electronic (dematerialized) format mein rakhe jaate hain.",
+            "purpose": "<strong>Uddeshya:</strong> Apne investments ko securely hold karna.",
+            "analogy": "<strong>Analogy:</strong> Yeh woh locker hai jahan aap apne financial assets store karte hain."
+        },
+        "tradingAccount": {
+            "title": "The Trading Account: Aapka Marketplace Access",
+            "p1": "Ek <strong>Trading Account</strong> stock exchanges (jaise NSE aur BSE) se aapka link hai. Yeh woh account hai jise aap actually stocks aur dusri securities ke liye buy aur sell orders place karne ke liye use karte hain.",
+            "purpose": "<strong>Uddeshya:</strong> Transactions (buy aur sell orders) execute karna.",
+            "analogy": "<strong>Analogy:</strong> Yeh woh shopping cart hai jise aap financial supermarket mein items khareedne ya bechne ke liye use karte hain."
+        },
+        "howTheyWork": {
+            "title": "Woh Ek Saath Kaise Kaam Karte Hain",
+            "step1": "<strong>Step 1: Aap apne Trading Account</strong> ke through ek 'buy' order place karte hain.",
+            "step2": "<strong>Step 2: Funds aapke linked bank account</strong> se le liye jaate hain.",
+            "step3": "<strong>Step 3: Shares stock exchange</strong> par khareede jaate hain.",
+            "step4": "<strong>Step 4: Khareede gaye shares</strong> safekeeping ke liye aapke Demat Account mein deposit kiye jaate hain.",
+            "sellProcess": "Bechne ka process ulta hai: aap apne Trading Account se bechte hain, aur shares aapke Demat Account se nikal liye jaate hain."
+        },
+        "keyTakeaways": {
+            "title": "Key Takeaways",
+            "item1": "Indian stock market mein invest karne ke liye aapko <strong>Demat aur Trading Account dono</strong> ki zaroorat hai.",
+            "item2": "Ek <strong>Demat Account</strong> aapke shares ko electronically <strong>HOLD</strong> karta hai.",
+            "item3": "Ek <strong>Trading Account</strong> aapke buy aur sell orders ko <strong>EXECUTES</strong> karta hai.",
+            "item4": "Aajkal zyada tar brokers ek convenient 2-in-1 account offer karte hain jo dono ko combine karta hai."
+        }
+    },
+    "the-know-your-customer-kyc-process": {
+        "title": "The Know Your Customer (KYC) Process"
+    },
+    "placing-your-first-trade-order-types": {
+        "title": "Placing Your First Trade: Order Types"
+    },
+    "the-different-players-in-the-market": {
+        "title": "The Different Players in the Market"
+    },
+    "introduction-to-fundamental-analysis": {
+        "title": "Introduction to Fundamental Analysis"
+    },
+    "reading-the-balance-sheet": {
+        "title": "Reading the Balance Sheet"
+    },
+    "reading-the-profit-loss-p&l-statement": {
+        "title": "Reading the Profit & Loss (P&L) Statement"
+    },
+    "reading-the-cash-flow-statement": {
+        "title": "Reading the Cash Flow Statement"
+    },
+    "using-key-financial-ratios-eps-p/e-p/b-roe": {
+        "title": "Zaroori Financial Ratios ka istemal (EPS, P/E, P/B, ROE)",
+        "description": "Numbers mein chupi kahaniyon ko unlock karein. Yeh lesson aapko company ki health, profitability, aur value evaluate karne ke liye char sabse powerful financial ratios ka istemal karna sikhayega.",
+        "intro": "Financial statements raw data se bhare hote hain. Iska matlab samajhne ke liye, hum <strong>financial ratios</strong> ka istemal karte hain. Yeh simple calculations hain jo hamein companies compare karne, performance analyze karne, aur informed investment decisions lene mein madad karti hain. Chalo, char zaroori ratios mein dive karte hain.",
+        "eps": {
+            "title": "1. Earnings Per Share (EPS): Profitability ka Snapshot",
+            "p1": "<strong>Yeh kya hai:</strong> EPS batata hai ki ek company apne stock ke har share ke liye kitna profit kamati hai. Yeh per-share basis par company ki profitability ka ek fundamental measure hai.",
+            "formula": "<strong>Formula:</strong> EPS = (Net Income - Preferred Dividends) / Average Outstanding Shares",
+            "whatItTells": "<strong>Yeh aapko kya batata hai:</strong> Ek higher EPS aam taur par ek zyada profitable company ka sign hai. Isse bhi important, time ke saath EPS mein consistent growth ek strong positive sign hai.",
+            "example": "Agar Company A ka net income ₹10 Crore hai, koi preferred dividends nahi hain, aur 1 Crore outstanding shares hain, to uska EPS ₹10 hai."
+        },
+        "pe": {
+            "title": "2. Price-to-Earnings (P/E) Ratio: Valuation-Checker",
+            "p1": "<strong>Yeh kya hai:</strong> P/E ratio ek company ke current share price ko uske earnings per share se compare karta hai. Yeh sabse zyada use kiye jaane wale valuation metrics mein se ek hai.",
+            "formula": "<strong>Formula:</strong> P/E Ratio = Market Price per Share / Earnings Per Share (EPS)",
+            "whatItTells": "<strong>Yeh aapko kya batata hai:</strong> Yeh indicate karta hai ki investors ek company ki earnings ke har rupee ke liye kitna pay karne ko taiyar hain.",
+            "highPe": "Ek <strong>High P/E</strong> suggest kar sakta hai ki investors ko future mein high growth ki umeed hai (lekin iska matlab yeh bhi ho sakta hai ki stock overvalued hai).",
+            "lowPe": "Ek <strong>Low P/E</strong> indicate kar sakta hai ki ek stock undervalued hai, ya company ko challenges face karne pad rahe hain.",
+            "comparison": "Yeh sabse zyada useful tab hota hai jab same industry ki companies ko compare kiya ja raha ho."
+        },
+        "pb": {
+            "title": "3. Price-to-Book (P/B) Ratio: 'Net Worth' ka Multiple",
+            "p1": "<strong>Yeh kya hai:</strong> P/B ratio ek company ke market capitalization ko uske book value se compare karta hai. Book value ek company ki net asset value hoti hai, jo Total Assets - Total Liabilities karke calculate ki jaati hai.",
+            "formula": "<strong>Formula:</strong> P/B Ratio = Market Price per Share / Book Value per Share",
+            "whatItTells": "<strong>Yeh aapko kya batata hai:</strong> Yeh aapko samajhne mein madad karta hai ki kya aap company ke assets ki book value ke hisab se a fair price pay kar rahe hain.",
+            "value": "1 se kam P/B ratio aksar ek potentially undervalued stock ka sign mana jaata hai. Yeh khas karke un companies ko value karne ke liye useful hai jinke paas significant tangible assets hain, jaise banks ya manufacturing firms."
+        },
+        "roe": {
+            "title": "4. Return on Equity (ROE): Efficiency ka Engine",
+            "p1": "<strong>Yeh kya hai:</strong> ROE measure karta hai ki ek company ka management shareholders ke paise ka kitna effectively profits generate karne ke liye istemal kar raha hai.",
+            "formula": "<strong>Formula:</strong> ROE = Net Income / Total Shareholder Equity",
+            "whatItTells": "<strong>Yeh aapko kya batata hai:</strong> Ek higher ROE suggest karta hai ki company apne equity base se profit generate karne mein zyada efficient hai.",
+            "consistency": "Kai saalon tak ek stable aur high ROE dekho. Ek consistently high ROE (jaise, 15-20% se upar) aksar ek quality company ki pehchan hoti hai."
+        },
+        "summaryTable": {
+            "title": "Quick Comparison Table",
+            "ratio": "Ratio",
+            "whatItMeasures": "Yeh Kya Measure Karta Hai",
+            "ruleOfThumb": "Rule of Thumb",
+            "eps": "Profitability per share",
+            "epsRule": "Higher behtar hai; growth dekho.",
+            "pe": "Earnings ka market valuation",
+            "peRule": "Industry peers se compare karo.",
+            "pb": "Price vs. book value",
+            "pbRule": "1 se kam value indicate kar sakta hai.",
+            "roe": "Equity use karne mein efficiency",
+            "roeRule": "Consistently high ek accha sign hai."
+        },
+        "takeaways": {
+            "title": "Key Takeaways",
+            "item1": "<strong>EPS</strong> aapko ek company ke per-share profit ke baare mein batata hai.",
+            "item2": "<strong>P/E Ratio</strong> aapko yeh samajhne mein madad karta hai ki kya ek stock apni earnings ke relative overvalued ya undervalued hai.",
+            "item3": "<strong>P/B Ratio</strong> stock price ko company ki book value se compare karta hai, jo asset-heavy industries ke liye useful hai.",
+            "item4": "<strong>ROE</strong> batata hai ki ek company shareholder investments se kitna accha profit generate kar rahi hai.",
+            "item5": "Koi ek ratio poori kahani nahi batata. Ek complete picture ke liye unhe ek saath istemal karein."
+        }
+    },
+    "introduction-to-technical-analysis": {
+        "title": "Introduction to Technical Analysis"
+    },
+    "how-to-read-candlestick-charts": {
+        "title": "How to Read Candlestick Charts"
+    },
+    "identifying-trends-support-and-resistance": {
+        "title": "Identifying Trends, Support, and Resistance"
+    },
+    "using-essential-technical-indicators-moving-averages-rsi-macd": {
+        "title": "Using Essential Technical Indicators (Moving Averages, RSI, MACD)"
+    },
+    "introduction-to-derivatives": {
+        "title": "Introduction to Derivatives"
+    },
+    "understanding-futures-contracts": {
+        "title": "Understanding Futures Contracts"
+    },
+    "understanding-options-contracts-calls-and-puts": {
+        "title": "Understanding Options Contracts: Calls and Puts"
+    },
+    "introduction-to-hedging-and-speculation-strategies": {
+        "title": "Introduction to Hedging and Speculation Strategies"
+    },
+    "the-principle-of-portfolio-diversification": {
+        "title": "Portfolio Diversification ka Siddhant",
+        "description": "Investment ka sabse important rule seekhein: 'Apne saare ande ek hi tokri mein mat rakho.' Yeh lesson samjhata hai ki risk ke against aapka best defense diversification kyun hai.",
+        "whatIsDiversification": {
+            "title": "Portfolio Diversification Kya Hai?",
+            "content": "Portfolio diversification ek investment portfolio ke overall risk ko kam karne ke liye various assets mein invest karne ki strategy hai. Core idea simple hai: \"Apne saare ande ek hi tokri mein mat rakho.\" Alag-alag asset classes, industries, aur geographical regions mein investments spread karke, aap kisi ek single investment mein kharab performance ke impact ko minimize kar sakte hain."
+        },
+        "whyDiversify": {
+            "title": "Diversify Kyun Karein?",
+            "content": "Diversification ka primary goal risk manage karna hai. Ek hi economic event par alag-alag assets alag tarah se react karte hain. Example ke liye, jab stock market down hota hai, tab bond market up ho sakta hai. Stocks aur bonds dono hold karke, ek area ke losses ko doosre area ke gains se offset kiya ja sakta hai, jisse time ke saath ek zyada stable portfolio value milti hai."
+        },
+        "typesOfRisk": {
+            "title": "Risk ke Prakar",
+            "systematic": "<strong>Systematic Risk:</strong> Yeh market-wide risk hai jo sabhi investments ko affect karta hai aur diversification ke through eliminate nahi kiya ja sakta. Examples mein interest rate changes, inflation, aur political instability shamil hain.",
+            "unsystematic": "<strong>Unsystematic Risk:</strong> Yeh kisi particular company ya industry ke liye specific hai. Examples mein ek company ki kharab earnings report ya ek naya regulation jo kisi specific industry ko affect karta hai, shamil hain. Diversification unsystematic risk ko kam karne mein highly effective hai."
+        },
+        "howToDiversify": {
+            "title": "Apne Portfolio ko Kaise Diversify Karein",
+            "assetClasses": "<strong>Across Asset Classes:</strong> Apne investments ko alag-alag type ke assets mein allocate karein, jaise ki stocks, bonds, real estate, aur commodities.",
+            "withinAssetClasses": "<strong>Within Asset Classes:</strong> Stocks ke andar, alag-alag size ki (large-cap, mid-cap, small-cap) aur various sectors (technology, healthcare, finance, etc.) ki companies mein invest karein.",
+            "geographic": "<strong>Geographic Diversification:</strong> Kisi ek economy mein downturn ke impact ko kam karne ke liye alag-alag countries ki companies mein invest karein."
+        },
+        "diversificationExample": {
+            "title": "Ek Simple Diversification Example",
+            "intro": "Imagine karein aapke paas invest karne ke liye ₹10,000 hain.",
+            "undiversified": "<strong>Undiversified Portfolio:</strong> Aap saare ₹10,000 ek hi tech stock mein invest karte hain. Agar woh stock kharab perform karta hai, to aapka poora investment risk mein hai.",
+            "diversified": "<strong>Diversified Portfolio:</strong>",
+            "item1": "Large-cap stock index fund mein ₹4,000",
+            "item2": "Government bond fund mein ₹3,000",
+            "item3": "International stock fund mein ₹2,000",
+            "item4": "Real estate investment trust (REIT) mein ₹1,000",
+            "outro": "Is diversified scenario mein, tech sector mein ek downturn ka aapke overall portfolio par bahut kam impact padega."
+        },
+        "bottomLine": {
+            "title": "The Bottom Line",
+            "content": "Diversification sabhi investors ke liye ek fundamental concept hai. Yeh losses ke against guarantee nahi deta, lekin yeh risk manage karne aur long term mein zyada consistent returns achieve karne ke liye ek crucial tool hai."
+        }
+    },
+    "asset-allocation-strategies": {
+        "title": "Asset Allocation Strategies"
+    },
+    "risk-management-position-sizing-and-stop-loss-orders": {
+        "title": "Risk Management: Position Sizing and Stop-Loss Orders"
+    },
+    "the-investor's-mind-managing-psychological-biases": {
+        "title": "The Investor's Mind: Managing Psychological Biases"
+    }
 }

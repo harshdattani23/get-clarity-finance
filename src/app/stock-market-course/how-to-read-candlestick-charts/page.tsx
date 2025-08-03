@@ -1,0 +1,67 @@
+"use client";
+
+import LessonLayout from "../LessonLayout";
+import { useTranslation } from "@/hooks/useTranslation";
+import AnimatedDiv from "@/components/animations/AnimatedDiv";
+import Image from 'next/image';
+
+export default function HowToReadCandlestickChartsPage() {
+    const { t } = useTranslation();
+  return (
+    <LessonLayout
+      title={t('how-to-read-candlestick-charts.title')}
+      description={t('how-to-read-candlestick-charts.description')}
+      lessonSlug="how-to-read-candlestick-charts"
+    >
+      <div>
+        <AnimatedDiv>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.intro')}</p>
+        </AnimatedDiv>
+
+        <AnimatedDiv delay={0.2}>
+          <h2 className="text-2xl font-bold mb-4">{t('how-to-read-candlestick-charts.anatomy.title')}</h2>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.anatomy.p1')}</p>
+          <ul className="list-disc list-inside mb-4">
+            <li><strong>{t('how-to-read-candlestick-charts.anatomy.body.title')}:</strong> {t('how-to-read-candlestick-charts.anatomy.body.p1')}</li>
+            <li><strong>{t('how-to-read-candlestick-charts.anatomy.wicks.title')}:</strong> {t('how-to-read-candlestick-charts.anatomy.wicks.p1')}</li>
+            <li><strong>{t('how-to-read-candlestick-charts.anatomy.color.title')}:</strong> {t('how-to-read-candlestick-charts.anatomy.color.p1')}</li>
+          </ul>
+        </AnimatedDiv>
+
+        <AnimatedDiv delay={0.3}>
+          <h2 className="text-2xl font-bold mb-4">{t('how-to-read-candlestick-charts.patterns.title')}</h2>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.patterns.intro')}</p>
+          
+          <h3 className="text-xl font-semibold mb-2">{t('how-to-read-candlestick-charts.patterns.doji.title')}</h3>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.patterns.doji.p1')}</p>
+           <div className="flex justify-center mb-4">
+            <Image src="https://www.investopedia.com/thmb/J23h4kG0t32i_52j2-0GZ5_GZ4k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Doji-980bd34915894726883a6503f1917531.jpg" alt={t('how-to-read-candlestick-charts.patterns.doji.image_alt')} width={400} height={300} />
+          </div>
+
+          <h3 className="text-xl font-semibold mb-2">{t('how-to-read-candlestick-charts.patterns.hammer.title')}</h3>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.patterns.hammer.p1')}</p>
+           <div className="flex justify-center mb-4">
+            <Image src="https://www.investopedia.com/thmb/sFsL2y207aP5pw9aO8o-5gY5Z5w=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Hammer-e207b66946cb43a4a754b22c7e4663c4.jpg" alt={t('how-to-read-candlestick-charts.patterns.hammer.image_alt')} width={400} height={300} />
+          </div>
+
+          <h3 className="text-xl font-semibold mb-2">{t('how-to-read-candlestick-charts.patterns.engulfing.title')}</h3>
+          <p className="mb-4">{t('how-to-read-candlestick-charts.patterns.engulfing.p1')}</p>
+          <div className="flex justify-center mb-4">
+            <Image src="https://www.investopedia.com/thmb/q7uDA-DQzZ-A4F7n3c8gX6U0w4w=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/BullishEngulfingPattern-d843a8ac96c3427282633396f424c53c.jpg" alt={t('how-to-read-candlestick-charts.patterns.engulfing.image_alt')} width={400} height={300} />
+          </div>
+        </AnimatedDiv>
+
+        <AnimatedDiv delay={0.4}>
+            <h3 className="text-xl font-semibold mb-2 mt-4">{t('how-to-read-candlestick-charts.keyTakeaways.title')}</h3>
+            <ul className="list-disc list-inside">
+                <li>{t('how-to-read-candlestick-charts.keyTakeaways.takeaway1')}</li>
+                <li>{t('how-to-read-candlestick-charts.keyTakeaways.takeaway2')}</li>
+                <li>{t('how-to-read-candlestick-charts.keyTakeaways.takeaway3')}</li>
+                <li>{t('how-to-read-candlestick-charts.keyTakeaways.takeaway4')}</li>
+            </ul>
+        </AnimatedDiv>
+
+      </div>
+    </LessonLayout>
+  );
+}

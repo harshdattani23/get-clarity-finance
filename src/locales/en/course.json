@@ -46,5 +46,353 @@
     "local_partnerships": "Building Local Partnerships",
     "supply_chain": "Supply Chain & Logistics: The Final Frontier",
     "digital_vs_brick": "Digital-First vs. Brick-and-Mortar"
+  },
+  "the-know-your-customer-kyc-process": {
+    "title": "The Know Your Customer (KYC) Process",
+    "description": "Understand the crucial KYC process for secure and compliant investing.",
+    "whatIsKyc": "What is KYC?",
+    "whatIsKycP1": "KYC stands for 'Know Your Customer.' It's a mandatory process used by financial institutions, including brokerage firms, to verify the identity of their clients. Think of it as a background check to ensure that all transactions are legitimate and that the person opening the account is who they say they are.",
+    "whatIsKycP2": "This process was introduced by the Reserve Bank of India (RBI) and is regulated by the Securities and Exchange Board of India (SEBI) for the stock market. It's the first step you'll take before you can start investing.",
+    "whyIsKycImportant": "Why is KYC So Important?",
+    "preventsFraud": "Prevents Identity Theft and Fraud",
+    "preventsFraudP": "By verifying your identity, KYC ensures that no one else can open an account in your name, protecting you from potential financial fraud.",
+    "combatsMoneyLaundering": "Combats Illegal Activities",
+    "combatsMoneyLaunderingP": "KYC is a critical tool for preventing money laundering (disguising illegally obtained money as legitimate) and terrorist financing.",
+    "protectsInvestors": "Ensures Market Integrity",
+    "protectsInvestorsP": "A robust KYC process builds trust in the financial system. When all participants are verified, it creates a more secure and transparent market for everyone.",
+    "documentsRequired": "Common Documents Required for KYC",
+    "documentsRequiredP": "The KYC process is now largely digital and can be completed online. You'll typically need to submit scanned copies or photos of the following documents:",
+    "proofOfIdentity": "1. Proof of Identity (PoI)",
+    "proofOfIdentityP": "Any government-issued photo ID. Examples include: PAN Card (mandatory), Aadhaar Card, Passport, Voter ID, or Driver's License.",
+    "proofOfAddress": "2. Proof of Address (PoA)",
+    "proofOfAddressP": "A document that confirms where you live. Examples include: Aadhaar Card, Passport, utility bills (like electricity or gas), or a recent bank statement.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "KYC is a <strong>mandatory identity verification process</strong> for all financial services in India.",
+    "takeaway2": "It is crucial for <strong>preventing fraud, money laundering, and other illegal activities.</strong>",
+    "takeaway3": "You will need a <strong>Proof of Identity (PoI)</strong> and a <strong>Proof of Address (PoA)</strong> to complete the process.",
+    "takeaway4": "A successful KYC is the <strong>first step to opening your Demat and trading account.</strong>"
+  },
+  "placing-your-first-trade-order-types": {
+    "title": "Placing Your First Trade: Order Types",
+    "description": "Learn how to buy and sell stocks by understanding the different types of trade orders.",
+    "introduction": "The Excitement of Your First Trade",
+    "introductionP1": "You've opened your Demat and trading account, and you're ready to buy your first stock. But when you go to the trading platform, you're faced with a few options. How do you actually place an order? This is where understanding 'order types' comes in.",
+    "introductionP2": "An order is simply an instruction you give to your broker to buy or sell a stock on your behalf. The type of order you choose can significantly impact the price at which your trade is executed.",
+    "commonOrderTypes": "The Two Most Common Order Types",
+    "marketOrder": "Market Order",
+    "marketOrderP": "This is the simplest type of order. You're telling your broker to <strong>buy or sell a stock at the best available price in the market right now.</strong>",
+    "marketOrderP2": "<strong>Use when:</strong> You want to execute the trade immediately and are less concerned about the exact price. Good for highly liquid stocks where the price doesn't fluctuate wildly.",
+    "limitOrder": "Limit Order",
+    "limitOrderP": "With a limit order, you set a <strong>specific price at which you are willing to buy or sell.</strong> Your order will only be executed if the stock's price reaches your limit price or better.",
+    "limitOrderP2": "<strong>Use when:</strong> You have a specific entry or exit price in mind and are willing to wait for the market to reach it. It gives you control over the price but doesn't guarantee execution.",
+    "advancedOrderTypes": "Advanced Orders for More Control",
+    "stopLossOrder": "Stop-Loss Order",
+    "stopLossOrderP": "A stop-loss is a defensive order used to limit your potential losses. You set a 'stop' price below the current price for a stock you own. If the stock falls to that price, it triggers a market order to sell, preventing further losses.",
+    "gttOrder": "Good 'Til Triggered (GTT) Order",
+    "gttOrderP": "A GTT order remains active in the system until its trigger condition is met. It allows you to place both a stop-loss and a target price order at the same time. This is a powerful tool for investors who can't monitor the market constantly.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "An <strong>order</strong> is an instruction to your broker to buy or sell a stock.",
+    "takeaway2": "A <strong>Market Order</strong> executes immediately at the current market price, prioritizing speed over price.",
+    "takeaway3": "A <strong>Limit Order</strong> executes only at your specified price or better, prioritizing price over speed.",
+    "takeaway4": "<strong>Stop-Loss</strong> and <strong>GTT orders</strong> are advanced tools for managing risk and automating your strategy."
+  },
+  "the-different-players-in-the-market": {
+    "title": "The Different Players in the Market",
+    "description": "Meet the key participants who make the stock market function.",
+    "introduction": "It Takes a Village to Run a Market",
+    "introductionP1": "The stock market isn't just a computer screen with flashing numbers. It's a complex ecosystem of different participants, each playing a vital role. Understanding who these players are and what they do is key to grasping how the market works as a whole.",
+    "mainPlayers": "The Main Players on the Field",
+    "retailInvestors": "Retail Investors (Like You!)",
+    "retailInvestorsP": "These are individual investors who buy and sell stocks for their personal accounts. That includes everyone from a student starting with a small amount to a retiree managing their nest egg. They are the heart of the market.",
+    "institutionalInvestors": "Institutional Investors",
+    "institutionalInvestorsP": "These are the big players. Think mutual funds, insurance companies, pension funds, and investment banks. They manage huge pools of money and their large-volume trades can significantly influence market trends.",
+    "marketMakers": "Market Makers & Brokers",
+    "marketMakersP": "Brokers (like the platform you use) execute trades on behalf of investors. Market makers are specialized firms that provide liquidity by being ready to buy and sell a particular stock at any time, ensuring there's always a market.",
+    "regulators": "The Regulators (The Referees)",
+    "regulatorsP": "In India, the main regulator is the <strong>Securities and Exchange Board of India (SEBI)</strong>. Their job is to protect investors, ensure the market is fair and efficient, and prevent fraud. They set the rules of the game that everyone must follow.",
+    "ecosystem": "A Dynamic Ecosystem",
+    "ecosystemP": "All these players interact with each other, creating the dynamic, constantly changing environment of the stock market. Their combined actions determine stock prices and overall market direction. As a retail investor, you are an important part of this ecosystem.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The market is a diverse ecosystem of different participants.",
+    "takeaway2": "<strong>Retail Investors</strong> are individuals like you, investing for personal goals.",
+    "takeaway3": "<strong>Institutional Investors</strong> are large entities that can move the market with their substantial trades.",
+    "takeaway4": "<strong>SEBI</strong> is the primary regulator in India, ensuring a fair and safe market for all."
+  },
+  "introduction-to-fundamental-analysis": {
+    "title": "Introduction to Fundamental Analysis",
+    "description": "Learn to evaluate a stock's intrinsic value by analyzing the underlying company's health.",
+    "whatIsIt": "What is Fundamental Analysis?",
+    "whatIsItP1": "Fundamental analysis is the method of determining a stock's <strong>'intrinsic value'</strong> – its true, underlying worth. The goal is to compare this intrinsic value to the current stock price. If the intrinsic value is higher than the market price, the stock may be undervalued and a good buy. If it's lower, the stock might be overvalued.",
+    "whatIsItP2": "Think of it as being a detective for a company. You're not just looking at the stock price; you're investigating the company's health, its industry, and the overall economy to decide if it's a good long-term investment.",
+    "coreComponents": "Two Sides of the Coin: Qualitative and Quantitative",
+    "qualitativeAnalysis": "Qualitative (The 'Quality' Factors)",
+    "qualitativeAnalysisP": "This involves looking at the non-numeric aspects of a company. <strong>Examples:</strong> The quality of its management team, its brand recognition, its competitive advantages, and corporate governance.",
+    "quantitativeAnalysis": "Quantitative (The 'Number' Factors)",
+    "quantitativeAnalysisP": "This is all about the numbers. It involves analyzing a company's financial statements to assess its performance. <strong>Examples:</strong> Revenue, profit margins, earnings per share (EPS), and price-to-earnings (P/E) ratio.",
+    "keyDocuments": "Your Primary Investigative Tools",
+    "balanceSheet": "The Balance Sheet",
+    "balanceSheetP": "This provides a snapshot of a company's financial health at a single point in time. It shows what a company <strong>owns (assets)</strong> and what it <strong>owes (liabilities)</strong>.",
+    "incomeStatement": "The Income Statement (P&L)",
+    "incomeStatementP": "Also known as the Profit & Loss statement, this shows how profitable a company has been over a period (like a quarter or a year). It details the company's <strong>revenues and expenses</strong>.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "Fundamental analysis is about finding a stock's <strong>true value</strong> by studying the company behind it.",
+    "takeaway2": "It involves both <strong>qualitative</strong> (quality of business) and <strong>quantitative</strong> (financial numbers) analysis.",
+    "takeaway3": "The goal is to determine if a stock is <strong>undervalued or overvalued</strong> compared to its market price.",
+    "takeaway4": "The <strong>Balance Sheet</strong> and <strong>Income Statement</strong> are two of the most critical documents for this analysis."
+  },
+  "reading-the-balance-sheet": {
+    "title": "Reading the Balance Sheet",
+    "description": "Understand a company's financial position by learning to read its balance sheet.",
+    "whatIsIt": "The Financial Snapshot: What is a Balance Sheet?",
+    "whatIsItP1": "The balance sheet is a core financial statement that provides a snapshot of a company's financial health at a <strong>single point in time</strong>. It's called a balance sheet because it's based on a fundamental equation that must always balance:",
+    "formula": "Assets = Liabilities + Shareholder Equity",
+    "coreComponents": "The Three Pillars of the Balance Sheet",
+    "assets": "Assets: What the Company Owns",
+    "assetsP": "These are the economic resources owned by the company that have future economic value. They can be <strong>current assets</strong> (like cash and inventory) or <strong>non-current assets</strong> (like property and equipment).",
+    "liabilities": "Liabilities: What the Company Owes",
+    "liabilitiesP": "These are the company's financial obligations to other parties. They can be <strong>current liabilities</strong> (like short-term loans) or <strong>non-current liabilities</strong> (like long-term debt).",
+    "equity": "Equity: The Owners' Stake",
+    "equityP": "Shareholder equity represents the amount of money that would be returned to shareholders if all the assets were liquidated and all the company's debt was paid off. It's the company's net worth.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The Balance Sheet is a snapshot of a company's financial position, showing <strong>assets, liabilities, and equity.</strong>",
+    "takeaway2": "The fundamental equation, <strong>Assets = Liabilities + Equity</strong>, must always be in balance.",
+    "takeaway3": "Analyzing trends in these components over time can reveal a company's financial strength and stability.",
+    "takeaway4": "It's a crucial tool for investors to assess the risk and potential of a company."
+  },
+  "reading-the-profit-loss-p&l-statement": {
+    "title": "Reading the Profit & Loss (P&L) Statement",
+    "description": "Learn to interpret a company's financial performance by analyzing its P&L statement.",
+    "whatIsIt": "The Story of Profitability: What is a P&L Statement?",
+    "whatIsItP1": "The Profit & Loss (P&L) statement, also known as the Income Statement, tells the story of a company's financial performance over a specific period, such as a quarter or a year. It shows how much revenue a company generated and the costs it incurred to earn that revenue.",
+    "whatIsItP2": "Unlike the Balance Sheet, which is a snapshot in time, the P&L statement is a record of performance over time. The final line of the statement, the 'bottom line,' shows the company's net profit or loss.",
+    "keyComponents": "Key Components of the P&L Statement",
+    "revenue": "Revenue (or Sales)",
+    "revenueP": "This is the 'top line' and represents the total amount of money a company has earned from its sales of products or services.",
+    "cogs": "Cost of Goods Sold (COGS)",
+    "cogsP": "This includes the direct costs of producing the goods or services a company sells, such as raw materials and labor.",
+    "grossProfit": "Gross Profit",
+    "grossProfitP": "This is the profit a company makes after deducting the costs associated with making and selling its products. It's calculated as Revenue - COGS.",
+    "netIncome": "Net Income (The 'Bottom Line')",
+    "netIncomeP": "This is the company's total profit after all expenses, including taxes and interest, have been deducted from revenue.",
+    "sampleTable": {
+      "title": "Sample P&L Statement",
+      "particulars": "Particulars",
+      "amount": "Amount (in INR)",
+      "revenue": "Revenue from Sales",
+      "cogs": "Cost of Goods Sold (COGS)",
+      "grossProfit": "Gross Profit",
+      "expenses": "Operating Expenses",
+      "pbt": "Profit Before Tax (PBT)",
+      "tax": "Tax (20%)",
+      "netIncome": "Net Income"
+    },
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The P&L statement shows a company's <strong>financial performance over a period of time.</strong>",
+    "takeaway2": "It tracks <strong>revenue, costs, and ultimately, profitability.</strong>",
+    "takeaway3": "The 'bottom line' of the P&L statement is the <strong>net income or loss.</strong>",
+    "takeaway4": "Analyzing the P&L statement helps you understand how well a company is managing its revenues and expenses."
+  },
+  "reading-the-cash-flow-statement": {
+    "title": "Reading the Cash Flow Statement",
+    "description": "Learn how to track the movement of cash in a company by analyzing its cash flow statement.",
+    "whatIsIt": "Following the Money: What is a Cash Flow Statement?",
+    "whatIsItP1": "The cash flow statement is a financial statement that shows how cash is moving in and out of a company. While the P&L statement can show a profit, the cash flow statement tells you whether the company is actually generating cash.",
+    "whatIsItP2": "This is crucial because a company can be profitable but still have cash flow problems. This statement helps you understand a company's ability to pay its bills and fund its operations.",
+    "threeSections": "The Three Sections of the Cash Flow Statement",
+    "operating": "Cash Flow from Operating Activities",
+    "operatingP": "This shows the cash generated from a company's main business activities, such as sales and expenses.",
+    "investing": "Cash Flow from Investing Activities",
+    "investingP": "This includes cash used for or generated from investments, such as the purchase or sale of assets.",
+    "financing": "Cash Flow from Financing Activities",
+    "financingP": "This shows how a company is raising capital and paying it back to investors, such as through issuing stock or paying dividends.",
+    "sampleTable": {
+        "title": "Sample Cash Flow Statement",
+        "particulars": "Particulars",
+        "amount": "Amount (in INR)",
+        "operating": "Cash Flow from Operating Activities",
+        "netIncome": "Net Income",
+        "depreciation": "Depreciation",
+        "operatingCashFlow": "Net Cash Flow from Operating Activities",
+        "investing": "Cash Flow from Investing Activities",
+        "assetSale": "Purchase of Equipment",
+        "investingCashFlow": "Net Cash Flow from Investing Activities",
+        "financing": "Cash Flow from Financing Activities",
+        "debt": "Issuance of Debt",
+        "financingCashFlow": "Net Cash Flow from Financing Activities",
+        "netCashFlow": "Net Increase in Cash"
+    },
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The cash flow statement tracks the <strong>movement of cash</strong> in and out of a company.",
+    "takeaway2": "It is broken down into three sections: <strong>operating, investing, and financing activities.</strong>",
+    "takeaway3": "Positive cash flow is essential for a company's <strong>long-term health and stability.</strong>",
+    "takeaway4": "This statement provides insights that are not available from the P&L statement or balance sheet alone."
+  },
+  "introduction-to-technical-analysis": {
+    "title": "Introduction to Technical Analysis",
+    "description": "Learn to forecast future price movements by examining past market data.",
+    "whatIsIt": "Reading the Charts: What is Technical Analysis?",
+    "whatIsItP1": "Technical analysis is a trading discipline used to evaluate investments and identify trading opportunities by analyzing statistical trends gathered from trading activity, such as price movement and volume.",
+    "whatIsItP2": "Unlike fundamental analysis, which focuses on a company's financial health, technical analysis is all about reading the charts and using patterns and indicators to predict future price movements.",
+    "coreTenets": {
+        "title": "The Core Tenets of Technical Analysis",
+        "marketAction": "The Market Discounts Everything",
+        "marketActionP": "Technical analysts believe that all known information is already reflected in the price of a stock. This includes everything from fundamental factors to market psychology.",
+        "pricesMove": "Prices Move in Trends",
+        "pricesMoveP": "Technical analysts believe that price movements are not random. Instead, they follow trends that can be identified and used to make trading decisions.",
+        "historyRepeats": "History Tends to Repeat Itself",
+        "historyRepeatsP": "Market psychology tends to be predictable. By analyzing past chart patterns, technical analysts can gain insight into how the market might behave in the future."
+    },
+    "keyTools": {
+        "title": "Key Tools of the Technical Analyst",
+        "p1": "Technical analysts use a wide variety of tools to analyze the market. These include:",
+        "charts": "Charts",
+        "chartsP": "These are the primary tool of the technical analyst. Charts are used to visualize price movements over time. Common types of charts include line charts, bar charts, and candlestick charts.",
+        "indicators": "Indicators",
+        "indicatorsP": "These are mathematical calculations based on a stock's price and/or volume. They are used to help identify trends, momentum, and other market conditions. Common indicators include moving averages, the Relative Strength Index (RSI), and the Moving Average Convergence Divergence (MACD)."
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Technical analysis uses <strong>past market data</strong> to forecast future price movements.",
+        "takeaway2": "It is based on three core tenets: the market discounts everything, prices move in trends, and history tends to repeat itself.",
+        "takeaway3": "The primary tools of the technical analyst are <strong>charts and indicators.</strong>",
+        "takeaway4": "Technical analysis is a valuable tool for identifying trading opportunities, but it is not without its limitations."
+    }
+  },
+    "using-key-financial-ratios-eps-p/e-p/b-roe": {
+    "title": "Using Key Financial Ratios: EPS, P/E, P/B & ROE",
+    "description": "Unlock the secrets of company performance with four essential financial ratios. Learn how to analyze profitability, valuation, and efficiency to make smarter investment decisions.",
+    "intro": "Welcome to the world of financial ratios! Think of these as your financial detective toolkit, helping you uncover the true story behind a company's numbers. In this lesson, we'll explore four of the most powerful ratios: Earnings Per Share (EPS), Price-to-Earnings (P/E), Price-to-Book (P/B), and Return on Equity (ROE). Mastering these will give you a significant edge in evaluating potential investments.",
+    "eps": {
+      "title": "EPS: The Profit Per Share",
+      "p1": "A higher EPS generally indicates a more profitable company. More importantly, consistent growth in EPS over time is a strong positive sign.",
+      "formula": "<strong>Formula:</strong> EPS = (Net Income - Preferred Dividends) / Average Outstanding Shares"
+    },
+    "pe": {
+      "title": "P/E Ratio: The Valuation Multiple",
+      "formula": "<strong>Formula:</strong> P/E Ratio = Market Price per Share / Earnings per Share (EPS)",
+      "whatItTells": "The P/E ratio tells you what the market is willing to pay today for a company's earnings. It helps you gauge if a stock is overvalued or undervalued compared to its peers or its own history.",
+      "highPe": "A high P/E can suggest that investors expect higher future earnings growth. However, it can also mean a stock is overvalued.",
+      "lowPe": "A low P/E might indicate an undervalued stock or that the company is facing challenges.",
+      "comparison": "It's crucial to compare a company's P/E ratio to other companies in the same industry. A 'good' P/E can vary significantly between sectors."
+    },
+    "pb": {
+      "title": "P/B Ratio: The Book Value Multiple",
+      "formula": "<strong>Formula:</strong> P/B Ratio = Market Price per Share / Book Value per Share",
+      "whatItTells": "This ratio compares a company's market capitalization to its book value (the net asset value of a company). It's particularly useful for valuing companies with significant tangible assets, like banks or manufacturing firms.",
+      "value": "A P/B ratio under 1 can indicate an undervalued stock, as it suggests you could theoretically buy the company's assets for less than their stated value."
+    },
+    "roe": {
+      "title": "ROE: The Efficiency Ratio",
+      "formula": "<strong>Formula:</strong> ROE = Net Income / Shareholder Equity",
+      "whatItTells": "ROE measures how effectively a company's management is using investors' money to generate profits.",
+      "consistency": "A consistently high ROE (e.g., above 15-20%) is a sign of a well-managed company with a strong competitive advantage, often called a 'moat'."
+    },
+    "takeaways": {
+      "title": "Key Takeaways",
+      "item1": "<strong>EPS</strong> shows profitability per share; look for steady growth.",
+      "item2": "<strong>P/E</strong> indicates market valuation; compare it within the same industry.",
+      "item3": "<strong>P/B</strong> assesses value against assets; useful for asset-heavy industries.",
+      "item4": "<strong>ROE</strong> reveals management's efficiency; consistency is key.",
+      "item5": "Use these ratios <strong>together</strong>, not in isolation, for a holistic view."
+    },
+    "summaryTable": {
+      "title": "Financial Ratios at a Glance",
+      "ratio": "Ratio",
+      "whatItMeasures": "What it Measures",
+      "ruleOfThumb": "Rule of Thumb",
+      "eps": "Company's profit per share",
+      "epsRule": "Higher is better, growth is key",
+      "pe": "Market's valuation of earnings",
+      "peRule": "Compare with industry average",
+      "pb": "Value relative to net assets",
+      "pbRule": "Below 1 may be undervalued",
+      "roe": "Profitability from shareholder equity",
+      "roeRule": "Consistently high is a great sign"
+    }
+  },
+  "how-to-read-candlestick-charts": {
+    "title": "How to Read Candlestick Charts",
+    "description": "Master the art of reading candlestick charts to understand market sentiment and make better trading decisions.",
+    "intro": "Candlestick charts are one of the most popular and powerful tools in technical analysis. Originating from Japanese rice traders in the 18th century, they provide a visual representation of price movements and can offer deep insights into market psychology. Each candlestick tells a story about the battle between buyers (bulls) and sellers (bears) over a specific time period.",
+    "anatomy": {
+      "title": "The Anatomy of a Candlestick",
+      "p1": "To understand candlestick patterns, you first need to know the four key data points that each candlestick represents:",
+      "image_alt": "Diagram showing the anatomy of bullish and bearish candlesticks, including the body, wicks (shadows), open, close, high, and low.",
+      "body": {
+        "title": "The Body",
+        "p1": "Represents the range between the opening and closing price. The color of the body indicates the price direction."
+      },
+      "wicks": {
+        "title": "The Wicks (or Shadows)",
+        "p1": "The lines extending above and below the body are called wicks or shadows. They show the highest and lowest prices reached during the time period."
+      },
+      "color": {
+        "title": "The Color",
+        "p1": "Typically, a green (or white) candlestick means the closing price was higher than the opening price (a bullish candle). A red (or black) candlestick means the closing price was lower than the opening price (a bearish candle)."
+      }
+    },
+    "patterns": {
+      "title": "Basic Candlestick Patterns",
+      "intro": "Individual candlesticks and small patterns can provide powerful trading signals. Here are a few fundamental patterns to get you started:",
+      "doji": {
+        "title": "Doji",
+        "p1": "A Doji is a unique candle where the opening and closing prices are very close or the same, resulting in a small or non-existent body. It looks like a cross. A Doji signifies indecision in the market; neither buyers nor sellers are in control. It can often signal a potential trend reversal.",
+        "image_alt": "Image of a Doji candlestick pattern, highlighting its cross-like shape."
+      },
+      "hammer": {
+        "title": "Hammer",
+        "p1": "The Hammer is a bullish reversal pattern that forms during a downtrend. It has a short body and a long lower wick, resembling a hammer. This pattern suggests that although sellers pushed the price down, strong buying pressure came in to close the price near its open.",
+        "image_alt": "Image of a Hammer candlestick pattern at the bottom of a downtrend."
+      },
+      "engulfing": {
+        "title": "Engulfing Pattern",
+        "p1": "An Engulfing pattern occurs when a candlestick's body completely 'engulfs' the body of the previous candle. A Bullish Engulfing pattern (a large green candle engulfing a small red one) is a strong buying signal. A Bearish Engulfing pattern (a large red candle engulfing a small green one) is a strong selling signal.",
+        "image_alt": "Image showing both Bullish and Bearish Engulfing patterns."
+      }
+    },
+    "keyTakeaways": {
+      "title": "Key Takeaways",
+      "takeaway1": "Each candlestick provides four key pieces of information: the <strong>open, close, high, and low</strong> price for a period.",
+      "takeaway2": "The <strong>color and length of the body</strong> indicate the strength of buying or selling pressure.",
+      "takeaway3": "Patterns like the <strong>Doji, Hammer, and Engulfing patterns</strong> can signal indecision, reversals, and continuations.",
+      "takeaway4": "Candlestick analysis is a skill that improves with practice. Start by observing these patterns on real charts."
+    }
+  },
+  "identifying-trends-support-and-resistance": {
+    "title": "Identifying Trends, Support, and Resistance",
+    "description": "Learn the foundational skills of technical analysis: how to identify market trends and pinpoint key support and resistance levels.",
+    "intro": "If candlestick patterns are the words, then trends, support, and resistance are the grammar of the market's language. Understanding these three concepts is fundamental to technical analysis. They help you contextualize price movements and make more informed trading decisions by showing you the broader market structure.",
+    "image_alt": "A stock chart showing a clear uptrend with a trendline, along with labeled support and resistance levels.",
+    "trends": {
+      "title": "The Trend is Your Friend",
+      "p1": "A trend is the general direction in which a stock's price is moving. There are three types of trends:",
+      "uptrend": {
+        "title": "Uptrend (Higher Highs and Higher Lows)",
+        "p1": "In an uptrend, each successive peak and trough is higher than the ones found earlier in the trend. It's a sign of a bullish market where buying pressure is dominant."
+      },
+      "downtrend": {
+        "title": "Downtrend (Lower Highs and Lower Lows)",
+        "p1": "A downtrend is characterized by successively lower peaks and troughs. It's a sign of a bearish market where selling pressure is dominant."
+      },
+      "sideways": {
+        "title": "Sideways Trend (Ranging)",
+        "p1": "In a sideways trend, the price trades within a relatively narrow range, without a clear direction. This indicates a period of consolidation where buyers and sellers are in equilibrium."
+      }
+    },
+    "support": {
+      "title": "Support: The Price Floor",
+      "p1": "Support is a price level where a downtrend can be expected to pause due to a concentration of demand. Think of it as a floor that the stock price has difficulty breaking below. When the price approaches a support level, buying interest tends to increase, causing the price to bounce back up."
+    },
+    "resistance": {
+      "title": "Resistance: The Price Ceiling",
+      "p1": "Resistance is the opposite of support. It's a price level where an uptrend can be expected to pause due to a concentration of supply. It acts as a ceiling that the stock price has difficulty breaking above. As the price nears a resistance level, selling interest tends to increase, causing the price to reverse."
+    },
+    "keyTakeaways": {
+      "title": "Key Takeaways",
+      "takeaway1": "The <strong>trend</strong> tells you the overall direction of the market (uptrend, downtrend, or sideways).",
+      "takeaway2": "<strong>Support</strong> is a price 'floor' where buying pressure tends to overcome selling pressure.",
+      "takeaway3": "<strong>Resistance</strong> is a price 'ceiling' where selling pressure tends to overcome buying pressure.",
+      "takeaway4": "Identifying these levels is crucial for setting entry and exit points for your trades."
+    }
   }
 }

@@ -1,241 +1,532 @@
 {
-  "what-is-a-stock": {
-    "title": "What is a Stock?",
-    "description": "Let's start with the absolute basics. Understand what a stock is and why it's the fundamental building block of the market.",
-    "simpleDefinition": "The Simple Definition",
-    "simpleDefinitionP1": "At its core, a <strong>stock</strong> (also known as a share or equity) is a type of security that signifies <strong>ownership</strong> in a corporation and represents a claim on part of the corporation's assets and earnings.",
-    "simpleDefinitionP2": "In simpler terms, when you buy a stock of a company, you are buying a tiny piece of that company. You become a part-owner, or a <strong>shareholder</strong>.",
-    "ownershipVisualTitle": "Imagine a Company as a Pizza",
-    "ownershipVisualP1": "Each slice of the pizza represents one <strong>share</strong> of the company's stock.",
-    "ownershipVisualP2": "When you buy a share, you are buying a slice of that pizza. You become a part-owner!",
-    "whyCompaniesIssue": "Why Do Companies Issue Stock?",
-    "whyCompaniesIssueP1": "Companies don't give away ownership for fun. They issue stock for one primary reason: <strong>to raise capital (money)</strong>.",
-    "fundingGrowth": "Funding Growth",
-    "fundingGrowthP": "A company might need money to build new factories, develop new products, expand into new markets, or hire more people. Selling stock provides the cash to do this without going into debt.",
-    "goingPublic": "Going Public (IPO)",
-    "goingPublicP": "When a private company first sells its shares to the public, it's called an Initial Public Offering (IPO). This is a major event that can raise a large amount of capital and increase the company's prestige and public profile.",
-    "whyPeopleBuy": "Why Do People Buy Stock?",
-    "whyPeopleBuyP": "Investors buy stocks with the expectation of making a profit, which can happen in two main ways:",
-    "capitalGains": "Capital Gains",
-    "capitalGainsP": "If the company does well, its value increases, and so does the price of its stock. You can then sell your shares for more than you paid for them. This profit is called a capital gain.",
-    "dividends": "Dividends",
-    "dividendsP": "Some companies share a portion of their profits with their shareholders. These payments are called dividends. They provide a regular stream of income to investors.",
-    "keyTakeaways": "Key Takeaways",
-    "takeaway1": "A stock represents <strong>ownership</strong> in a company.",
-    "takeaway2": "Companies issue stock to <strong>raise money</strong> for growth and operations.",
-    "takeaway3": "Investors buy stocks to potentially earn money through <strong>capital gains</strong> and <strong>dividends</strong>.",
-    "takeaway4": "Owning a stock means you are a <strong>shareholder</strong> and have a claim on the company's assets.",
-    "keyTerms": "Key Terms",
-    "term1": "<strong>Shareholder:</strong> An individual or institution that owns shares in a company.",
-    "term2": "<strong>IPO (Initial Public Offering):</strong> The first time a private company offers its shares to the public.",
-    "term3": "<strong>Capital Gains:</strong> Profit from the sale of an investment.",
-    "term4": "<strong>Dividends:</strong> A portion of a company's earnings paid to its shareholders."
-  },
-  "different-types-of-stocks": {
-    "title": "Different Types of Stocks",
-    "description": "Not all stocks are created equal. This lesson will introduce you to the various categories of stocks, helping you understand their unique characteristics and risk profiles.",
-    "commonVsPreferred": {
-      "title": "Common vs. Preferred Stocks",
-      "p1": "<strong>Common Stock:</strong> This is what most people mean when they talk about stocks. It grants voting rights, giving shareholders a say in company decisions. Common stockholders may receive dividends, but these are not guaranteed.",
-      "p2": "<strong>Preferred Stock:</strong> These stocks generally do not have voting rights. However, they typically pay a fixed dividend that is paid out before common stock dividends. In case of liquidation, preferred stockholders have a higher claim on company assets."
+    "what-is-a-stock": {
+        "title": "What is a Stock?",
+        "description": "Let's start with the absolute basics. Understand what a stock is and why it's the fundamental building block of the market.",
+        "simpleDefinition": "The Simple Definition",
+        "simpleDefinitionP1": "At its core, a <strong>stock</strong> (also known as a share or equity) is a type of security that signifies <strong>ownership</strong> in a corporation and represents a claim on part of the corporation's assets and earnings.",
+        "simpleDefinitionP2": "In simpler terms, when you buy a stock of a company, you are buying a tiny piece of that company. You become a part-owner, or a <strong>shareholder</strong>.",
+        "ownershipVisualTitle": "Imagine a Company as a Pizza",
+        "ownershipVisualP1": "Each slice of the pizza represents one <strong>share</strong> of the company's stock.",
+        "ownershipVisualP2": "When you buy a share, you are buying a slice of that pizza. You become a part-owner!",
+        "whyCompaniesIssue": "Why Do Companies Issue Stock?",
+        "whyCompaniesIssueP1": "Companies don't give away ownership for fun. They issue stock for one primary reason: <strong>to raise capital (money)</strong>.",
+        "fundingGrowth": "Funding Growth",
+        "fundingGrowthP": "A company might need money to build new factories, develop new products, expand into new markets, or hire more people. Selling stock provides the cash to do this without going into debt.",
+        "goingPublic": "Going Public (IPO)",
+        "goingPublicP": "When a private company first sells its shares to the public, it's called an Initial Public Offering (IPO). This is a major event that can raise a large amount of capital and increase the company's prestige and public profile.",
+        "whyPeopleBuy": "Why Do People Buy Stock?",
+        "whyPeopleBuyP": "Investors buy stocks with the expectation of making a profit, which can happen in two main ways:",
+        "capitalGains": "Capital Gains",
+        "capitalGainsP": "If the company does well, its value increases, and so does the price of its stock. You can then sell your shares for more than you paid for them. This profit is called a capital gain.",
+        "dividends": "Dividends",
+        "dividendsP": "Some companies share a portion of their profits with their shareholders. These payments are called dividends. They provide a regular stream of income to investors.",
+        "keyTakeaways": "Key Takeaways",
+        "takeaway1": "A stock represents <strong>ownership</strong> in a company.",
+        "takeaway2": "Companies issue stock to <strong>raise money</strong> for growth and operations.",
+        "takeaway3": "Investors buy stocks to potentially earn money through <strong>capital gains</strong> and <strong>dividends</strong>.",
+        "takeaway4": "Owning a stock means you are a <strong>shareholder</strong> and have a claim on the company's assets.",
+        "keyTerms": "Key Terms",
+        "term1": "<strong>Shareholder:</strong> An individual or institution that owns shares in a company.",
+        "term2": "<strong>IPO (Initial Public Offering):</strong> The first time a private company offers its shares to the public.",
+        "term3": "<strong>Capital Gains:</strong> Profit from the sale of an investment.",
+        "term4": "<strong>Dividends:</strong> A portion of a company's earnings paid to its shareholders."
     },
-    "byMarketCap": {
-      "title": "Classification by Market Capitalization",
-      "p1": "<strong>Large-Cap Stocks:</strong> These are stocks of large, well-established companies with a market capitalization of over $10 billion. They are generally considered less risky.",
-      "p2": "<strong>Mid-Cap Stocks:</strong> These are stocks of companies with a market capitalization between $2 billion and $10 billion. They offer a balance of growth potential and stability.",
-      "p3": "<strong>Small-Cap Stocks:</strong> These are stocks of smaller companies with a market capitalization between $300 million and $2 billion. They have high growth potential but also come with higher risk."
+    "different-types-of-stocks": {
+        "title": "Different Types of Stocks",
+        "description": "Not all stocks are created equal. This lesson will introduce you to the various categories of stocks, helping you understand their unique characteristics and risk profiles.",
+        "commonVsPreferred": {
+            "title": "Common vs. Preferred Stocks",
+            "p1": "<strong>Common Stock:</strong> This is what most people mean when they talk about stocks. It grants voting rights, giving shareholders a say in company decisions. Common stockholders may receive dividends, but these are not guaranteed.",
+            "p2": "<strong>Preferred Stock:</strong> These stocks generally do not have voting rights. However, they typically pay a fixed dividend that is paid out before common stock dividends. In case of liquidation, preferred stockholders have a higher claim on company assets."
+        },
+        "byMarketCap": {
+            "title": "Classification by Market Capitalization",
+            "p1": "<strong>Large-Cap Stocks:</strong> These are stocks of large, well-established companies with a market capitalization of over $10 billion. They are generally considered less risky.",
+            "p2": "<strong>Mid-Cap Stocks:</strong> These are stocks of companies with a market capitalization between $2 billion and $10 billion. They offer a balance of growth potential and stability.",
+            "p3": "<strong>Small-Cap Stocks:</strong> These are stocks of smaller companies with a market capitalization between $300 million and $2 billion. They have high growth potential but also come with higher risk."
+        },
+        "byStyle": {
+            "title": "Classification by Investment Style",
+            "p1": "<strong>Growth Stocks:</strong> These are stocks of companies that are expected to grow at an above-average rate compared to other companies in the market. They often do not pay dividends, as they reinvest earnings to fuel expansion.",
+            "p2": "<strong>Value Stocks:</strong> These are stocks that trade at a lower price compared to their fundamentals, such as earnings, sales, and book value. They are often overlooked by investors and may be undervalued."
+        },
+        "keyTakeaways": {
+            "title": "Key Takeaways",
+            "item1": "Stocks can be broadly categorized into common and preferred stocks, each with different rights and benefits.",
+            "item2": "Market capitalization (large-cap, mid-cap, small-cap) is a key factor in assessing a stock's risk and growth potential.",
+            "item3": "Investment style (growth vs. value) helps investors align their stock choices with their financial goals and risk tolerance."
+        }
     },
-    "byStyle": {
-      "title": "Classification by Investment Style",
-      "p1": "<strong>Growth Stocks:</strong> These are stocks of companies that are expected to grow at an above-average rate compared to other companies in the market. They often do not pay dividends, as they reinvest earnings to fuel expansion.",
-      "p2": "<strong>Value Stocks:</strong> These are stocks that trade at a lower price compared to their fundamentals, such as earnings, sales, and book value. They are often overlooked by investors and may be undervalued."
+    "what-is-a-stock-market": {
+        "title": "What is a Stock Market?",
+        "description": "Discover the central marketplace where stocks are bought and sold, and understand its vital role in the economy.",
+        "analogy": {
+            "title": "A Simple Analogy: The Supermarket",
+            "p1": "Think of a stock market like a giant, well-organized supermarket. But instead of selling fruits, vegetables, and groceries, it sells stocks (ownership pieces) of publicly listed companies.",
+            "supermarket": {
+                "title": "A Supermarket...",
+                "p": "Connects buyers (shoppers) with sellers (farmers, brands)."
+            },
+            "stockMarket": {
+                "title": "A Stock Market...",
+                "p": "Connects buyers (investors) with sellers (other investors or companies)."
+            }
+        },
+        "coreFunctions": {
+            "title": "Core Functions of a Stock Market",
+            "p1": "The stock market serves two primary functions that are crucial for the economy:",
+            "item1": {
+                "title": "Connecting Buyers and Sellers",
+                "p": "It provides a centralized, regulated, and transparent platform where people who want to buy stocks can easily find people who want to sell them. This creates liquidity, making it easy to enter and exit investments."
+            },
+            "item2": {
+                "title": "Facilitating Capital Formation",
+                "p": "It allows companies to raise money (capital) by selling ownership stakes (stocks) to the public. This capital is then used to grow the business, create jobs, and innovate."
+            }
+        },
+        "takeaways": {
+            "item1": "The stock market is a <strong>centralized marketplace</strong> for buying and selling stocks.",
+            "item2": "It provides <strong>liquidity</strong>, making it easy to trade stocks.",
+            "item3": "It is crucial for <strong>capital formation</strong>, helping companies raise money to grow."
+        }
     },
-    "keyTakeaways": {
-      "title": "Key Takeaways",
-      "item1": "Stocks can be broadly categorized into common and preferred stocks, each with different rights and benefits.",
-      "item2": "Market capitalization (large-cap, mid-cap, small-cap) is a key factor in assessing a stock's risk and growth potential.",
-      "item3": "Investment style (growth vs. value) helps investors align their stock choices with their financial goals and risk tolerance."
+    "how-stocks-are-traded": {
+        "title": "How Stocks Are Traded",
+        "description": "Go behind the scenes to understand the difference between the primary and secondary markets, and the key players involved in every transaction.",
+        "primarySecondary": {
+            "title": "Primary vs. Secondary Markets",
+            "p1": "Stock trading happens in two distinct markets:",
+            "primary": {
+                "title": "The Primary Market",
+                "p": "This is where stocks are born. When a company holds an Initial Public Offering (IPO), it sells its shares directly to investors for the first time. The money goes directly to the company."
+            },
+            "secondary": {
+                "title": "The Secondary Market",
+                "p": "This is what we typically call 'the stock market.' It's where investors trade stocks among themselves without the company's involvement. The price is determined by supply and demand."
+            }
+        },
+        "keyPlayers": {
+            "title": "The Key Players",
+            "exchanges": {
+                "title": "Stock Exchanges",
+                "p": "These are the organized marketplaces where trading occurs. In India, the two main exchanges are the <strong>National Stock Exchange (NSE)</strong> and the <strong>Bombay Stock Exchange (BSE)</strong>."
+            },
+            "brokers": {
+                "title": "Brokers",
+                "p": "Retail investors can't trade directly on an exchange. They need a licensed intermediary called a stockbroker (like Zerodha, Upstox, etc.) to execute trades on their behalf."
+            }
+        },
+        "takeaways": {
+            "item1": "The <strong>Primary Market</strong> is for new stocks (IPOs), where money goes to the company.",
+            "item2": "The <strong>Secondary Market</strong> is where investors trade existing stocks with each other.",
+            "item3": "You need a <strong>broker</strong> to trade on the major <strong>stock exchanges</strong> like NSE and BSE."
+        }
+    },
+    "reading-a-stock-quote": {
+        "title": "Reading a Stock Quote",
+        "description": "Learn to decode the numbers and symbols in a stock quote to quickly understand a stock's performance and valuation.",
+        "intro": "A stock quote is a snapshot of a stock's essential financial information. It might look like a jumble of numbers at first, but it's easy to understand once you know what to look for.",
+        "imageCaption": "A typical stock quote for a fictional company, 'Innovate Corp.'",
+        "keyTerms": {
+            "title": "Key Terms Explained",
+            "price": {
+                "term": "Price (e.g., ₹1,250.50)",
+                "def": "The current market price for one share of the stock."
+            },
+            "change": {
+                "term": "Change (e.g., +25.10 (2.05%))",
+                "def": "The change in the stock's price since the previous day's close, shown in both absolute value and percentage."
+            },
+            "volume": {
+                "term": "Volume",
+                "def": "The total number of shares that have been traded during the current day. High volume indicates high interest."
+            },
+            "marketCap": {
+                "term": "Market Cap (Market Capitalization)",
+                "def": "The total value of all the company's shares. It's calculated by multiplying the stock price by the total number of shares."
+            }
+        },
+        "takeaways": {
+            "item1": "A stock quote provides a <strong>quick summary</strong> of a stock's current trading data.",
+            "item2": "Key metrics include the <strong>price, change, volume,</strong> and <strong>market cap</strong>.",
+            "item3": "Understanding these terms is the first step to analyzing a stock's performance."
+        }
+    },
+    "bull-vs-bear-markets": {
+        "title": "Bull vs. Bear Markets",
+        "description": "Understand the two major market trends and the investor sentiment that defines them.",
+        "intro": "You'll often hear commentators talk about 'bull' and 'bear' markets. These terms describe the overall direction and mood of the market.",
+        "bull": {
+            "title": "Bull Market",
+            "subtitle": "The market is charging ahead!",
+            "char1": "Prices are rising",
+            "char2": "Investor confidence is high",
+            "char3": "The economy is strong"
+        },
+        "bear": {
+            "title": "Bear Market",
+            "subtitle": "The market is hibernating.",
+            "char1": "Prices are falling (typically by 20% or more)",
+            "char2": "Investor confidence is low",
+            "char3": "The economy is weakening"
+        },
+        "takeaways": {
+            "item1": "A <strong>Bull Market</strong> is characterized by rising prices and optimism.",
+            "item2": "A <strong>Bear Market</strong> is characterized by falling prices and pessimism.",
+            "item3": "These trends are cyclical and a natural part of the market."
+        }
+    },
+    "market-indices": {
+        "title": "Market Indices (Sensex & Nifty)",
+        "description": "Learn how market indices work as a barometer for the overall health of the stock market.",
+        "intro": "A market index is a statistical measure of the performance of a specific group of stocks. It provides a snapshot of the market's health and direction. In India, the two most famous indices are:",
+        "sensex": {
+            "title": "BSE Sensex",
+            "p1": "The <strong>Sensex</strong> is the benchmark index of the <strong>Bombay Stock Exchange (BSE)</strong>.",
+            "p2": "It comprises 30 of the largest and most actively-traded stocks on the exchange, providing a sample of the overall market."
+        },
+        "nifty": {
+            "title": "NSE Nifty 50",
+            "p1": "The <strong>Nifty 50</strong> is the benchmark index of the <strong>National Stock Exchange (NSE)</strong>.",
+            "p2": "It comprises 50 of the largest Indian companies, representing a broad cross-section of the economy."
+        },
+        "takeaways": {
+            "item1": "Market indices like Sensex and Nifty act as a <strong>barometer for the overall market</strong>.",
+            "item2": "The <strong>BSE Sensex</strong> tracks 30 major stocks.",
+            "item3": "The <strong>NSE Nifty 50</strong> tracks 50 major stocks."
+        }
+    },
+    "role-of-sebi": {
+        "title": "The Role of SEBI",
+        "description": "Meet the watchdog of the Indian stock market: the Securities and Exchange Board of India.",
+        "intro": "The stock market isn't a free-for-all. It is a highly regulated environment, and the chief regulator in India is <strong>SEBI (Securities and Exchange Board of India)</strong>.",
+        "mandate": {
+            "title": "SEBI's Primary Mandate",
+            "item1": {
+                "title": "Protecting Investors",
+                "p": "Ensuring the market is fair and investors are not cheated."
+            },
+            "item2": {
+                "title": "Developing the Market",
+                "p": "Promoting the growth and health of the securities market."
+            },
+            "item3": {
+                "title": "Regulating Intermediaries",
+                "p": "Overseeing the conduct of brokers, exchanges, and other players."
+            }
+        },
+        "takeaways": {
+            "item1": "<strong>SEBI</strong> is the main regulator of the Indian securities market.",
+            "item2": "Its core mission is to <strong>protect investors</strong>.",
+            "item3": "SEBI sets the rules to ensure the market is <strong>fair, transparent, and efficient</strong>."
+        }
+    },
+    "navigation": {
+        "backToModules": "Back to Course Modules",
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "stockMarketCourse": {
+        "title": "Stock Market Course",
+        "description": "Your journey to becoming a savvy investor starts here.",
+        "module1": {
+            "title": "Module 1: The Basics",
+            "description": "Learn the fundamental concepts of the stock market and its components."
+        },
+        "module2": {
+            "title": "Module 2: How the Market Works",
+            "description": "Understand the forces and entities that shape the stock market."
+        },
+        "module3": {
+            "title": "Module 3: Your First Steps into the Market",
+            "description": "To provide a practical, step-by-step guide for a new investor to begin their trading journey."
+        },
+        "module4": {
+            "title": "Module 4: The Art of Stock Selection: Fundamental Analysis",
+            "description": "To equip the learner with the skills to analyze a company's financial health and determine its intrinsic value."
+        },
+        "module5": {
+            "title": "Module 5: The Science of Timing: Technical Analysis",
+            "description": "To introduce the principles of technical analysis for identifying market trends and potential trading opportunities based on price action and volume."
+        },
+        "module6": {
+            "title": "Module 6: Advanced Instruments and Strategies",
+            "description": "To provide an introduction to financial derivatives (futures and options) and their primary uses in hedging and speculation."
+        },
+        "module7": {
+            "title": "Module 7: Building and Managing a Resilient Portfolio",
+            "description": "To synthesize all learned concepts into a holistic approach for building, managing, and maintaining a long-term investment portfolio."
+        }
+    },
+    "opening-a-demat-and-trading-account": {
+        "title": "Opening a Demat and Trading Account",
+        "description": "Your gateway to the stock market. This lesson breaks down the two essential accounts you need to start investing and trading in India.",
+        "intro": "Before you can buy or sell your first stock, you need to set up two key accounts. They might sound complex, but they serve very distinct and simple purposes. Think of them as two different doors to the same house.",
+        "dematAccount": {
+            "title": "The Demat Account: Your Digital Vault",
+            "p1": "A <strong>Demat Account</strong> (short for Dematerialized Account) is like a digital vault or a bank account for your securities. Instead of holding physical share certificates, your stocks, bonds, mutual funds, and other investments are held in an electronic (dematerialized) format.",
+            "purpose": "<strong>Purpose:</strong> To hold your investments securely.",
+            "analogy": "<strong>Analogy:</strong> It's the locker where you store your financial assets."
+        },
+        "tradingAccount": {
+            "title": "The Trading Account: Your Marketplace Access",
+            "p1": "A <strong>Trading Account</strong> is your link to the stock exchanges (like the NSE and BSE). This is the account you use to actually place buy and sell orders for stocks and other securities.",
+            "purpose": "<strong>Purpose:</strong> To execute transactions (buy and sell orders).",
+            "analogy": "<strong>Analogy:</strong> It's the shopping cart you use to buy or sell items at the financial supermarket."
+        },
+        "howTheyWork": {
+            "title": "How They Work Together",
+            "step1": "<strong>Step 1: You place a 'buy' order</strong> through your Trading Account.",
+            "step2": "<strong>Step 2: The funds are taken</strong> from your linked bank account.",
+            "step3": "<strong>Step 3: The shares are purchased</strong> on the stock exchange.",
+            "step4": "<strong>Step 4: The purchased shares are deposited</strong> into your Demat Account for safekeeping.",
+            "sellProcess": "The selling process is the reverse: you sell from your Trading Account, and the shares are taken out of your Demat Account."
+        },
+        "keyTakeaways": {
+            "title": "Key Takeaways",
+            "item1": "You need <strong>both a Demat and a Trading Account</strong> to invest in the Indian stock market.",
+            "item2": "A <strong>Demat Account HOLDS</strong> your shares electronically.",
+            "item3": "A <strong>Trading Account EXECUTES</strong> your buy and sell orders.",
+            "item4": "Most brokers today offer a convenient 2-in-1 account that combines both."
+        }
+    },
+    "the-know-your-customer-kyc-process": {
+        "title": "The Know Your Customer (KYC) Process"
+    },
+    "placing-your-first-trade-order-types": {
+        "title": "Placing Your First Trade: Order Types"
+    },
+    "the-different-players-in-the-market": {
+        "title": "The Different Players in the Market"
+    },
+    "introduction-to-fundamental-analysis": {
+        "title": "Introduction to Fundamental Analysis"
+    },
+    "reading-the-balance-sheet": {
+        "title": "Reading the Balance Sheet"
+    },
+    "reading-the-profit-loss-p&l-statement": {
+        "title": "Reading the Profit & Loss (P&L) Statement"
+    },
+    "reading-the-cash-flow-statement": {
+        "title": "Reading the Cash Flow Statement"
+    },
+    "using-key-financial-ratios-eps-p/e-p/b-roe": {
+        "title": "Using Key Financial Ratios (EPS, P/E, P/B, ROE)",
+        "description": "Unlock the stories hidden in the numbers. This lesson will teach you how to use four of the most powerful financial ratios to evaluate a company's health, profitability, and value.",
+        "intro": "Financial statements are full of raw data. To make sense of it, we use <strong>financial ratios</strong>. These are simple calculations that help us compare companies, analyze performance, and make informed investment decisions. Let's dive into four essential ratios.",
+        "eps": {
+            "title": "1. Earnings Per Share (EPS): The Profitability Snapshot",
+            "p1": "<strong>What it is:</strong> EPS shows how much profit a company makes for each share of its stock. It's a fundamental measure of a company's profitability on a per-share basis.",
+            "formula": "<strong>Formula:</strong> EPS = (Net Income - Preferred Dividends) / Average Outstanding Shares",
+            "whatItTells": "<strong>What it tells you:</strong> A higher EPS generally indicates a more profitable company. More importantly, consistent growth in EPS over time is a strong positive sign.",
+            "example": "If Company A has a net income of ₹10 Crores, no preferred dividends, and 1 Crore outstanding shares, its EPS is ₹10."
+        },
+        "pe": {
+            "title": "2. Price-to-Earnings (P/E) Ratio: The Valuation-Checker",
+            "p1": "<strong>What it is:</strong> The P/E ratio compares a company's current share price to its earnings per share. It's one of the most widely used valuation metrics.",
+            "formula": "<strong>Formula:</strong> P/E Ratio = Market Price per Share / Earnings Per Share (EPS)",
+            "whatItTells": "<strong>What it tells you:</strong> It indicates how much investors are willing to pay for each rupee of a company's earnings.",
+            "highPe": "A <strong>High P/E</strong> might suggest that investors expect high future growth (but could also mean the stock is overvalued).",
+            "lowPe": "A <strong>Low P/E</strong> might indicate that a stock is undervalued, or that the company is facing challenges.",
+            "comparison": "It's most useful when comparing companies in the same industry."
+        },
+        "pb": {
+            "title": "3. Price-to-Book (P/B) Ratio: The 'Net Worth' Multiple",
+            "p1": "<strong>What it is:</strong> The P/B ratio compares a company's market capitalization to its book value. Book value is the net asset value of a company, calculated as Total Assets - Total Liabilities.",
+            "formula": "<strong>Formula:</strong> P/B Ratio = Market Price per Share / Book Value per Share",
+            "whatItTells": "<strong>What it tells you:</strong> It helps you understand if you're paying a fair price for what the company's assets are worth on its books.",
+            "value": "A P/B ratio under 1 is often considered a sign of a potentially undervalued stock. It's particularly useful for valuing companies with significant tangible assets, like banks or manufacturing firms."
+        },
+        "roe": {
+            "title": "4. Return on Equity (ROE): The Efficiency Engine",
+            "p1": "<strong>What it is:</strong> ROE measures how effectively a company's management is using shareholders' money to generate profits.",
+            "formula": "<strong>Formula:</strong> ROE = Net Income / Total Shareholder Equity",
+            "whatItTells": "<strong>What it tells you:</strong> A higher ROE suggests that the company is more efficient at generating profit from its equity base.",
+            "consistency": "Look for a stable and high ROE over several years. A consistently high ROE (e.g., above 15-20%) is often a hallmark of a quality company."
+        },
+        "summaryTable": {
+            "title": "Quick Comparison Table",
+            "ratio": "Ratio",
+            "whatItMeasures": "What it Measures",
+            "ruleOfThumb": "Rule of Thumb",
+            "eps": "Profitability per share",
+            "epsRule": "Higher is better; look for growth.",
+            "pe": "Market's valuation of earnings",
+            "peRule": "Compare with industry peers.",
+            "pb": "Price vs. book value",
+            "pbRule": "Under 1 may indicate value.",
+            "roe": "Efficiency in using equity",
+            "roeRule": "Consistently high is a great sign."
+        },
+        "takeaways": {
+            "title": "Key Takeaways",
+            "item1": "<strong>EPS</strong> tells you about a company's per-share profit.",
+            "item2": "<strong>P/E Ratio</strong> helps you gauge if a stock is overvalued or undervalued relative to its earnings.",
+            "item3": "<strong>P/B Ratio</strong> compares the stock price to the company's book value, useful for asset-heavy industries.",
+            "item4": "<strong>ROE</strong> shows how well a company is generating profits from shareholder investments.",
+            "item5": "No single ratio tells the whole story. Use them together for a more complete picture."
+        }
+    },
+    "introduction-to-technical-analysis": {
+        "title": "Introduction to Technical Analysis"
+    },
+    "how-to-read-candlestick-charts": {
+        "title": "How to Read Candlestick Charts"
+    },
+    "identifying-trends-support-and-resistance": {
+        "title": "Identifying Trends, Support, and Resistance"
+    },
+    "using-essential-technical-indicators-moving-averages-rsi-macd": {
+        "title": "Using Essential Technical Indicators (Moving Averages, RSI, MACD)",
+        "description": "Go beyond basic charts. This lesson will equip you with three of the most powerful and widely-used technical indicators: Moving Averages, the Relative Strength Index (RSI), and the Moving Average Convergence Divergence (MACD).",
+        "intro": "While price charts and trends give you the lay of the land, technical indicators are like your GPS, providing specific signals about market momentum, potential reversals, and trend strength. They are mathematical calculations based on a stock's price, volume, or open interest. Let's explore three of the most essential indicators every trader should know.",
+        "image_placeholder_1": "An image showing a stock chart with all three indicators (Moving Averages, RSI, and MACD) plotted on it, giving a comprehensive view.",
+        "movingAverages": {
+            "title": "1. Moving Averages (MA): Smoothing the Path",
+            "p1": "A Moving Average is one of the most basic but powerful technical indicators. It smooths out price data by creating a constantly updated average price. This helps to reduce 'noise' and highlight the underlying trend direction. Think of it as drawing a cleaner, more readable line through the chaotic zigzags of daily price movements.",
+            "sma": {
+                "title": "Simple Moving Average (SMA)",
+                "p1": "The SMA is the most straightforward type of MA. It's calculated by adding up the closing prices for a specific number of periods (e.g., 50 days) and then dividing by that number of periods. For example, a 50-day SMA shows the average price over the last 50 trading days, with each day's price having equal weight.",
+                "usage": "<strong>Usage:</strong> SMAs are excellent for identifying long-term trends. A 'Golden Cross' (50-day SMA crosses above 200-day SMA) is a classic long-term bullish signal, while a 'Death Cross' (50-day SMA crosses below 200-day SMA) is bearish."
+            },
+            "ema": {
+                "title": "Exponential Moving Average (EMA)",
+                "p1": "The EMA gives more weight to the most recent prices, making it more responsive to new information and sudden price changes. This sensitivity makes it a favorite for many short-term traders who need to react quickly.",
+                "usage": "<strong>Usage:</strong> EMAs are ideal for identifying short-term trend changes and generating trading signals. A common strategy is to look for 'crossovers,' where a shorter-term EMA (e.g., 12-day) crosses above a longer-term EMA (e.g., 26-day) to signal a buy, and vice-versa for a sell."
+            },
+            "animation_placeholder_1": "Animation showing the difference in responsiveness between an SMA and an EMA as new price data is added. The EMA line will hug the price action more closely than the slower-moving SMA line."
+        },
+        "rsi": {
+            "title": "2. Relative Strength Index (RSI): The Momentum Gauge",
+            "p1": "The RSI is a momentum oscillator that measures the speed and magnitude of price changes. It oscillates between 0 and 100, acting like a tachometer for the market, showing how fast prices are rising or falling.",
+            "howItWorks": "<strong>How it Works:</strong> The RSI, typically calculated over 14 periods, helps traders identify overbought or oversold conditions. It compares the average gain on up-days to the average loss on down-days.",
+            "overbought": "<strong>Overbought (RSI > 70):</strong> When the RSI rises above 70, it suggests that a stock has been bought heavily and may be overvalued. This is a warning sign that the upward momentum might be fading, and a price correction could be imminent.",
+            "oversold": "<strong>Oversold (RSI < 30):</strong> When the RSI falls below 30, it indicates that a stock has been sold heavily and may be undervalued. This could be a signal that selling pressure is exhausted and a price bounce is likely.",
+            "divergence": "<strong>Divergence:</strong> A powerful signal occurs when the price makes a new high, but the RSI fails to make a new high (bearish divergence), or when the price makes a new low, but the RSI makes a higher low (bullish divergence). This often precedes a trend reversal.",
+            "animation_placeholder_2": "Animation showing the RSI line moving up into the overbought zone (>70) as a stock price rises sharply, and then falling into the oversold zone (<30) as the price drops. It could also illustrate a bullish divergence."
+        },
+        "macd": {
+            "title": "3. Moving Average Convergence Divergence (MACD): The Trend-Follower",
+            "p1": "The MACD is a versatile trend-following momentum indicator that shows the relationship between two Exponential Moving Averages (EMAs). It's designed to reveal changes in the strength, direction, momentum, and duration of a trend.",
+            "macdLine": "<strong>The MACD Line:</strong> Calculated by subtracting the 26-period EMA from the 12-period EMA. This is the 'fast' line.",
+            "signalLine": "<strong>The Signal Line:</strong> A 9-period EMA of the MACD Line. This is the 'slow' line that acts as a trigger for signals.",
+            "histogram": "<strong>The Histogram:</strong> The MACD Line minus the Signal Line. It visually represents the distance between the two lines. When the histogram is positive and growing, bullish momentum is increasing. When it's negative and growing, bearish momentum is increasing.",
+            "signals": {
+                "title": "How to Read MACD Signals",
+                "bullish": "<strong>Bullish Crossover:</strong> When the MACD Line (fast line) crosses above the Signal Line (slow line), it's a buy signal, suggesting that momentum is shifting to the upside.",
+                "bearish": "<strong>Bearish Crossover:</strong> When the MACD Line crosses below the Signal Line, it's a sell signal, indicating that momentum is shifting to the downside."
+            },
+            "animation_placeholder_3": "Animation showing the MACD line crossing over the signal line, and the corresponding histogram moving from negative to positive, indicating a bullish signal."
+        },
+        "summaryTable": {
+            "title": "Indicator Quick Reference Table",
+            "header1": "Indicator",
+            "header2": "What it Measures",
+            "header3": "Key Signals",
+            "row1_col1": "Moving Average (MA)",
+            "row1_col2": "Trend Direction",
+            "row1_col3": "Price position relative to MA, Crossovers (e.g., Golden/Death Cross)",
+            "row2_col1": "Relative Strength Index (RSI)",
+            "row2_col2": "Momentum & Overbought/Oversold levels",
+            "row2_col3": "Readings > 70 (Overbought), < 30 (Oversold), Divergence",
+            "row3_col1": "MACD",
+            "row3_col2": "Trend Momentum & Reversal points",
+            "row3_col3": "MACD Line crossing above/below Signal Line, Histogram changes"
+        },
+        "keyTakeaways": {
+            "title": "Key Takeaways",
+            "takeaway1": "<strong>Moving Averages</strong> (SMA and EMA) help you identify and confirm trends by smoothing out price data.",
+            "takeaway2": "The <strong>RSI</strong> is your momentum gauge, warning you of overbought (>70) and oversold (<30) conditions, and potential trend reversals through divergence.",
+            "takeaway3": "The <strong>MACD</strong> is a dynamic indicator that provides clear buy and sell signals through crossovers, helping you follow the trend's momentum.",
+            "takeaway4": "These indicators are tools, not crystal balls. Their real power is unlocked when used in <strong>combination</strong> to confirm signals, rather than in isolation."
+        }
+    },
+    "introduction-to-derivatives": {
+        "title": "Introduction to Derivatives",
+        "description": "Understand what derivatives are, the different types, and their role in the financial markets.",
+        "section1": {
+            "title": "What is a Derivative?",
+            "p1": "A derivative is a financial contract between two or more parties whose value is based on an agreed-upon underlying financial asset (like a stock or a bond) or a set of assets (like an index). The derivative itself is a contract, and its value is 'derived' from the fluctuations in the price of the underlying asset.",
+            "p2": "Think of it like a bet on the future price of something. You're not buying the asset itself, but a contract that pays out based on the asset's price change."
+        },
+        "animation_placeholder_1": "Animation: A simple diagram showing a stock (the underlying asset) and a contract (the derivative) whose value is linked to the stock's price.",
+        "section2": {
+            "title": "Key Concepts: Underlying Asset and Contract",
+            "p1": "To understand derivatives, two concepts are crucial:",
+            "item1": {
+                "title": "Underlying Asset",
+                "text": "This is the financial instrument on which the derivative's price is based. It can be a stock, bond, commodity (like gold or oil), currency, or even an interest rate."
+            },
+            "item2": {
+                "title": "The Contract",
+                "text": "The derivative itself is a legally binding agreement that specifies the terms of the transaction, such as the quantity of the underlying asset, the price at which the transaction will occur, and the date of the transaction."
+            }
+        },
+        "section3": {
+            "title": "Common Types of Derivatives",
+            "p1": "There are several types of derivatives, each with its own purpose and level of risk. The four most common types are:"
+        },
+        "table_placeholder_1_title": "Comparison of Common Derivatives",
+        "table_placeholder_1": {
+            "header1": "Derivative Type",
+            "header2": "What it is",
+            "header3": "Primary Use",
+            "row1": {
+                "col1": "Futures",
+                "col2": "A contract to buy or sell an asset at a predetermined price at a specific time in the future.",
+                "col3": "Hedging against price changes or speculating on future price movements."
+            },
+            "row2": {
+                "col1": "Options",
+                "col2": "Gives the holder the right, but not the obligation, to buy (call option) or sell (put option) an asset at a set price within a specific period.",
+                "col3": "Hedging, speculation, and generating income."
+            },
+            "row3": {
+                "col1": "Swaps",
+                "col2": "A contract where two parties agree to exchange sequences of cash flows for a set period.",
+                "col3": "Managing interest rate risk or currency exchange risk."
+            },
+            "row4": {
+                "col1": "Forwards",
+                "col2": "Similar to futures, but are private, customizable agreements between two parties and are not traded on an exchange.",
+                "col3": "Hedging specific risks for a particular future date."
+            }
+        },
+        "section4": {
+            "title": "Why Do People Use Derivatives?",
+            "p1": "Derivatives serve several important functions in the financial markets:",
+            "item1": "Hedging: To reduce or manage risk. For example, a farmer can use a futures contract to lock in a price for their crop, protecting them from falling prices.",
+            "item2": "Speculation: To bet on the future direction of an asset's price. Speculators aim to profit from price changes.",
+            "item3": "Leverage: Derivatives allow traders to control a large position with a relatively small amount of capital. This magnifies both potential gains and potential losses.",
+            "item4": "Arbitrage: To take advantage of price differences of the same asset in different markets."
+        },
+        "section5": {
+            "title": "Risks of Derivatives",
+            "p1": "While powerful, derivatives come with significant risks. Their complexity can lead to large losses, especially when using leverage. It's crucial to understand the underlying asset and the terms of the derivative contract before investing."
+        },
+        "animation_placeholder_2": "Animation: A seesaw demonstrating leverage - a small input (capital) creates a large movement (position size), showing both the potential for high returns and high losses.",
+        "conclusion": "Derivatives are sophisticated financial instruments. In the next lessons, we will explore futures and options in more detail."
+    },
+    "understanding-futures-contracts": {
+        "title": "Understanding Futures Contracts"
+    },
+    "understanding-options-contracts-calls-and-puts": {
+        "title": "Understanding Options Contracts: Calls and Puts"
+    },
+    "introduction-to-hedging-and-speculation-strategies": {
+        "title": "Introduction to Hedging and Speculation Strategies"
+    },
+    "the-principle-of-portfolio-diversification": {
+        "title": "The Principle of Portfolio Diversification"
+    },
+    "asset-allocation-strategies": {
+        "title": "Asset Allocation Strategies"
+    },
+    "risk-management-position-sizing-and-stop-loss-orders": {
+        "title": "Risk Management: Position Sizing and Stop-Loss Orders"
+    },
+    "the-investor's-mind-managing-psychological-biases": {
+        "title": "The Investor's Mind: Managing Psychological Biases"
     }
-  },
-  "what-is-a-stock-market": {
-    "title": "What is a Stock Market?",
-    "description": "Discover the central marketplace where stocks are bought and sold, and understand its vital role in the economy.",
-    "analogy": {
-      "title": "A Simple Analogy: The Supermarket",
-      "p1": "Think of a stock market like a giant, well-organized supermarket. But instead of selling fruits, vegetables, and groceries, it sells stocks (ownership pieces) of publicly listed companies.",
-      "supermarket": {
-        "title": "A Supermarket...",
-        "p": "Connects buyers (shoppers) with sellers (farmers, brands)."
-      },
-      "stockMarket": {
-        "title": "A Stock Market...",
-        "p": "Connects buyers (investors) with sellers (other investors or companies)."
-      }
-    },
-    "coreFunctions": {
-      "title": "Core Functions of a Stock Market",
-      "p1": "The stock market serves two primary functions that are crucial for the economy:",
-      "item1": {
-        "title": "Connecting Buyers and Sellers",
-        "p": "It provides a centralized, regulated, and transparent platform where people who want to buy stocks can easily find people who want to sell them. This creates liquidity, making it easy to enter and exit investments."
-      },
-      "item2": {
-        "title": "Facilitating Capital Formation",
-        "p": "It allows companies to raise money (capital) by selling ownership stakes (stocks) to the public. This capital is then used to grow the business, create jobs, and innovate."
-      }
-    },
-    "takeaways": {
-      "item1": "The stock market is a <strong>centralized marketplace</strong> for buying and selling stocks.",
-      "item2": "It provides <strong>liquidity</strong>, making it easy to trade stocks.",
-      "item3": "It is crucial for <strong>capital formation</strong>, helping companies raise money to grow."
-    }
-  },
-  "how-stocks-are-traded": {
-    "title": "How Stocks Are Traded",
-    "description": "Go behind the scenes to understand the difference between the primary and secondary markets, and the key players involved in every transaction.",
-    "primarySecondary": {
-      "title": "Primary vs. Secondary Markets",
-      "p1": "Stock trading happens in two distinct markets:",
-      "primary": {
-        "title": "The Primary Market",
-        "p": "This is where stocks are born. When a company holds an Initial Public Offering (IPO), it sells its shares directly to investors for the first time. The money goes directly to the company."
-      },
-      "secondary": {
-        "title": "The Secondary Market",
-        "p": "This is what we typically call 'the stock market.' It's where investors trade stocks among themselves without the company's involvement. The price is determined by supply and demand."
-      }
-    },
-    "keyPlayers": {
-      "title": "The Key Players",
-      "exchanges": {
-        "title": "Stock Exchanges",
-        "p": "These are the organized marketplaces where trading occurs. In India, the two main exchanges are the <strong>National Stock Exchange (NSE)</strong> and the <strong>Bombay Stock Exchange (BSE)</strong>."
-      },
-      "brokers": {
-        "title": "Brokers",
-        "p": "Retail investors can't trade directly on an exchange. They need a licensed intermediary called a stockbroker (like Zerodha, Upstox, etc.) to execute trades on their behalf."
-      }
-    },
-    "takeaways": {
-      "item1": "The <strong>Primary Market</strong> is for new stocks (IPOs), where money goes to the company.",
-      "item2": "The <strong>Secondary Market</strong> is where investors trade existing stocks with each other.",
-      "item3": "You need a <strong>broker</strong> to trade on the major <strong>stock exchanges</strong> like NSE and BSE."
-    }
-  },
-  "reading-a-stock-quote": {
-    "title": "Reading a Stock Quote",
-    "description": "Learn to decode the numbers and symbols in a stock quote to quickly understand a stock's performance and valuation.",
-    "intro": "A stock quote is a snapshot of a stock's essential financial information. It might look like a jumble of numbers at first, but it's easy to understand once you know what to look for.",
-    "imageCaption": "A typical stock quote for a fictional company, 'Innovate Corp.'",
-    "keyTerms": {
-      "title": "Key Terms Explained",
-      "price": {
-        "term": "Price (e.g., ₹1,250.50)",
-        "def": "The current market price for one share of the stock."
-      },
-      "change": {
-        "term": "Change (e.g., +25.10 (2.05%))",
-        "def": "The change in the stock's price since the previous day's close, shown in both absolute value and percentage."
-      },
-      "volume": {
-        "term": "Volume",
-        "def": "The total number of shares that have been traded during the current day. High volume indicates high interest."
-      },
-      "marketCap": {
-        "term": "Market Cap (Market Capitalization)",
-        "def": "The total value of all the company's shares. It's calculated by multiplying the stock price by the total number of shares."
-      }
-    },
-    "takeaways": {
-      "item1": "A stock quote provides a <strong>quick summary</strong> of a stock's current trading data.",
-      "item2": "Key metrics include the <strong>price, change, volume,</strong> and <strong>market cap</strong>.",
-      "item3": "Understanding these terms is the first step to analyzing a stock's performance."
-    }
-  },
-  "bull-vs-bear-markets": {
-    "title": "Bull vs. Bear Markets",
-    "description": "Understand the two major market trends and the investor sentiment that defines them.",
-    "intro": "You'll often hear commentators talk about 'bull' and 'bear' markets. These terms describe the overall direction and mood of the market.",
-    "bull": {
-      "title": "Bull Market",
-      "subtitle": "The market is charging ahead!",
-      "char1": "Prices are rising",
-      "char2": "Investor confidence is high",
-      "char3": "The economy is strong"
-    },
-    "bear": {
-      "title": "Bear Market",
-      "subtitle": "The market is hibernating.",
-      "char1": "Prices are falling (typically by 20% or more)",
-      "char2": "Investor confidence is low",
-      "char3": "The economy is weakening"
-    },
-    "takeaways": {
-      "item1": "A <strong>Bull Market</strong> is characterized by rising prices and optimism.",
-      "item2": "A <strong>Bear Market</strong> is characterized by falling prices and pessimism.",
-      "item3": "These trends are cyclical and a natural part of the market."
-    }
-  },
-  "market-indices": {
-    "title": "Market Indices (Sensex & Nifty)",
-    "description": "Learn how market indices work as a barometer for the overall health of the stock market.",
-    "intro": "A market index is a statistical measure of the performance of a specific group of stocks. It provides a snapshot of the market's health and direction. In India, the two most famous indices are:",
-    "sensex": {
-      "title": "BSE Sensex",
-      "p1": "The <strong>Sensex</strong> is the benchmark index of the <strong>Bombay Stock Exchange (BSE)</strong>.",
-      "p2": "It comprises 30 of the largest and most actively-traded stocks on the exchange, providing a sample of the overall market."
-    },
-    "nifty": {
-      "title": "NSE Nifty 50",
-      "p1": "The <strong>Nifty 50</strong> is the benchmark index of the <strong>National Stock Exchange (NSE)</strong>.",
-      "p2": "It comprises 50 of the largest Indian companies, representing a broad cross-section of the economy."
-    },
-    "takeaways": {
-      "item1": "Market indices like Sensex and Nifty act as a <strong>barometer for the overall market</strong>.",
-      "item2": "The <strong>BSE Sensex</strong> tracks 30 major stocks.",
-      "item3": "The <strong>NSE Nifty 50</strong> tracks 50 major stocks."
-    }
-  },
-  "role-of-sebi": {
-    "title": "The Role of SEBI",
-    "description": "Meet the watchdog of the Indian stock market: the Securities and Exchange Board of India.",
-    "intro": "The stock market isn't a free-for-all. It is a highly regulated environment, and the chief regulator in India is <strong>SEBI (Securities and Exchange Board of India)</strong>.",
-    "mandate": {
-      "title": "SEBI's Primary Mandate",
-      "item1": {
-        "title": "Protecting Investors",
-        "p": "Ensuring the market is fair and investors are not cheated."
-      },
-      "item2": {
-        "title": "Developing the Market",
-        "p": "Promoting the growth and health of the securities market."
-      },
-      "item3": {
-        "title": "Regulating Intermediaries",
-        "p": "Overseeing the conduct of brokers, exchanges, and other players."
-      }
-    },
-    "takeaways": {
-      "item1": "<strong>SEBI</strong> is the main regulator of the Indian securities market.",
-      "item2": "Its core mission is to <strong>protect investors</strong>.",
-      "item3": "SEBI sets the rules to ensure the market is <strong>fair, transparent, and efficient</strong>."
-    }
-  },
-  "navigation": {
-    "backToModules": "Back to Course Modules",
-    "previous": "Previous",
-    "next": "Next"
-  },
-  "stockMarketCourse": {
-    "title": "Stock Market Course",
-    "description": "Your journey to becoming a savvy investor starts here.",
-    "module1": {
-        "title": "Module 1: The Basics",
-        "description": "Learn the fundamental concepts of the stock market and its components."
-    },
-    "module2": {
-        "title": "Module 2: How the Market Works",
-        "description": "Understand the forces and entities that shape the stock market."
-    }
-  }
 }
