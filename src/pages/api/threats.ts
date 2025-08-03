@@ -7,6 +7,16 @@ type ThreatSummary = {
     count: number;
 };
 
+type ScamType = 'Phishing' | 'Pump & Dump' | 'Impersonation' | 'Investment Scheme' | 'Other' | 'Not a Scam';
+
+type AnalysisRecord = {
+    scamType: ScamType;
+};
+
+type Database = {
+    analyses: AnalysisRecord[];
+};
+
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ThreatSummary[] | { message: string }>
@@ -23,10 +33,10 @@ export default function handler(
     }
 
     const fileContent = fs.readFileSync(dbPath, 'utf-8');
-    const dbData = JSON.parse(fileContent);
+    const dbData: Database = JSON.parse(fileContent);
     const analyses = dbData.analyses || [];
 
-    const scamTypeCounts = analyses.reduce((acc, analysis) => {
+    const scamTypeCounts = analyses.reduce((acc: Record<string, number>, analysis) => {
       const type = analysis.scamType || 'Other';
       acc[type] = (acc[type] || 0) + 1;
       return acc;

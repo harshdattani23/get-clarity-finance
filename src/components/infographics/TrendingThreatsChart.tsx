@@ -23,7 +23,11 @@ const TrendingThreatsChart = () => {
                 const result = await response.json();
                 setData(result);
             } catch (err) {
-                setError(err.message);
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unknown error occurred');
+                }
             } finally {
                 setLoading(false);
             }

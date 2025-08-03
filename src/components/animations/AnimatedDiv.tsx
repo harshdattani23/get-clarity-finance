@@ -2,7 +2,12 @@
 
 import { motion } from 'framer-motion';
 
-const AnimatedDiv = ({ children, delay = 0.2 }) => {
+interface AnimatedDivProps {
+    children: React.ReactNode;
+    delay?: number;
+}
+
+const AnimatedDiv = ({ children, delay = 0.2 }: AnimatedDivProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

@@ -5,7 +5,14 @@ import { getStockMarketLessonNavigation } from '@/lib/stockMarketCourse';
 import { useTranslation } from '@/hooks/useTranslation';
 
 // Reusable layout for a single lesson page
-export default function LessonLayout({ children, title, description, lessonSlug }) {
+interface LessonLayoutProps {
+    children: React.ReactNode;
+    title: string;
+    description: string;
+    lessonSlug: string;
+}
+
+export default function LessonLayout({ children, title, description, lessonSlug }: LessonLayoutProps) {
   const { prevLesson, nextLesson } = getStockMarketLessonNavigation(lessonSlug);
   const { t } = useTranslation();
 

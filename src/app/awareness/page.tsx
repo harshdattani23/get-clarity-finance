@@ -4,7 +4,16 @@ import { Layers, Briefcase, BarChart } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { courseStructure } from '@/lib/course';
 
-const LevelCard = ({ icon, title, description, href, level, lessons }) => {
+interface LevelCardProps {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+    href: string;
+    level: string;
+    lessons: { href: string }[];
+}
+
+const LevelCard = ({ icon, title, description, href, level, lessons }: LevelCardProps) => {
   const { t } = useTranslation();
   const isLocked = !lessons.some(lesson => lesson.href !== '#');
 

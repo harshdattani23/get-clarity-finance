@@ -34,12 +34,24 @@ export type ApiResponse =
   | { type: 'answer'; payload: AnswerPayload };
 
 // --- Database Logic ---
+type AnalysisRecord = {
+    id: number;
+    timestamp: string;
+    scamType: 'Phishing' | 'Pump & Dump' | 'Impersonation' | 'Investment Scheme' | 'Other' | 'Not a Scam';
+    keywords: string[];
+    reason: string;
+};
+
+type Database = {
+    analyses: AnalysisRecord[];
+};
+
 const dbPath = path.resolve(process.cwd(), 'db.json');
 
 async function saveAnalysisResult(payload: AnalysisPayload) {
     if (!payload.isSuspicious) return; // Only save suspicious results
 
-    const newRecord = {
+    const newRecord: AnalysisRecord = {
         id: new Date().getTime(),
         timestamp: new Date().toISOString(),
         scamType: payload.scamType,
@@ -48,7 +60,7 @@ async function saveAnalysisResult(payload: AnalysisPayload) {
     };
 
     try {
-        let dbData = { analyses: [] };
+        let dbData: Database = { analyses: [] };
         if (fs.existsSync(dbPath)) {
             const fileContent = fs.readFileSync(dbPath, 'utf-8');
             dbData = JSON.parse(fileContent);

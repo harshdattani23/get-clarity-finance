@@ -1,7 +1,15 @@
 import Link from 'next/link';
 import { BookCheck, ShieldAlert, LineChart, FileText, Landmark, Users, Building, Rocket } from 'lucide-react';
 
-const LessonCard = ({ title, description, href, icon, isLocked = false }) => (
+interface LessonCardProps {
+    title: string;
+    description: string;
+    href: string;
+    icon: React.ReactNode;
+    isLocked?: boolean;
+}
+
+const LessonCard = ({ title, description, href, icon, isLocked = false }: LessonCardProps) => (
   <Link href={isLocked ? '#' : href} className={`block p-6 bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all ${isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
     <div className="flex items-center gap-4 mb-3">
       <div className="bg-indigo-100 p-3 rounded-full">

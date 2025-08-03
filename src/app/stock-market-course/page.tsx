@@ -5,7 +5,17 @@ import { BookOpen } from 'lucide-react';
 import { stockMarketCourseStructure } from '@/lib/stockMarketCourse';
 import { useTranslation } from '@/hooks/useTranslation';
 
-const ModuleCard = ({ title, description, lessons }) => {
+interface ModuleCardProps {
+    title: string;
+    description: string;
+    lessons: {
+        slug: string;
+        title: string;
+        href: string;
+    }[];
+}
+
+const ModuleCard = ({ title, description, lessons }: ModuleCardProps) => {
     const { t } = useTranslation();
     return (
         <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
