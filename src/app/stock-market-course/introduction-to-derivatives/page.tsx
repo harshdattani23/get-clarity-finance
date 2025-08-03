@@ -2,6 +2,7 @@
 
 import LessonLayout from "../LessonLayout";
 import { useTranslation } from "@/hooks/useTranslation";
+import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 export default function IntroToDerivativesPage() {
     const { t } = useTranslation('stock-market-course');
@@ -12,26 +13,32 @@ export default function IntroToDerivativesPage() {
       lessonSlug="introduction-to-derivatives"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section1.title')}</h2>
-        <p className="mb-4">{t('introduction-to-derivatives.section1.p1')}</p>
-        <p className="mb-4">{t('introduction-to-derivatives.section1.p2')}</p>
+        <AnimatedDiv>
+          <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section1.title')}</h2>
+          <p className="mb-4">{t('introduction-to-derivatives.section1.p1')}</p>
+          <p className="mb-4">{t('introduction-to-derivatives.section1.p2')}</p>
+        </AnimatedDiv>
 
         {/* Placeholder for animation */}
-        <div className="my-8 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
+        <AnimatedDiv className="my-8 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
             <p className="font-semibold">{t('introduction-to-derivatives.animation_placeholder_1')}</p>
-        </div>
+        </AnimatedDiv>
 
-        <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section2.title')}</h2>
-        <p className="mb-4">{t('introduction-to-derivatives.section2.p1')}</p>
-        <ul className="list-disc list-inside mb-4">
-            <li><strong>{t('introduction-to-derivatives.section2.item1.title')}</strong>: {t('introduction-to-derivatives.section2.item1.text')}</li>
-            <li><strong>{t('introduction-to-derivatives.section2.item2.title')}</strong>: {t('introduction-to-derivatives.section2.item2.text')}</li>
-        </ul>
+        <AnimatedDiv>
+          <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section2.title')}</h2>
+          <p className="mb-4">{t('introduction-to-derivatives.section2.p1')}</p>
+          <ul className="list-disc list-inside mb-4">
+              <li><strong>{t('introduction-to-derivatives.section2.item1.title')}</strong>: {t('introduction-to-derivatives.section2.item1.text')}</li>
+              <li><strong>{t('introduction-to-derivatives.section2.item2.title')}</strong>: {t('introduction-to-derivatives.section2.item2.text')}</li>
+          </ul>
+        </AnimatedDiv>
 
-        <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section3.title')}</h2>
-        <p className="mb-4">{t('introduction-to-derivatives.section3.p1')}</p>
+        <AnimatedDiv>
+          <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section3.title')}</h2>
+          <p className="mb-4">{t('introduction-to-derivatives.section3.p1')}</p>
+        </AnimatedDiv>
         {/* Placeholder for table */}
-        <div className="my-8 p-4 border rounded-lg overflow-x-auto">
+        <AnimatedDiv className="my-8 p-4 border rounded-lg overflow-x-auto">
             <h3 className="text-xl font-bold mb-2 text-center">{t('introduction-to-derivatives.table_placeholder_1_title')}</h3>
             <table className="w-full text-left border-collapse">
               <thead>
@@ -64,26 +71,32 @@ export default function IntroToDerivativesPage() {
                 </tr>
               </tbody>
             </table>
-        </div>
+        </AnimatedDiv>
 
-        <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section4.title')}</h2>
-        <p className="mb-4">{t('introduction-to-derivatives.section4.p1')}</p>
-        <ul className="list-disc list-inside mb-4">
-            <li>{t('introduction-to-derivatives.section4.item1')}</li>
-            <li>{t('introduction-to-derivatives.section4.item2')}</li>
-            <li>{t('introduction-to-derivatives.section4.item3')}</li>
-            <li>{t('introduction-to-derivatives.section4.item4')}</li>
-        </ul>
+        <AnimatedDiv>
+          <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section4.title')}</h2>
+          <p className="mb-4">{t('introduction-to-derivatives.section4.p1')}</p>
+          <ul className="list-disc list-inside mb-4">
+              <li>{t('introduction-to-derivatives.section4.item1')}</li>
+              <li>{t('introduction-to-derivatives.section4.item2')}</li>
+              <li>{t('introduction-to-derivatives.section4.item3')}</li>
+              <li>{t('introduction-to-derivatives.section4.item4')}</li>
+          </ul>
+        </AnimatedDiv>
 
-        <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section5.title')}</h2>
-        <p className="mb-4">{t('introduction-to-derivatives.section5.p1')}</p>
+        <AnimatedDiv>
+          <h2 className="text-2xl font-bold mb-4">{t('introduction-to-derivatives.section5.title')}</h2>
+          <p className="mb-4">{t('introduction-to-derivatives.section5.p1')}</p>
+        </AnimatedDiv>
 
         {/* Placeholder for animation */}
-        <div className="my-8 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
+        <AnimatedDiv className="my-8 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
             <p className="font-semibold">{t('introduction-to-derivatives.animation_placeholder_2')}</p>
-        </div>
+        </AnimatedDiv>
 
-        <p className="mt-6 text-lg font-semibold">{t('introduction-to-derivatives.conclusion')}</p>
+        <AnimatedDiv>
+          <p className="mt-6 text-lg font-semibold">{t('introduction-to-derivatives.conclusion')}</p>
+        </AnimatedDiv>
 
       </div>
     </LessonLayout>
