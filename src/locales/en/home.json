@@ -1,0 +1,35 @@
+{
+  "title": "Your Intelligent Investment Shield",
+  "subtitle": "Analyze suspicious content instantly, or ask our AI to explain investment concepts.",
+  "stockMarketCourse": {
+    "title": "Stock Market Course",
+    "description": "Learn the fundamentals of the stock market with our comprehensive, easy-to-understand course.",
+    "link": "Start Learning"
+  },
+  "investmentQuiz": {
+    "title": "Test Your Investment Knowledge",
+    "description": "Take our comprehensive quiz to assess your investment knowledge and fraud protection awareness.",
+    "link": "Start Quiz"
+  },
+  "about": {
+    "title": "About Get Clarity Finance",
+    "description": "This tool is an AI-powered shield to help you detect potential securities fraud. It is not a financial advisor. Always do your own research (DYOR)."
+  },
+  "analyzer": {
+    "placeholder": "Paste suspicious content or ask a question, e.g., 'What is a mutual fund?'",
+    "button": {
+      "loading": "Thinking...",
+      "submit": "Submit"
+    },
+    "error": {
+      "noContent": "Please provide some content to analyze.",
+      "analysisFailed": "An error occurred during the analysis.",
+      "connectionFailed": "Failed to connect to the analysis service."
+    },
+    "result": {
+      "scam": "Potential Scam Detected",
+      "safe": "Looks Safe",
+      "aiAssistant": "AI Assistant Answer"
+    }
+  }
+}

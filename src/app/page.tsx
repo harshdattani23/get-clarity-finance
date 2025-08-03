@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import ContentAnalyzer from '@/components/ContentAnalyzer';
 import { BookOpen, AlertTriangle, Brain } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Home() {
+  const { t } = useTranslation('home');
+
   return (
     <div className="container mx-auto px-4 py-12 md:py-16">
       
@@ -16,10 +19,10 @@ export default function Home() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Your Intelligent Investment Shield
+                {t('title')}
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mt-2">Analyze suspicious content instantly, or ask our AI to explain investment concepts.</p>
+            <p className="text-xl text-gray-600 mt-2">{t('subtitle')}</p>
           </div>
           
           <div id="analyzer" className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
@@ -34,12 +37,12 @@ export default function Home() {
               <BookOpen className="w-6 h-6 text-purple-700" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-purple-900 mb-2">Stock Market Course</h2>
+              <h2 className="text-2xl font-bold text-purple-900 mb-2">{t('stockMarketCourse.title')}</h2>
               <p className="text-gray-600 mb-4">
-                Learn the fundamentals of the stock market with our comprehensive, easy-to-understand course.
+                {t('stockMarketCourse.description')}
               </p>
               <Link href="/stock-market-course" className="text-purple-600 font-semibold hover:underline">
-                Start Learning →
+                {t('stockMarketCourse.link')} →
               </Link>
             </div>
           </div>
@@ -48,12 +51,12 @@ export default function Home() {
               <Brain className="w-6 h-6 text-green-700" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-green-900 mb-2">Test Your Investment Knowledge</h2>
+              <h2 className="text-2xl font-bold text-green-900 mb-2">{t('investmentQuiz.title')}</h2>
               <p className="text-gray-600 mb-4">
-                Take our comprehensive quiz to assess your investment knowledge and fraud protection awareness.
+                {t('investmentQuiz.description')}
               </p>
               <Link href="/investment-quiz" className="text-green-600 font-semibold hover:underline">
-                Start Quiz →
+                {t('investmentQuiz.link')} →
               </Link>
             </div>
           </div>
@@ -62,9 +65,9 @@ export default function Home() {
                <AlertTriangle className="w-6 h-6 text-yellow-700" />
              </div>
              <div>
-              <h2 className="text-2xl font-bold text-blue-900 mb-2">About Get Clarity Finance</h2>
+              <h2 className="text-2xl font-bold text-blue-900 mb-2">{t('about.title')}</h2>
               <p className="text-gray-600">
-                This tool is an AI-powered shield to help you detect potential securities fraud. It is not a financial advisor. Always do your own research (DYOR).
+                {t('about.description')}
               </p>
             </div>
           </div>

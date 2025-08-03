@@ -1,0 +1,35 @@
+{
+  "title": "Aapka Intelligent Investment Shield",
+  "subtitle": "Suspicious content ko instant analyse karein, ya hamare AI se investment concepts explain karayein.",
+  "stockMarketCourse": {
+    "title": "Stock Market Course",
+    "description": "Hamare comprehensive, easy-to-understand course se stock market ke fundamentals seekhein.",
+    "link": "Learning Shuru Karein"
+  },
+  "investmentQuiz": {
+    "title": "Apna Investment Knowledge Test Karein",
+    "description": "Apna investment knowledge aur fraud protection awareness assess karne ke liye hamari comprehensive quiz lein.",
+    "link": "Quiz Shuru Karein"
+  },
+  "about": {
+    "title": "Get Clarity Finance ke Baare Mein",
+    "description": "Yeh tool ek AI-powered shield hai jo aapko potential securities fraud detect karne mein help karta hai. Yeh financial advisor nahi hai. Hamesha apni research karein (DYOR)."
+  },
+  "analyzer": {
+    "placeholder": "Suspicious content paste karein ya sawaal poochein, jaise, 'Mutual fund kya hai?'",
+    "button": {
+      "loading": "Soch raha hai...",
+      "submit": "Submit"
+    },
+    "error": {
+      "noContent": "Analyse karne ke liye content provide karein.",
+      "analysisFailed": "Analysis ke dauraan error hua.",
+      "connectionFailed": "Analysis service se connect nahi ho pa raha hai."
+    },
+    "result": {
+      "scam": "Potential Scam Pata Chala",
+      "safe": "Surakshit Lag Raha Hai",
+      "aiAssistant": "AI Assistant Ka Jawab"
+    }
+  }
+}
