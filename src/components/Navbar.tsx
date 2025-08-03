@@ -19,6 +19,12 @@ const Navbar = () => {
             <Link href="/awareness" className="text-gray-600 hover:text-blue-600 transition-colors">
               Awareness Hub
             </Link>
+            <Link href="/investment-quiz" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Investment Quiz
+            </Link>
+            <Link href="/fraud-protection" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Fraud Protection
+            </Link>
             <Link href="/stock-market-course" className="text-gray-600 hover:text-blue-600 transition-colors">
               Stock Market Course
             </Link>

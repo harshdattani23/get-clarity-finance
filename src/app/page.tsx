@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import ContentAnalyzer from '@/components/ContentAnalyzer';
-import { BookOpen, AlertTriangle } from 'lucide-react';
+import { BookOpen, AlertTriangle, Brain } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -40,6 +40,20 @@ export default function Home() {
               </p>
               <Link href="/awareness" className="text-blue-600 font-semibold hover:underline">
                 Explore the Hub →
+              </Link>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 flex items-start gap-4">
+            <div className="bg-green-100 p-3 rounded-full">
+              <Brain className="w-6 h-6 text-green-700" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-green-900 mb-2">Test Your Investment Knowledge</h2>
+              <p className="text-gray-600 mb-4">
+                Take our comprehensive quiz to assess your investment knowledge and fraud protection awareness.
+              </p>
+              <Link href="/investment-quiz" className="text-green-600 font-semibold hover:underline">
+                Start Quiz →
               </Link>
             </div>
           </div>
