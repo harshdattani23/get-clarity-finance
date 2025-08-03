@@ -8,34 +8,42 @@
 
 This project is a submission for the **Securities Market Hackathon**, powered by BSE, CDSL, KFINTECH, NSDL and SEBI.
 
-**Problem Statement:** [Fraud Prevention](https://uat.globalfintechfest.com/sebi-hackathon)
+**Problem Statement Addressed:** [Fraud Prevention](https://uat.globalfintechfest.com/sebi-hackathon) & [Enhancing Retail Investor Education and Engagement](https://uat.globalfintechfest.com/sebi-hackathon)
 
-> Fraudsters employ a range of deceptive tactics to exploit or mislead investors... These activities cause financial losses to retail investors, erode their trust in the securities market and undermine market integrity.
+> Fraudsters employ a range of deceptive tactics... eroding trust in the securities market. At the same time, many retail investors lack the knowledge to navigate the market safely, making them vulnerable.
 
 ---
 
-## Our Solution
+## Our Solution: A Two-Pillar Approach
 
-**Get Clarity Finance** is an AI-powered platform designed to directly address the "Fraud Prevention" challenge. We provide a tool that helps investors protect themselves by scanning online content, verifying advisor credentials, and flagging high-risk promotions before they can cause harm.
+**Get Clarity Finance** tackles the root causes of investor harm with a comprehensive, AI-powered platform built on two essential pillars: **Protection** and **Education**. We believe that the most effective way to prevent fraud is to combine powerful detection tools with a well-educated investor base.
 
 ## 🚀 Key Features & Hackathon Outcomes
 
-Our features are designed to meet the specific outcomes desired by the hackathon's "Fraud Prevention" problem statement:
+### Pillar 1: Fraud Prevention & Protection
 
-- **🔍 AI Content Analyzer**: Fulfills the need for a tool that "**scans online platforms, identifies suspicious investment offers / videos / audios / documents**". Users can paste any suspicious financial news, article, or social media post, and our AI will analyze it for signs of fraud, bias, or manipulation.
+Our direct intervention tools are designed to meet the specific outcomes of the "Fraud Prevention" challenge:
 
-- **✅ Entity Verification**: Addresses the need to "**verify advisor credentials against a regulatory database**". Our system allows users to quickly check if a stockbroker or investment advisor is a registered entity, helping to identify fraudulent advisors and impersonators.
+- **🔍 AI Content Analyzer**: Fulfills the need for a tool that "**scans online platforms, identifies suspicious investment offers / videos / audios / documents**". Users can paste any suspicious content, and our AI will analyze it for signs of fraud, bias, or manipulation.
 
-- **📊 Trending Threats Dashboard**: Our platform is built to identify and link suspicious stock tips to market activity, fulfilling the need for a "**solution that monitors social media platforms...and provides a dashboard for regulators or exchanges to take action.**"
+- **✅ Entity Verification**: Addresses the need to "**verify advisor credentials against a regulatory database**". Our system allows users to quickly check if a stockbroker or advisor is registered, helping to identify impersonators.
 
-- **📚 Integrated Investor Education**: Aligned with SEBI’s mandate for investor protection, we provide a structured curriculum to build financial literacy and help users recognize and avoid common types of fraud.
+- **📊 Trending Threats Dashboard**: Our platform is built to identify and link suspicious stock tips to market activity, fulfilling the need for a "**solution that monitors social media platforms...and provides a dashboard for regulators.**"
+
+### Pillar 2: Investor Education & Engagement
+
+To address the "Enhancing Retail Investor Education" challenge, we provide a proactive defense against fraud:
+
+- **📚 Interactive Learning Hub**: An "**interactive app that educates users on stock market basics**". Our structured curriculum uses engaging tutorials and real-world examples to build financial literacy from the ground up.
+
+- **🌐 Multilingual Support**: Addresses the need for "**educative material in various vernacular languages**". The entire platform is built with localization in mind, making financial education accessible to a broader audience.
+
+- **🧠 AI-Powered Q&A**: Fulfills the need for a tool that can "**summarise material available on other sites**". Our AI assistant can answer investor questions in simple terms, acting as a safe, educational alternative to unverified online advice.
 
 ## 🛠️ Tech Stack
 
-This project is built with a modern, robust, and scalable tech stack, chosen to meet the hackathon's evaluation criteria for the use of advanced technology:
-
 - **Framework**: [Next.js](https://nextjs.org/) (v15) with Turbopack
-- **AI/ML**: [Google Gemini](https://ai.google/discover/gemini/) (LLM for content analysis)
+- **AI/ML**: [Google Gemini](https://ai.google/discover/gemini/) (LLM for content analysis and Q&A)
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: 
@@ -45,8 +53,6 @@ This project is built with a modern, robust, and scalable tech stack, chosen to 
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 
 ## 🏁 Getting Started
-
-To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
@@ -63,17 +69,14 @@ To get a local copy up and running, follow these simple steps.
    ```sh
    npm install
    ```
-3. Set up your environment variables by creating a `.env.local` file in the root directory. You will need to add your Clerk and Google AI API keys.
+3. Set up your environment variables by creating a `.env.local` file.
    ```env
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
    CLERK_SECRET_KEY=your_clerk_secret
-   
    GEMINI_API_KEY=your_google_ai_key
    ```
 
 ### Running the Development Server
-
-Run the following command to start the development server:
 
 ```bash
 npm run dev
