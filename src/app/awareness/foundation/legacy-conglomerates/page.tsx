@@ -2,7 +2,12 @@ import LessonLayout from '../../LessonLayout';
 import { ChevronsRight, Building2, UserCheck, BarChart, History } from 'lucide-react';
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
-const ConglomerateCard = ({ name, description }) => (
+interface ConglomerateCardProps {
+    name: string;
+    description: string;
+}
+
+const ConglomerateCard = ({ name, description }: ConglomerateCardProps) => (
     <div className="bg-white p-6 rounded-lg border border-gray-200">
         <h4 className="font-bold text-lg text-indigo-800 flex items-center gap-2 mb-2"><Building2 className="w-5 h-5"/>{name}</h4>
         <p className="text-gray-600">{description}</p>
