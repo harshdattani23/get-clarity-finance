@@ -16,9 +16,6 @@ const Navbar = () => {
             <Link href="/#analyzer" className="text-gray-600 hover:text-blue-600 transition-colors">
               Analyzer
             </Link>
-            <Link href="/awareness" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Awareness Hub
-            </Link>
             <Link href="/investment-quiz" className="text-gray-600 hover:text-blue-600 transition-colors">
               Investment Quiz
             </Link>

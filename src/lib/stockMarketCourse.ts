@@ -81,7 +81,7 @@ export const stockMarketCourseStructure: Module[] = [
         { slug: "the-principle-of-portfolio-diversification", title: "the-principle-of-portfolio-diversification.title", href: "/stock-market-course/the-principle-of-portfolio-diversification" },
         { slug: "asset-allocation-strategies", title: "asset-allocation-strategies.title", href: "/stock-market-course/asset-allocation-strategies" },
         { slug: "risk-management-position-sizing-and-stop-loss-orders", title: "risk-management-position-sizing-and-stop-loss-orders.title", href: "/stock-market-course/risk-management-position-sizing-and-stop-loss-orders" },
-        { slug: "the-investor's-mind-managing-psychological-biases", title: "the-investor's-mind-managing-psychological-biases.title", href: "/stock-market-course/the-investor's-mind-managing-psychological-biases" },
+        { slug: "the-investors-mind-managing-psychological-biases", title: "the-investors-mind-managing-psychological-biases.title", href: "/stock-market-course/the-investors-mind-managing-psychological-biases" },
     ]
   }
 ];

@@ -5,15 +5,30 @@ import { motion } from 'framer-motion';
 interface AnimatedDivProps {
     children: React.ReactNode;
     delay?: number;
+    direction?: 'up' | 'down' | 'left' | 'right';
 }
 
-const AnimatedDiv = ({ children, delay = 0.2 }: AnimatedDivProps) => {
+const AnimatedDiv = ({ children, delay = 0.2, direction = 'up' }: AnimatedDivProps) => {
+    const variants = {
+        hidden: {
+            opacity: 0,
+            y: direction === 'up' ? 20 : direction === 'down' ? -20 : 0,
+            x: direction === 'left' ? 20 : direction === 'right' ? -20 : 0,
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            x: 0,
+        },
+    };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay }}
+        variants={variants}
     >
       {children}
     </motion.div>

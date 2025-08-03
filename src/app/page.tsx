@@ -30,16 +30,16 @@ export default function Home() {
         {/* Right: Awareness Hub and Information */}
         <div className="space-y-8 mt-4 md:mt-0">
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 flex items-start gap-4">
-            <div className="bg-blue-100 p-3 rounded-full">
-              <BookOpen className="w-6 h-6 text-blue-700" />
+            <div className="bg-purple-100 p-3 rounded-full">
+              <BookOpen className="w-6 h-6 text-purple-700" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-blue-900 mb-2">Investor Awareness Hub</h2>
+              <h2 className="text-2xl font-bold text-purple-900 mb-2">Stock Market Course</h2>
               <p className="text-gray-600 mb-4">
-                Knowledge is your best defense. Explore our Hub for insights on identifying fraud and making safer investment decisions.
+                Learn the fundamentals of the stock market with our comprehensive, easy-to-understand course.
               </p>
-              <Link href="/awareness" className="text-blue-600 font-semibold hover:underline">
-                Explore the Hub →
+              <Link href="/stock-market-course" className="text-purple-600 font-semibold hover:underline">
+                Start Learning →
               </Link>
             </div>
           </div>

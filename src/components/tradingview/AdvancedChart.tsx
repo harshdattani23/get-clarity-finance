@@ -2,13 +2,12 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
 
-let tvScriptLoadingPromise;
+let tvScriptLoadingPromise: Promise<Event> | null = null;
 
 export default function TradingViewWidget() {
-  const onLoadScriptRef = useRef();
+  const onLoadScriptRef = useRef<(() => void) | null>(null);
 
-  useEffect(
-    () => {
+  useEffect(() => {
       onLoadScriptRef.current = createWidget;
 
       if (!tvScriptLoadingPromise) {
@@ -23,13 +22,19 @@ export default function TradingViewWidget() {
         });
       }
 
-      tvScriptLoadingPromise.then(() => onLoadScriptRef.current && onLoadScriptRef.current());
+      tvScriptLoadingPromise.then(() => {
+        if (onLoadScriptRef.current) {
+            onLoadScriptRef.current();
+        }
+      });
 
-      return () => onLoadScriptRef.current = null;
+      return () => {
+        onLoadScriptRef.current = null;
+      };
 
       function createWidget() {
         if (document.getElementById('tradingview_33958') && 'TradingView' in window) {
-          new window.TradingView.widget({
+          new (window as any).TradingView.widget({
             autosize: true,
             symbol: "NASDAQ:AAPL",
             interval: "D",

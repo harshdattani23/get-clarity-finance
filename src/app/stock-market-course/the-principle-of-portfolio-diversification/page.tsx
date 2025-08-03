@@ -8,7 +8,7 @@ import { FaBalanceScale, FaChartPie, FaGlobe, FaShieldAlt } from 'react-icons/fa
 import PortfolioAllocator from '../../../components/stock-market-course/PortfolioAllocator';
 
 const PortfolioDiversificationPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course');
   
   const lesson = stockMarketCourseStructure.flatMap(m => m.lessons).find(l => l.slug === 'the-principle-of-portfolio-diversification');
 
@@ -26,7 +26,7 @@ const PortfolioDiversificationPage = () => {
     <LessonLayout
       title={t(lesson.title)}
       description={t(module.description)}
-      slug={lesson.slug}
+      lessonSlug={lesson.slug}
     >
       <div className="p-8 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
         <h2 className="text-4xl font-extrabold mb-8 text-gray-900 dark:text-gray-100 border-b-4 border-indigo-600 pb-4">

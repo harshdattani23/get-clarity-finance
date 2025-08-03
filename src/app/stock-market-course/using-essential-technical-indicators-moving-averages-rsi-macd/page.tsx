@@ -19,7 +19,7 @@ const UsingEssentialTechnicalIndicatorsPage = () => {
     <LessonLayout
       title={t(lesson.title)}
       description={t('using-essential-technical-indicators-moving-averages-rsi-macd.description')}
-      slug={lesson.slug}
+      lessonSlug={lesson.slug}
     >
       <div className="p-8 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
         <p className="text-lg text-gray-700 dark:text-gray-300 mb-6" dangerouslySetInnerHTML={{ __html: t('using-essential-technical-indicators-moving-averages-rsi-macd.intro') }} />

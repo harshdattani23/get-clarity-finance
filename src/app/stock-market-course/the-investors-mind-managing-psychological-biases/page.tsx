@@ -4,12 +4,12 @@ import LessonLayout from "../LessonLayout";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PsychologicalBiasesPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course');
   return (
     <LessonLayout
       title={t('the-investor\'s-mind-managing-psychological-biases.title')}
       description="This is a placeholder description."
-      lessonSlug="the-investor's-mind-managing-psychological-biases"
+      lessonSlug="the-investors-mind-managing-psychological-biases"
     >
       <div>
         <p>This is a placeholder for the lesson content.</p>
