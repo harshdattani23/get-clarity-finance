@@ -1,0 +1,73 @@
+{
+  "what-is-a-stock": {
+    "title": "Stock kya hai?",
+    "description": "Chaliye, bilkul basics se shuru karte hain. Samjhein ki stock kya hai aur yeh market ka mool adhar kyun hai.",
+    "simpleDefinition": "Saral Paribhasha",
+    "simpleDefinitionP1": "Essentially, ek <strong>stock</strong> (jise share ya equity bhi kehte hain) ek tarah ki security hai jo ek corporation mein <strong>hissedari</strong> ko darshata hai aur corporation ke assets aur earnings ke ek hisse par dawa karta hai.",
+    "simpleDefinitionP2": "Saral shabdon mein, jab aap kisi company ka stock kharidte hain, to aap us company ka ek chhota sa hissa khareed rahe hote hain. Aap ek co-owner, ya ek <strong>shareholder</strong> ban jaate hain.",
+    "ownershipVisualTitle": "Ek Company ko Pizza ki tarah imagine karein",
+    "ownershipVisualP1": "Pizza ka har slice company ke stock ka ek <strong>share</strong> darshata hai.",
+    "ownershipVisualP2": "Jab aap ek share kharidte hain, to aap us pizza ka ek slice khareed rahe hain. Aap ek co-owner ban jaate hain!",
+    "whyCompaniesIssue": "Companies stock kyun issue karti hain?",
+    "whyCompaniesIssueP1": "Companies mazak mein hissedari nahi deti hain. Ve ek mukhya kaaran se stock issue karti hain: <strong>punji (paisa) jutane ke liye</strong>.",
+    "fundingGrowth": "Growth ke liye Funding",
+    "fundingGrowthP": "Ek company ko naye car khane banane, naye products develop karne, naye markets mein expand karne, ya aur logon ko kaam par rakhne ke liye paise ki zaroorat ho sakti hai. Stock bechna bina karz liye iske liye cash pradan karta hai.",
+    "goingPublic": "Public hona (IPO)",
+    "goingPublicP": "Jab ek private company pehli baar apne shares public ko bechti hai, to ise Initial Public Offering (IPO) kehte hain. Yeh ek bada event hai jo badi matra mein capital juta sakta hai aur company ki प्रतिष्ठा aur public profile badha sakta hai.",
+    "whyPeopleBuy": "Log stock kyun kharidte hain?",
+    "whyPeopleBuyP": "Investors munafa kamane ki umeed se stocks kharidte hain, jo do mukhya tarikon se ho sakta hai:",
+    "capitalGains": "Capital Gains",
+    "capitalGainsP": "Agar company achha perform karti hai, to uski value badhti hai, aur uske stock ki keemat bhi badhti hai. Aap phir apne shares ko kharidne se zyada keemat par bech sakte hain. Is munafey ko capital gain kehte hain.",
+    "dividends": "Dividends",
+    "dividendsP": "Kuchh companies apne munafey ka ek hissa apne shareholders ke saath share karti hain. In payments ko dividends kehte hain. Ve investors ko ek niyamit aay ka srot pradan karte hain.",
+    "keyTakeaways": "Mukhya Baatein",
+    "takeaway1": "Ek stock ek company mein <strong>hissedari</strong> darshata hai.",
+    "takeaway2": "Companies growth aur operations ke liye <strong>paisa jutane</strong> ke liye stock issue karti hain.",
+    "takeaway3": "Investors <strong>capital gains</strong> aur <strong>dividends</strong> ke zariye paisa kamane ki sambhavna ke liye stocks kharidte hain.",
+    "takeaway4": "Ek stock ka malik hone ka matlab hai ki aap ek <strong>shareholder</strong> hain aur company ke assets par aapka dawa hai.",
+    "keyTerms": "Mukhya Shabdkosh",
+    "term1": "<strong>Shareholder:</strong> Ek vyakti ya sanstha jo ek company mein shares ka malik hai.",
+    "term2": "<strong>IPO (Initial Public Offering):</strong> Jab ek private company pehli baar apne shares public ko offer karti hai.",
+    "term3": "<strong>Capital Gains:</strong> Ek investment ki bikri se munafa.",
+    "term4": "<strong>Dividends:</strong> Ek company ki kamai ka ek hissa jo uske shareholders ko pay kiya jaata hai."
+  },
+  "different-types-of-stocks": {
+    "title": "Alag-alag Prakar ke Stocks",
+    "description": "Sabhi stocks ek jaise nahi banaye jaate. Yeh lesson aapko stocks ki alag-alag categories se parichit karayega, jisse aap unki unique characteristics aur risk profiles ko samajh sakenge.",
+    "commonVsPreferred": {
+      "title": "Common vs. Preferred Stocks",
+      "p1": "<strong>Common Stock:</strong> Jab log stocks ke baare mein baat karte hain to zyada tar isi ka matlab hota hai. Yeh voting rights deta hai, jisse shareholders ko company ke faislon mein hissa lene ka mauka milta hai. Common stockholders ko dividends mil sakte hain, lekin yeh guaranteed nahi hote.",
+      "p2": "<strong>Preferred Stock:</strong> In stocks mein aam taur par voting rights nahi hote. Lekin, ve aam taur par ek fixed dividend dete hain jo common stock dividends se pehle pay kiya jaata hai. Liquidation ke mamle mein, preferred stockholders ka company assets par zyada dawa hota hai."
+    },
+    "byMarketCap": {
+      "title": "Market Capitalization ke Anusaar Vargikaran",
+      "p1": "<strong>Large-Cap Stocks:</strong> Yeh badi, well-established companies ke stocks hain jinka market capitalization $10 billion se zyada hai. Inhe aam taur par kam risky maana jaata hai.",
+      "p2": "<strong>Mid-Cap Stocks:</strong> Yeh un companies ke stocks hain jinka market capitalization $2 billion se $10 billion ke beech hai. Yeh growth potential aur stability ka balance offer karte hain.",
+      "p3": "<strong>Small-Cap Stocks:</strong> Yeh chhoti companies ke stocks hain jinka market capitalization $300 million se $2 billion ke beech hai. Inme high growth potential hota hai lekin high risk bhi hota hai."
+    },
+    "byStyle": {
+      "title": "Investment Style ke Anusaar Vargikaran",
+      "p1": "<strong>Growth Stocks:</strong> Yeh un companies ke stocks hain jinke market mein dusri companies ke mukabale average se zyada rate se grow karne ki umeed hoti hai. Ve aksar dividends nahi dete, kyunki ve expansion ke liye earnings ko reinvest karte hain.",
+      "p2": "<strong>Value Stocks:</strong> Yeh aise stocks hain jo apne fundamentals, jaise ki earnings, sales, aur book value ke mukabale kam keemat par trade karte hain. Ve aksar investors dwara nazarandaz kar diye jaate hain aur undervalued ho sakte hain."
+    },
+    "keyTakeaways": {
+      "title": "Mukhya Baatein",
+      "item1": "Stocks ko common aur preferred stocks mein mota taur par vargikrit kiya ja sakta hai, har ek ke alag-alag adhikar aur fayde hote hain.",
+      "item2": "Market capitalization (large-cap, mid-cap, small-cap) ek stock ke risk aur growth potential ka aakalan karne mein ek mukhya karak hai.",
+      "item3": "Investment style (growth vs. value) investors ko unke financial goals aur risk tolerance ke saath unke stock choices ko align karne mein madad karta hai."
+    }
+  },
+  "navigation": {
+    "backToModules": "Course Modules par wapas jayein",
+    "previous": "Pichla",
+    "next": "Agla"
+  },
+  "stockMarketCourse": {
+    "title": "Stock Market Course",
+    "description": "Ek samajhdar investor banne ka aapka safar yahan se shuru hota hai.",
+    "module1": {
+      "title": "Module 1: Investment ka Parichay",
+      "description": "Stock market ke mool concepts ko samjhein."
+    }
+  }
+}

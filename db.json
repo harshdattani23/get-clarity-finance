@@ -1,0 +1,33 @@
+{
+  "entities": [
+    {
+      "id": "INB000000038",
+      "name": "Kotak Securities Ltd.",
+      "type": "Stock Broker",
+      "status": "Registered"
+    },
+    {
+      "id": "INZ000002137",
+      "name": "Zerodha Broking Ltd.",
+      "type": "Stock Broker",
+      "status": "Registered"
+    },
+    {
+      "id": "INA000000018",
+      "name": "ICICI Prudential Asset Management Company Ltd.",
+      "type": "Portfolio Manager",
+      "status": "Registered"
+    },
+    {
+      "id": "FAKEID001",
+      "name": "Guaranteed Profits Inc.",
+      "type": "Investment Advisor",
+      "status": "Not Registered"
+    }
+  ],
+  "blacklist": [
+    "unrealistic-returns.com",
+    "get-rich-quick-schemes.io",
+    "fake-trading-app.apk"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "awareness_hub": {
+    "title": "Indian Market Awareness Course",
+    "description": "Navigate the Indian market with confidence. A 3-level course from fundamentals to strategic insights.",
+    "level_1_title": "Level 1: Foundation",
+    "level_1_description": "Build a strong base with the essentials of the Indian market.",
+    "level_2_title": "Level 2: Professional",
+    "level_2_description": "Deep dive into the nuances of operating in India.",
+    "level_3_title": "Level 3: Strategic",
+    "level_3_description": "Master advanced strategies for long-term success."
+  },
+  "foundation": {
+    "title": "Level 1: Foundation - The Essentials",
+    "description": "Start your journey into the Indian market. These foundational lessons will equip you with the basic knowledge needed to understand India's complex and dynamic environment.",
+    "module_1_title": "Module 1: The Macro Picture",
+    "module_1_description": "Understanding the big picture of India's economy and society.",
+    "economic_overview": "Economic Overview: Beyond the Hype",
+    "political_landscape": "The Political and Administrative Landscape",
+    "cultural_diversity": "Cultural Diversity: A Nation of Nations",
+    "module_2_title": "Module 2: The Business Environment",
+    "module_2_description": "Key aspects of doing business in India.",
+    "ease_of_doing_business": "Ease of Doing Business: Myth vs. Reality",
+    "indian_contracts": "Navigating the Labyrinth of Indian Contracts",
+    "taxation": "Taxation: The Knowns and Unknowns",
+    "module_3_title": "Module 3: The Indian Consumer",
+    "module_3_description": "Understanding the most important person: your customer.",
+    "urban_rural_divide": "The Urban-Rural Divide",
+    "digital_native": "The Rise of the Digital Native",
+    "winning_trust": "Winning Trust in a Low-Trust Society"
+  },
+  "professional": {
+    "title": "Level 2: Professional - Navigating the Nuances",
+    "description": "This level is designed for those who have a basic understanding of the Indian market and are ready to delve deeper into the operational and strategic challenges.",
+    "module_4_title": "Module 4: The Regulatory Maze",
+    "module_4_description": "A deep dive into the legal and bureaucratic landscape.",
+    "ease_of_doing_business": "Ease of Doing Business: Myth vs. Reality",
+    "indian_contracts": "Navigating the Labyrinth of Indian Contracts",
+    "taxation": "Taxation: The Knowns and Unknowns",
+    "module_5_title": "Module 5: The Indian Consumer",
+    "module_5_description": "Understanding the diverse and evolving Indian consumer.",
+    "urban_rural_divide": "The Urban-Rural Divide",
+    "digital_native": "The Rise of the Digital Native",
+    "winning_trust": "Winning Trust in a Low-Trust Society",
+    "module_6_title": "Module 6: Go-to-Market Strategy",
+    "module_6_description": "Strategies for successfully launching and scaling your business in India.",
+    "local_partnerships": "Building Local Partnerships",
+    "supply_chain": "Supply Chain & Logistics: The Final Frontier",
+    "digital_vs_brick": "Digital-First vs. Brick-and-Mortar"
+  }
+}

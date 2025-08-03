@@ -1,0 +1,49 @@
+
+# Local Environment Variables
+.env*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Output of 'npm pack'
+*.tgz
+
+# macOS specific files
+.DS_Store
+
+# Next.js build output
+.next
+out
+
+# Next.js cache
+.next/cache
+
+# Turbopack
+.turbo
+
+# Bun
+.bun
+
+# Deno
+.deno
+
+# Google Cloud credentials
+gcp-credentials.json
+
+# Dependencies
+/node_modules
+
+# Clerk
+.clerk
