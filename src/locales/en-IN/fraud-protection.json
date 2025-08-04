@@ -1,0 +1,106 @@
+{
+  "mainTitle": "Investment Fraud Protection Guide",
+  "mainSubtitle": "Common investment fraud schemes se khud ko pehchanna aur bachana seekhein",
+  "redFlagsTitle": "Dhokhe Ke Sanket",
+  "protectiveActionsTitle": "Bachav Ke Tarike",
+  "rememberTitle": "Yaad Rakhein",
+  "rememberContent": "Agar kuch sunne mein bahut accha lag raha hai, to shayad woh sach nahi hai. Hamesha apni research (DYOR) karein aur investment decisions lene se pehle licensed financial professionals se salah lein.",
+  "disclaimerTitle": "Important Disclaimer",
+  "disclaimerContent": "Yeh jaankari sirf educational purposes ke liye hai. Yeh financial advice nahi hai. Investment decisions lene se pehle hamesha qualified financial professionals se salah lein. Pichla performance future results ki guarantee nahi deta.",
+  "guaranteed-returns": {
+    "title": "Guaranteed High Returns",
+    "description": "Guaranteed high returns ka vaada karne wale kisi se bhi bahut savdhan rahein. Legitimate investments mein hamesha risk hota hai.",
+    "redFlags": [
+      "20%+ monthly returns ka vaada",
+      "'Risk-free' investments ka daawa",
+      "Jaldi invest karne ka dabav",
+      "Jatil explanations jo samajh mein na aaye"
+    ],
+    "protectiveActions": [
+      "Company ke baare mein acchi tarah se research karein",
+      "Regulatory authorities (SEBI, RBI) se check karein",
+      "Licensed financial advisor se salah lein",
+      "Jitna aap haar sakte hain usse zyada kabhi invest na karein"
+    ]
+  },
+  "urgency-pressure": {
+    "title": "Urgency and Pressure Tactics",
+    "description": "Dhokhebaaz aksar artificial urgency banate hain taaki aap theek se research na kar paayein.",
+    "redFlags": [
+      "'Limited time offer' ya 'abhi act karein'",
+      "Turant decisions lene ka dabav",
+      "Opportunities miss karne ki dhamki",
+      "Written documentation dene se inkaar"
+    ],
+    "protectiveActions": [
+      "Acchi tarah se research karne ke liye apna samay lein",
+      "Sab kuch likhit mein lein",
+      "Bharosemand advisors se salah lein",
+      "High-pressure situations se door rahein"
+    ]
+  },
+  "unregistered-entities": {
+    "title": "Unregistered Investment Entities",
+    "description": "Hamesha verify karein ki investment entities regulatory authorities ke saath theek se registered hain.",
+    "redFlags": [
+      "Registration numbers nahi de sakte",
+      "Official regulatory websites par listed nahi",
+      "Registration ke baare mein golmol ya talne wale jawab",
+      "Registration se 'special exemptions' ka daawa"
+    ],
+    "protectiveActions": [
+      "Mutual funds aur PMS ke liye SEBI website check karein",
+      "NBFCs ke liye RBI registration verify karein",
+      "Mutual funds ke liye AMFI registration confirm karein",
+      "Official registration certificates maangein"
+    ]
+  },
+  "unsolicited-offers": {
+    "title": "Unsolicited Investment Offers",
+    "description": "Aapke paas bin bulaye aane wale investment opportunities se savdhan rahein.",
+    "redFlags": [
+      "Cold calls ya unsolicited emails",
+      "Social media investment opportunities",
+      "Dost ya parivar jo investments ke liye push kar rahe hain",
+      "Investment schemes ka celebrity endorsements"
+    ],
+    "protectiveActions": [
+      "Unsolicited offers ke basis par kabhi invest na karein",
+      "Company ke baare mein independently research karein",
+      "Sabhi daawon ko independently verify karein",
+      "'Insider information' ke prati sandeh rakhein"
+    ]
+  },
+  "complex-schemes": {
+    "title": "Overly Complex Investment Schemes",
+    "description": "Dhokhebaaz aksar investors ko confuse karne aur sach chupane ke liye jatil schemes ka istemal karte hain.",
+    "redFlags": [
+      "Investment strategies jo aap samajh nahi paate",
+      "'Proprietary' ya 'secret' methods ka daawa",
+      "Jatil fee structures",
+      "Tax benefits ka vaada jo bahut accha lagta hai"
+    ],
+    "protectiveActions": [
+      "Agar aap samajh nahi paate, to invest na karein",
+      "Independent professional advice lein",
+      "Saral explanations maangein",
+      "Experts ke saath sabhi daawon ko verify karein"
+    ]
+  },
+  "pyramid-schemes": {
+    "title": "Pyramid or Ponzi Schemes",
+    "description": "Yeh schemes maujooda investors ko pay karne ke liye naye investors ki bharti par nirbhar karti hain.",
+    "redFlags": [
+      "Doosron ko invest karne ke liye recruit karne par focus",
+      "Naye investors laane ke liye commission ka vaada",
+      "Jatil compensation structures",
+      "Koi real product ya service nahi bechi ja rahi hai"
+    ],
+    "protectiveActions": [
+      "Recruitment par focused kisi bhi scheme se bachein",
+      "Business model par acchi tarah se research karein",
+      "Check karein ki koi real product ya service hai ya nahi",
+      "'Network marketing' investment schemes se savdhan rahein"
+    ]
+  }
+}

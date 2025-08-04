@@ -38,6 +38,24 @@ import mrNavbar from '@/locales/mr/navbar.json';
 import bnNavbar from '@/locales/bn/navbar.json';
 import taNavbar from '@/locales/ta/navbar.json';
 
+// Fraud Protection Translations
+import enFraud from '@/locales/en/fraud-protection.json';
+import hiFraud from '@/locales/hi/fraud-protection.json';
+import enINFraud from '@/locales/en-IN/fraud-protection.json';
+import guFraud from '@/locales/gu/fraud-protection.json';
+import mrFraud from '@/locales/mr/fraud-protection.json';
+import bnFraud from '@/locales/bn/fraud-protection.json';
+import taFraud from '@/locales/ta/fraud-protection.json';
+
+// Investment Quiz Translations
+import enQuiz from '@/locales/en/investment-quiz.json';
+import hiQuiz from '@/locales/hi/investment-quiz.json';
+import enINQuiz from '@/locales/en-IN/investment-quiz.json';
+import guQuiz from '@/locales/gu/investment-quiz.json';
+import mrQuiz from '@/locales/mr/investment-quiz.json';
+import bnQuiz from '@/locales/bn/investment-quiz.json';
+import taQuiz from '@/locales/ta/investment-quiz.json';
+
 const translations = {
   'stock-market-course': {
     en: enStock,
@@ -74,6 +92,24 @@ const translations = {
     mr: mrNavbar,
     bn: bnNavbar,
     ta: taNavbar,
+  },
+  'fraud-protection': {
+    en: enFraud,
+    hi: hiFraud,
+    'en-IN': enINFraud,
+    gu: guFraud,
+    mr: mrFraud,
+    bn: bnFraud,
+    ta: taFraud,
+  },
+  'investment-quiz': {
+    en: enQuiz,
+    hi: hiQuiz,
+    'en-IN': enINQuiz,
+    gu: guQuiz,
+    mr: mrQuiz,
+    bn: bnQuiz,
+    ta: taQuiz,
   }
 };
 
@@ -89,13 +125,13 @@ export const useTranslation = (namespace?: keyof typeof translations) => {
     } else {
       // Fallback to a default scope that merges all namespaces
       translationScope = {
-        en: {...translations['course'].en, ...translations['stock-market-course'].en, ...translations['home'].en, ...translations['navbar'].en},
-        hi: {...translations['course'].hi, ...translations['stock-market-course'].hi, ...translations['home'].hi, ...translations['navbar'].hi},
-        'en-IN': {...translations['course']['en-IN'], ...translations['stock-market-course']['en-IN'], ...translations['home']['en-IN'], ...translations['navbar']['en-IN']},
-        gu: {...translations['course'].gu, ...translations['stock-market-course'].gu, ...translations['home'].gu, ...translations['navbar'].gu},
-        mr: {...translations['course'].mr, ...translations['stock-market-course'].mr, ...translations['home'].mr, ...translations['navbar'].mr},
-        bn: {...translations['course'].bn, ...translations['stock-market-course'].bn, ...translations['home'].bn, ...translations['navbar'].bn},
-        ta: {...translations['course'].ta, ...translations['stock-market-course'].ta, ...translations['home'].ta, ...translations['navbar'].ta},
+        en: {...translations['course'].en, ...translations['stock-market-course'].en, ...translations['home'].en, ...translations['navbar'].en, ...translations['fraud-protection'].en, ...translations['investment-quiz'].en},
+        hi: {...translations['course'].hi, ...translations['stock-market-course'].hi, ...translations['home'].hi, ...translations['navbar'].hi, ...translations['fraud-protection'].hi, ...translations['investment-quiz'].hi},
+        'en-IN': {...translations['course']['en-IN'], ...translations['stock-market-course']['en-IN'], ...translations['home']['en-IN'], ...translations['navbar']['en-IN'], ...translations['fraud-protection']['en-IN'], ...translations['investment-quiz']['en-IN']},
+        gu: {...translations['course'].gu, ...translations['stock-market-course'].gu, ...translations['home'].gu, ...translations['navbar'].gu, ...translations['fraud-protection'].gu, ...translations['investment-quiz'].gu},
+        mr: {...translations['course'].mr, ...translations['stock-market-course'].mr, ...translations['home'].mr, ...translations['navbar'].mr, ...translations['fraud-protection'].mr, ...translations['investment-quiz'].mr},
+        bn: {...translations['course'].bn, ...translations['stock-market-course'].bn, ...translations['home'].bn, ...translations['navbar'].bn, ...translations['fraud-protection'].bn, ...translations['investment-quiz'].bn},
+        ta: {...translations['course'].ta, ...translations['stock-market-course'].ta, ...translations['home'].ta, ...translations['navbar'].ta, ...translations['fraud-protection'].ta, ...translations['investment-quiz'].ta},
       };
     }
 

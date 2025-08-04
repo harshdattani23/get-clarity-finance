@@ -4,264 +4,121 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, AlertTriangle, Brain, Shield, Target, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from '@/hooks/useTranslation';
 
-interface ExpertiseLevel {
-  id: string;
-  name: string;
-  description: string;
+interface ExpertiseLevelData {
+  id: 'beginner' | 'intermediate' | 'advanced';
   icon: React.ReactNode;
 }
 
-interface Question {
+interface QuestionData {
   id: number;
-  question: string;
-  options: string[];
   correctAnswer: number;
-  explanation: string;
-  category: string;
+  category: 'Fraud Protection' | 'Risk Management' | 'Valuation' | 'Basic Concepts' | 'Investment Products' | 'Market Concepts' | 'Portfolio Management' | 'Economic Concepts';
 }
 
-const expertiseLevels: ExpertiseLevel[] = [
-  {
-    id: 'beginner',
-    name: 'Beginner',
-    description: 'New to investing, learning the basics',
-    icon: <Brain className="w-6 h-6" />
-  },
-  {
-    id: 'intermediate',
-    name: 'Intermediate',
-    description: 'Some experience, understanding key concepts',
-    icon: <Target className="w-6 h-6" />
-  },
-  {
-    id: 'advanced',
-    name: 'Advanced',
-    description: 'Experienced investor, deep market knowledge',
-    icon: <TrendingUp className="w-6 h-6" />
-  }
+const expertiseLevelsData: ExpertiseLevelData[] = [
+  { id: 'beginner', icon: <Brain className="w-6 h-6" /> },
+  { id: 'intermediate', icon: <Target className="w-6 h-6" /> },
+  { id: 'advanced', icon: <TrendingUp className="w-6 h-6" /> }
 ];
 
-const fraudProtectionQuestions = [
-  {
-    question: "What should you do if someone promises guaranteed high returns?",
-    options: [
-      "Invest immediately to not miss out",
-      "Be skeptical and research thoroughly",
-      "Ask friends for their opinion",
-      "Trust them if they seem professional"
-    ],
-    correctAnswer: 1,
-    explanation: "Guaranteed high returns are a major red flag. Legitimate investments carry risk and no one can guarantee returns."
-  },
-  {
-    question: "Which of these is a common fraud tactic?",
-    options: [
-      "Providing detailed financial statements",
-      "Creating urgency to invest quickly",
-      "Offering transparent fee structures",
-      "Providing regulatory compliance documents"
-    ],
-    correctAnswer: 1,
-    explanation: "Creating urgency is a classic fraud tactic to pressure victims into making hasty decisions."
-  },
-  {
-    question: "What's the best way to verify an investment opportunity?",
-    options: [
-      "Trust the salesperson's word",
-      "Check with regulatory authorities",
-      "Ask other investors in the scheme",
-      "Look at their website design"
-    ],
-    correctAnswer: 1,
-    explanation: "Always verify with regulatory authorities like SEBI, RBI, or other relevant bodies."
-  }
-];
-
-const investmentQuestions: Question[] = [
-  {
-    id: 1,
-    question: "What is diversification in investing?",
-    options: [
-      "Putting all money in one stock",
-      "Spreading investments across different assets",
-      "Investing only in bonds",
-      "Keeping all money in savings account"
-    ],
-    correctAnswer: 1,
-    explanation: "Diversification reduces risk by spreading investments across different assets, sectors, and geographies.",
-    category: "Risk Management"
-  },
-  {
-    id: 2,
-    question: "What does P/E ratio stand for?",
-    options: [
-      "Price to Earnings ratio",
-      "Profit to Expense ratio",
-      "Purchase to Equity ratio",
-      "Performance to Expectation ratio"
-    ],
-    correctAnswer: 0,
-    explanation: "P/E ratio measures a company's stock price relative to its earnings per share.",
-    category: "Valuation"
-  },
-  {
-    id: 3,
-    question: "What is compound interest?",
-    options: [
-      "Interest only on the principal amount",
-      "Interest earned on both principal and accumulated interest",
-      "Interest paid monthly",
-      "Interest calculated annually"
-    ],
-    correctAnswer: 1,
-    explanation: "Compound interest is interest earned on both the initial principal and accumulated interest from previous periods.",
-    category: "Basic Concepts"
-  },
-  {
-    id: 4,
-    question: "What is a mutual fund?",
-    options: [
-      "A single stock investment",
-      "A pool of money from multiple investors",
-      "A government bond",
-      "A bank savings account"
-    ],
-    correctAnswer: 1,
-    explanation: "A mutual fund pools money from multiple investors to invest in a diversified portfolio of securities.",
-    category: "Investment Products"
-  },
-  {
-    id: 5,
-    question: "What is market volatility?",
-    options: [
-      "Steady market growth",
-      "Rapid and unpredictable price changes",
-      "Low trading volume",
-      "High interest rates"
-    ],
-    correctAnswer: 1,
-    explanation: "Market volatility refers to the degree of variation in trading prices over time.",
-    category: "Market Concepts"
-  },
-  {
-    id: 6,
-    question: "What is a bull market?",
-    options: [
-      "A market that's falling",
-      "A market that's rising",
-      "A market with low volume",
-      "A market with high volatility"
-    ],
-    correctAnswer: 1,
-    explanation: "A bull market is characterized by rising prices and optimistic investor sentiment.",
-    category: "Market Concepts"
-  },
-  {
-    id: 7,
-    question: "What is the primary purpose of bonds?",
-    options: [
-      "To provide high growth potential",
-      "To provide regular income and preserve capital",
-      "To speculate on price movements",
-      "To avoid all investment risk"
-    ],
-    correctAnswer: 1,
-    explanation: "Bonds primarily provide regular income through interest payments and help preserve capital.",
-    category: "Investment Products"
-  },
-  {
-    id: 8,
-    question: "What is asset allocation?",
-    options: [
-      "Choosing individual stocks",
-      "Dividing investments among different asset classes",
-      "Timing the market",
-      "Selecting mutual funds"
-    ],
-    correctAnswer: 1,
-    explanation: "Asset allocation is the process of dividing investments among different asset classes like stocks, bonds, and cash.",
-    category: "Portfolio Management"
-  },
-  {
-    id: 9,
-    question: "What is inflation's impact on investments?",
-    options: [
-      "It increases real returns",
-      "It reduces purchasing power of returns",
-      "It has no impact",
-      "It only affects bonds"
-    ],
-    correctAnswer: 1,
-    explanation: "Inflation reduces the purchasing power of investment returns over time.",
-    category: "Economic Concepts"
-  },
-  {
-    id: 10,
-    question: "What is the risk-return tradeoff?",
-    options: [
-      "Higher risk always means higher returns",
-      "Generally, higher potential returns come with higher risk",
-      "Lower risk investments always perform better",
-      "Risk and return are unrelated"
-    ],
-    correctAnswer: 1,
-    explanation: "The risk-return tradeoff means that investments with higher potential returns typically carry higher risk.",
-    category: "Risk Management"
-  }
+const allQuestionsData: QuestionData[] = [
+  { id: 1, correctAnswer: 1, category: "Fraud Protection" },
+  { id: 2, correctAnswer: 1, category: "Fraud Protection" },
+  { id: 3, correctAnswer: 1, category: "Fraud Protection" },
+  { id: 4, correctAnswer: 1, category: "Risk Management" },
+  { id: 5, correctAnswer: 0, category: "Valuation" },
+  { id: 6, correctAnswer: 1, category: "Basic Concepts" },
+  { id: 7, correctAnswer: 1, category: "Investment Products" },
+  { id: 8, correctAnswer: 1, category: "Market Concepts" },
+  { id: 9, correctAnswer: 1, category: "Market Concepts" },
+  { id: 10, correctAnswer: 1, category: "Investment Products" },
+  { id: 11, correctAnswer: 1, category: "Portfolio Management" },
+  { id: 12, correctAnswer: 1, category: "Economic Concepts" },
+  { id: 13, correctAnswer: 1, category: "Risk Management" }
 ];
 
 export default function InvestmentQuiz() {
-  const [step, setStep] = useState<'expertise' | 'fraud-protection' | 'quiz' | 'results'>('expertise');
+  const { t } = useTranslation('investment-quiz');
+  const [step, setStep] = useState<'expertise' | 'quiz' | 'results'>('expertise');
   const [selectedExpertise, setSelectedExpertise] = useState<string>('');
-  const [fraudAnswers, setFraudAnswers] = useState<number[]>([]);
-  const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<number[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
 
+  const expertiseLevels = expertiseLevelsData.map(level => ({
+    ...level,
+    name: t(`expertiseLevels.${level.id}.name`),
+    description: t(`expertiseLevels.${level.id}.description`),
+  }));
+
+  const allQuestions = allQuestionsData.map(q => ({
+    ...q,
+    question: t(`questions.${q.id}.question`),
+    options: [
+      t(`questions.${q.id}.options.0`),
+      t(`questions.${q.id}.options.1`),
+      t(`questions.${q.id}.options.2`),
+      t(`questions.${q.id}.options.3`),
+    ],
+    explanation: t(`questions.${q.id}.explanation`),
+  }));
+  
   const handleExpertiseSelection = (expertiseId: string) => {
     setSelectedExpertise(expertiseId);
-    setStep('fraud-protection');
+    setStep('quiz');
   };
 
-  const handleFraudAnswer = (questionIndex: number, answerIndex: number) => {
-    const newAnswers = [...fraudAnswers];
-    newAnswers[questionIndex] = answerIndex;
-    setFraudAnswers(newAnswers);
-  };
-
-  const handleQuizAnswer = (answerIndex: number) => {
-    const newAnswers = [...quizAnswers];
-    newAnswers[currentQuestion] = answerIndex;
-    setQuizAnswers(newAnswers);
+  const handleAnswer = (answerIndex: number) => {
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = answerIndex;
+    setAnswers(newAnswers);
   };
 
   const nextQuestion = () => {
-    if (currentQuestion < investmentQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (currentQuestionIndex < allQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
       setShowExplanation(false);
     } else {
       setStep('results');
     }
   };
 
-  const calculateScore = () => {
-    return quizAnswers.reduce((score, answer, index) => {
-      return score + (answer === investmentQuestions[index].correctAnswer ? 1 : 0);
+  const calculateScores = () => {
+    const fraudQuestions = allQuestionsData.filter(q => q.category === 'Fraud Protection');
+    const investmentQuestions = allQuestionsData.filter(q => q.category !== 'Fraud Protection');
+
+    const fraudScore = answers.reduce((score, answer, index) => {
+      const question = allQuestionsData[index];
+      if (question.category === 'Fraud Protection' && answer === question.correctAnswer) {
+        return score + 1;
+      }
+      return score;
     }, 0);
+
+    const investmentScore = answers.reduce((score, answer, index) => {
+      const question = allQuestionsData[index];
+      if (question.category !== 'Fraud Protection' && answer === question.correctAnswer) {
+        return score + 1;
+      }
+      return score;
+    }, 0);
+
+    return {
+      fraudScore,
+      investmentScore,
+      fraudTotal: fraudQuestions.length,
+      investmentTotal: investmentQuestions.length
+    };
   };
 
-  const getFraudProtectionScore = () => {
-    return fraudAnswers.reduce((score, answer, index) => {
-      return score + (answer === fraudProtectionQuestions[index].correctAnswer ? 1 : 0);
-    }, 0);
-  };
-
-  const getRecommendations = (score: number) => {
-    if (score >= 8) return "Excellent! You have strong investment knowledge. Consider advanced topics like options trading or international markets.";
-    if (score >= 6) return "Good foundation! Focus on portfolio diversification and risk management strategies.";
-    if (score >= 4) return "Basic understanding. Study fundamental analysis and different investment vehicles.";
-    return "Beginner level. Start with basic concepts like compound interest and different asset classes.";
+  const getRecommendations = (score: number, total: number) => {
+    const percentage = (score / total) * 100;
+    if (percentage >= 80) return t('recommendations.excellent');
+    if (percentage >= 60) return t('recommendations.good');
+    if (percentage >= 40) return t('recommendations.basic');
+    return t('recommendations.beginner');
   };
 
   if (step === 'expertise') {
@@ -275,17 +132,17 @@ export default function InvestmentQuiz() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Investment Knowledge Assessment
+                {t('pageTitle')}
               </span>
             </h1>
             <p className="text-xl text-gray-600">
-              Test your investment knowledge and learn to protect yourself from fraud
+              {t('pageSubtitle')}
             </p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              What's your investment expertise level?
+              {t('expertiseTitle')}
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {expertiseLevels.map((level) => (
@@ -312,72 +169,9 @@ export default function InvestmentQuiz() {
     );
   }
 
-  if (step === 'fraud-protection') {
-    return (
-      <div className="container mx-auto px-4 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              <Shield className="w-8 h-8 inline mr-2 text-yellow-600" />
-              Fraud Protection Assessment
-            </h1>
-            <p className="text-lg text-gray-600">
-              Let's test your ability to identify investment fraud
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="mb-6">
-              <div className="flex items-center gap-2 mb-4">
-                <AlertTriangle className="w-6 h-6 text-yellow-600" />
-                <h2 className="text-xl font-semibold text-gray-800">
-                  Question {fraudAnswers.length + 1} of {fraudProtectionQuestions.length}
-                </h2>
-              </div>
-              
-              <p className="text-lg text-gray-700 mb-6">
-                {fraudProtectionQuestions[fraudAnswers.length].question}
-              </p>
-
-              <div className="space-y-3">
-                {fraudProtectionQuestions[fraudAnswers.length].options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleFraudAnswer(fraudAnswers.length, index)}
-                    className={`w-full text-left p-4 rounded-lg border-2 transition-colors ${
-                      fraudAnswers[fraudAnswers.length] === index
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {fraudAnswers.length === fraudProtectionQuestions.length && (
-              <div className="text-center">
-                <button
-                  onClick={() => setStep('quiz')}
-                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                >
-                  Continue to Investment Quiz
-                </button>
-              </div>
-            )}
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
-
   if (step === 'quiz') {
-    const currentQ = investmentQuestions[currentQuestion];
+    const currentQData = allQuestionsData[currentQuestionIndex];
+    const currentQContent = allQuestions[currentQuestionIndex];
     
     return (
       <div className="container mx-auto px-4 py-12">
@@ -389,14 +183,14 @@ export default function InvestmentQuiz() {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
               <Brain className="w-8 h-8 inline mr-2 text-blue-600" />
-              Investment Knowledge Quiz
+              {t('quizTitle')}
             </h1>
             <div className="flex justify-center items-center gap-4 text-sm text-gray-600">
-              <span>Question {currentQuestion + 1} of {investmentQuestions.length}</span>
+              <span>{t('questionLabel')} {currentQuestionIndex + 1} {t('ofLabel')} {allQuestions.length}</span>
               <div className="w-32 bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${((currentQuestion + 1) / investmentQuestions.length) * 100}%` }}
+                  style={{ width: `${((currentQuestionIndex + 1) / allQuestions.length) * 100}%` }}
                 ></div>
               </div>
             </div>
@@ -404,21 +198,25 @@ export default function InvestmentQuiz() {
 
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="mb-6">
-              <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">
-                {currentQ.category}
+              <span className={`inline-block text-sm px-3 py-1 rounded-full mb-4 ${
+                currentQData.category === 'Fraud Protection' 
+                ? 'bg-yellow-100 text-yellow-800' 
+                : 'bg-blue-100 text-blue-800'
+              }`}>
+                {currentQData.category}
               </span>
               <h2 className="text-xl font-semibold text-gray-800 mb-6">
-                {currentQ.question}
+                {currentQContent.question}
               </h2>
 
               <div className="space-y-3">
-                {currentQ.options.map((option, index) => (
+                {currentQContent.options.map((option, index) => (
                   <button
                     key={index}
-                    onClick={() => handleQuizAnswer(index)}
+                    onClick={() => handleAnswer(index)}
                     disabled={showExplanation}
                     className={`w-full text-left p-4 rounded-lg border-2 transition-colors ${
-                      quizAnswers[currentQuestion] === index
+                      answers[currentQuestionIndex] === index
                         ? 'border-blue-500 bg-blue-50'
                         : 'border-gray-200 hover:border-gray-300'
                     } ${showExplanation ? 'cursor-not-allowed' : 'cursor-pointer'}`}
@@ -429,13 +227,13 @@ export default function InvestmentQuiz() {
               </div>
             </div>
 
-            {quizAnswers[currentQuestion] !== undefined && !showExplanation && (
+            {answers[currentQuestionIndex] !== undefined && !showExplanation && (
               <div className="text-center">
                 <button
                   onClick={() => setShowExplanation(true)}
                   className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
                 >
-                  Submit Answer
+                  {t('submitAnswer')}
                 </button>
               </div>
             )}
@@ -446,13 +244,13 @@ export default function InvestmentQuiz() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-6 p-4 bg-gray-50 rounded-lg"
               >
-                <h3 className="font-semibold text-gray-800 mb-2">Explanation:</h3>
-                <p className="text-gray-700">{currentQ.explanation}</p>
+                <h3 className="font-semibold text-gray-800 mb-2">{t('explanation')}</h3>
+                <p className="text-gray-700">{currentQContent.explanation}</p>
                 <button
                   onClick={nextQuestion}
                   className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                 >
-                  {currentQuestion === investmentQuestions.length - 1 ? 'See Results' : 'Next Question'}
+                  {currentQuestionIndex === allQuestions.length - 1 ? t('seeResults') : t('nextQuestion')}
                 </button>
               </motion.div>
             )}
@@ -463,10 +261,9 @@ export default function InvestmentQuiz() {
   }
 
   if (step === 'results') {
-    const quizScore = calculateScore();
-    const fraudScore = getFraudProtectionScore();
-    const totalQuestions = investmentQuestions.length;
-    const percentage = (quizScore / totalQuestions) * 100;
+    const { fraudScore, investmentScore, fraudTotal, investmentTotal } = calculateScores();
+    const investmentPercentage = (investmentScore / investmentTotal) * 100;
+    const fraudPercentage = (fraudScore / fraudTotal) * 100;
 
     return (
       <div className="container mx-auto px-4 py-12">
@@ -478,93 +275,83 @@ export default function InvestmentQuiz() {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
               <CheckCircle className="w-8 h-8 inline mr-2 text-green-600" />
-              Quiz Results
+              {t('resultsTitle')}
             </h1>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Investment Knowledge Score */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                Investment Knowledge
+                {t('investmentKnowledge')}
               </h2>
               <div className="text-center mb-6">
                 <div className="text-4xl font-bold text-blue-600 mb-2">
-                  {quizScore}/{totalQuestions}
+                  {investmentScore}/{investmentTotal}
                 </div>
                 <div className="text-2xl font-semibold text-gray-600 mb-4">
-                  {percentage.toFixed(0)}%
+                  {investmentPercentage.toFixed(0)}%
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-4">
                   <div 
                     className="bg-blue-600 h-4 rounded-full transition-all duration-1000"
-                    style={{ width: `${percentage}%` }}
+                    style={{ width: `${investmentPercentage}%` }}
                   ></div>
                 </div>
               </div>
               <div className="text-center">
-                <p className="text-gray-700 mb-4">{getRecommendations(quizScore)}</p>
+                <p className="text-gray-700 mb-4">{getRecommendations(investmentScore, investmentTotal)}</p>
               </div>
             </div>
 
-            {/* Fraud Protection Score */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
                 <Shield className="w-6 h-6 inline mr-2 text-yellow-600" />
-                Fraud Protection
+                {t('fraudProtection')}
               </h2>
               <div className="text-center mb-6">
                 <div className="text-4xl font-bold text-yellow-600 mb-2">
-                  {fraudScore}/{fraudProtectionQuestions.length}
+                  {fraudScore}/{fraudTotal}
                 </div>
                 <div className="text-2xl font-semibold text-gray-600 mb-4">
-                  {((fraudScore / fraudProtectionQuestions.length) * 100).toFixed(0)}%
+                  {fraudPercentage.toFixed(0)}%
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-4">
                   <div 
                     className="bg-yellow-600 h-4 rounded-full transition-all duration-1000"
-                    style={{ width: `${(fraudScore / fraudProtectionQuestions.length) * 100}%` }}
+                    style={{ width: `${fraudPercentage}%` }}
                   ></div>
                 </div>
               </div>
               <div className="text-center">
-                {fraudScore === fraudProtectionQuestions.length ? (
-                  <p className="text-green-700 font-semibold">Excellent fraud awareness!</p>
-                ) : fraudScore >= 2 ? (
-                  <p className="text-yellow-700">Good awareness, but stay vigilant!</p>
+                {fraudScore === fraudTotal ? (
+                  <p className="text-green-700 font-semibold">{t('fraudAwareness.excellent')}</p>
+                ) : fraudScore >= (fraudTotal * 0.66) ? (
+                  <p className="text-yellow-700">{t('fraudAwareness.good')}</p>
                 ) : (
-                  <p className="text-red-700">Please study fraud protection more carefully.</p>
+                  <p className="text-red-700">{t('fraudAwareness.poor')}</p>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="text-center mt-8 space-x-4">
             <button
               onClick={() => {
                 setStep('expertise');
                 setSelectedExpertise('');
-                setFraudAnswers([]);
-                setQuizAnswers([]);
-                setCurrentQuestion(0);
+                setAnswers([]);
+                setCurrentQuestionIndex(0);
                 setShowExplanation(false);
               }}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
-              Take Quiz Again
+              {t('takeQuizAgain')}
             </button>
             <Link
               href="/fraud-protection"
               className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors inline-block"
             >
-              Fraud Protection Guide
-            </Link>
-            <Link
-              href="/awareness"
-              className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-block"
-            >
-              Learn More
+              {t('fraudProtectionGuide')}
             </Link>
           </div>
         </motion.div>
