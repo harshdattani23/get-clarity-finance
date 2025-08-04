@@ -378,89 +378,162 @@
         "title": "Identifying Trends, Support, and Resistance"
     },
     "using-essential-technical-indicators-moving-averages-rsi-macd": {
-        "title": "Using Essential Technical Indicators (Moving Averages, RSI, MACD)"
+        "title": "Zaroori Technical Indicators ka Istemal (Moving Averages, RSI, MACD)"
     },
     "introduction-to-derivatives": {
-        "title": "Introduction to Derivatives"
+        "title": "Derivatives ka Parichay",
+        "description": "Samjhein ki derivatives kya hain, unke alag-alag prakar, aur financial markets mein unka kya role hai.",
+        "section1": {
+            "title": "Derivative Kya Hai?",
+            "p1": "Ek derivative do ya do se zyada parties ke beech ek financial contract hai jiski value ek pehle se tay underlying financial asset (jaise stock ya bond) ya assets ke set (jaise index) par aadharit hoti hai. Derivative khud ek contract hai, aur iski value underlying asset ke price mein utaar-chadhav se 'derive' hoti hai.",
+            "p2": "Ise kisi cheez ke future price par ek shart ki tarah socho. Aap asset khud nahi khareed rahe hain, balki ek contract khareed rahe hain jo asset ke price change ke aadhar par pay out karega."
+        },
+        "animation_placeholder_1": "Animation: Ek sadharan diagram jo ek stock (underlying asset) aur ek contract (derivative) dikhata hai jiski value stock ke price se judi hui hai.",
+        "section2": {
+            "title": "Mukhya Avdharnayen: Underlying Asset aur Contract",
+            "p1": "Derivatives ko samajhne ke liye, do avdharnayen mahatvapurna hain:",
+            "item1": {
+                "title": "Underlying Asset",
+                "text": "Yeh woh financial instrument hai jis par derivative ki keemat aadharit hai. Yeh ek stock, bond, commodity (jaise sona ya tel), currency, ya byaj dar bhi ho sakti hai."
+            },
+            "item2": {
+                "title": "The Contract",
+                "text": "Derivative khud ek kanooni roop se badhyakari samjhauta hai jo saude ki sharton ko nirdharit karta hai, jaise ki underlying asset ki matra, jis keemat par sauda hoga, aur saude ki tarikh."
+            }
+        },
+        "section3": {
+            "title": "Aam Prakar ke Derivatives",
+            "p1": "Derivatives ke kai prakar hote hain, har ek ka apna uddeshya aur jokhim ka star hota hai. Char sabse aam prakar hain:"
+        },
+        "table_placeholder_1_title": "Aam Derivatives ki Tulna",
+        "table_placeholder_1": {
+            "header1": "Derivative Prakar",
+            "header2": "Yeh Kya Hai",
+            "header3": "Prathmik Upyog",
+            "row1": {
+                "col1": "Futures",
+                "col2": "Bhavishya mein ek vishisht samay par ek pehle se nirdharit keemat par ek sampatti kharidne ya bechne ka anubandh.",
+                "col3": "Keemat parivartano ke khilaf hedging karna ya bhavishya ke keemat ke utaar-chadhav par anumaan lagana."
+            },
+            "row2": {
+                "col1": "Options",
+                "col2": "Dharak ko ek vishisht avadhi ke bhitar ek nishchit keemat par ek sampatti kharidne (call option) ya bechne (put option) ka adhikar deta hai, lekin dayitva nahi.",
+                "col3": "Hedging, anumaan, aur aay utpann karna."
+            },
+            "row3": {
+                "col1": "Swaps",
+                "col2": "Ek anubandh jahan do paksh ek nishchit avadhi ke liye nakad pravah ke kram ka vinimay karne ke liye sahmat hote hain.",
+                "col3": "Byaj dar jokhim ya mudra vinimay jokhim ka prabandhan karna."
+            },
+            "row4": {
+                "col1": "Forwards",
+                "col2": "Futures ke saman, lekin yeh do pakshon ke beech niji, anukoolit samjhaute hain aur ek exchange par trade nahi kiye jaate hain.",
+                "col3": "Ek vishesh bhavishya tithi ke liye vishisht jokhimon ko hedge karna."
+            }
+        },
+        "section4": {
+            "title": "Log Derivatives ka Upyog Kyon Karte Hain?",
+            "p1": "Derivatives vittiya bazaron mein kai mahatvapurna karyon ko poora karte hain:",
+            "item1": "Hedging: Jokhim ko kam karne ya prabandhit karne ke liye. Udaharan ke liye, ek kisan apni fasal ke liye ek keemat lock karne ke liye ek futures anubandh ka upyog kar sakta hai, jo use girti keematon se bachata hai.",
+            "item2": "Anumaan: Ek sampatti ki keemat ki bhavishya ki disha par shart lagane ke liye. Anumaan lagane wale keemat parivartano se labh kamane ka lakshya rakhte hain.",
+            "item3": "Leverage: Derivatives व्यापारियों ko apekshakrit kam poonji ke saath ek badi position ko niyantrit karne ki anumati dete hain. Yeh sambhavit labh aur sambhavit nuksan dono ko badhata hai.",
+            "item4": "Arbitrage: Vibhinn bazaron mein ek hi sampatti ke keemat ke antar ka labh uthane ke liye."
+        },
+        "section5": {
+            "title": "Derivatives ke Jokhim",
+            "p1": "Shaktishali hone ke bavajood, derivatives mehtvapurna jokhimon ke saath aate hain. Unki jatilta bade nuksan ka karan ban sakti hai, vishesh roop se jab leverage ka upyog kiya jaata hai. Nivesh karne se pehle underlying asset aur derivative anubandh ki sharton ko samajhna mahatvapurna hai."
+        },
+        "animation_placeholder_2": "Animation: Ek seesaw leverage ka pradarshan karta hai - ek chhota input (poonji) ek bada movement (position ka aakar) banata hai, jo uchch return aur uchch nuksan dono ki sambhavna dikhata hai.",
+        "conclusion": "Derivatives jatil vittiya sadhan hain. Agle pathon mein, hum futures aur options ko aur adhik vistar se dekhenge."
     },
     "understanding-futures-contracts": {
-        "title": "Understanding Futures Contracts"
+        "title": "Futures Contracts ko Samajhna"
     },
     "understanding-options-contracts-calls-and-puts": {
-        "title": "Understanding Options Contracts: Calls and Puts"
+        "title": "Options Contracts ko Samajhna: Calls aur Puts"
     },
     "introduction-to-hedging-and-speculation-strategies": {
-        "title": "Introduction to Hedging and Speculation Strategies"
+        "title": "Hedging aur Speculation Strategies ka Parichay",
+        "description": "Derivatives istemal karne ke do mukhya uddeshyon ko samjhein: risk kam karne ke liye hedging aur munafa kamane ke liye speculation. Yeh lesson inke beech ke antar ko saaf karta hai aur har ek ka example deta hai.",
+        "introduction": "Futures aur options jaise derivatives do mukhya uddeshyon ke liye istemal kiye ja sakte hain: hedging aur speculation. Jabki dono mein derivatives market mein position lena shamil hai, unke mool lakshya moolbhoot roop se alag hain. Hedging risk kam karne ke baare mein hai, jabki speculation munafa kamane ki ummeed mein risk lene ke baare mein hai. Is antar ko samajhna in instruments ko prabhavi dhang se istemal karne ke liye mahatvapurna hai.",
+        "section1_title": "Hedging: Suraksha ki Kala",
+        "section1_p1": "Hedging ek aisi strategy hai jo ek asset mein pratikool moolya ki gati ke jokhim ko kam karne ya kam karne ke liye design ki gayi hai. Ise ek tarah ka bima samjhein. Ek hedger ke paas pehle se hi ek underlying asset ka exposure hota hai aur woh sambhavit nuksan se bachne ke liye derivatives ka istemal karta hai.",
+        "section1_l1": "<strong>Lakshya:</strong> Maujooda position ko nuksan se bachana.",
+        "section1_l2": "<strong>Udaharan:</strong> Ek airline company, jo badhte hue fuel ke daamo se prabhavit hoti hai, ek keemat lock karne ke liye jet fuel ke liye futures contracts khareed sakti hai. Agar fuel ki keemat badhti hai, to futures contract par munafa unke hawai jahazon ke liye fuel ki badhi hui lagat ko aafaset kar dega.",
+        "section2_title": "Speculation: Munafa ki Talaash",
+        "section2_p1": "Doosri or, speculation ek asset ka trade karne, ya ek financial transaction karne ka kaam hai, jismein shuruaati kharch ka adhikansh ya sabhi hissa khone ka ek mahatvapurna jokhim hota hai, ek bade laabh ki apeksha mein. Speculators ke paas underlying asset ka koi maujooda exposure nahi hota hai; ve sirf uske bhavishya ke moolya ki disha par shart laga rahe hain.",
+        "section2_p2": "<strong>Udaharan:</strong> Ek trader jo maanta hai ki sone ki keemat badhne wali hai, woh ek gold futures contract khareed sakta hai. Unke paas koi sona nahi hai aur na hi ve iski delivery lene ka irada rakhte hain. Ve sirf is baat par shart laga rahe hain ki ve iske expire hone se pehle futures contract ko ek uchch moolya par bech sakte hain, is prakaar moolya ke antar par munafa kama sakte hain.",
+        "section3_title": "Mukhya Antar Saaraansh",
+        "section3_p1": "Prathamik antar iraade ka hai. Ek hedger jokhim kam karna chahta hai, jabki ek speculator munafa ke liye jokhim uthana chahta hai. Hedgers ke paas bachane ke liye ek maujooda position hoti hai, jabki speculators ke paas nahi hoti. Hedging ko ek rakshatmak rananiti ke roop mein dekha ja sakta hai, jabki speculation ek aakramak rananiti hai.",
+        "conclusion_title": "Nishkarsh: Ek hi Sikke ke Do Pehlu",
+        "conclusion_p1": "Hedging aur speculation dono derivatives market ke avashyak karya hain. Hedgers jokhim transfer karte hain, aur speculators us jokhim ko avshoshit karte hain, jisse market ko kushal banane wali taralta pradan hoti hai. Chahe aap apne nivesh ko surakshit rakhna chahte hon ya naye munafa ke avsaron ki talash mein hon, hedging aur speculation dono ko samajhna derivatives ki duniya mein navigate karne ke liye kunji hai."
     },
     "the-principle-of-portfolio-diversification": {
-        "title": "Portfolio Diversification ka Siddhant",
-        "description": "Investment ka sabse important rule seekhein: 'Apne saare ande ek hi tokri mein mat rakho.' Yeh lesson samjhata hai ki risk ke against aapka best defense diversification kyun hai.",
-        "whatIsDiversification": {
-            "title": "Portfolio Diversification Kya Hai?",
-            "content": "Portfolio diversification ek investment portfolio ke overall risk ko kam karne ke liye various assets mein invest karne ki strategy hai. Core idea simple hai: \"Apne saare ande ek hi tokri mein mat rakho.\" Alag-alag asset classes, industries, aur geographical regions mein investments spread karke, aap kisi ek single investment mein kharab performance ke impact ko minimize kar sakte hain."
-        },
-        "whyDiversify": {
-            "title": "Diversify Kyun Karein?",
-            "content": "Diversification ka primary goal risk manage karna hai. Ek hi economic event par alag-alag assets alag tarah se react karte hain. Example ke liye, jab stock market down hota hai, tab bond market up ho sakta hai. Stocks aur bonds dono hold karke, ek area ke losses ko doosre area ke gains se offset kiya ja sakta hai, jisse time ke saath ek zyada stable portfolio value milti hai."
-        },
-        "typesOfRisk": {
-            "title": "Risk ke Prakar",
-            "systematic": "<strong>Systematic Risk:</strong> Yeh market-wide risk hai jo sabhi investments ko affect karta hai aur diversification ke through eliminate nahi kiya ja sakta. Examples mein interest rate changes, inflation, aur political instability shamil hain.",
-            "unsystematic": "<strong>Unsystematic Risk:</strong> Yeh kisi particular company ya industry ke liye specific hai. Examples mein ek company ki kharab earnings report ya ek naya regulation jo kisi specific industry ko affect karta hai, shamil hain. Diversification unsystematic risk ko kam karne mein highly effective hai."
-        },
-        "howToDiversify": {
-            "title": "Apne Portfolio ko Kaise Diversify Karein",
-            "assetClasses": "<strong>Across Asset Classes:</strong> Apne investments ko alag-alag type ke assets mein allocate karein, jaise ki stocks, bonds, real estate, aur commodities.",
-            "withinAssetClasses": "<strong>Within Asset Classes:</strong> Stocks ke andar, alag-alag size ki (large-cap, mid-cap, small-cap) aur various sectors (technology, healthcare, finance, etc.) ki companies mein invest karein.",
-            "geographic": "<strong>Geographic Diversification:</strong> Kisi ek economy mein downturn ke impact ko kam karne ke liye alag-alag countries ki companies mein invest karein."
-        },
-        "diversificationExample": {
-            "title": "Ek Simple Diversification Example",
-            "intro": "Imagine karein aapke paas invest karne ke liye ₹10,000 hain.",
-            "undiversified": "<strong>Undiversified Portfolio:</strong> Aap saare ₹10,000 ek hi tech stock mein invest karte hain. Agar woh stock kharab perform karta hai, to aapka poora investment risk mein hai.",
-            "diversified": "<strong>Diversified Portfolio:</strong>",
-            "item1": "Large-cap stock index fund mein ₹4,000",
-            "item2": "Government bond fund mein ₹3,000",
-            "item3": "International stock fund mein ₹2,000",
-            "item4": "Real estate investment trust (REIT) mein ₹1,000",
-            "outro": "Is diversified scenario mein, tech sector mein ek downturn ka aapke overall portfolio par bahut kam impact padega."
-        },
-        "bottomLine": {
-            "title": "The Bottom Line",
-            "content": "Diversification sabhi investors ke liye ek fundamental concept hai. Yeh losses ke against guarantee nahi deta, lekin yeh risk manage karne aur long term mein zyada consistent returns achieve karne ke liye ek crucial tool hai."
-        }
+        "title": "Portfolio Diversification ka Siddhant"
     },
     "asset-allocation-strategies": {
-        "title": "Asset Allocation Strategies"
+        "title": "Asset Allocation Strategies",
+        "description": "Ek aisa portfolio banana seekhein jo aapke financial goals aur risk tolerance ke anuroop ho. Yeh lesson alag-alag asset allocation strategies ko cover karta hai, conservative se lekar aggressive tak.",
+        "introduction": "Asset allocation ek investor dwara liye jane wale sabse mahatvapurna nirnayon mein se ek hai. Yeh aapke portfolio ko alag-alag asset categories, jaise ki stocks, bonds, aur cash, ke beech vibhajit karne ki prakriya hai. Aap apne assets ko jis tarah se allocate karte hain, uska aapke long-term returns par kisi bhi single investment choice se zyada prabhav padta hai. Aapke liye sahi asset allocation strategy aapki vyaktigat paristhitiyon par nirbhar karegi, jismein aapki umra, financial goals, aur risk ke liye sahanubhuti shamil hai.",
+        "section1_title": "Asset Allocation Kya Hai?",
+        "section1_p1": "Asset allocation ek investment strategy hai jiska uddeshya ek vyakti ke lakshyon, jokhim sahan shilta, aur nivesh kshitij ke anusaar ek portfolio ki sampatti ko vibhajit karke jokhim aur puraskar ko santulit karna hai. Teen mukhya sampatti varg hain:",
+        "section1_l1": "<strong>Stocks:</strong> Vikas ki adhik sambhavna, lekin jokhim bhi adhik.",
+        "section1_l2": "<strong>Bonds:</strong> Stocks se kam jokhim, adhik saumya return ke saath.",
+        "section1_l3": "<strong>Cash aur Cash Equivalents:</strong> Bahut kam jokhim, lekin return bhi bahut kam.",
+        "section2_title": "Aam Asset Allocation Strategies",
+        "section2_p1": "<strong>Conservative Strategy:</strong> Yeh strategy kam jokhim sahan shilta wale niveshakon ke liye hai. Ek aam conservative portfolio 70% bonds, 20% stocks, aur 10% cash ho sakta hai.",
+        "section2_p2": "<strong>Moderate Strategy:</strong> Yeh madhyam jokhim sahan shilta wale niveshakon ke liye hai. Ek moderate portfolio 60% stocks aur 40% bonds ho sakta hai.",
+        "section2_p3": "<strong>Aggressive Strategy:</strong> Yeh uchch jokhim sahan shilta wale niveshakon ke liye hai jo uchch return chahte hain. Ek aggressive portfolio 80% stocks aur 20% bonds ho sakta hai.",
+        "section3_title": "Apna Khud ka Allocation Dhundhein",
+        "conclusion_title": "Nishkarsh: Aapki Safalta ka Blueprint",
+        "conclusion_p1": "Asset allocation ek baar ka nirnay nahi hai. Apne portfolio ki samay-samay par samiksha karna aur use avashyakta anusar punah santulit karna mahatvapurna hai taki yeh sunishchit ho sake ki yeh aapke lakshyon ke anuroop bana rahe. Ek soch-samajhkar asset allocation strategy banakar, aap apne financial future ke liye ek thos neenv taiyar kar rahe hain."
     },
     "risk-management-position-sizing-and-stop-loss-orders": {
-        "title": "Risk Management: Position Sizing and Stop-Loss Orders"
+        "title": "Risk Management: Position Sizing aur Stop-Loss Orders",
+        "description": "Apne capital ko do sabse critical risk management techniques se bachana seekhein: position sizing aur stop-loss orders. Yeh lesson aapko har ek trade par apne risk ko control karna sikhayega.",
+        "introduction": "Successful investing sirf winners chunne ke baare mein nahi hai; yeh losers ko manage karne ke baare mein hai. Effective risk management hi hai jo lagatar profitable traders ko unse alag karta hai jo wild swings aur ant mein nuksan ka anubhav karte hain. Ek trader ke risk management toolkit mein do sabse fundamental aur powerful tools hain position sizing aur stop-loss orders. Inmein maharat hasil karna aapke capital ko bacha sakta hai aur aapko lambe samay tak game mein बनाए rakh sakta hai.",
+        "section1_title": "Position Sizing: Kitna Risk Lena Hai?",
+        "section1_p1": "Position sizing ek single trade mein kitne shares kharidne ya bechne hain, yeh determine karne ka process hai. Yeh is baare mein nahi hai ki aapko *lagta* hai ki ek stock kitna upar jayega, balki is baare mein hai ki agar aap galat hue to aap kitna *khone* ke liye taiyar hain. Ek aam angoothe ka niyam 1% niyam hai:",
+        "section1_l1": "<strong>1% Niyam:</strong> Ek single trade par apne total trading capital ka 1% se zyada risk kabhi na lein. Udaharan ke liye, agar aapke paas ₹1,00,000 ka portfolio hai, to aapko kisi ek trade par ₹1,000 se zyada ka risk nahi lena chahiye.",
+        "section1_l2": "<strong>Position Size Calculate Karna:</strong> Apni position size calculate karne ke liye, aapko apni entry price aur apni stop-loss price pata honi chahiye. Formula hai: Position Size = (Total Capital * Risk Percentage) / (Entry Price - Stop-Loss Price).",
+        "section1_l3": "<strong>Yeh Kyun Zaroori Hai:</strong> Sahi position sizing yeh sunishchit karta hai ki ek single bura trade aapke account ka ek significant hissa nahi mita dega. Yeh nuksan ko manage karne layak rakhta hai aur emotional decision-making ko rokta hai.",
+        "section2_title": "Stop-Loss Orders: Aapka Automated Safety Net",
+        "section2_p1": "Ek stop-loss order ek broker ke paas rakha gaya ek order hai jo ek security ko ek certain price par pahunchne par automatically bech deta hai. Iska design ek investor ke position par nuksan ko seemit karne ke liye kiya gaya hai. Udaharan ke liye, agar aap ₹100 par ek stock kharidte hain aur ₹95 par stop-loss set karte hain, to agar price ₹95 tak girti hai to aapka broker aapke shares ko automatically bech dega, jisse aapka nuksan 5% tak seemit ho jayega. Yeh ek losing position ko bechne ke decision se emotion ko bahar nikalne ke liye ek critical tool hai.",
+        "section3_title": "Position Sizing aur Stop-Losses ki Synergy",
+        "section3_p1": "Position sizing aur stop-loss orders ek saath kaam karte hain. Aapka stop-loss position sizing equation ke 'risk' wale hisse ko determine karta hai. Aap andar aane se *pehle* kahan bahar niklenge yeh decide karke, aur usi ke anusaar apni position ko size karke, aap ek disciplined aur systematic tarike se apne risk par control kar rahe hain. Yeh combination aapko anivary roop se aane wali haraane wali lakeeron se bachne mein aur lambe samay tak profitable rehne mein madad karta hai.",
+        "conclusion_title": "Nishkarsh: Agle Din Trade Karne ke liye Trade Karein",
+        "conclusion_p1": "Risk management trading ka sabse glamorous hissa nahi hai, lekin yeh sabse mahatvapurna hai. Lagatar sound position sizing rules ko laagoo karke aur apne downside ko protect karne ke liye stop-loss orders ka istemal karke, aap yeh sunishchit karte hain ki aap apna capital bacha sakte hain aur agle din trade karne ke liye jeevit reh sakte hain. Yaad rakhein, lakshya har trade par sahi hona nahi hai, balki apne winners par apne losers par jitna aap khote hain usse zyada paisa kamana hai."
     },
     "the-investors-mind-managing-psychological-biases": {
         "title": "Investor ka Dimag: Psychological Biases ko Manage Karna",
-        "description": "Market mein aapka sabse bada dushman aksar aap khud hote hain. Yeh lesson un common psychological biases ko explore karta hai jo galat investment decisions ka kaaran ban sakte hain aur unse bachne ke liye strategies provide karta hai.",
-        "intro": "Investing sirf numbers aur charts ke baare mein nahi hai; yeh aapki emotions aur thought processes ko manage karne ke baare mein bhi hai. Hamare dimaag mental shortcuts aur biases se wired hain, jo daily life mein toh useful hote hain, lekin financial markets mein disastrous ho sakte hain. In biases ko samajhna ek rational aur successful investor banne ka pehla step hai.",
-        "confirmationBias": {
-            "title": "Confirmation Bias: 'Proof' Dhoondna",
-            "p1": "Yeh woh tendency hai jismein hum aisi information ko dhoondhte, interpret karte, favor karte, aur yaad rakhte hain jo hamare pehle se maujood beliefs ko confirm ya support karti hai. Investing mein, iska matlab hai ki aap kisi particular stock ko khareedne ke apne decision ko validate karne wali news aur analysis ko hi dekhenge, aur uske khilaf kisi bhi information ko ignore kar denge.",
-            "example": "Aap ek stock khareedte hain aur fir sirf uske baare mein positive news articles padhte hain, kisi bhi negative report ko 'fake news' ya 'market ka shor' kehkar dismiss kar dete hain."
-        },
-        "overconfidenceBias": {
-            "title": "Overconfidence Bias: Skill ka Bhram",
-            "p1": "Yeh bias investors ko apni ability aur knowledge ko overestimate karne par majboor karta hai. Woh yeh maan sakte hain ki woh hamesha winning stocks chun sakte hain ya market ko perfectly time kar sakte hain, jiske kaaran woh zaroorat se zyada risk lete hain ya bahut zyada trade karte hain, jisse costs badhti hain aur aksar underperformance hota hai.",
-            "example": "Kuch safal trades ke baad, ek investor ko lagta hai ki uske paas 'golden touch' hai aur woh bina proper research ke bade, riskier bets lagana shuru kar deta hai."
-        },
-        "herdingBias": {
-            "title": "Herding Bias: Bhedchaal",
-            "p1": "Yeh individuals ki ek bade group ke actions ko copy karne ki tendency hai. Investing mein, yeh aksar ek 'hot' stock khareedne ke roop mein dikhta hai sirf isliye ki baaki sab bhi khareed rahe hain, ya market downturn ke dauran panic-selling karna kyunki sab taraf dar ka mahaul hai. Isse high par khareedna aur low par bechna ho sakta hai - jo ek sound investment strategy ka bilkul ulta hai.",
-            "example": "Ek stock social media par viral ho jaata hai, aur hazaron naye investors usmein paisa laga dete hain, jisse price unsustainable levels tak pahunch jaati hai, aur fir baad mein crash ho jaati hai."
-        },
-        "howToMitigate": {
-            "title": "In Biases ko Kaise Kam Karein",
-            "item1": "<strong>Ek Rules-Based Investment Plan Banayein:</strong> Invest karne se pehle apne investment criteria, entry aur exit points, aur risk management rules define karein. Apne plan par adig rahein.",
-            "item2": "<strong>Ek Investment Journal Banayein:</strong> Likhein ki aapne har investment kyun kiya. Yeh aapko objective rehne par majboor karta hai aur aapko baad mein apne decisions review karne ka mauka deta hai, jisse aap pehchan sakte hain ki kahan biases ghus gaye the.",
-            "item3": "<strong>Contrarian Opinions Dhoondhein:</strong> Active roop se aisi information aur analysis dhoondhein jo aapki investment thesis ko challenge karti ho. Yeh confirmation bias ka muqabla karne mein madad karta hai.",
-            "item4": "<strong>Long Term par Focus Karein:</strong> Ek long-term perspective apnayein. Yeh short-term market noise aur dusron ke herding behavior par react karne ke temptation ko kam karta hai."
-        }
+        "description": "Investment mein sabse bada dushman market nahi, balki aap khud hain. Yeh lesson un common psychological biases ko explore karta hai jo galat investment decisions ki taraf le jaate hain aur unhe door karne ke strategies batata hai.",
+        "introduction": "Investing ki duniya mein, aapki intelligence aur analytical skills zaroori hain, lekin aapka emotional discipline sabse upar hai. Behavioral finance ke field ne dikhaya hai ki investors hamesha rational nahi hote. Hum kai cognitive aur emotional biases ke shikar ho sakte hain jo hamare judgment ko dhundhla kar sakte hain aur mehenge galtiyon ka karan ban sakte hain. In biases ko samajhna unhe jeetne aur ek zyada disciplined, successful investor banne ka pehla kadam hai.",
+        "section1_title": "Psychological Biases Kya Hain?",
+        "section1_p1": "Psychological biases judgment mein norm ya rationality se deviation ke systematic patterns hain. Investing mein, yeh mental shortcuts ya emotional pitfalls hain jo hamein irrational decisions lene par majboor karte hain. Yeh aksar subconscious level par kaam karte hain, jo unhe khaas taur par khatarnak banata hai. Sabse common biases mein shamil hain:",
+        "section1_l1": "<strong>Confirmation Bias:</strong> Aisi information ko search karne, interpret karne aur favor karne ki tendency jo aapke maujooda beliefs ko confirm karti hai.",
+        "section1_l2": "<strong>Overconfidence Bias:</strong> Apni kabiliyat aur apni information ki accuracy ko overestimate karna.",
+        "section1_l3": "<strong>Herding Mentality:</strong> Dusre investors jo kar rahe hain, use follow aur copy karne ki tendency, chahe aapka apna analysis kuch bhi ho.",
+        "section1_l4": "<strong>Loss Aversion:</strong> Ek equal gain ki khushi se zyada ek loss ka dard mehsus karna, jiski vajah se losing stocks ko bahut lamba time tak hold kiya jaata hai.",
+        "section1_l5": "<strong>Anchoring Bias:</strong> Decisions lete waqt pehli piece of information ('anchor') par bahut zyada depend karna.",
+        "section1_l6": "<strong>Recency Bias:</strong> Recent events ko bahut zyada weight dena aur unhe future mein extrapolate karna.",
+        "section2_title": "Action Mein Common Biases: Real-World Scenarios",
+        "section2.1_title": "Confirmation Bias: 'Yeh Stock Upar JANA HI Chahiye!'",
+        "section2.1_p1": "<strong>Scenario:</strong> Aap ek dost ki tip par ek stock kharidte hain. Stock ki price girne lagti hai. Re-evaluate karne ke bajaye, aap sirf un news articles aur forum posts ko padhte hain jo aapke initial decision ko support karte hain, negative reports ko ignore karte hue. Aap actively confirmation dhoondh rahe hain ki aap sahi the, bhale hi saboot badh rahe hon ki aap galat the.",
+        "section2.2_title": "Overconfidence: 'Mujhe Pata Hai Winners Kaise Pick Karte Hain.'",
+        "section2.2_p1": "<strong>Scenario:</strong> Kuch successful trades ke baad, aapko lagne lagta hai ki aap mein stocks pick karne ka ek special talent hai. Aap zyada frequently trade karna shuru kar dete hain, bade risks lete hain, aur kam research karte hain, yeh maante hue ki aapki intuition hi kafi hai. Isse aksar warning signs ignore ho jaate hain aur jab market palat'ta hai to significant losses hote hain.",
+        "section2.3_title": "Herding: 'Sab Ise Kharid Rahe Hain, Toh Yeh Achha Hi Hoga.'",
+        "section2.3_p1": "<strong>Scenario:</strong> Ek particular tech stock har taraf news mein hai, aur aapke social circle mein har koi use kharid raha hai. Fear of missing out (FOMO) shuru ho jaata hai, aur aap bina apna due diligence kiye bandwagon par kood jaate hain. Aap hype ke peak par kharidte hain, theek usse pehle jab bubble phat'ta hai aur price collapse ho jaati hai.",
+        "section2.4_title": "Loss Aversion: 'Jaise Hi Break-Even Hoga, Main Ise Bech Dunga.'",
+        "section2.4_p1": "<strong>Scenario:</strong> Aap ek stock ₹200 par kharidte hain, aur woh ₹150 par gir jaata hai. Ek pehle se decide kiye gaye stop-loss ke basis par apne losses cut karne ke bajaye, aap use hold karte hain, yeh ummeed karte hue ki woh ₹200 par wapas aa jayega. Loss ko realize karne ka dar itna strong hota hai ki aap ek girti hui asset ko hold karte rehte hain, us capital ko bandh kar jo kahin aur behtar istemal ho sakta tha.",
+        "section2.5_title": "Anchoring: 'Yeh ₹500 Ka Tha, Toh ₹300 Mein Yeh Sasta Hai.'",
+        "section2.5_p1": "<strong>Scenario:</strong> Ek stock jo kabhi ₹500 ke high par trade kar raha tha, ab ₹300 par aa gaya hai. Aap ₹500 price par anchor karte hain, yeh sochte hue ki stock sasta hai. Lekin, company ke fundamentals kharab ho chuke ho sakte hain, jo lower price ko justify karte hain. Purana high ab irrelevant hai, lekin anchor aapko nayi reality dekhne se rokta hai.",
+        "section3_title": "Biases se Paar Paane ke Strategies",
+        "section3_l1": "<strong>Ek Investment Plan Banayein:</strong> Ek clear, written investment strategy banayein jismein defined goals, risk tolerance, aur kharidne-bechne ke rules hon. Us par tike rahein.",
+        "section3_l2": "<strong>Apne Investing ko Automate Karein:</strong> Systematic Investment Plans (SIPs) ka use karein to regularly ek fixed amount invest karein, jo emotion aur timing ko equation se hata deta hai.",
+        "section3_l3": "<strong>Ek Investment Journal Rakhein:</strong> Har trade ke liye apne reasons document karein. Yeh aapko logically sochne par majboor karta hai aur aapko apne successes aur mistakes dono se seekhne mein madad karta hai.",
+        "section3_l4": "<strong>Apne Portfolio ko Diversify Karein:</strong> Apne saare ande ek hi tokri mein na rakhein. Diversification aapko ek single stock ke kharab performance ke emotional impact se bachata hai.",
+        "section3_l5": "<strong>Stop-Loss Orders Set Karein:</strong> Pehle se decide karein ki aap ek position par maximum kitna loss sehne ko taiyar hain. Ek stop-loss order automatically stock ko bech deta hai agar woh us price par pahunch jaata hai, emotional decision ko aapke haathon se le leta hai.",
+        "conclusion_title": "Conclusion: Aapka Dimag Aapka Sabse Bada Asset (ya Liability) Hai",
+        "conclusion_p1": "Ek achhe investor aur ek great investor ke beech ka fark aksar temperament par aa jaata hai. Hum sab jin psychological biases ke shikar hote hain, unhe pehchan kar aur unka muqabla karne ke liye practical strategies implement karke, aap long-term investment success ke liye zaroori mental fortitude bana sakte hain. Apne emotions ko control karein, varna woh aapke portfolio ko control karenge."
     }
 }
