@@ -6,9 +6,10 @@ interface AnimatedDivProps {
     children: React.ReactNode;
     delay?: number;
     direction?: 'up' | 'down' | 'left' | 'right';
+    className?: string;
 }
 
-const AnimatedDiv = ({ children, delay = 0.2, direction = 'up' }: AnimatedDivProps) => {
+const AnimatedDiv = ({ children, delay = 0.2, direction = 'up', className }: AnimatedDivProps) => {
     const variants = {
         hidden: {
             opacity: 0,
@@ -29,6 +30,7 @@ const AnimatedDiv = ({ children, delay = 0.2, direction = 'up' }: AnimatedDivPro
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay }}
         variants={variants}
+        className={className}
     >
       {children}
     </motion.div>
