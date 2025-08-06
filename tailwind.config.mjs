@@ -6,11 +6,15 @@ const config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'scrolling-ticker': 'scrolling-ticker 120s linear infinite',
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
   ],
 };
 
-export default config; 
+export default config;

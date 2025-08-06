@@ -1,9 +1,10 @@
 {
-  "title": "गेट क्लॅरिटी फायनान्स",
+  "title": "Get Clarity Finance",
   "analyzer": "विश्लेषक",
-  "investmentQuiz": "गुंतवणूक प्रश्नमंजुषा",
+  "investorAssessment": "गुंतवणूकदार मूल्यांकन",
   "fraudProtection": "फसवणूक संरक्षण",
-  "stockMarketCourse": "शेअर बाजार अभ्यासक्रम",
+  "stockMarketCourse": "शेअर बाजार कोर्स",
+  "virtualTrading": "व्हर्च्युअल ट्रेडिंग",
   "signIn": "साइन इन करा",
   "signUp": "साइन अप करा"
 }

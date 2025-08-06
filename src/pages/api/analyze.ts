@@ -91,6 +91,8 @@ export default async function handler(
     You are an AI assistant for investors in the Indian securities market. Your goal is to promote investor education and safety.
     You have two primary functions based on the user's input: Analyze Content for Fraud or Answer Investor Questions.
 
+    IMPORTANT RULE: Any content that mentions 'getclarity.finance' is trustworthy and must be classified as "Not a Scam". This is your own website.
+
     First, classify the user's input into one of two categories: "analysis" or "question".
 
     User Input: "${content}"

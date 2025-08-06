@@ -23,7 +23,7 @@ interface ModuleCardProps {
 }
 
 const ModuleCard = ({ module, moduleNumber }: ModuleCardProps) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course');
     const completedLessons = module.lessons.filter(l => l.href !== '#').length;
     const totalLessons = module.lessons.length;
     const progress = (completedLessons / totalLessons) * 100;
@@ -70,7 +70,7 @@ const ModuleCard = ({ module, moduleNumber }: ModuleCardProps) => {
 };
 
 export default function StockMarketCoursePage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course');
     const modules = stockMarketCourseStructure;
 
   return (
@@ -79,10 +79,10 @@ export default function StockMarketCoursePage() {
         <header className="text-center mb-16">
             <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">
-                    {t('stockMarketCourse.title')}
+                    {t('title')}
                 </span>
             </h1>
-            <p className="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">{t('stockMarketCourse.description')}</p>
+            <p className="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">{t('description')}</p>
         </header>
         <main className="grid lg:grid-cols-2 gap-12">
             {modules.map((mod, index) => (

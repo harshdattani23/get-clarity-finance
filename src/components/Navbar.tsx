@@ -20,13 +20,16 @@ const Navbar = () => {
               {t('analyzer')}
             </Link>
             <Link href="/investment-quiz" className="text-gray-600 hover:text-blue-600 transition-colors">
-              {t('investmentQuiz')}
+              {t('investorAssessment')}
             </Link>
             <Link href="/fraud-protection" className="text-gray-600 hover:text-blue-600 transition-colors">
               {t('fraudProtection')}
             </Link>
             <Link href="/stock-market-course" className="text-gray-600 hover:text-blue-600 transition-colors">
               {t('stockMarketCourse')}
+            </Link>
+            <Link href="/virtual-trading" className="text-gray-600 hover:text-blue-600 transition-colors">
+              {t('virtualTrading')}
             </Link>
           </nav>
            <div className="flex items-center gap-4">

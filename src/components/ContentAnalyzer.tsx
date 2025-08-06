@@ -54,18 +54,18 @@ export default function ContentAnalyzer() {
   }, [result]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-w-2xl mx-auto">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder={t('analyzer.placeholder')}
-        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        className="w-full p-4 bg-gray-900 text-gray-200 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-300"
         rows={6}
       />
       <button
         onClick={handleAnalyze}
         disabled={loading}
-        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed font-semibold w-full md:w-auto md:self-end transition duration-300 flex items-center justify-center gap-2"
+        className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed font-semibold w-full transition duration-300 flex items-center justify-center gap-2"
       >
         {loading ? (
           t('analyzer.button.loading')
@@ -77,28 +77,28 @@ export default function ContentAnalyzer() {
         )}
       </button>
 
-      <div className="mt-4" ref={resultsRef}>
-        {error && <p className="text-red-600 bg-red-100 p-3 rounded-lg text-center">{error}</p>}
+      <div className="mt-4 text-left" ref={resultsRef}>
+        {error && <p className="text-red-400 bg-red-900/50 p-3 rounded-lg text-center">{error}</p>}
         
         {result?.type === 'analysis' && (
-          <div className={`p-4 rounded-lg text-left border ${result.payload.isSuspicious ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
-            <h3 className={`text-lg font-bold flex items-center gap-2 ${result.payload.isSuspicious ? 'text-red-800' : 'text-green-800'}`}>
+          <div className={`p-4 rounded-lg border ${result.payload.isSuspicious ? 'bg-red-900/50 border-red-700' : 'bg-green-900/50 border-green-700'}`}>
+            <h3 className={`text-lg font-bold flex items-center gap-2 ${result.payload.isSuspicious ? 'text-red-400' : 'text-green-400'}`}>
               {result.payload.isSuspicious ? <ThumbsDown className="w-5 h-5" /> : <ThumbsUp className="w-5 h-5" />}
               {result.payload.isSuspicious ? t('analyzer.result.scam') : t('analyzer.result.safe')}
             </h3>
-            <div className="text-gray-700 mt-2 pl-7 prose prose-sm max-w-none">
+            <div className="text-gray-300 mt-2 pl-7 prose prose-sm max-w-none">
               <ReactMarkdown>{result.payload.reason}</ReactMarkdown>
             </div>
           </div>
         )}
 
         {result?.type === 'answer' && (
-          <div className="p-4 rounded-lg text-left bg-blue-50 border-blue-200">
-             <h3 className="text-lg font-bold flex items-center gap-2 text-blue-800">
+          <div className="p-4 rounded-lg bg-blue-900/50 border-blue-700">
+             <h3 className="text-lg font-bold flex items-center gap-2 text-blue-400">
                <Bot className="w-5 h-5" />
                {t('analyzer.result.aiAssistant')}
              </h3>
-             <div className="text-gray-800 mt-2 pl-7 prose prose-sm max-w-none">
+             <div className="text-gray-200 mt-2 pl-7 prose prose-sm max-w-none">
                 <ReactMarkdown>{result.payload.answer}</ReactMarkdown>
              </div>
           </div>

@@ -1,9 +1,10 @@
 {
-  "title": "গেট ক্ল্যারিটি ফাইন্যান্স",
+  "title": "Get Clarity Finance",
   "analyzer": "বিশ্লেষক",
-  "investmentQuiz": "বিনিয়োগ কুইজ",
+  "investorAssessment": "বিনিয়োগকারী মূল্যায়ন",
   "fraudProtection": "জালিয়াতি সুরক্ষা",
   "stockMarketCourse": "শেয়ার বাজার কোর্স",
+  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
   "signIn": "সাইন ইন করুন",
   "signUp": "সাইন আপ করুন"
 }

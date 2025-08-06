@@ -1,9 +1,10 @@
 {
-  "title": "கெட் கிளாரிட்டி ஃபைனான்ஸ்",
-  "analyzer": "பகுத்தாய்வி",
-  "investmentQuiz": "முதலீட்டு வினாடி வினா",
+  "title": "Get Clarity Finance",
+  "analyzer": "பகுப்பாய்வி",
+  "investorAssessment": "முதலீட்டாளர் மதிப்பீடு",
   "fraudProtection": "மோசடி பாதுகாப்பு",
   "stockMarketCourse": "பங்குச் சந்தை பாடநெறி",
+  "virtualTrading": "மெய்நிகர் வர்த்தகம்",
   "signIn": "உள்நுழைக",
   "signUp": "பதிவுபெறுக"
 }

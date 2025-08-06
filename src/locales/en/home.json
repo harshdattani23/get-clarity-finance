@@ -1,25 +1,23 @@
 {
-  "title": "Your Intelligent Investment Shield",
-  "subtitle": "Analyze suspicious content instantly, or ask our AI to explain investment concepts.",
-  "stockMarketCourse": {
-    "title": "Stock Market Course",
-    "description": "Learn the fundamentals of the stock market with our comprehensive, easy-to-understand course.",
-    "link": "Start Learning"
+  "heroTitle": {
+    "line1": "Navigate the Indian",
+    "line2": "Stock Market with Confidence"
   },
-  "investmentQuiz": {
-    "title": "Test Your Investment Knowledge",
-    "description": "Take our comprehensive quiz to assess your investment knowledge and fraud protection awareness.",
-    "link": "Start Quiz"
-  },
-  "about": {
-    "title": "About Get Clarity Finance",
-    "description": "This tool is an AI-powered shield to help you detect potential securities fraud. It is not a financial advisor. Always do your own research (DYOR)."
-  },
+  "heroSubtitle": "Your AI-powered guide for financial education, fraud detection, and virtual trading. Empowering Indian investors to make smarter, safer decisions.",
+  "heroButton": "Analyze Investment Advice",
+  "analyzerTitle": "Get Instant Clarity on Any Financial Message",
+  "feature1Title": "Comprehensive Stock Market Courses",
+  "feature1Description": "From the basics of Nifty and Sensex to advanced technical analysis, our courses are tailored for the Indian market.",
+  "feature2Title": "Investor Awareness Hub",
+  "feature2Description": "Stay informed about the latest regulations from SEBI, understand common investment scams, and learn to protect your portfolio.",
+  "feature3Title": "Virtual Trading Simulator",
+  "feature3Description": "Practice your trading strategies in a real-time simulated environment without risking any capital. Master the art of trading, risk-free.",
+  "learnMore": "Learn More",
   "analyzer": {
     "placeholder": "Paste suspicious content or ask a question, e.g., 'What is a mutual fund?'",
     "button": {
       "loading": "Thinking...",
-      "submit": "Submit"
+      "submit": "Analyze"
     },
     "error": {
       "noContent": "Please provide some content to analyze.",
