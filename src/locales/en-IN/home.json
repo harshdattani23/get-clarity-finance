@@ -1,11 +1,12 @@
 {
-  "heroTitle": {
-    "line1": "Indian Stock Market mein",
-    "line2": "Bharosa ke saath navigate karein"
+  "hero": {
+    "title": "Financial Clarity Jispe Aap Trust Kar Sakte Hain",
+    "subtitle": "Har stage of life ke liye trusted financial guidance. Aapka AI-powered guide financial education, fraud detection, aur virtual trading ke liye.",
+    "cta": "Financial Advice Analyze Karein"
   },
-  "heroSubtitle": "Financial education, fraud detection, aur virtual trading ke liye aapka AI-powered guide. Indian investors ko smarter, safer decisions lene mein empower karna.",
-  "heroButton": "Investment advice ko analyze karein",
-  "analyzerTitle": "Kisi bhi financial message par turant clarity paayein",
+  "services": {
+    "title": "Numbers humein handle karne dein, taaki aap apni success handle kar sakein."
+  },
   "feature1Title": "Comprehensive Stock Market Courses",
   "feature1Description": "Nifty aur Sensex ke basics se lekar advanced technical analysis tak, hamare courses Indian market ke liye taiyar kiye gaye hain.",
   "feature2Title": "Investor Awareness Hub",
@@ -13,6 +14,8 @@
   "feature3Title": "Virtual Trading Simulator",
   "feature3Description": "Bina kisi capital risk ke real-time simulated environment mein apni trading strategies practice karein. Risk-free trading ki kala mein master banein.",
   "learnMore": "Aur Jaanein",
+  "analyzerTitle": "Kisi bhi financial message par turant clarity paayein",
+  "heroSubtitle": "Financial education, fraud detection, aur virtual trading ke liye aapka AI-powered guide. Indian investors ko smarter, safer decisions lene mein empower karna.",
   "analyzer": {
     "placeholder": "Koi bhi suspicious content paste karein ya sawaal poochein, jaise, 'Mutual fund kya hai?'",
     "button": {

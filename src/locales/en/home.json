@@ -1,11 +1,12 @@
 {
-  "heroTitle": {
-    "line1": "Navigate the Indian",
-    "line2": "Stock Market with Confidence"
+  "hero": {
+    "title": "Financial Clarity You Can Trust",
+    "subtitle": "Trusted financial guidance for every stage of life. Your AI-powered guide for financial education, fraud detection, and virtual trading.",
+    "cta": "Analyze Financial Advice"
   },
-  "heroSubtitle": "Your AI-powered guide for financial education, fraud detection, and virtual trading. Empowering Indian investors to make smarter, safer decisions.",
-  "heroButton": "Analyze Investment Advice",
-  "analyzerTitle": "Get Instant Clarity on Any Financial Message",
+  "services": {
+    "title": "Let us handle the numbers, so you can handle your success."
+  },
   "feature1Title": "Comprehensive Stock Market Courses",
   "feature1Description": "From the basics of Nifty and Sensex to advanced technical analysis, our courses are tailored for the Indian market.",
   "feature2Title": "Investor Awareness Hub",
@@ -13,8 +14,10 @@
   "feature3Title": "Virtual Trading Simulator",
   "feature3Description": "Practice your trading strategies in a real-time simulated environment without risking any capital. Master the art of trading, risk-free.",
   "learnMore": "Learn More",
+  "analyzerTitle": "Get Instant Clarity on Any Financial Message",
+  "heroSubtitle": "Your AI-powered guide for financial education, fraud detection, and virtual trading. Empowering Indian investors to make smarter, safer decisions.",
   "analyzer": {
-    "placeholder": "Paste suspicious content or ask a question, e.g., 'What is a mutual fund?'",
+    "placeholder": "",
     "button": {
       "loading": "Thinking...",
       "submit": "Analyze"
