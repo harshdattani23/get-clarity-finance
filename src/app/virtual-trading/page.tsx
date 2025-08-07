@@ -8,6 +8,8 @@ import IndexTicker from '@/components/virtual-trading/IndexTicker';
 import ScrollingTicker from '@/components/virtual-trading/ScrollingTicker';
 import MarketFilters from '@/components/virtual-trading/MarketFilters';
 import Pagination from '@/components/virtual-trading/Pagination';
+import Tooltip from '@/components/virtual-trading/Tooltip';
+import AcknowledgementModal from '@/components/virtual-trading/AcknowledgementModal';
 import { allStocks } from '@/lib/trading-data';
 
 const ITEMS_PER_PAGE = 10;
@@ -76,33 +78,35 @@ export default function VirtualTradingPage() {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
+      <AcknowledgementModal />
       <IndexTicker />
       <ScrollingTicker />
       <div className="container mx-auto p-4">
-        <div className="bg-gray-800 border-l-4 border-yellow-500 text-yellow-200 p-4 mb-4" role="alert">
-          <p className="font-bold">Disclaimer</p>
-          <p>This virtual trading platform is for educational purposes only. All data is simulated and should not be used for real financial decisions.</p>
-        </div>
-        
         <h1 className="text-3xl font-bold mb-4">Virtual Trading Terminal</h1>
         
         <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Search for a stock..."
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
+          <Tooltip text="Search for stocks by name or ticker symbol (e.g., 'Reliance' or 'RELIANCE').">
+            <input
+              type="text"
+              placeholder="Search for a stock..."
+              className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+          </Tooltip>
         </div>
 
-        <MarketFilters onApplyFilters={handleApplyFilters} />
+        <Tooltip text="Filter stocks by market index or industry, and sort the results.">
+          <MarketFilters onApplyFilters={handleApplyFilters} />
+        </Tooltip>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
           <div className="lg:col-span-2">
-            <MarketView stocks={paginatedStocks} />
+            <Tooltip text="This is the main market view. Click on a stock to see more details and place a trade.">
+              <MarketView stocks={paginatedStocks} />
+            </Tooltip>
             <Pagination
               totalItems={filteredAndSortedStocks.length}
               itemsPerPage={ITEMS_PER_PAGE}
@@ -111,7 +115,9 @@ export default function VirtualTradingPage() {
             />
           </div>
           <div>
-            <PortfolioDashboard />
+            <Tooltip text="Your portfolio dashboard shows your virtual cash, holdings, and performance.">
+              <PortfolioDashboard />
+            </Tooltip>
           </div>
         </div>
       </div>

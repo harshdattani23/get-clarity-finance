@@ -1,15 +1,25 @@
 // src/components/virtual-trading/Tooltip.tsx
 import { ReactNode } from 'react';
 
-export default function Tooltip({ children, text }: { children: ReactNode; text: string }) {
+export default function Tooltip({ children, text, position = 'top' }: { children: ReactNode; text: string; position?: 'top' | 'bottom' | 'left' | 'right' }) {
+  const getPositionClasses = () => {
+    switch (position) {
+      case 'bottom':
+        return 'top-full mt-2';
+      case 'left':
+        return 'right-full mr-2';
+      case 'right':
+        return 'left-full ml-2';
+      default: // top
+        return 'bottom-full mb-2';
+    }
+  };
+
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center group">
       {children}
-      <div className="absolute left-0 bottom-full mb-2 w-48 bg-gray-700 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className={`absolute ${getPositionClasses()} w-48 bg-gray-700 text-white text-xs rounded py-1 px-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
         {text}
-        <svg className="absolute text-gray-700 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255">
-          <polygon className="fill-current" points="0,0 127.5,127.5 255,0"/>
-        </svg>
       </div>
     </div>
   );
