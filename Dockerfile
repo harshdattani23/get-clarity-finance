@@ -15,12 +15,15 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 COPY tsconfig.json .
 
-# Declare the build argument
+# Set build-time arguments
 ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-# Expose it as an environment variable
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ARG CLERK_SECRET_KEY
 
-ENV NEXT_TELEMETRY_DISABLED 1
+# Expose them as environment variables
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
@@ -28,8 +31,8 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create a non-root user for security
 RUN addgroup --system --gid 1001 nodejs
@@ -46,7 +49,7 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 
 # The `next start` command is replaced by running the server.js file from the standalone output
 CMD ["node", "server.js"]
