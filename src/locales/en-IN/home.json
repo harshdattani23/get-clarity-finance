@@ -1,36 +1,37 @@
 {
   "hero": {
-    "title": "Financial Clarity Jispe Aap Trust Kar Sakte Hain",
-    "subtitle": "Har stage of life ke liye trusted financial guidance. Aapka AI-powered guide financial education, fraud detection, aur virtual trading ke liye.",
-    "cta": "Financial Advice Analyze Karein"
+    "title": "Confidence ke saath invest karein. Clarity ke saath trade karein.",
+    "subtitle": "Financial fraud ke khilaaf aapka AI-powered shield. Invest karne se pehle seekhein, practice karein, aur verify karein. Modern Indian investor ke liye banaya gaya hai.",
+    "cta": "Ek message analyze karein",
+    "cta2": "Quiz Lein"
   },
   "services": {
-    "title": "Numbers humein handle karne dein, taaki aap apni success handle kar sakein."
+    "title": "Hamein numbers handle karne dein, taaki aap apni success handle kar sakein."
   },
   "feature1Title": "Comprehensive Stock Market Courses",
   "feature1Description": "Nifty aur Sensex ke basics se lekar advanced technical analysis tak, hamare courses Indian market ke liye taiyar kiye gaye hain.",
   "feature2Title": "Investor Awareness Hub",
-  "feature2Description": "SEBI ke latest regulations se update rahein, aam investment scams ko samjhein, aur apne portfolio ko protect karna seekhein.",
+  "feature2Description": "SEBI ke latest regulations ke baare mein informed rahein, aam investment scams ko samjhein, aur apne portfolio ko protect karna seekhein.",
   "feature3Title": "Virtual Trading Simulator",
   "feature3Description": "Bina kisi capital risk ke real-time simulated environment mein apni trading strategies practice karein. Risk-free trading ki kala mein master banein.",
   "learnMore": "Aur Jaanein",
   "analyzerTitle": "Kisi bhi financial message par turant clarity paayein",
   "heroSubtitle": "Financial education, fraud detection, aur virtual trading ke liye aapka AI-powered guide. Indian investors ko smarter, safer decisions lene mein empower karna.",
   "analyzer": {
-    "placeholder": "Koi bhi suspicious content paste karein ya sawaal poochein, jaise, 'Mutual fund kya hai?'",
+    "placeholder": "Fraud check karne ke liye koi bhi message, email, ya link yahan paste karein. Jaise ki: 'Badhai ho! Aapne ek inaam jeeta hai. Claim karne ke liye http://suspicious-link.com par click karein.' Hum aapke liye iska analysis karenge.",
     "button": {
       "loading": "Soch raha hai...",
       "submit": "Analyze Karein"
     },
     "error": {
-      "noContent": "Analyze karne ke liye कृपया kuch content provide karein.",
-      "analysisFailed": "Analysis ke dauran ek error aaya.",
-      "connectionFailed": "Analysis service se connect karne mein विफल."
+      "noContent": "Kripya analyze karne ke liye kuch content provide karein.",
+      "analysisFailed": "Analysis ke dauraan ek error hua.",
+      "connectionFailed": "Analysis service se connect hone mein fail hua."
     },
     "result": {
-      "scam": "Sambhavit Scam Pata Chala",
+      "scam": "Possible Scam Detect Hua",
       "safe": "Surakshit Lag Raha Hai",
-      "aiAssistant": "AI Assistant Ka Uttar"
+      "aiAssistant": "AI Assistant Ka Jawab"
     }
   }
 }

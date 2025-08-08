@@ -1,8 +1,9 @@
 {
   "hero": {
-    "title": "Financial Clarity You Can Trust",
-    "subtitle": "Trusted financial guidance for every stage of life. Your AI-powered guide for financial education, fraud detection, and virtual trading.",
-    "cta": "Analyze Financial Advice"
+    "title": "Invest with Confidence. Trade with Clarity.",
+    "subtitle": "Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor.",
+    "cta": "Analyze a message",
+    "cta2": "Take the Quiz"
   },
   "services": {
     "title": "Let us handle the numbers, so you can handle your success."
@@ -17,7 +18,7 @@
   "analyzerTitle": "Get Instant Clarity on Any Financial Message",
   "heroSubtitle": "Your AI-powered guide for financial education, fraud detection, and virtual trading. Empowering Indian investors to make smarter, safer decisions.",
   "analyzer": {
-    "placeholder": "",
+    "placeholder": "Paste any message, email, or link here to check for potential fraud. For example: 'Congratulations! You've won a prize. Click http://suspicious-link.com to claim.' We'll analyze it for you.",
     "button": {
       "loading": "Thinking...",
       "submit": "Analyze"

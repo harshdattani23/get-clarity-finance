@@ -33,18 +33,21 @@ export default function Home() {
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}
-      <section className="py-20 md:py-32 bg-gray-50 overflow-hidden">
-        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-left">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900">
+      <section className="bg-[#163300] text-white">
+        <div className="container mx-auto px-6 py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col items-start">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
               {t('hero.title')}
             </h1>
-            <p className="mt-6 text-lg text-gray-600">
+            <p className="mt-6 text-lg text-white/80">
               {t('hero.subtitle')}
             </p>
-            <div className="mt-10">
-              <Link href="#analyzer" className="bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="#analyzer" className="bg-lime-400 text-black font-semibold px-8 py-3 rounded-full hover:bg-lime-500 transition-colors">
                 {t('hero.cta')}
+              </Link>
+              <Link href="/investment-quiz" className="bg-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/30 transition-colors">
+                {t('hero.cta2')}
               </Link>
             </div>
           </div>
@@ -88,15 +91,6 @@ export default function Home() {
             </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6 text-center">
-            <p className="text-lg font-semibold">getclarity.finance</p>
-            <p className="mt-2 text-gray-400">{t('hero.subtitle')}</p>
-            <p className="mt-8 text-gray-500">&copy; {new Date().getFullYear()} All Rights Reserved</p>
-        </div>
-      </footer>
     </div>
   );
 }
