@@ -1,4 +1,4 @@
-# Dockerfile
+#syntax=docker/dockerfile:1.4
 
 # 1. Install dependencies
 FROM node:20-alpine AS deps
@@ -13,19 +13,17 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY tsconfig.json .
 
-# Set build-time arguments
+# Set build-time argument for the public key. This is safe as it's a public key.
 ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-ARG CLERK_SECRET_KEY
-
-# Expose them as environment variables
 ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+# Securely mount the secret key and run the build.
+# The secret is never stored in the image layers.
+RUN --mount=type=secret,id=clerk_secret_key \
+    export CLERK_SECRET_KEY=$(cat /run/secrets/clerk_secret_key) && npm run build
 
 # 3. Final image for production
 FROM node:20-alpine AS runner
@@ -52,4 +50,5 @@ EXPOSE 3000
 ENV PORT=3000
 
 # The `next start` command is replaced by running the server.js file from the standalone output
+# CLERK_SECRET_KEY should be provided as an environment variable at runtime, e.g. docker run -e CLERK_SECRET_KEY=...
 CMD ["node", "server.js"]
