@@ -48,3 +48,8 @@ gcp-credentials.json
 
 # Clerk
 .clerk
+
+/src/generated/prisma
+
+# Cloud SQL Proxy
+cloud-sql-proxy.exe

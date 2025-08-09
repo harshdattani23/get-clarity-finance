@@ -1,0 +1,35 @@
+steps:
+  # Build the Docker image, providing the Clerk Secret Key as a build-time secret
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--secret=id=clerk_secret_key,src=projects/$PROJECT_ID/secrets/CLERK_SECRET_KEY/versions/latest'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/my-app:latest'
+      - '.'
+    # This section is not strictly needed for build but good practice if other steps need it
+    availableSecrets:
+      secretManager:
+        - versionName: projects/$PROJECT_ID/secrets/CLERK_SECRET_KEY/versions/latest
+          env: 'CLERK_SECRET_KEY'
+
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/my-app:latest']
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'my-app-service' # Replace with your Cloud Run service name
+      - '--image=gcr.io/$PROJECT_ID/my-app:latest'
+      - '--region=us-central1' # Replace with your Cloud Run region
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      # This is the most important part for the RUNNING application.
+      # It securely mounts your secrets from Secret Manager into the running container.
+      - '--set-secrets=CLERK_SECRET_KEY=CLERK_SECRET_KEY:latest,DATABASE_URL=DATABASE_URL:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest,CLERK_WEBHOOK_SECRET=CLERK_WEBHOOK_SECRET:latest'
+images:
+  - 'gcr.io/$PROJECT_ID/my-app:latest'

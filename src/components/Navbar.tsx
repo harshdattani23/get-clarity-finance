@@ -6,6 +6,7 @@ import LanguageSelector from './i18n/LanguageSelector';
 import { useTranslation } from '@/hooks/useTranslation';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import ClientOnly from './ClientOnly';
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
@@ -57,18 +58,20 @@ const Navbar = () => {
               ))}
             </nav>
             <div className="flex items-center gap-4">
-              <LanguageSelector />
-              <SignedIn>
-                <UserButton afterSignOutUrl="/" />
-              </SignedIn>
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  className="px-4 py-2 rounded-full text-sm font-semibold text-white border border-neutral-200 hover:bg-white/10 transition-colors whitespace-nowrap"
-                >
-                  {t('signIn')}
-                </Link>
-              </SignedOut>
+              <ClientOnly>
+                <LanguageSelector />
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                  <Link
+                    href="/sign-in"
+                    className="px-4 py-2 rounded-full text-sm font-semibold text-white border border-neutral-200 hover:bg-white/10 transition-colors whitespace-nowrap"
+                  >
+                    {t('signIn')}
+                  </Link>
+                </SignedOut>
+              </ClientOnly>
             </div>
           </div>
 
@@ -100,19 +103,21 @@ const Navbar = () => {
               ))}
             </nav>
             <div className="border-t border-white/10 mt-4 pt-4 flex flex-col items-start gap-4">
-              <LanguageSelector />
-              <SignedIn>
-                <UserButton afterSignOutUrl="/" />
-              </SignedIn>
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
-                >
-                  {t('signIn')}
-                </Link>
-              </SignedOut>
+              <ClientOnly>
+                <LanguageSelector />
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                  <Link
+                    href="/sign-in"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+                  >
+                    {t('signIn')}
+                  </Link>
+                </SignedOut>
+              </ClientOnly>
             </div>
           </div>
         </div>

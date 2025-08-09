@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  clerkId              String                @id @unique
+  email                String                @unique
+  username             String?
+  investmentExperience InvestmentExperience?
+  phoneNumber          String?
+  city                 String?
+  state                String?
+  onboarded            Boolean               @default(false)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  courseProgress       CourseProgress[]
+  virtualPortfolio     VirtualPortfolio[]
+  virtualTrades        VirtualTrade[]
+}
+
+model CourseProgress {
+  id          Int          @id @default(autoincrement())
+  user        User         @relation(fields: [userClerkId], references: [clerkId])
+  userClerkId String
+  courseId    String
+  lessonId    String
+  status      CourseStatus @default(NOT_STARTED)
+  completedAt DateTime?
+
+  @@unique([userClerkId, courseId, lessonId])
+}
+
+model VirtualPortfolio {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userClerkId], references: [clerkId])
+  userClerkId  String
+  ticker       String
+  quantity     Int
+  averagePrice Decimal
+  updatedAt    DateTime @updatedAt
+
+  @@unique([userClerkId, ticker])
+}
+
+model VirtualTrade {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userClerkId], references: [clerkId])
+  userClerkId String
+  ticker      String
+  quantity    Int
+  price       Decimal
+  tradeType   TradeType
+  tradedAt    DateTime  @default(now())
+}
+
+enum InvestmentExperience {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CourseStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TradeType {
+  BUY
+  SELL
+}
