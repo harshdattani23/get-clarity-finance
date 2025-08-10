@@ -1,10 +1,24 @@
 import { NextResponse } from 'next/server';
-import { auth, clerkClient } from '@clerk/nextjs/server';
+import { clerkClient } from '@clerk/nextjs/server';
 import { db } from '@/lib/db';
 
-export async function GET() {
+async function getUserIdFromToken(request: Request) {
+  const token = request.headers.get('Authorization')?.split(' ')[1];
+  if (!token) {
+    return null;
+  }
   try {
-    const { userId } = auth();
+    const ticket = await clerkClient.verifyToken(token);
+    return ticket.sub;
+  } catch (error) {
+    console.error('Token verification failed:', error);
+    return null;
+  }
+}
+
+export async function GET(req: Request) {
+  try {
+    const userId = await getUserIdFromToken(req);
     if (!userId) {
       return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
@@ -21,7 +35,7 @@ export async function GET() {
 
 export async function PUT(req: Request) {
     try {
-        const { userId } = auth();
+        const userId = await getUserIdFromToken(req);
         if (!userId) {
             return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
         }
