@@ -20,6 +20,8 @@ ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN npx prisma generate
+
 # Securely mount the secret key and run the build.
 # The secret is never stored in the image layers.
 RUN --mount=type=secret,id=clerk_secret_key \
