@@ -4,6 +4,8 @@ steps:
     args:
       - 'build'
       - '--secret=id=clerk_secret_key,src=projects/$PROJECT_ID/secrets/CLERK_SECRET_KEY/versions/latest'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$(gcloud secrets versions access latest --secret=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY)'
       - '-t'
       - 'gcr.io/$PROJECT_ID/my-app:latest'
       - '.'
