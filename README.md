@@ -90,3 +90,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You're now ready to contribute!
+
+---
+*Note: A small change to trigger deployment.*
