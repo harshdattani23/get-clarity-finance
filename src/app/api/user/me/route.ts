@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server';
-import { clerkClient } from '@clerk/nextjs/server';
 import { db } from '@/lib/db';
+import { verifyToken } from '@clerk/backend';
+
+const SECRET_KEY = process.env.CLERK_SECRET_KEY;
 
 async function getUserIdFromToken(request: Request) {
   const token = request.headers.get('Authorization')?.split(' ')[1];
-  if (!token) {
+  if (!token || !SECRET_KEY) {
     return null;
   }
   try {
-    const ticket = await clerkClient.verifyToken(token);
-    return ticket.sub;
+    const claims = await verifyToken(token, { secretKey: SECRET_KEY });
+    return claims.sub;
   } catch (error) {
     console.error('Token verification failed:', error);
     return null;
@@ -40,11 +42,6 @@ export async function PUT(req: Request) {
             return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
         }
         const body = await req.json();
-        await clerkClient.users.updateUserMetadata(userId, {
-            publicMetadata: {
-                onboarded: true,
-            }
-        });
         const updatedUser = await db.user.update({
             where: { clerkId: userId },
             data: { ...body, onboarded: true },
