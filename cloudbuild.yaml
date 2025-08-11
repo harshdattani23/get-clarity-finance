@@ -29,7 +29,7 @@ steps:
       - '--region=us-central1' # Replace with your Cloud Run region
       - '--platform=managed'
       - '--allow-unauthenticated'
-      - '--set-env-vars=GEMINI_MODEL_NAME=gemini-1.5-flash'
+      - '--set-env-vars=GEMINI_MODEL_NAME=gemini-2.5-flash'
       - '--set-secrets=CLERK_SECRET_KEY=CLERK_SECRET_KEY:latest,DATABASE_URL=DATABASE_URL:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest,CLERK_WEBHOOK_SECRET=CLERK_WEBHOOK_SECRET:latest,NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:latest'
 images:
   - 'gcr.io/$PROJECT_ID/my-app:latest'
