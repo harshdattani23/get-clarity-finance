@@ -24,7 +24,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'my-app-service' # Replace with your Cloud Run service name
+      - 'sebi-verify'
       - '--image=gcr.io/$PROJECT_ID/my-app:latest'
       - '--region=us-central1' # Replace with your Cloud Run region
       - '--platform=managed'
