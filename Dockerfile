@@ -22,10 +22,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npx prisma generate
 
-# Securely mount the secret key and run the build.
-# The secret is never stored in the image layers.
-RUN --mount=type=secret,id=clerk_secret_key \
-    export CLERK_SECRET_KEY=$(cat /run/secrets/clerk_secret_key) && npm run build
+RUN npm run build
 
 # 3. Final image for production
 FROM node:20-alpine AS runner
