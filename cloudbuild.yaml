@@ -3,6 +3,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$(gcloud secrets versions access latest --secret=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY)'
       - '-t'
       - 'gcr.io/$PROJECT_ID/my-app:latest'
       - '.'
