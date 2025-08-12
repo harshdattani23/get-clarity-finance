@@ -2,6 +2,7 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   console.log('Webhook received');
@@ -49,7 +50,7 @@ export async function POST(req: Request) {
   console.log('Webhook event type:', eventType);
 
   if (eventType === 'user.created') {
-    const { id, email_addresses } = evt.data;
+    const { id, email_addresses, username } = evt.data;
     console.log('Processing user.created event for Clerk ID:', id);
     
     try {
@@ -57,6 +58,14 @@ export async function POST(req: Request) {
           data: {
               clerkId: id,
               email: email_addresses[0].email_address,
+              username: username,
+              watchlists: {
+                  create: [
+                      { name: "Watchlist 1" },
+                      { name: "Watchlist 2" },
+                      { name: "Watchlist 3" },
+                  ]
+              }
           }
       });
       console.log('User created in DB:', id);

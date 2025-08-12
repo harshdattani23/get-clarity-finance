@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import { allStocks, Stock } from '@/lib/trading-data';
 import TradeModal from './TradeModal';
-import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
@@ -40,17 +39,8 @@ export default function StockDetail({ ticker }: { ticker: string }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
   const [activeTab, setActiveTab] = useState('info');
-  const { addToWatchlist, removeFromWatchlist, portfolio } = usePortfolio();
 
   const stock = allStocks.find((s) => s.ticker === ticker);
-
-  const handleAddToWatchlist = (ticker: string) => {
-    if (!isSignedIn) {
-      router.push('/sign-in');
-    } else {
-      addToWatchlist(ticker);
-    }
-  };
 
   const handleOpenModal = (stock: Stock, type: 'buy' | 'sell') => {
     if (!isSignedIn) {
@@ -87,33 +77,27 @@ export default function StockDetail({ ticker }: { ticker: string }) {
       </div>
 
       <div className="mt-6 flex gap-4">
-        {portfolio.watchlist.includes(stock.ticker) ? (
+        {/* Removed watchlist button as per edit hint */}
+        <div className="flex gap-2">
           <button
-            onClick={() => removeFromWatchlist(stock.ticker)}
-            className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-bold"
+            onClick={() => {
+              setTradeType('buy');
+              setIsModalOpen(true);
+            }}
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full"
           >
-            In Watchlist
+            Buy
           </button>
-        ) : (
           <button
-            onClick={() => handleAddToWatchlist(stock.ticker)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold"
+            onClick={() => {
+              setTradeType('sell');
+              setIsModalOpen(true);
+            }}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded w-full"
           >
-            Add to Watchlist
+            Sell
           </button>
-        )}
-        <button
-          onClick={() => handleOpenModal(stock, 'buy')}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold"
-        >
-          Buy
-        </button>
-        <button
-          onClick={() => handleOpenModal(stock, 'sell')}
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold"
-        >
-          Sell
-        </button>
+        </div>
       </div>
 
       <div className="mt-8">

@@ -25,7 +25,7 @@ model User {
   courseProgress       CourseProgress[]
   holdings             PortfolioHolding[]
   virtualTrades        VirtualTrade[]
-  watchlist            Watchlist[]
+  watchlists           Watchlist[]
 }
 
 model CourseProgress {
@@ -64,14 +64,23 @@ model VirtualTrade {
 }
 
 model Watchlist {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userClerkId], references: [clerkId])
+  id        Int             @id @default(autoincrement())
+  name      String          @default("My Watchlist")
+  user      User            @relation(fields: [userClerkId], references: [clerkId])
   userClerkId String
-  ticker      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  items     WatchlistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
 
-  @@unique([userClerkId, ticker])
+model WatchlistItem {
+  id          Int       @id @default(autoincrement())
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id])
+  watchlistId Int
+  ticker      String
+  createdAt   DateTime  @default(now())
+
+  @@unique([watchlistId, ticker])
 }
 
 enum InvestmentExperience {

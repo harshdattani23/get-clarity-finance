@@ -26,7 +26,7 @@ export default function TradeModal({ stock, isOpen, onClose, initialTradeType }:
     onClose();
   };
 
-  const holding = portfolio.holdings.find(h => h.ticker === stock.ticker);
+  const holding = portfolio?.holdings.find(h => h.ticker === stock.ticker);
   const maxSellQuantity = holding ? holding.quantity : 0;
 
   if (!isOpen) return null;

@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,15 +11,36 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const watchlist = await db.watchlist.findMany({
+    let watchlists = await db.watchlist.findMany({
       where: {
         userClerkId: userId,
       },
+      include: {
+        items: true,
+      },
     });
 
-    return NextResponse.json(watchlist);
+    if (watchlists.length === 0) {
+      await db.watchlist.createMany({
+        data: [
+          { name: "Watchlist 1", userClerkId: userId },
+          { name: "Watchlist 2", userClerkId: userId },
+          { name: "Watchlist 3", userClerkId: userId },
+        ],
+      });
+      watchlists = await db.watchlist.findMany({
+        where: {
+          userClerkId: userId,
+        },
+        include: {
+          items: true,
+        },
+      });
+    }
+
+    return NextResponse.json(watchlists);
   } catch (error) {
-    console.error("[WATCHLIST_GET]", error);
+    console.error("[WATCHLISTS_GET]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -26,26 +48,58 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { userId } = await auth();
-    const { ticker } = await req.json();
-
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!ticker) {
-      return new NextResponse("Ticker is required", { status: 400 });
+    const userWatchlistCount = await db.watchlist.count({
+      where: { userClerkId: userId },
+    });
+
+    if (userWatchlistCount >= 3) {
+      return new NextResponse("You can only have a maximum of 3 watchlists.", {
+        status: 403,
+      });
     }
 
-    const watchlistItem = await db.watchlist.create({
+    const { name } = await req.json();
+
+    const watchlist = await db.watchlist.create({
       data: {
         userClerkId: userId,
-        ticker,
+        name: name || "My Watchlist",
       },
     });
 
-    return NextResponse.json(watchlistItem);
+    return NextResponse.json(watchlist);
   } catch (error) {
     console.error("[WATCHLIST_POST]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const { id, newName } = await req.json();
+
+    const watchlist = await db.watchlist.update({
+      where: {
+        id: id,
+        userClerkId: userId,
+      },
+      data: {
+        name: newName,
+      },
+    });
+
+    return NextResponse.json(watchlist);
+  } catch (error) {
+    console.error("[WATCHLIST_PATCH]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -53,22 +107,16 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { userId } = await auth();
-    const { ticker } = await req.json();
-
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!ticker) {
-      return new NextResponse("Ticker is required", { status: 400 });
-    }
+    const { id } = await req.json();
 
     await db.watchlist.delete({
       where: {
-        userClerkId_ticker: {
-          userClerkId: userId,
-          ticker,
-        },
+        id: id,
+        userClerkId: userId,
       },
     });
 

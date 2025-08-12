@@ -8,7 +8,7 @@ const config = {
   theme: {
     extend: {
       animation: {
-        'scrolling-ticker': 'scrolling-ticker 120s linear infinite',
+        'scrolling-ticker': 'scrolling-ticker 600s linear infinite',
       },
     },
   },

@@ -8,29 +8,31 @@ import { Stock } from '@/lib/trading-data';
 import TradeModal from './TradeModal';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import Tooltip from './Tooltip';
+import AddToWatchlistModal from './AddToWatchlistModal';
 
-export default function MarketView({ stocks }: { stocks: Stock[] }) {
+interface MarketViewProps {
+  stocks: Stock[];
+}
+
+export default function MarketView({ stocks }: MarketViewProps) {
   const { isSignedIn } = useUser();
   const router = useRouter();
-  const { addToWatchlist, removeFromWatchlist, portfolio } = usePortfolio();
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [tradeModalOpen, setTradeModalOpen] = useState(false);
+  const [addToWatchlistModalOpen, setAddToWatchlistModalOpen] = useState(false);
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
+  const { buyStock, sellStock } = usePortfolio();
 
-  const handleAddToWatchlist = (ticker: string) => {
+  const handleTrade = (ticker: string, quantity: number, price: number, type: 'buy' | 'sell') => {
     if (!isSignedIn) {
       router.push('/sign-in');
     } else {
-      addToWatchlist(ticker);
-    }
-  };
-
-  const handleRemoveFromWatchlist = async (ticker: string) => {
-    if (!isSignedIn) {
-      router.push('/sign-in');
-    } else {
-      await removeFromWatchlist(ticker);
+      if (type === 'buy') {
+        buyStock(ticker, quantity, price);
+      } else {
+        sellStock(ticker, quantity, price);
+      }
     }
   };
 
@@ -40,13 +42,18 @@ export default function MarketView({ stocks }: { stocks: Stock[] }) {
     } else {
       setSelectedStock(stock);
       setTradeType(type);
-      setIsModalOpen(true);
+      setTradeModalOpen(true);
     }
   };
 
   const handleCloseModal = () => {
     setSelectedStock(null);
-    setIsModalOpen(false);
+    setTradeModalOpen(false);
+  };
+
+  const openAddToWatchlistModal = (stock: Stock) => {
+    setSelectedStock(stock);
+    setAddToWatchlistModalOpen(true);
   };
 
   return (
@@ -64,25 +71,16 @@ export default function MarketView({ stocks }: { stocks: Stock[] }) {
                 Change: {stock.change.toFixed(2)}%
               </p>
               <p>Market Cap: {stock.marketCap}</p>
-              <p>Industry: {stock.industry}</p>
-              <p className="text-xs text-gray-400">{stock.indices.join(', ')}</p>
+              <p className="text-gray-400">Industry: {stock.industry}</p>
+              <p className="text-gray-400 text-sm mt-1">{stock.indices.join(', ')}</p>
             </div>
             <div className="mt-4 flex flex-col gap-2">
-              {portfolio.watchlist.includes(stock.ticker) ? (
-                <button
-                  onClick={() => handleRemoveFromWatchlist(stock.ticker)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded w-full"
-                >
-                  In Watchlist
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleAddToWatchlist(stock.ticker)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full"
-                >
-                  Add to Watchlist
-                </button>
-              )}
+              <button
+                onClick={() => openAddToWatchlistModal(stock)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full"
+              >
+                Add to Watchlist
+              </button>
               <div className="flex gap-2">
                 <button
                   onClick={() => handleOpenModal(stock, 'buy')}
@@ -104,9 +102,16 @@ export default function MarketView({ stocks }: { stocks: Stock[] }) {
       {selectedStock && (
         <TradeModal
           stock={selectedStock}
-          isOpen={isModalOpen}
+          isOpen={tradeModalOpen}
           onClose={handleCloseModal}
           initialTradeType={tradeType}
+        />
+      )}
+      {selectedStock && (
+        <AddToWatchlistModal
+            isOpen={addToWatchlistModalOpen}
+            onClose={() => setAddToWatchlistModalOpen(false)}
+            ticker={selectedStock.ticker}
         />
       )}
     </div>

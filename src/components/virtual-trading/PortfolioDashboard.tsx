@@ -11,7 +11,7 @@ import SellModal from './SellModal';
 
 export default function PortfolioDashboard() {
   const { isSignedIn } = useUser();
-  const { portfolio, removeFromWatchlist, sellStock } = usePortfolio();
+  const { portfolio, sellStock } = usePortfolio();
   const [sellModalOpen, setSellModalOpen] = useState(false);
   const [stockToSell, setStockToSell] = useState<{ ticker: string; quantity: number } | null>(null);
 
@@ -142,36 +142,6 @@ export default function PortfolioDashboard() {
                 )}
               </tbody>
             </table>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold mb-2">Watchlist</h3>
-          <div className="bg-gray-700 rounded-lg p-4">
-            {portfolio.watchlist.length > 0 ? (
-              <ul>
-                {portfolio.watchlist.map((ticker) => {
-                  const stock = allStocks.find(s => s.ticker === ticker);
-                  const isOwned = portfolio.holdings.some(h => h.ticker === ticker);
-                  return (
-                    <li key={ticker} className="flex justify-between items-center py-2">
-                      <div>
-                        <span className="font-semibold">{ticker}</span>
-                        {isOwned && <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-1 rounded-full">Owned</span>}
-                        {stock && <span className="text-gray-400 ml-4">₹{stock.price.toFixed(2)}</span>}
-                      </div>
-                      <button
-                        onClick={() => removeFromWatchlist(ticker)}
-                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded"
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="text-gray-400">Your watchlist is empty.</p>
-            )}
           </div>
         </div>
       </div>
