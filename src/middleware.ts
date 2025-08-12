@@ -9,6 +9,9 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, req) => {
+  // Log the Clerk User ID for debugging purposes
+  console.log('Middleware Check - Clerk User ID:', auth().userId);
+
   if (!isPublicRoute(req) && isProtectedRoute(req)) {
     auth.protect();
   }
