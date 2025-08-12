@@ -1,15 +1,19 @@
 // src/components/virtual-trading/PortfolioDashboard.tsx
 'use client';
 
+import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { allStocks } from '@/lib/trading-data';
 import { Stock } from '@/lib/trading-data';
 import Link from 'next/link';
+import SellModal from './SellModal';
 
 export default function PortfolioDashboard() {
   const { isSignedIn } = useUser();
-  const { portfolio, removeFromWatchlist } = usePortfolio();
+  const { portfolio, removeFromWatchlist, sellStock } = usePortfolio();
+  const [sellModalOpen, setSellModalOpen] = useState(false);
+  const [stockToSell, setStockToSell] = useState<{ ticker: string; quantity: number } | null>(null);
 
   if (!portfolio) {
     return (
@@ -20,12 +24,36 @@ export default function PortfolioDashboard() {
     );
   }
 
+  const handleSellClick = (ticker: string, quantity: number) => {
+    setStockToSell({ ticker, quantity });
+    setSellModalOpen(true);
+  };
+
+  const handleSellConfirm = (sellQuantity: number) => {
+    if (stockToSell) {
+      const stock = allStocks.find((s) => s.ticker === stockToSell.ticker);
+      if (stock) {
+        sellStock(stockToSell.ticker, sellQuantity, stock.price);
+      }
+    }
+  };
+
+  const getStockPrice = (ticker: string) => {
+    const stock = allStocks.find((s) => s.ticker === ticker);
+    return stock ? stock.price : 0;
+  };
+
   const totalHoldingsValue = portfolio.holdings.reduce((acc, holding) => {
-    // @ts-ignore
-    return acc + holding.quantity * holding.averagePrice;
+    return acc + holding.quantity * getStockPrice(holding.ticker);
   }, 0);
 
   const totalPortfolioValue = portfolio.cash + totalHoldingsValue;
+
+  const totalInvestmentValue = portfolio.holdings.reduce((acc, holding) => {
+    return acc + holding.quantity * holding.averagePrice;
+  }, 0);
+  
+  const totalPL = totalHoldingsValue - totalInvestmentValue;
 
   if (!isSignedIn) {
     return (
@@ -45,7 +73,7 @@ export default function PortfolioDashboard() {
   return (
     <div className="bg-gray-800 p-4 rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Portfolio Dashboard</h2>
-      <div className="grid grid-cols-1 gap-4 mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="bg-gray-700 p-4 rounded-lg">
           <h3 className="font-semibold">Virtual Cash</h3>
           <p>₹{portfolio.cash.toFixed(2)}</p>
@@ -58,64 +86,105 @@ export default function PortfolioDashboard() {
           <h3 className="font-semibold">Total Portfolio Value</h3>
           <p>₹{totalPortfolioValue.toFixed(2)}</p>
         </div>
+        <div className="bg-gray-700 p-4 rounded-lg">
+          <h3 className="font-semibold">Total P/L</h3>
+          <p className={totalPL >= 0 ? 'text-green-500' : 'text-red-500'}>
+            {totalPL.toFixed(2)}
+          </p>
+        </div>
       </div>
 
-      <h3 className="text-xl font-bold mb-2">Holdings</h3>
-      <div className="bg-gray-700 rounded-lg overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-600">
-          <thead className="bg-gray-600">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Stock</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Quantity</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Average Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Current Value</th>
-            </tr>
-          </thead>
-          <tbody className="bg-gray-700 divide-y divide-gray-600">
-            {portfolio.holdings.length > 0 ? (
-              portfolio.holdings.map((holding) => (
-                <tr key={holding.ticker}>
-                  <td className="px-6 py-4 whitespace-nowrap">{holding.ticker}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{holding.quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">₹{holding.averagePrice.toFixed(2)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">₹{(holding.quantity * holding.averagePrice).toFixed(2)}</td>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+          <h3 className="text-xl font-bold mb-2">Holdings</h3>
+          <div className="bg-gray-700 rounded-lg overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-600">
+              <thead className="bg-gray-600">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Stock</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Quantity</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Average Price</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Current Value</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">P/L</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                 </tr>
-              ))
+              </thead>
+              <tbody className="bg-gray-700 divide-y divide-gray-600">
+                {portfolio.holdings.length > 0 ? (
+                  portfolio.holdings.map((holding) => {
+                    const currentValue = holding.quantity * getStockPrice(holding.ticker);
+                    const investmentValue = holding.quantity * holding.averagePrice;
+                    const pl = currentValue - investmentValue;
+                    return (
+                      <tr key={holding.ticker}>
+                        <td className="px-6 py-4 whitespace-nowrap">{holding.ticker}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{holding.quantity}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">₹{holding.averagePrice.toFixed(2)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">₹{currentValue.toFixed(2)}</td>
+                        <td className={`px-6 py-4 whitespace-nowrap ${pl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {pl.toFixed(2)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button
+                            onClick={() => handleSellClick(holding.ticker, holding.quantity)}
+                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                          >
+                            Sell
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-4 text-center text-gray-400">No holdings yet.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold mb-2">Watchlist</h3>
+          <div className="bg-gray-700 rounded-lg p-4">
+            {portfolio.watchlist.length > 0 ? (
+              <ul>
+                {portfolio.watchlist.map((ticker) => {
+                  const stock = allStocks.find(s => s.ticker === ticker);
+                  const isOwned = portfolio.holdings.some(h => h.ticker === ticker);
+                  return (
+                    <li key={ticker} className="flex justify-between items-center py-2">
+                      <div>
+                        <span className="font-semibold">{ticker}</span>
+                        {isOwned && <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-1 rounded-full">Owned</span>}
+                        {stock && <span className="text-gray-400 ml-4">₹{stock.price.toFixed(2)}</span>}
+                      </div>
+                      <button
+                        onClick={() => removeFromWatchlist(ticker)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
             ) : (
-              <tr>
-                <td colSpan={4} className="px-6 py-4 text-center text-gray-400">No holdings yet.</td>
-              </tr>
+              <p className="text-gray-400">Your watchlist is empty.</p>
             )}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
 
-      <h3 className="text-xl font-bold mt-4 mb-2">Watchlist</h3>
-      <div className="bg-gray-700 rounded-lg p-4">
-        {portfolio.watchlist.length > 0 ? (
-          <ul>
-            {portfolio.watchlist.map((ticker) => {
-              const stock = allStocks.find(s => s.ticker === ticker);
-              return (
-                <li key={ticker} className="flex justify-between items-center py-2">
-                  <div>
-                    <span className="font-semibold">{ticker}</span>
-                    {stock && <span className="text-gray-400 ml-4">₹{stock.price.toFixed(2)}</span>}
-                  </div>
-                  <button
-                    onClick={() => removeFromWatchlist(ticker)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded"
-                  >
-                    Remove
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="text-gray-400">Your watchlist is empty.</p>
-        )}
-      </div>
+      {stockToSell && (
+        <SellModal
+          isOpen={sellModalOpen}
+          onClose={() => setSellModalOpen(false)}
+          onConfirm={handleSellConfirm}
+          ticker={stockToSell.ticker}
+          maxQuantity={stockToSell.quantity}
+        />
+      )}
     </div>
   );
 }

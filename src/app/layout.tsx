@@ -4,7 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs';
+import { ToastProvider } from '@/contexts/ToastContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <LanguageProvider>
           <html lang="en">
             <body className={`${inter.className} bg-gray-50 text-gray-800`}>
+                <ToastProvider />
                 <Navbar />
                 <main className="min-h-screen">
                   {children}

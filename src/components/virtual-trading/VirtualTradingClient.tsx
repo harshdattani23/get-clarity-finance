@@ -15,6 +15,7 @@ import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
 const ITEMS_PER_PAGE = 10;
 
 export default function VirtualTradingClient() {
+  const [activeTab, setActiveTab] = useState('market');
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilters, setActiveFilters] = useState<{ index?: string; industry?: string }>({});
   const [activeSort, setActiveSort] = useState({ key: 'name', order: 'asc' });
@@ -85,42 +86,60 @@ export default function VirtualTradingClient() {
         <div className="container mx-auto p-4">
           <h1 className="text-3xl font-bold mb-4">Virtual Trading Terminal</h1>
           
-          <div className="mb-4">
-            <Tooltip text="Search for stocks by name or ticker symbol (e.g., 'Reliance' or 'RELIANCE').">
-              <input
-                type="text"
-                placeholder="Search for a stock..."
-                className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-              />
-            </Tooltip>
+          <div className="flex border-b border-gray-700 mb-4">
+            <button
+              className={`px-4 py-2 text-lg font-semibold ${activeTab === 'market' ? 'border-b-2 border-blue-500 text-white' : 'text-gray-400'}`}
+              onClick={() => setActiveTab('market')}
+            >
+              Market
+            </button>
+            <button
+              className={`px-4 py-2 text-lg font-semibold ${activeTab === 'portfolio' ? 'border-b-2 border-blue-500 text-white' : 'text-gray-400'}`}
+              onClick={() => setActiveTab('portfolio')}
+            >
+              Portfolio
+            </button>
           </div>
 
-          <Tooltip text="Filter stocks by market index or industry, and sort the results.">
-            <MarketFilters onApplyFilters={handleApplyFilters} />
-          </Tooltip>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-            <div className="lg:col-span-2">
-              <Tooltip text="This is the main market view. Click on a stock to see more details and place a trade.">
-                <MarketView stocks={paginatedStocks} />
+          {activeTab === 'market' && (
+            <div>
+              <div className="mb-4">
+                <Tooltip text="Search for stocks by name or ticker symbol (e.g., 'Reliance' or 'RELIANCE').">
+                  <input
+                    type="text"
+                    placeholder="Search for a stock..."
+                    className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </Tooltip>
+              </div>
+              <Tooltip text="Filter stocks by market index or industry, and sort the results.">
+                <MarketFilters onApplyFilters={handleApplyFilters} />
               </Tooltip>
-              <Pagination
-                totalItems={filteredAndSortedStocks.length}
-                itemsPerPage={ITEMS_PER_PAGE}
-                currentPage={currentPage}
-                onPageChange={setCurrentPage}
-              />
+              <div className="mt-4">
+                <Tooltip text="This is the main market view. Click on a stock to see more details and place a trade.">
+                  <MarketView stocks={paginatedStocks} />
+                </Tooltip>
+                <Pagination
+                  totalItems={filteredAndSortedStocks.length}
+                  itemsPerPage={ITEMS_PER_PAGE}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
             </div>
+          )}
+
+          {activeTab === 'portfolio' && (
             <div>
               <Tooltip text="Your portfolio dashboard shows your virtual cash, holdings, and performance.">
                 <PortfolioDashboard />
               </Tooltip>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </PortfolioProvider>

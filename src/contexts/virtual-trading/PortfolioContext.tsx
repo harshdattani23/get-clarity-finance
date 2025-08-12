@@ -4,6 +4,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Stock } from '@/lib/trading-data';
 import { useUser } from '@clerk/nextjs';
+import toast from 'react-hot-toast';
 
 interface Holding {
   ticker: string;
@@ -79,111 +80,144 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   }, [isSignedIn]);
 
   const buyStock = async (ticker: string, quantity: number, price: number) => {
-    try {
-      const response = await fetch('/api/trade', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ticker, quantity, price, tradeType: 'BUY' }),
-      });
+    if (!portfolio) {
+      toast.error("Portfolio not loaded yet.");
+      return;
+    }
 
-      if (response.ok) {
-        // Optimistically update the UI
-        const cost = quantity * price;
-        setPortfolio((prev) => {
-          const existingHolding = prev.holdings.find((h) => h.ticker === ticker);
-          let newHoldings;
-          if (existingHolding) {
-            newHoldings = prev.holdings.map((h) =>
-              h.ticker === ticker ? { ...h, quantity: h.quantity + quantity } : h
-            );
-          } else {
-            newHoldings = [...prev.holdings, { ticker, quantity, averagePrice: price }];
-          }
-          return {
-            ...prev,
-            cash: prev.cash - cost,
-            holdings: newHoldings,
-          };
-        });
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to buy stock: ${errorData.message}`);
-      }
-    } catch (error) {
-      console.error('Failed to buy stock', error);
-      alert('An error occurred while buying the stock.');
+    const cost = quantity * price;
+    if (portfolio.cash < cost) {
+      toast.error("Insufficient funds to complete this transaction.");
+      return;
+    }
+
+    const promise = fetch('/api/trade', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticker, quantity, price, tradeType: 'BUY' }),
+    });
+
+    toast.promise(promise, {
+      loading: 'Processing transaction...',
+      success: 'Successfully purchased stock!',
+      error: (err) => `Failed to buy stock: ${err.message}`,
+    });
+
+    const response = await promise;
+    if (response.ok) {
+      // Optimistically update the UI
+      const cost = quantity * price;
+      setPortfolio((prev) => {
+        if (!prev) return prev;
+        const existingHolding = prev.holdings.find((h) => h.ticker === ticker);
+        let newHoldings;
+        if (existingHolding) {
+          newHoldings = prev.holdings.map((h) =>
+            h.ticker === ticker ? { ...h, quantity: h.quantity + quantity } : h
+          );
+        } else {
+          newHoldings = [...prev.holdings, { ticker, quantity, averagePrice: price }];
+        }
+
+        const newWatchlist = prev.watchlist.includes(ticker)
+          ? prev.watchlist
+          : [...prev.watchlist, ticker];
+
+        return {
+          ...prev,
+          cash: prev.cash - cost,
+          holdings: newHoldings,
+          watchlist: newWatchlist,
+        };
+      });
     }
   };
 
   const sellStock = async (ticker: string, quantity: number, price: number) => {
-    try {
-      const response = await fetch('/api/trade', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ticker, quantity, price, tradeType: 'SELL' }),
-      });
+    const promise = fetch('/api/trade', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticker, quantity, price, tradeType: 'SELL' }),
+    });
 
-      if (response.ok) {
-        // Optimistically update the UI
-        const revenue = quantity * price;
-        setPortfolio((prev) => ({
+    toast.promise(promise, {
+      loading: 'Processing transaction...',
+      success: 'Successfully sold stock!',
+      error: (err) => `Failed to sell stock: ${err.message}`,
+    });
+
+    const response = await promise;
+    if (response.ok) {
+      // Optimistically update the UI
+      const revenue = quantity * price;
+      setPortfolio((prev) => {
+        if (!prev) return prev;
+        return {
           ...prev,
           cash: prev.cash + revenue,
           holdings: prev.holdings.map((h) =>
             h.ticker === ticker ? { ...h, quantity: h.quantity - quantity } : h
           ).filter(h => h.quantity > 0),
-        }));
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to sell stock: ${errorData.message}`);
-      }
-    } catch (error) {
-      console.error('Failed to sell stock', error);
-      alert('An error occurred while selling the stock.');
+        };
+      });
     }
   };
 
   const addToWatchlist = async (ticker: string) => {
-    try {
-      const response = await fetch('/api/watchlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ticker }),
-      });
-      if (response.ok) {
-        setPortfolio((prev) => ({
+    const promise = fetch('/api/watchlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticker }),
+    });
+
+    toast.promise(promise, {
+        loading: 'Adding to watchlist...',
+        success: 'Successfully added to watchlist!',
+        error: 'Failed to add to watchlist',
+    });
+    
+    const response = await promise;
+    if (response.ok) {
+      setPortfolio((prev) => {
+        if (!prev) return prev;
+        return {
           ...prev,
           watchlist: [...prev.watchlist, ticker],
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to add to watchlist', error);
+        }
+      });
     }
   };
 
   const removeFromWatchlist = async (ticker: string) => {
-    try {
-      const response = await fetch('/api/watchlist', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ticker }),
-      });
-      if (response.ok) {
-        setPortfolio((prev) => ({
+    const promise = fetch('/api/watchlist', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticker }),
+    });
+
+    toast.promise(promise, {
+        loading: 'Removing from watchlist...',
+        success: 'Successfully removed from watchlist!',
+        error: 'Failed to remove from watchlist',
+    });
+
+    const response = await promise;
+    if (response.ok) {
+      setPortfolio((prev) => {
+        if (!prev) return prev;
+        return {
           ...prev,
           watchlist: prev.watchlist.filter((t) => t !== ticker),
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to remove from watchlist', error);
+        }
+      });
     }
   };
 
