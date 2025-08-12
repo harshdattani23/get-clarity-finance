@@ -11,13 +11,18 @@ export default function PortfolioDashboard() {
   const { isSignedIn } = useUser();
   const { portfolio, removeFromWatchlist } = usePortfolio();
 
-  const getStockPrice = (ticker: string) => {
-    const stock = allStocks.find((s) => s.ticker === ticker);
-    return stock ? stock.price : 0;
-  };
+  if (!portfolio) {
+    return (
+      <div className="bg-gray-800 p-8 rounded-lg text-center">
+        <h2 className="text-2xl font-bold mb-4">Portfolio Dashboard</h2>
+        <p className="text-gray-400">Loading portfolio...</p>
+      </div>
+    );
+  }
 
   const totalHoldingsValue = portfolio.holdings.reduce((acc, holding) => {
-    return acc + holding.quantity * getStockPrice(holding.ticker);
+    // @ts-ignore
+    return acc + holding.quantity * holding.averagePrice;
   }, 0);
 
   const totalPortfolioValue = portfolio.cash + totalHoldingsValue;
@@ -62,6 +67,7 @@ export default function PortfolioDashboard() {
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Stock</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Quantity</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Average Price</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Current Value</th>
             </tr>
           </thead>
@@ -71,12 +77,13 @@ export default function PortfolioDashboard() {
                 <tr key={holding.ticker}>
                   <td className="px-6 py-4 whitespace-nowrap">{holding.ticker}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{holding.quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">₹{(holding.quantity * getStockPrice(holding.ticker)).toFixed(2)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₹{holding.averagePrice.toFixed(2)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₹{(holding.quantity * holding.averagePrice).toFixed(2)}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={3} className="px-6 py-4 text-center text-gray-400">No holdings yet.</td>
+                <td colSpan={4} className="px-6 py-4 text-center text-gray-400">No holdings yet.</td>
               </tr>
             )}
           </tbody>

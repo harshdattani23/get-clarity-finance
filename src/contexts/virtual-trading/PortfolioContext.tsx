@@ -8,6 +8,7 @@ import { useUser } from '@clerk/nextjs';
 interface Holding {
   ticker: string;
   quantity: number;
+  averagePrice: number;
 }
 
 interface Portfolio {
@@ -35,6 +36,27 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
+    const fetchPortfolio = async () => {
+      if (isSignedIn) {
+        try {
+          const response = await fetch('/api/portfolio');
+          if (response.ok) {
+            const data = await response.json();
+            setPortfolio((prev) => ({
+              ...prev,
+              cash: parseFloat(data.virtualCash),
+              holdings: data.holdings.map((h: any) => ({
+                ...h,
+                averagePrice: parseFloat(h.averagePrice),
+              })),
+            }));
+          }
+        } catch (error) {
+          console.error('Failed to fetch portfolio', error);
+        }
+      }
+    };
+
     const fetchWatchlist = async () => {
       if (isSignedIn) {
         try {
@@ -52,46 +74,76 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       }
     };
 
+    fetchPortfolio();
     fetchWatchlist();
   }, [isSignedIn]);
 
-  const buyStock = (ticker: string, quantity: number, price: number) => {
-    const cost = quantity * price;
-    if (portfolio.cash >= cost) {
-      setPortfolio((prev) => {
-        const existingHolding = prev.holdings.find((h) => h.ticker === ticker);
-        let newHoldings;
-        if (existingHolding) {
-          newHoldings = prev.holdings.map((h) =>
-            h.ticker === ticker ? { ...h, quantity: h.quantity + quantity } : h
-          );
-        } else {
-          newHoldings = [...prev.holdings, { ticker, quantity }];
-        }
-        return {
-          ...prev,
-          cash: prev.cash - cost,
-          holdings: newHoldings,
-        };
+  const buyStock = async (ticker: string, quantity: number, price: number) => {
+    try {
+      const response = await fetch('/api/trade', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ticker, quantity, price, tradeType: 'BUY' }),
       });
-    } else {
-      alert('Not enough cash to buy!');
+
+      if (response.ok) {
+        // Optimistically update the UI
+        const cost = quantity * price;
+        setPortfolio((prev) => {
+          const existingHolding = prev.holdings.find((h) => h.ticker === ticker);
+          let newHoldings;
+          if (existingHolding) {
+            newHoldings = prev.holdings.map((h) =>
+              h.ticker === ticker ? { ...h, quantity: h.quantity + quantity } : h
+            );
+          } else {
+            newHoldings = [...prev.holdings, { ticker, quantity, averagePrice: price }];
+          }
+          return {
+            ...prev,
+            cash: prev.cash - cost,
+            holdings: newHoldings,
+          };
+        });
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to buy stock: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Failed to buy stock', error);
+      alert('An error occurred while buying the stock.');
     }
   };
 
-  const sellStock = (ticker: string, quantity: number, price: number) => {
-    const existingHolding = portfolio.holdings.find((h) => h.ticker === ticker);
-    if (existingHolding && existingHolding.quantity >= quantity) {
-      const revenue = quantity * price;
-      setPortfolio((prev) => ({
-        ...prev,
-        cash: prev.cash + revenue,
-        holdings: prev.holdings.map((h) =>
-          h.ticker === ticker ? { ...h, quantity: h.quantity - quantity } : h
-        ).filter(h => h.quantity > 0),
-      }));
-    } else {
-      alert('Not enough stock to sell!');
+  const sellStock = async (ticker: string, quantity: number, price: number) => {
+    try {
+      const response = await fetch('/api/trade', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ticker, quantity, price, tradeType: 'SELL' }),
+      });
+
+      if (response.ok) {
+        // Optimistically update the UI
+        const revenue = quantity * price;
+        setPortfolio((prev) => ({
+          ...prev,
+          cash: prev.cash + revenue,
+          holdings: prev.holdings.map((h) =>
+            h.ticker === ticker ? { ...h, quantity: h.quantity - quantity } : h
+          ).filter(h => h.quantity > 0),
+        }));
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to sell stock: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Failed to sell stock', error);
+      alert('An error occurred while selling the stock.');
     }
   };
 

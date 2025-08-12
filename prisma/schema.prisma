@@ -14,17 +14,18 @@ datasource db {
 }
 
 model User {
-  clerkId             String              @id @unique
-  email               String              @unique
-  username            String?
+  clerkId              String               @id @unique
+  email                String               @unique
+  username             String?
   investmentExperience InvestmentExperience?
-  onboarded           Boolean             @default(false)
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  courseProgress      CourseProgress[]
-  virtualPortfolio    VirtualPortfolio[]
-  virtualTrades       VirtualTrade[]
-  watchlist           Watchlist[]
+  onboarded            Boolean              @default(false)
+  virtualCash          Decimal              @default(100000.00)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  courseProgress       CourseProgress[]
+  holdings             PortfolioHolding[]
+  virtualTrades        VirtualTrade[]
+  watchlist            Watchlist[]
 }
 
 model CourseProgress {
@@ -39,14 +40,14 @@ model CourseProgress {
   @@unique([userClerkId, courseId, lessonId])
 }
 
-model VirtualPortfolio {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userClerkId], references: [clerkId])
-  userClerkId String
-  ticker      String
-  quantity    Int
+model PortfolioHolding {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userClerkId], references: [clerkId])
+  userClerkId  String
+  ticker       String
+  quantity     Int
   averagePrice Decimal
-  updatedAt   DateTime @updatedAt
+  updatedAt    DateTime @updatedAt
 
   @@unique([userClerkId, ticker])
 }
