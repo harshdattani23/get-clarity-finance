@@ -1,11 +1,14 @@
 // src/components/virtual-trading/PortfolioDashboard.tsx
 'use client';
 
+import { useUser } from '@clerk/nextjs';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { allStocks } from '@/lib/trading-data';
 import { Stock } from '@/lib/trading-data';
+import Link from 'next/link';
 
 export default function PortfolioDashboard() {
+  const { isSignedIn } = useUser();
   const { portfolio, removeFromWatchlist } = usePortfolio();
 
   const getStockPrice = (ticker: string) => {
@@ -18,6 +21,21 @@ export default function PortfolioDashboard() {
   }, 0);
 
   const totalPortfolioValue = portfolio.cash + totalHoldingsValue;
+
+  if (!isSignedIn) {
+    return (
+      <div className="bg-gray-800 p-8 rounded-lg text-center">
+        <h2 className="text-2xl font-bold mb-4">Portfolio Dashboard</h2>
+        <p className="text-gray-400 mb-6">
+          Please{' '}
+          <Link href="/sign-in" className="text-blue-500 hover:underline">
+            sign in
+          </Link>{' '}
+          to view your holdings and watchlist.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg">

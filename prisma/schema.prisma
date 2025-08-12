@@ -24,6 +24,7 @@ model User {
   courseProgress      CourseProgress[]
   virtualPortfolio    VirtualPortfolio[]
   virtualTrades       VirtualTrade[]
+  watchlist           Watchlist[]
 }
 
 model CourseProgress {
@@ -59,6 +60,17 @@ model VirtualTrade {
   price     Decimal
   tradeType TradeType
   tradedAt  DateTime @default(now())
+}
+
+model Watchlist {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userClerkId], references: [clerkId])
+  userClerkId String
+  ticker      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userClerkId, ticker])
 }
 
 enum InvestmentExperience {

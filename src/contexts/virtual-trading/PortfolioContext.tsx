@@ -1,8 +1,9 @@
 // src/contexts/virtual-trading/PortfolioContext.tsx
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Stock } from '@/lib/trading-data';
+import { useUser } from '@clerk/nextjs';
 
 interface Holding {
   ticker: string;
@@ -19,18 +20,40 @@ interface PortfolioContextType {
   portfolio: Portfolio;
   buyStock: (ticker: string, quantity: number, price: number) => void;
   sellStock: (ticker: string, quantity: number, price: number) => void;
-  addToWatchlist: (ticker: string) => void;
-  removeFromWatchlist: (ticker: string) => void;
+  addToWatchlist: (ticker: string) => Promise<void>;
+  removeFromWatchlist: (ticker: string) => Promise<void>;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 export function PortfolioProvider({ children }: { children: ReactNode }) {
+  const { isSignedIn } = useUser();
   const [portfolio, setPortfolio] = useState<Portfolio>({
     cash: 100000, // Initial virtual cash
     holdings: [],
     watchlist: [],
   });
+
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      if (isSignedIn) {
+        try {
+          const response = await fetch('/api/watchlist');
+          if (response.ok) {
+            const watchlist = await response.json();
+            setPortfolio((prev) => ({
+              ...prev,
+              watchlist: watchlist.map((item: any) => item.ticker),
+            }));
+          }
+        } catch (error) {
+          console.error('Failed to fetch watchlist', error);
+        }
+      }
+    };
+
+    fetchWatchlist();
+  }, [isSignedIn]);
 
   const buyStock = (ticker: string, quantity: number, price: number) => {
     const cost = quantity * price;
@@ -72,21 +95,47 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const addToWatchlist = (ticker: string) => {
-    setPortfolio((prev) => ({
-      ...prev,
-      watchlist: [...prev.watchlist, ticker],
-    }));
+  const addToWatchlist = async (ticker: string) => {
+    try {
+      const response = await fetch('/api/watchlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ticker }),
+      });
+      if (response.ok) {
+        setPortfolio((prev) => ({
+          ...prev,
+          watchlist: [...prev.watchlist, ticker],
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to add to watchlist', error);
+    }
   };
 
-  const removeFromWatchlist = (ticker: string) => {
-    setPortfolio((prev) => ({
-      ...prev,
-      watchlist: prev.watchlist.filter((t) => t !== ticker),
-    }));
+  const removeFromWatchlist = async (ticker: string) => {
+    try {
+      const response = await fetch('/api/watchlist', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ticker }),
+      });
+      if (response.ok) {
+        setPortfolio((prev) => ({
+          ...prev,
+          watchlist: prev.watchlist.filter((t) => t !== ticker),
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to remove from watchlist', error);
+    }
   };
 
-_old_string:  return (
+  return (
     <PortfolioContext.Provider
       value={{ portfolio, buyStock, sellStock, addToWatchlist, removeFromWatchlist }}
     >

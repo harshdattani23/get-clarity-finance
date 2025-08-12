@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { allStocks, Stock } from '@/lib/trading-data';
 import TradeModal from './TradeModal';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 const dummyCompanyInfo = {
   description: "This is a sample description for the company. It provides a brief overview of the company's operations, history, and market position. This data is for demonstration purposes only.",
@@ -32,6 +34,8 @@ const dummyNews = [
 ];
 
 export default function StockDetail({ ticker }: { ticker: string }) {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
@@ -40,10 +44,22 @@ export default function StockDetail({ ticker }: { ticker: string }) {
 
   const stock = allStocks.find((s) => s.ticker === ticker);
 
+  const handleAddToWatchlist = (ticker: string) => {
+    if (!isSignedIn) {
+      router.push('/sign-in');
+    } else {
+      addToWatchlist(ticker);
+    }
+  };
+
   const handleOpenModal = (stock: Stock, type: 'buy' | 'sell') => {
-    setSelectedStock(stock);
-    setTradeType(type);
-    setIsModalOpen(true);
+    if (!isSignedIn) {
+      router.push('/sign-in');
+    } else {
+      setSelectedStock(stock);
+      setTradeType(type);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -80,7 +96,7 @@ export default function StockDetail({ ticker }: { ticker: string }) {
           </button>
         ) : (
           <button
-            onClick={() => addToWatchlist(stock.ticker)}
+            onClick={() => handleAddToWatchlist(stock.ticker)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold"
           >
             Add to Watchlist

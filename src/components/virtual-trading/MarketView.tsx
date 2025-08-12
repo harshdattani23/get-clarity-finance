@@ -6,18 +6,42 @@ import { useState } from 'react';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { Stock } from '@/lib/trading-data';
 import TradeModal from './TradeModal';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 export default function MarketView({ stocks }: { stocks: Stock[] }) {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
   const { addToWatchlist, removeFromWatchlist, portfolio } = usePortfolio();
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
 
+  const handleAddToWatchlist = (ticker: string) => {
+    if (!isSignedIn) {
+      router.push('/sign-in');
+    } else {
+      addToWatchlist(ticker);
+    }
+  };
+
+  const handleRemoveFromWatchlist = async (ticker: string) => {
+    if (!isSignedIn) {
+      router.push('/sign-in');
+    } else {
+      await removeFromWatchlist(ticker);
+    }
+  };
+
   const handleOpenModal = (stock: Stock, type: 'buy' | 'sell') => {
-    setSelectedStock(stock);
-    setTradeType(type);
-    setIsModalOpen(true);
+    if (!isSignedIn) {
+      router.push('/sign-in');
+    } else {
+      setSelectedStock(stock);
+      setTradeType(type);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -46,14 +70,14 @@ export default function MarketView({ stocks }: { stocks: Stock[] }) {
             <div className="mt-4 flex flex-col gap-2">
               {portfolio.watchlist.includes(stock.ticker) ? (
                 <button
-                  onClick={() => removeFromWatchlist(stock.ticker)}
+                  onClick={() => handleRemoveFromWatchlist(stock.ticker)}
                   className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded w-full"
                 >
                   In Watchlist
                 </button>
               ) : (
                 <button
-                  onClick={() => addToWatchlist(stock.ticker)}
+                  onClick={() => handleAddToWatchlist(stock.ticker)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full"
                 >
                   Add to Watchlist
