@@ -132,5 +132,13 @@ export const indices = {
   bseMidcap: { name: 'BSE MIDCAP', value: 45217, change: 0.0 },
 };
 
-export type Stock = (typeof allStocks)[0];
+export type Stock = (typeof allStocks)[0] & {
+  profile?: string;
+  peRatio?: number;
+  eps?: number;
+  dividendYield?: number;
+  fiftyTwoWeekHigh?: number;
+  fiftyTwoWeekLow?: number;
+  news?: { title: string; source: string; date: string }[];
+};
 export type Index = (typeof indices);

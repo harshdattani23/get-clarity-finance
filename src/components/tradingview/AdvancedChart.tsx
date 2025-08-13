@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 
 let tvScriptLoadingPromise: Promise<Event> | null = null;
 
-export default function TradingViewWidget() {
+export default function TradingViewWidget({ symbol = "NASDAQ:AAPL", theme = "light" }) {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -36,10 +36,10 @@ export default function TradingViewWidget() {
         if (document.getElementById('tradingview_33958') && 'TradingView' in window) {
           new (window as any).TradingView.widget({
             autosize: true,
-            symbol: "NASDAQ:AAPL",
+            symbol: symbol,
             interval: "D",
             timezone: "Etc/UTC",
-            theme: "light",
+            theme: theme,
             style: "1",
             locale: "en",
             enable_publishing: false,
@@ -49,7 +49,7 @@ export default function TradingViewWidget() {
         }
       }
     },
-    []
+    [symbol, theme]
   );
 
   return (

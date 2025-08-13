@@ -61,19 +61,19 @@ export default function MarketView({ stocks }: MarketViewProps) {
       <h2 className="text-2xl font-bold mb-4">Market</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {stocks.map((stock) => (
-          <div key={stock.ticker} className="bg-gray-700 p-4 rounded-lg flex flex-col justify-between">
-            <div>
-              <Link href={`/virtual-trading/stock/${stock.ticker}`}>
-                <h3 className="text-xl font-semibold text-blue-400 hover:underline">{stock.name} ({stock.ticker})</h3>
-              </Link>
-              <p>Price: ₹{stock.price.toFixed(2)}</p>
-              <p className={stock.change >= 0 ? 'text-green-400' : 'text-red-400'}>
-                Change: {stock.change.toFixed(2)}%
-              </p>
-              <p>Market Cap: {stock.marketCap}</p>
-              <p className="text-gray-400">Industry: {stock.industry}</p>
-              <p className="text-gray-400 text-sm mt-1">{stock.indices.join(', ')}</p>
-            </div>
+          <div key={stock.ticker} className="bg-gray-700 p-4 rounded-lg">
+            <Link href={`/stock/${stock.ticker}`}>
+              <div>
+                <h3 className="text-xl font-bold">{stock.name} ({stock.ticker})</h3>
+                <p>Price: ₹{stock.price.toFixed(2)}</p>
+                <p className={stock.change >= 0 ? 'text-green-500' : 'text-red-500'}>
+                  Change: {stock.change.toFixed(2)}%
+                </p>
+                <p>Market Cap: {stock.marketCap}</p>
+                <p className="text-gray-400">Industry: {stock.industry}</p>
+                <p className="text-gray-400 text-sm mt-1">{stock.indices.join(', ')}</p>
+              </div>
+            </Link>
             <div className="mt-4 flex flex-col gap-2">
               <button
                 onClick={() => openAddToWatchlistModal(stock)}
