@@ -2,13 +2,38 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { indices } from '@/lib/trading-data';
+
+const industries = [
+  'Technology',
+  'Healthcare',
+  'Financial Services',
+  'Consumer Goods',
+  'Energy',
+  'Utilities',
+  'Materials',
+  'Industrials',
+  'Real Estate',
+  'Communication Services',
+  'Consumer Staples',
+  'Utilities',
+  'Financial Services',
+  'Technology',
+  'Healthcare',
+  'Energy',
+  'Materials',
+  'Industrials',
+  'Real Estate',
+  'Communication Services',
+  'Consumer Staples',
+];
 
 const MarketFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleFilterChange = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams?.toString());
     params.set(key, value);
     params.set('page', '1');
     router.push(`/virtual-trading?${params.toString()}`);
@@ -24,11 +49,10 @@ const MarketFilters = () => {
             id="index-filter" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
             onChange={(e) => handleFilterChange('index', e.target.value)}
+            defaultValue={searchParams?.get('index') || ''}
           >
             <option value="">All Indices</option>
-            {/* Assuming indices is defined elsewhere or needs to be imported */}
-            {/* For now, using a placeholder or assuming it's available in scope */}
-            {/* Example: {Object.values(indices).map(index => <option key={index.name} value={index.name}>{index.name}</option>)} */}
+            {Object.values(indices).map(index => <option key={index.name} value={index.name}>{index.name}</option>)}
           </select>
         </div>
 
@@ -39,11 +63,10 @@ const MarketFilters = () => {
             id="industry-filter" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
             onChange={(e) => handleFilterChange('industry', e.target.value)}
+            defaultValue={searchParams?.get('industry') || ''}
           >
             <option value="">All Industries</option>
-            {/* Assuming industries is defined elsewhere or needs to be imported */}
-            {/* For now, using a placeholder or assuming it's available in scope */}
-            {/* Example: {industries.map(industry => <option key={industry} value={industry}>{industry}</option>)} */}
+            {industries.map(industry => <option key={industry} value={industry}>{industry}</option>)}
           </select>
         </div>
 
@@ -53,10 +76,8 @@ const MarketFilters = () => {
           <select 
             id="sort-by" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-            onChange={(e) => {
-              const [key, order] = e.target.value.split('-');
-              handleFilterChange('sort', `${key}-${order}`);
-            }}
+            onChange={(e) => handleFilterChange('sort', e.target.value)}
+            defaultValue={searchParams?.get('sort') || 'name-asc'}
           >
             <option value="name-asc">Name (A-Z)</option>
             <option value="name-desc">Name (Z-A)</option>
@@ -74,8 +95,7 @@ const MarketFilters = () => {
           <label className="block mb-2 text-sm font-medium text-transparent">.</label>
           <button
             onClick={() => {
-              const params = new URLSearchParams(searchParams);
-              params.set('page', '1');
+              const params = new URLSearchParams(searchParams?.toString());
               router.push(`/virtual-trading?${params.toString()}`);
             }}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

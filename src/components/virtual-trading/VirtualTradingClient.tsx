@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import MarketFilters from './MarketFilters';
@@ -18,19 +18,34 @@ import NewsFeed from './NewsFeed';
 
 const ITEMS_PER_PAGE = 15;
 
-export default function VirtualTradingClient({ initialStocks }: { initialStocks: any[] }) {
+export default function VirtualTradingClient({ initialStocks: serverStocks }: { initialStocks: any[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isSignedIn } = useUser();
 
   const [view, setView] = useState('screener');
+  const [stocks, setStocks] = useState(serverStocks);
+  const [loading, setLoading] = useState(false);
   
   const page = searchParams?.get('page') ? Number(searchParams.get('page')) : 1;
 
+  useEffect(() => {
+    const fetchStocks = async () => {
+      setLoading(true);
+      const params = new URLSearchParams(searchParams?.toString());
+      const response = await fetch(`/api/virtual-trading/stocks?${params.toString()}`);
+      const data = await response.json();
+      setStocks(data);
+      setLoading(false);
+    };
+    // Fetch stocks whenever searchParams change
+    fetchStocks();
+  }, [searchParams]);
+
   const paginatedStocks = useMemo(() => {
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
-    return initialStocks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [initialStocks, page]);
+    return stocks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [stocks, page]);
 
   return (
     <PortfolioProvider>
@@ -81,7 +96,7 @@ export default function VirtualTradingClient({ initialStocks }: { initialStocks:
                 <MarketFilters />
                 <ScreenerView
                   paginatedStocks={paginatedStocks}
-                  totalStocks={initialStocks.length}
+                  totalStocks={stocks.length}
                   itemsPerPage={ITEMS_PER_PAGE}
                   currentPage={page}
                 />
