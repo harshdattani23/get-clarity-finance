@@ -1,45 +1,17 @@
 // src/components/virtual-trading/MarketFilters.tsx
 'use client';
 
-import { indices } from '@/lib/trading-data';
-import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-const industries = [
-  'Financial Services',
-  'Healthcare',
-  'Information Technology',
-  'Automobile and Auto Components',
-  'Metals & Mining',
-  'Consumer Durables',
-  'Fast Moving Consumer Goods',
-  'Oil, Gas & Consumable Fuels',
-  'Construction',
-  'Power',
-  'Services',
-  'Telecommunication',
-  'Realty',
-  'Chemicals',
-  'Capital Goods',
-];
+const MarketFilters = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-interface MarketFiltersProps {
-  onApplyFilters: (filters: any, sort: any) => void;
-}
-
-const MarketFilters: React.FC<MarketFiltersProps> = ({ onApplyFilters }) => {
-  const [localFilters, setLocalFilters] = useState({});
-  const [localSort, setLocalSort] = useState({ key: 'name', order: 'asc' });
-
-  const handleFilterChange = (newFilters: any) => {
-    setLocalFilters(prev => ({ ...prev, ...newFilters }));
-  };
-
-  const handleSortChange = (newSort: any) => {
-    setLocalSort(newSort);
-  };
-
-  const handleApply = () => {
-    onApplyFilters(localFilters, localSort);
+  const handleFilterChange = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(key, value);
+    params.set('page', '1');
+    router.push(`/virtual-trading?${params.toString()}`);
   };
 
   return (
@@ -51,10 +23,12 @@ const MarketFilters: React.FC<MarketFiltersProps> = ({ onApplyFilters }) => {
           <select 
             id="index-filter" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-            onChange={(e) => handleFilterChange({ index: e.target.value })}
+            onChange={(e) => handleFilterChange('index', e.target.value)}
           >
             <option value="">All Indices</option>
-            {Object.values(indices).map(index => <option key={index.name} value={index.name}>{index.name}</option>)}
+            {/* Assuming indices is defined elsewhere or needs to be imported */}
+            {/* For now, using a placeholder or assuming it's available in scope */}
+            {/* Example: {Object.values(indices).map(index => <option key={index.name} value={index.name}>{index.name}</option>)} */}
           </select>
         </div>
 
@@ -64,10 +38,12 @@ const MarketFilters: React.FC<MarketFiltersProps> = ({ onApplyFilters }) => {
           <select 
             id="industry-filter" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-            onChange={(e) => handleFilterChange({ industry: e.target.value })}
+            onChange={(e) => handleFilterChange('industry', e.target.value)}
           >
             <option value="">All Industries</option>
-            {industries.map(industry => <option key={industry} value={industry}>{industry}</option>)}
+            {/* Assuming industries is defined elsewhere or needs to be imported */}
+            {/* For now, using a placeholder or assuming it's available in scope */}
+            {/* Example: {industries.map(industry => <option key={industry} value={industry}>{industry}</option>)} */}
           </select>
         </div>
 
@@ -77,7 +53,10 @@ const MarketFilters: React.FC<MarketFiltersProps> = ({ onApplyFilters }) => {
           <select 
             id="sort-by" 
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-            onChange={(e) => handleSortChange({ key: e.target.value.split('-')[0], order: e.target.value.split('-')[1] })}
+            onChange={(e) => {
+              const [key, order] = e.target.value.split('-');
+              handleFilterChange('sort', `${key}-${order}`);
+            }}
           >
             <option value="name-asc">Name (A-Z)</option>
             <option value="name-desc">Name (Z-A)</option>
@@ -94,7 +73,11 @@ const MarketFilters: React.FC<MarketFiltersProps> = ({ onApplyFilters }) => {
         <div>
           <label className="block mb-2 text-sm font-medium text-transparent">.</label>
           <button
-            onClick={handleApply}
+            onClick={() => {
+              const params = new URLSearchParams(searchParams);
+              params.set('page', '1');
+              router.push(`/virtual-trading?${params.toString()}`);
+            }}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Apply

@@ -28,6 +28,7 @@ export default function StockDetailPage() {
     <PortfolioProvider>
       <WatchlistProvider>
         <div className="container mx-auto p-4 text-white">
+          {/* Stock Specific Info */}
           <h1 className="text-3xl font-bold mb-4">{stock.name} ({stock.ticker})</h1>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -35,13 +36,13 @@ export default function StockDetailPage() {
               <div className="h-[500px] mb-8">
                 <TradingViewWidget symbol={stock.ticker} theme="dark" />
               </div>
-              <TradingActions stock={stock} />
+              <CompanyNews stock={stock} />
             </div>
             
             <div className="space-y-8">
+              <TradingActions stock={stock} />
               <UserHoldings stock={stock} />
               <StockInfo stock={stock} />
-              <CompanyNews stock={stock} />
             </div>
           </div>
         </div>

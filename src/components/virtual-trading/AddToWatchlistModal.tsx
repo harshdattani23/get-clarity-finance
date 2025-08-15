@@ -23,16 +23,21 @@ export default function AddToWatchlistModal({ isOpen, onClose, ticker }: AddToWa
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold mb-4">Add {ticker} to a Watchlist</h2>
         <ul className="space-y-2">
-          {watchlists.map((wl) => (
-            <li key={wl.id}>
-              <button
-                onClick={() => handleAdd(wl.id)}
-                className="w-full text-left bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded"
-              >
-                {wl.name}
-              </button>
-            </li>
-          ))}
+          {watchlists.map((wl) => {
+            const isFull = wl.items.length >= 10;
+            return (
+              <li key={wl.id} className="flex items-center justify-between">
+                <span className={`${isFull ? 'text-gray-500' : ''}`}>{wl.name}</span>
+                <button
+                  onClick={() => handleAdd(wl.id)}
+                  disabled={isFull}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:bg-gray-500"
+                >
+                  Add
+                </button>
+              </li>
+            );
+          })}
         </ul>
         <button
           onClick={onClose}

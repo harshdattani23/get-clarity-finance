@@ -105,6 +105,12 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
   };
 
   const addStockToWatchlist = async (watchlistId: number, ticker: string) => {
+    const watchlist = watchlists.find((w) => w.id === watchlistId);
+    if (watchlist && watchlist.items.length >= 10) {
+      toast.error('Watchlist is full (max 10 stocks).');
+      return;
+    }
+
     const promise = fetch('/api/watchlist/items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

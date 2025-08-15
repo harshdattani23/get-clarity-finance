@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { allStocks } from '@/lib/trading-data';
 
 interface SellModalProps {
   isOpen: boolean;
@@ -12,13 +13,16 @@ interface SellModalProps {
 
 export default function SellModal({ isOpen, onClose, onConfirm, ticker, maxQuantity }: SellModalProps) {
   const [quantity, setQuantity] = useState(1);
+  const stock = allStocks.find((s) => s.ticker === ticker);
 
-  if (!isOpen) return null;
+  if (!isOpen || !stock) return null;
 
   const handleConfirm = () => {
     onConfirm(quantity);
     onClose();
   };
+  
+  const estimatedProceeds = quantity * stock.price;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -38,6 +42,16 @@ export default function SellModal({ isOpen, onClose, onConfirm, ticker, maxQuant
             max={maxQuantity}
             className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
           />
+        </div>
+        <div className="mb-4 space-y-2">
+          <div className="flex justify-between">
+            <span>Market Price:</span>
+            <span>₹{stock.price.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between font-bold">
+            <span>Estimated Proceeds:</span>
+            <span>₹{estimatedProceeds.toFixed(2)}</span>
+          </div>
         </div>
         <div className="flex justify-end gap-4">
           <button

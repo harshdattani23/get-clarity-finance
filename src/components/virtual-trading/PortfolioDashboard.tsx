@@ -3,10 +3,9 @@
 
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
+import Link from 'next/link';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { allStocks } from '@/lib/trading-data';
-import { Stock } from '@/lib/trading-data';
-import Link from 'next/link';
 import SellModal from './SellModal';
 
 export default function PortfolioDashboard() {
@@ -38,13 +37,13 @@ export default function PortfolioDashboard() {
     }
   };
 
-  const getStockPrice = (ticker: string) => {
-    const stock = allStocks.find((s) => s.ticker === ticker);
-    return stock ? stock.price : 0;
+  const getStockData = (ticker: string) => {
+    return allStocks.find((s) => s.ticker === ticker);
   };
 
   const totalHoldingsValue = portfolio.holdings.reduce((acc, holding) => {
-    return acc + holding.quantity * getStockPrice(holding.ticker);
+    const stock = getStockData(holding.ticker);
+    return acc + holding.quantity * (stock ? stock.price : 0);
   }, 0);
 
   const totalPortfolioValue = portfolio.cash + totalHoldingsValue;
@@ -52,7 +51,7 @@ export default function PortfolioDashboard() {
   const totalInvestmentValue = portfolio.holdings.reduce((acc, holding) => {
     return acc + holding.quantity * holding.averagePrice;
   }, 0);
-  
+
   const totalPL = totalHoldingsValue - totalInvestmentValue;
 
   if (!isSignedIn) {
@@ -64,86 +63,84 @@ export default function PortfolioDashboard() {
           <Link href="/sign-in" className="text-blue-500 hover:underline">
             sign in
           </Link>{' '}
-          to view your holdings and watchlist.
+          to view your holdings.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Portfolio Dashboard</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div className="bg-gray-700 p-4 rounded-lg">
-          <h3 className="font-semibold">Virtual Cash</h3>
-          <p>₹{portfolio.cash.toFixed(2)}</p>
+    <div className="bg-[#0D1117] p-4 rounded-lg">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <div className="bg-[#161B22] p-4 rounded-lg">
+          <h3 className="text-gray-400">Virtual Cash</h3>
+          <p className="text-2xl font-bold">₹{portfolio.cash.toFixed(2)}</p>
         </div>
-        <div className="bg-gray-700 p-4 rounded-lg">
-          <h3 className="font-semibold">Total Holdings Value</h3>
-          <p>₹{totalHoldingsValue.toFixed(2)}</p>
+        <div className="bg-[#161B22] p-4 rounded-lg">
+          <h3 className="text-gray-400">Holdings Value</h3>
+          <p className="text-2xl font-bold">₹{totalHoldingsValue.toFixed(2)}</p>
         </div>
-        <div className="bg-gray-700 p-4 rounded-lg">
-          <h3 className="font-semibold">Total Portfolio Value</h3>
-          <p>₹{totalPortfolioValue.toFixed(2)}</p>
+        <div className="bg-[#161B22] p-4 rounded-lg">
+          <h3 className="text-gray-400">Total Value</h3>
+          <p className="text-2xl font-bold">₹{totalPortfolioValue.toFixed(2)}</p>
         </div>
-        <div className="bg-gray-700 p-4 rounded-lg">
-          <h3 className="font-semibold">Total P/L</h3>
-          <p className={totalPL >= 0 ? 'text-green-500' : 'text-red-500'}>
+        <div className="bg-[#161B22] p-4 rounded-lg">
+          <h3 className="text-gray-400">Total P/L</h3>
+          <p className={`text-2xl font-bold ${totalPL >= 0 ? 'text-green-500' : 'text-red-500'}`}>
             {totalPL.toFixed(2)}
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <h3 className="text-xl font-bold mb-2">Holdings</h3>
-          <div className="bg-gray-700 rounded-lg overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-600">
-              <thead className="bg-gray-600">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Stock</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Quantity</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Average Price</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Current Value</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">P/L</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-[#30363D]">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Symbol</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Company</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Quantity</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Avg. Price</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Current Price</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">P/L</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="bg-[#0D1117] divide-y divide-[#30363D]">
+            {portfolio.holdings.map((holding) => {
+              const stock = getStockData(holding.ticker);
+              if (!stock) return null;
+
+              const currentValue = holding.quantity * stock.price;
+              const investmentValue = holding.quantity * holding.averagePrice;
+              const pl = currentValue - investmentValue;
+
+              return (
+                <tr key={holding.ticker}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Link href={`/stock/${stock.ticker}`} className="text-blue-400 hover:underline">
+                      {stock.ticker}
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{stock.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{holding.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">₹{holding.averagePrice.toFixed(2)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">₹{stock.price.toFixed(2)}</td>
+                  <td className={`px-6 py-4 whitespace-nowrap ${pl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    {pl.toFixed(2)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => handleSellClick(holding.ticker, holding.quantity)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                    >
+                      Sell
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-gray-700 divide-y divide-gray-600">
-                {portfolio.holdings.length > 0 ? (
-                  portfolio.holdings.map((holding) => {
-                    const currentValue = holding.quantity * getStockPrice(holding.ticker);
-                    const investmentValue = holding.quantity * holding.averagePrice;
-                    const pl = currentValue - investmentValue;
-                    return (
-                      <tr key={holding.ticker}>
-                        <td className="px-6 py-4 whitespace-nowrap">{holding.ticker}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{holding.quantity}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">₹{holding.averagePrice.toFixed(2)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">₹{currentValue.toFixed(2)}</td>
-                        <td className={`px-6 py-4 whitespace-nowrap ${pl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                          {pl.toFixed(2)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <button
-                            onClick={() => handleSellClick(holding.ticker, holding.quantity)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                          >
-                            Sell
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-4 text-center text-gray-400">No holdings yet.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
       {stockToSell && (

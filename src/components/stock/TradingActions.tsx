@@ -2,22 +2,23 @@
 
 import { useState } from 'react';
 import { Stock } from '@/lib/trading-data';
-import TradeModal from '@/components/virtual-trading/TradeModal';
+import BuyModal from '@/components/virtual-trading/BuyModal';
+import SellModal from '@/components/virtual-trading/SellModal';
 import AddToWatchlistModal from '@/components/virtual-trading/AddToWatchlistModal';
+import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 
 interface TradingActionsProps {
   stock: Stock;
 }
 
 export default function TradingActions({ stock }: TradingActionsProps) {
-  const [tradeModalOpen, setTradeModalOpen] = useState(false);
+  const [buyModalOpen, setBuyModalOpen] = useState(false);
+  const [sellModalOpen, setSellModalOpen] = useState(false);
   const [addToWatchlistModalOpen, setAddToWatchlistModalOpen] = useState(false);
-  const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
+  const { portfolio, sellStock } = usePortfolio();
 
-  const openTradeModal = (type: 'buy' | 'sell') => {
-    setTradeType(type);
-    setTradeModalOpen(true);
-  };
+  const holding = portfolio?.holdings.find(h => h.ticker === stock.ticker);
+  const maxSellQuantity = holding ? holding.quantity : 0;
 
   return (
     <>
@@ -25,14 +26,15 @@ export default function TradingActions({ stock }: TradingActionsProps) {
         <h2 className="text-2xl font-bold mb-4">Actions</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <button
-            onClick={() => openTradeModal('buy')}
+            onClick={() => setBuyModalOpen(true)}
             className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-bold"
           >
             Buy
           </button>
           <button
-            onClick={() => openTradeModal('sell')}
+            onClick={() => setSellModalOpen(true)}
             className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-bold"
+            disabled={maxSellQuantity === 0}
           >
             Sell
           </button>
@@ -45,11 +47,18 @@ export default function TradingActions({ stock }: TradingActionsProps) {
         </div>
       </div>
 
-      <TradeModal
+      <BuyModal
         stock={stock}
-        isOpen={tradeModalOpen}
-        onClose={() => setTradeModalOpen(false)}
-        initialTradeType={tradeType}
+        isOpen={buyModalOpen}
+        onClose={() => setBuyModalOpen(false)}
+      />
+      
+      <SellModal
+        isOpen={sellModalOpen}
+        onClose={() => setSellModalOpen(false)}
+        ticker={stock.ticker}
+        maxQuantity={maxSellQuantity}
+        onConfirm={(quantity) => sellStock(stock.ticker, quantity, stock.price)}
       />
 
       <AddToWatchlistModal
