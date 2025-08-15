@@ -107,12 +107,12 @@ const ScreenerView = ({
           <thead className="">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Symbol</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Company</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Company</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Change</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Change</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">% Change</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Market Cap</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Volume</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Market Cap</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
@@ -124,20 +124,21 @@ const ScreenerView = ({
               return (
                 <tr key={stock.ticker}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <Link href={`/stock/${stock.ticker}`} className="text-blue-400 hover:underline">
+                    <Link href={`/stock/${stock.ticker}`} className="text-blue-400 hover:underline font-bold">
                       {stock.ticker}
                     </Link>
+                    <div className="text-gray-400 md:hidden">{stock.name}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{stock.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300 hidden md:table-cell">{stock.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-300">₹{stock.price.toFixed(2)}</td>
-                  <td className={`px-6 py-4 whitespace-nowrap ${stock.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  <td className={`px-6 py-4 whitespace-nowrap hidden md:table-cell ${stock.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                     {stock.change.toFixed(2)}
                   </td>
                   <td className={`px-6 py-4 whitespace-nowrap ${stock.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                     {stock.percentChange.toFixed(2)}%
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{stock.volume}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{stock.marketCap}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300 hidden md:table-cell">{stock.volume}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300 hidden md:table-cell">{stock.marketCap}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex items-center space-x-2">
                       <button onClick={() => openBuyModal(stock)} className="text-green-500 hover:text-green-400 px-2 py-1 rounded bg-green-900 bg-opacity-50">Buy</button>
