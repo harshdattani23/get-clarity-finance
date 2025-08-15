@@ -1,5 +1,5 @@
-// src/pages/api/news.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+// src/app/api/news/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -16,12 +16,10 @@ async function getNewsFromGemini(symbol: string) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    // Basic parsing, assuming a structured output from Gemini
-    // This might need to be made more robust
     const articles = text.split('\n\n').map((article) => {
       const lines = article.split('\n');
       return {
-        headline: lines[0]?.replace('Headline: ', '').replace('**', ''),
+        headline: lines[0]?.replace('Headline: ', '').replace(/\*\*/g, ''),
         summary: lines[1]?.replace('Summary: ', ''),
         source: lines[2]?.replace('Source: ', ''),
       };
@@ -33,17 +31,18 @@ async function getNewsFromGemini(symbol: string) {
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { symbol } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const symbol = searchParams.get('symbol');
 
   if (typeof symbol !== 'string') {
-    return res.status(400).json({ error: 'Symbol must be a string' });
+    return NextResponse.json({ error: 'Symbol must be a string' }, { status: 400 });
   }
 
   try {
     const news = await getNewsFromGemini(symbol);
-    res.status(200).json(news);
+    return NextResponse.json(news);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch news' });
+    return NextResponse.json({ error: 'Failed to fetch news' }, { status: 500 });
   }
 }

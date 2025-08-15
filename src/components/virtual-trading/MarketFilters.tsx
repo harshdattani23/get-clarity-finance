@@ -4,33 +4,22 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { indices } from '@/lib/trading-data';
 
-const industries = [
-  'Technology',
-  'Healthcare',
-  'Financial Services',
-  'Consumer Goods',
-  'Energy',
-  'Utilities',
-  'Materials',
-  'Industrials',
-  'Real Estate',
-  'Communication Services',
-  'Consumer Staples',
-  'Utilities',
-  'Financial Services',
-  'Technology',
-  'Healthcare',
-  'Energy',
-  'Materials',
-  'Industrials',
-  'Real Estate',
-  'Communication Services',
-  'Consumer Staples',
-];
-
 const MarketFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const industries = [
+    'All',
+    'Technology',
+    'Financial Services',
+    'Healthcare',
+    'Consumer Cyclical',
+    'Industrials',
+    'Energy',
+    'Real Estate',
+    'Utilities',
+    'Basic Materials',
+  ];
 
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams?.toString());
