@@ -25,8 +25,8 @@ export default function LegacyConglomerates() {
             <div className="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-lg mb-8">
                 <h3 className="font-bold text-xl text-indigo-900 mb-2">Key Takeaways</h3>
                 <ul className="space-y-2 text-indigo-800">
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Much of India's economy is influenced by large, family-led conglomerates with diverse business interests.</span></li>
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>These groups are "promoter-led," meaning the founding family retains significant control and influence.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Much of India&apos;s economy is influenced by large, family-led conglomerates with diverse business interests.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>These groups are &quot;promoter-led,&quot; meaning the founding family retains significant control and influence.</span></li>
                     <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Iconic groups include Tata, Reliance, Aditya Birla Group, and Mahindra, each with a vast and varied portfolio.</span></li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@ export default function LegacyConglomerates() {
         <AnimatedDiv delay={0.3}>
             <h2>The Titans of Indian Industry</h2>
             <p>
-                Unlike many Western economies, a significant portion of India's business landscape is dominated by large, family-led conglomerates. These groups have a history deeply intertwined with India's own economic journey and operate across a vast array of sectors, from salt to software.
+                Unlike many Western economies, a significant portion of India&apos;s business landscape is dominated by large, family-led conglomerates. These groups have a history deeply intertwined with India&apos;s own economic journey and operate across a vast array of sectors, from salt to software.
             </p>
         </AnimatedDiv>
 
@@ -53,7 +53,7 @@ export default function LegacyConglomerates() {
             <h3>Prominent Examples</h3>
             <div className="grid md:grid-cols-2 gap-6 my-8">
                 <ConglomerateCard name="Tata Group" description="Founded in 1868 and known for its strong ethical values. Owns global brands like Jaguar Land Rover."/>
-                <ConglomerateCard name="Reliance Industries" description="India's largest company, with a dominant presence in petrochemicals, telecom (Jio), and retail."/>
+                <ConglomerateCard name="Reliance Industries" description="India&apos;s largest company, with a dominant presence in petrochemicals, telecom (Jio), and retail."/>
                 <ConglomerateCard name="Aditya Birla Group" description="A global conglomerate with a major presence in metals, cement, and telecommunications."/>
                 <ConglomerateCard name="Mahindra Group" description="A leader in utility vehicles and tractors with a strong presence in IT and financial services."/>
             </div>

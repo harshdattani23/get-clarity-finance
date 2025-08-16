@@ -1,6 +1,7 @@
 'use client';
 import LessonLayout from '../LessonLayout';
 import { useTranslation } from '@/hooks/useTranslation';
+import Image from 'next/image';
 
 const ReadingAStockQuote = () => {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ const ReadingAStockQuote = () => {
 
         {/* Stock Quote Image */}
         <div className="bg-white p-4 rounded-lg border shadow-sm">
-          <img src="/stock-quote-example.png" alt="Example of a stock quote" className="w-full rounded-md" />
+          <Image src="/stock-quote-example.png" alt="Example of a stock quote" className="w-full rounded-md" width={800} height={400} />
           <p className="text-center text-sm text-gray-500 mt-2">{t('reading-a-stock-quote.imageCaption')}</p>
         </div>
         

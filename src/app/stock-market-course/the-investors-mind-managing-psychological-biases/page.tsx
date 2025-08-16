@@ -3,8 +3,6 @@
 import LessonLayout from "../LessonLayout";
 import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
-import { BrainCircuit, Zap, Users, Shield } from "lucide-react";
-import Image from "next/image";
 
 
 const PsychologicalBiasesPage = () => {

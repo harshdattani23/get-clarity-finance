@@ -1,5 +1,5 @@
 import LessonLayout from "@/app/awareness/LessonLayout";
-import { ShoppingCart, Building, Wifi, Users } from 'lucide-react';
+import { ShoppingCart, Building } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function DigitalVsBrickPage() {
@@ -12,7 +12,7 @@ export default function DigitalVsBrickPage() {
       <AnimatedDiv>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">The E-commerce Boom</h2>
         <p className="mb-4">
-          India's e-commerce market has exploded, driven by cheap data, a young population, and the convenience of mobile shopping. Platforms like Flipkart (owned by Walmart) and Amazon India are dominant, but a vibrant ecosystem of niche D2C (Direct-to-Consumer) brands is also thriving. A digital-first approach offers rapid market access, lower initial capital expenditure, and the ability to reach a pan-India audience from day one.
+          India&apos;s e-commerce market has exploded, driven by cheap data, a young population, and the convenience of mobile shopping. Platforms like Flipkart (owned by Walmart) and Amazon India are dominant, but a vibrant ecosystem of niche D2C (Direct-to-Consumer) brands is also thriving. A digital-first approach offers rapid market access, lower initial capital expenditure, and the ability to reach a pan-India audience from day one.
         </p>
         <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -35,7 +35,7 @@ export default function DigitalVsBrickPage() {
       <AnimatedDiv delay={0.2}>
         <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">The Enduring Power of Physical Retail</h2>
         <p className="mb-4">
-          Despite the digital wave, it would be a grave mistake to underestimate the importance of brick-and-mortar retail in India. For a large segment of the population, especially in non-metro areas, the "touch and feel" factor is crucial. Trust is often placed in the local shopkeeper, and many complex purchases (like electronics or vehicles) still happen offline.
+          Despite the digital wave, it would be a grave mistake to underestimate the importance of brick-and-mortar retail in India. For a large segment of the population, especially in non-metro areas, the &quot;touch and feel&quot; factor is crucial. Trust is often placed in the local shopkeeper, and many complex purchases (like electronics or vehicles) still happen offline.
         </p>
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -58,7 +58,7 @@ export default function DigitalVsBrickPage() {
       <AnimatedDiv delay={0.4}>
         <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">The Winning Strategy: Phygital (Physical + Digital)</h2>
         <p className="mb-4">
-          The most successful companies in India are not choosing one or the other; they are blending both. The future is "phygital" - an integrated approach where the online and offline experiences complement each other.
+          The most successful companies in India are not choosing one or the other; they are blending both. The future is &quot;phygital&quot; - an integrated approach where the online and offline experiences complement each other.
         </p>
         <div className="mt-8 p-6 bg-white rounded-xl shadow-md border">
             <h3 className="text-2xl font-bold text-gray-800 mb-3">Examples of Phygital Models:</h3>

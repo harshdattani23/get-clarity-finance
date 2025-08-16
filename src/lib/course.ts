@@ -1,11 +1,4 @@
 // src/lib/course.ts
-import {
-    FaBalanceScale, FaChartLine, FaCogs, FaMoneyBillWave, FaShieldAlt,
-    FaUniversity, FaUserClock, FaLandmark, FaFileContract, FaChartPie, FaRunning,
-    FaBusinessTime, FaCity, FaHandshake, FaTruck, FaFileInvoiceDollar,
-    FaUsers, FaHandsHelping, FaGlobe, FaFlagUsa, FaStarAndCrescent, FaRocket,
-    FaBrain, FaRulerCombined, FaStopwatch, FaExchangeAlt
-  } from 'react-icons/fa';
   
   export type Lesson = {
     slug: string;

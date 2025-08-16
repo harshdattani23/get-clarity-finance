@@ -22,7 +22,7 @@ export default function FinancialSystem() {
         <AnimatedDiv delay={0.3}>
             <h2>The Bedrock of the Economy</h2>
             <p>
-                India's financial system is a complex network of institutions, markets, and instruments that mobilizes capital and facilitates economic growth. Understanding its key components is essential for any investor or business operator.
+                India&apos;s financial system is a complex network of institutions, markets, and instruments that mobilizes capital and facilitates economic growth. Understanding its key components is essential for any investor or business operator.
             </p>
         </AnimatedDiv>
 
@@ -42,7 +42,7 @@ export default function FinancialSystem() {
       
         <AnimatedDiv delay={0.5}>
             <h3>The Role of the Reserve Bank of India (RBI)</h3>
-            <p>The RBI is India's central bank and the primary regulator of the banking system. Its key responsibilities include:</p>
+            <p>The RBI is India&apos;s central bank and the primary regulator of the banking system. Its key responsibilities include:</p>
             <ul className="space-y-4 !pl-0 my-6">
                     <li className="flex items-start gap-3"><Banknote className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" /><div><strong>Monetary Policy:</strong> Controlling inflation and managing interest rates.</div></li>
                     <li className="flex items-start gap-3"><Shield className="w-6 h-6 text-blue-500 flex-shrink-0 mt-1" /><div><strong>Supervision:</strong> Ensuring the stability and soundness of the banking sector.</div></li>
@@ -56,7 +56,7 @@ export default function FinancialSystem() {
                     <CandlestickChart className="w-12 h-12 flex-shrink-0"/>
                     <div>
                         <h3 className="font-bold text-2xl">BSE vs. NSE</h3>
-                        <p className="mt-1 opacity-90">The <strong>Bombay Stock Exchange (BSE)</strong> is Asia's oldest, while the <strong>National Stock Exchange (NSE)</strong> is the largest by trading volume. Both are regulated by SEBI.</p>
+                        <p className="mt-1 opacity-90">The <strong>Bombay Stock Exchange (BSE)</strong> is Asia&apos;s oldest, while the <strong>National Stock Exchange (NSE)</strong> is the largest by trading volume. Both are regulated by SEBI.</p>
                     </div>
                 </div>
             </div>

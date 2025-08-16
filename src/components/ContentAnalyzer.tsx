@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { Bot, ThumbsUp, ThumbsDown, Sparkles } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -18,9 +18,6 @@ export default function ContentAnalyzer() {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation('home');
 
-  const ws = useRef<WebSocket | null>(null);
-  const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleAnalyze = async () => {
@@ -40,11 +37,8 @@ export default function ContentAnalyzer() {
       const data: AnalysisResponse = await response.json();
       if (response.ok) {
         setResponse(data);
-      } else {
-        // @ts-ignore
-        // setError(data.message || t('analyzer.error.analysisFailed')); // This line was removed as per the new_code
       }
-    } catch (err) {
+    } catch {
       // setError(t('analyzer.error.connectionFailed')); // This line was removed as per the new_code
     } finally {
       setIsLoading(false);
@@ -103,7 +97,6 @@ export default function ContentAnalyzer() {
         {/* result?.type === 'answer' && ( // This block was removed as per the new_code
           <div className="p-4 rounded-lg bg-blue-50 border-blue-200">
              <h3 className="text-lg font-bold flex items-center gap-2 text-blue-700">
-               <Bot className="w-5 h-5" />
                {t('analyzer.result.aiAssistant')}
              </h3>
              <div className="text-gray-800 mt-2 pl-7 prose prose-sm max-w-none">

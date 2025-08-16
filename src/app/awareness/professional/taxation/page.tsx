@@ -12,7 +12,7 @@ export default function TaxationPage() {
       <AnimatedDiv>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">The GST Revolution</h2>
         <p className="mb-4">
-          The Goods and Services Tax (GST), introduced in 2017, was India's most significant tax reform. It replaced a confusing web of over a dozen central and state taxes with a single, unified tax structure. The goal was to create a common market, reduce cascading taxes, and improve compliance.
+          The Goods and Services Tax (GST), introduced in 2017, was India&apos;s most significant tax reform. It replaced a confusing web of over a dozen central and state taxes with a single, unified tax structure. The goal was to create a common market, reduce cascading taxes, and improve compliance.
         </p>
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -27,7 +27,7 @@ export default function TaxationPage() {
           </div>
         </div>
         <p className="mb-4">
-          However, the reality is more complex than the 'One Nation, One Tax' slogan suggests. There are multiple tax slabs (0%, 5%, 12%, 18%, 28%), plus special rates for items like gold. Compliance can be a heavy burden, requiring monthly, quarterly, and annual filings.
+          However, the reality is more complex than the &apos;One Nation, One Tax&apos; slogan suggests. There are multiple tax slabs (0%, 5%, 12%, 18%, 28%), plus special rates for items like gold. Compliance can be a heavy burden, requiring monthly, quarterly, and annual filings.
         </p>
       </AnimatedDiv>
 
@@ -56,9 +56,9 @@ export default function TaxationPage() {
       </AnimatedDiv>
 
       <AnimatedDiv delay={0.4}>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">The Infamous "Angel Tax"</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">The Infamous &quot;Angel Tax&quot;</h2>
         <p className="mb-4">
-          A significant point of concern for startups and foreign investors has been the "Angel Tax". This is a tax levied on the premium paid by investors for shares in a private company, where the share price is seen as exceeding the "fair market value".
+          A significant point of concern for startups and foreign investors has been the &quot;Angel Tax&quot;. This is a tax levied on the premium paid by investors for shares in a private company, where the share price is seen as exceeding the &quot;fair market value&quot;.
         </p>
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -78,7 +78,7 @@ export default function TaxationPage() {
         <div className="mt-8 p-6 bg-white rounded-xl shadow-md border">
             <h3 className="text-2xl font-bold text-gray-800 mb-3">Key Takeaways for Investors</h3>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li><span className="font-semibold">Tax is a State and Central Subject:</span> Be aware that rules can vary, and you'll be dealing with both central and state tax authorities.</li>
+                <li><span className="font-semibold">Tax is a State and Central Subject:</span> Be aware that rules can vary, and you&apos;ll be dealing with both central and state tax authorities.</li>
                 <li><span className="font-semibold">Professional Advice is Essential:</span> The tax code is complex and changes frequently. Do not attempt to navigate it without a qualified Indian Chartered Accountant (CA).</li>
                 <li><span className="font-semibold">Understand Transfer Pricing:</span> If you are a multinational company, be prepared for intense scrutiny on transfer pricing—the pricing of goods and services between your Indian subsidiary and the parent company.</li>
                 <li><span className="font-semibold">Keep Impeccable Records:</span> GST and income tax authorities have extensive powers. Meticulous record-keeping is your best defense against potential disputes.</li>

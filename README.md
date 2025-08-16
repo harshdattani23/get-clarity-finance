@@ -1,4 +1,4 @@
-# Get Clarity Finance
+# Get Clarity Finance for GFF 2025 SEBI Hackathon
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -6,17 +6,19 @@
 
 ---
 
-### The Problem: A Minefield for Retail Investors
+### The Problem: Enhancing Retail Investor Education and Engagement
 
-The Indian securities market is growing at an unprecedented rate, but this growth comes with significant risks. Millions of new retail investors are entering the market, but many lack the financial literacy to navigate it safely. This knowledge gap is exploited by fraudsters who use sophisticated tactics on social media and messaging apps to promote scams, spread misinformation, and manipulate stock prices. The result is significant financial loss for everyday investors and an erosion of trust in the market.
+This project is an entry for the **[GFF 2025 SEBI Hackathon](https://www.globalfintechfest.com/sebi-hackathon)**, targeting the "Enhancing Retail Investor Education and Engagement" problem statement.
+
+The Indian securities market is growing at an unprecedented rate, but this growth comes with significant risks. Millions of new retail investors are entering the market, but many lack the financial literacy to navigate it safely. This knowledge gap is exploited by fraudsters who use sophisticated tactics on social media and messaging apps to promote scams, spread misinformation, and manipulate stock prices. Furthermore, most educational resources are in English, leaving a large gap in vernacular languages. The result is significant financial loss for everyday investors and an erosion of trust in the market.
 
 ---
 
 ## Our Solution: An AI-Powered Shield for Investors
 
-**Get Clarity Finance** is a comprehensive, AI-powered platform designed to empower and protect retail investors in India. Our mission is to level the playing field by providing accessible, multilingual tools and education that build a strong defense against fraud and foster informed decision-making.
+**Get Clarity Finance** is a comprehensive, AI-powered platform designed to empower and protect retail investors in India, directly addressing the hackathon's goals. Our mission is to level the playing field by providing accessible, multilingual tools and education that build a strong defense against fraud and foster informed decision-making.
 
-We tackle the problem with a two-pillar approach: **Proactive Education** and **Instant Protection**.
+We tackle the problem with a two-pillar approach: **Proactive Education** and **Instant Protection**. Our solution aims to be an interactive app that educates users on stock market basics, risk assessment techniques, and portfolio diversification through engaging tutorials, quizzes, and a virtual trading feature that tracks learning progress.
 
 ## 🚀 Key Features
 

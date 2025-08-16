@@ -1,8 +1,7 @@
 // src/contexts/virtual-trading/PortfolioContext.tsx
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { Stock } from '@/lib/trading-data';
+import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { useUser } from '@clerk/nextjs';
 import toast from 'react-hot-toast';
 
@@ -21,6 +20,7 @@ interface PortfolioContextType {
   portfolio: Portfolio | null;
   buyStock: (ticker: string, quantity: number, price: number) => void;
   sellStock: (ticker: string, quantity: number, price: number) => void;
+  refreshPortfolio: () => Promise<void>;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
@@ -29,29 +29,35 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   const { isSignedIn } = useUser();
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
 
-  useEffect(() => {
-    const fetchPortfolio = async () => {
-      if (isSignedIn) {
-        try {
-          const response = await fetch('/api/portfolio');
-          if (response.ok) {
-            const data = await response.json();
-            setPortfolio({
-              cash: parseFloat(data.virtualCash),
-              holdings: data.holdings.map((h: any) => ({
-                ...h,
-                averagePrice: parseFloat(h.averagePrice),
-              })),
-            });
-          }
-        } catch (error) {
-          console.error('Failed to fetch portfolio', error);
+  const fetchPortfolio = useCallback(async () => {
+    if (isSignedIn) {
+      try {
+        const response = await fetch('/api/portfolio');
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Portfolio data fetched:', data);
+          setPortfolio({
+            cash: parseFloat(data.virtualCash),
+            holdings: data.holdings.map((h: { ticker: string; quantity: number; averagePrice: string | number }) => ({
+              ...h,
+              averagePrice: parseFloat(h.averagePrice.toString()),
+            })),
+          });
         }
+      } catch (error) {
+        console.error('Failed to fetch portfolio', error);
       }
-    };
-
-    fetchPortfolio();
+    }
   }, [isSignedIn]);
+
+  const refreshPortfolio = async () => {
+    console.log('Refreshing portfolio...');
+    await fetchPortfolio();
+  };
+
+  useEffect(() => {
+    fetchPortfolio();
+  }, [fetchPortfolio]);
 
   const buyStock = async (ticker: string, quantity: number, price: number) => {
     if (!portfolio) {
@@ -60,6 +66,9 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     }
 
     const cost = quantity * price;
+    console.log(`Buying ${quantity} shares of ${ticker} at ₹${price} each. Total cost: ₹${cost}`);
+    console.log(`Current cash before trade: ₹${portfolio.cash}`);
+    
     if (portfolio.cash < cost) {
       toast.error("Insufficient funds to complete this transaction.");
       return;
@@ -81,26 +90,11 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
 
     const response = await promise;
     if (response.ok) {
-      // Optimistically update the UI
-      const cost = quantity * price;
-      setPortfolio((prev) => {
-        if (!prev) return prev;
-        const existingHolding = prev.holdings.find((h) => h.ticker === ticker);
-        let newHoldings;
-        if (existingHolding) {
-          newHoldings = prev.holdings.map((h) =>
-            h.ticker === ticker ? { ...h, quantity: h.quantity + quantity } : h
-          );
-        } else {
-          newHoldings = [...prev.holdings, { ticker, quantity, averagePrice: price }];
-        }
-
-        return {
-          ...prev,
-          cash: prev.cash - cost,
-          holdings: newHoldings,
-        };
-      });
+      console.log('Trade successful, refreshing portfolio...');
+      // Refresh portfolio data from server to get accurate cash balance
+      await refreshPortfolio();
+    } else {
+      console.error('Trade failed:', response.status, response.statusText);
     }
   };
 
@@ -121,24 +115,14 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
 
     const response = await promise;
     if (response.ok) {
-      // Optimistically update the UI
-      const revenue = quantity * price;
-      setPortfolio((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          cash: prev.cash + revenue,
-          holdings: prev.holdings.map((h) =>
-            h.ticker === ticker ? { ...h, quantity: h.quantity - quantity } : h
-          ).filter(h => h.quantity > 0),
-        };
-      });
+      // Refresh portfolio data from server to get accurate cash balance
+      await refreshPortfolio();
     }
   };
 
   return (
     <PortfolioContext.Provider
-      value={{ portfolio, buyStock, sellStock }}
+      value={{ portfolio, buyStock, sellStock, refreshPortfolio }}
     >
       {children}
     </PortfolioContext.Provider>

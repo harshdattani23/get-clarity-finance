@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser, useAuth } from '@clerk/nextjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export function useOnboardingCheck() {
   const { user, isLoaded } = useUser();
@@ -9,7 +9,7 @@ export function useOnboardingCheck() {
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const recheck = async () => {
+  const recheck = useCallback(async () => {
     if (!user) return;
     try {
       const token = await getToken();
@@ -32,7 +32,7 @@ export function useOnboardingCheck() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user, getToken]);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -43,7 +43,7 @@ export function useOnboardingCheck() {
       return;
     }
     recheck();
-  }, [isLoaded, user]);
+  }, [isLoaded, user, recheck]);
 
   return { isLoading, needsOnboarding, recheck };
 }

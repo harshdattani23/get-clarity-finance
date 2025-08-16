@@ -62,7 +62,7 @@ const OwnershipPieChart = () => {
         />
       </svg>
       <p className="mt-4 text-gray-600 max-w-md">
-        Each slice represents one <strong>share</strong> of the company's stock. When you buy a share, you are buying a slice of that company. You become a part-owner!
+        Each slice represents one <strong>share</strong> of the company&apos;s stock. When you buy a share, you are buying a slice of that company. You become a part-owner!
       </p>
     </div>
   );

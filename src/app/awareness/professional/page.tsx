@@ -1,6 +1,6 @@
 // src/app/awareness/professional/page.tsx
 import Link from 'next/link';
-import { Scale, Users, Handshake, BookOpen, FileText, BarChart, TrendingUp, AlertTriangle, Landmark, Building, Rocket, ShieldAlert } from 'lucide-react';
+import { Scale, Users, Handshake, FileText, BarChart, TrendingUp, Building, Rocket, ShieldAlert } from 'lucide-react';
 
 interface LessonCardProps {
     title: string;

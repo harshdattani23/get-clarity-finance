@@ -2,7 +2,6 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
-import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   console.log('Webhook received');
@@ -61,9 +60,7 @@ export async function POST(req: Request) {
               username: username,
               watchlists: {
                   create: [
-                      { name: "Watchlist 1" },
-                      { name: "Watchlist 2" },
-                      { name: "Watchlist 3" },
+                      { name: "My Watchlist" },
                   ]
               }
           }
@@ -80,31 +77,41 @@ export async function POST(req: Request) {
     const { id, email_addresses } = evt.data;
     console.log('Processing user.updated event for Clerk ID:', id);
 
-    await db.user.update({
-      where: {
-        clerkId: id,
-      },
-      data: {
-        email: email_addresses[0].email_address,
-      },
-    });
+    try {
+      await db.user.update({
+        where: {
+          clerkId: id,
+        },
+        data: {
+          email: email_addresses[0].email_address,
+        },
+      });
 
-    console.log('User updated in DB:', id);
-    return new Response('User updated', { status: 200 });
+      console.log('User updated in DB:', id);
+      return new Response('User updated', { status: 200 });
+    } catch (dbError) {
+      console.error('Database error updating user:', dbError);
+      return new Response('Database error', { status: 500 });
+    }
   }
 
   if (eventType === 'user.deleted') {
     const { id } = evt.data;
     console.log('Processing user.deleted event for Clerk ID:', id);
 
-    await db.user.delete({
-      where: {
-        clerkId: id,
-      },
-    });
+    try {
+      await db.user.delete({
+        where: {
+          clerkId: id,
+        },
+      });
 
-    console.log('User deleted from DB:', id);
-    return new Response('User deleted', { status: 200 });
+      console.log('User deleted from DB:', id);
+      return new Response('User deleted', { status: 200 });
+    } catch (dbError) {
+      console.error('Database error deleting user:', dbError);
+      return new Response('Database error', { status: 500 });
+    }
   }
 
   console.log('Webhook event type not handled:', eventType);

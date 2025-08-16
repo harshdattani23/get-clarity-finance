@@ -4,7 +4,7 @@ import React from 'react';
 import LessonLayout from '../LessonLayout';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { stockMarketCourseStructure } from '../../../lib/stockMarketCourse';
-import { FaBalanceScale, FaChartPie, FaGlobe, FaShieldAlt } from 'react-icons/fa';
+import { FaBalanceScale, FaChartPie, FaShieldAlt } from 'react-icons/fa';
 import PortfolioAllocator from '../../../components/stock-market-course/PortfolioAllocator';
 
 const PortfolioDiversificationPage = () => {
@@ -16,16 +16,16 @@ const PortfolioDiversificationPage = () => {
     return <div>Lesson not found.</div>;
   }
   
-  const module = stockMarketCourseStructure.find(m => m.lessons.some(l => l.slug === 'the-principle-of-portfolio-diversification'));
+  const moduleData = stockMarketCourseStructure.find(m => m.lessons.some(l => l.slug === 'the-principle-of-portfolio-diversification'));
 
-  if (!module) {
+  if (!moduleData) {
     return <div>Module not found.</div>;
   }
 
   return (
     <LessonLayout
       title={t(lesson.title)}
-      description={t(module.description)}
+      description={t(moduleData.description)}
       lessonSlug={lesson.slug}
     >
       <div className="p-8 bg-white dark:bg-gray-900 rounded-lg shadow-lg">

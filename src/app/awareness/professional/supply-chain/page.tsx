@@ -12,7 +12,7 @@ export default function SupplyChainPage() {
       <AnimatedDiv>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">The Challenge of Scale and Diversity</h2>
         <p className="mb-4">
-          India's supply chain is not a single entity. It's a complex web of national highways, state roads, congested city lanes, and rural dirt tracks. What works in a metro like Mumbai will fail in a Tier-3 town in Uttar Pradesh. The sheer scale and diversity of the country are the primary logistical hurdles.
+          India&apos;s supply chain is not a single entity. It&apos;s a complex web of national highways, state roads, congested city lanes, and rural dirt tracks. What works in a metro like Mumbai will fail in a Tier-3 town in Uttar Pradesh. The sheer scale and diversity of the country are the primary logistical hurdles.
         </p>
         <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -21,7 +21,7 @@ export default function SupplyChainPage() {
             </div>
             <div className="ml-3">
               <p className="text-md text-orange-800">
-                <strong>The "Last Mile" Problem:</strong> This refers to the final step of the delivery process from a distribution center to the end-user. In India, this is often the most inefficient and costly part of the entire chain due to poor addressing systems, traffic congestion, and varied local conditions.
+                <strong>The &quot;Last Mile&quot; Problem:</strong> This refers to the final step of the delivery process from a distribution center to the end-user. In India, this is often the most inefficient and costly part of the entire chain due to poor addressing systems, traffic congestion, and varied local conditions.
               </p>
             </div>
           </div>

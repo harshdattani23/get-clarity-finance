@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookCheck, ShieldAlert, LineChart, FileText, Landmark, Users, Building, Rocket } from 'lucide-react';
+import { ShieldAlert, LineChart, Landmark, Users, Building, Rocket } from 'lucide-react';
 
 interface LessonCardProps {
     title: string;
@@ -59,7 +59,7 @@ const FoundationPage = () => {
             Level 1: Foundation
           </span>
         </h1>
-        <p className="text-xl text-gray-600 mt-2">The "What" of the Indian Market. A fundamental understanding of the landscape.</p>
+        <p className="text-xl text-gray-600 mt-2">The &quot;What&quot; of the Indian Market. A fundamental understanding of the landscape.</p>
       </header>
 
       <main className="space-y-12">

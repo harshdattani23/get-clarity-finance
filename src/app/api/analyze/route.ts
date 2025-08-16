@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   try {
     const analysis = await analyzeText(text);
     return NextResponse.json(analysis);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to analyze text' }, { status: 500 });
   }
 }

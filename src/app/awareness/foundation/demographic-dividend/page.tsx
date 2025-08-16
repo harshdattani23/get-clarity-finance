@@ -1,5 +1,5 @@
 import LessonLayout from '../../LessonLayout';
-import { ChevronsRight, Users, Building, Globe, Star } from 'lucide-react';
+import { ChevronsRight, Building, Globe, Star } from 'lucide-react';
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 export default function DemographicDividend() {
@@ -12,9 +12,9 @@ export default function DemographicDividend() {
             <div className="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-lg mb-8">
                 <h3 className="font-bold text-xl text-indigo-900 mb-2">Key Takeaways</h3>
                 <ul className="space-y-2 text-indigo-800">
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Over half of India's 1.4 billion people are under 25, creating a huge consumer market and workforce.</span></li>
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>The market is split between high-income urban centers and the vast, untapped rural market known as 'Bharat'.</span></li>
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>With 22 official languages, a 'vernacular' or regional language strategy is crucial for effective marketing.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Over half of India&apos;s 1.4 billion people are under 25, creating a huge consumer market and workforce.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>The market is split between high-income urban centers and the vast, untapped rural market known as &apos;Bharat&apos;.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>With 22 official languages, a &apos;vernacular&apos; or regional language strategy is crucial for effective marketing.</span></li>
                 </ul>
             </div>
         </AnimatedDiv>
@@ -22,7 +22,7 @@ export default function DemographicDividend() {
         <AnimatedDiv delay={0.3}>
             <h2>A Nation of a Billion Aspirations</h2>
             <p>
-                India's population is its most defining characteristic. This scale presents both a massive opportunity—the "dividend"—and a significant challenge—the "dilemma."
+                India&apos;s population is its most defining characteristic. This scale presents both a massive opportunity—the &quot;dividend&quot;—and a significant challenge—the &quot;dilemma.&quot;
             </p>
         </AnimatedDiv>
 
@@ -56,7 +56,7 @@ export default function DemographicDividend() {
         <AnimatedDiv delay={0.6}>
             <h3>Linguistic Diversity</h3>
             <p>
-                India has 22 official languages and hundreds of dialects. While English is widely used in business and among the urban elite, a "one-size-fits-all" language strategy will fail. Successful marketing and product design require a deep understanding of regional languages and cultural nuances to truly connect with the consumer. This is often referred to as a "vernacular" strategy.
+                India has 22 official languages and hundreds of dialects. While English is widely used in business and among the urban elite, a &quot;one-size-fits-all&quot; language strategy will fail. Successful marketing and product design require a deep understanding of regional languages and cultural nuances to truly connect with the consumer. This is often referred to as a &quot;vernacular&quot; strategy.
             </p>
         </AnimatedDiv>
     </LessonLayout>

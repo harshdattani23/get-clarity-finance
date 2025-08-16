@@ -22,7 +22,7 @@ export default function RepublicDna() {
         <AnimatedDiv delay={0.3}>
             <h2>A Sovereign, Socialist, Secular, and Democratic Republic</h2>
             <p>
-                To understand how to operate in India, one must first understand how it is governed. India's political structure is a parliamentary democratic republic, where the President of India is the head of state and the Prime Minister of India is the head of government. It is based on the principle of **federalism**, where power is divided between the central government and the individual state governments.
+                To understand how to operate in India, one must first understand how it is governed. India&apos;s political structure is a parliamentary democratic republic, where the President of India is the head of state and the Prime Minister of India is the head of government. It is based on the principle of **federalism**, where power is divided between the central government and the individual state governments.
             </p>
         </AnimatedDiv>
 
@@ -47,13 +47,13 @@ export default function RepublicDna() {
         <AnimatedDiv delay={0.5}>
             <h3>Administrative Geography: States vs. Union Territories</h3>
             <p>
-                India's administrative geography is crucial for business strategy. Regulations, licenses, and taxes can vary significantly between its 28 states and 8 union territories.
+                India&apos;s administrative geography is crucial for business strategy. Regulations, licenses, and taxes can vary significantly between its 28 states and 8 union territories.
             </p>
             <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg">
                 <div className="flex items-center gap-4">
                     <Map className="w-12 h-12 flex-shrink-0"/>
                     <div>
-                        <h3 className="font-bold text-2xl">States vs. UTs: What's the difference?</h3>
+                        <h3 className="font-bold text-2xl">States vs. UTs: What&apos;s the difference?</h3>
                         <p className="mt-1 opacity-90"><strong>States</strong> have their own elected governments and significant autonomy. <strong>Union Territories (UTs)</strong> are administered directly by the central government, leading to different regulatory landscapes.</p>
                     </div>
                 </div>

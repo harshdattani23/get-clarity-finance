@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertTriangle, Brain, Shield, Target, TrendingUp } from 'lucide-react';
+import { CheckCircle, Brain, Shield, Target, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -42,7 +42,6 @@ const allQuestionsData: QuestionData[] = [
 export default function InvestmentQuiz() {
   const { t } = useTranslation('investment-quiz');
   const [step, setStep] = useState<'expertise' | 'quiz' | 'results'>('expertise');
-  const [selectedExpertise, setSelectedExpertise] = useState<string>('');
   const [answers, setAnswers] = useState<number[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -65,8 +64,7 @@ export default function InvestmentQuiz() {
     explanation: t(`questions.${q.id}.explanation`),
   }));
   
-  const handleExpertiseSelection = (expertiseId: string) => {
-    setSelectedExpertise(expertiseId);
+  const handleExpertiseSelection = () => {
     setStep('quiz');
   };
 
@@ -152,7 +150,7 @@ export default function InvestmentQuiz() {
                     whileHover={{ scale: 1.02, borderColor: '#60a5fa' }}
                     whileTap={{ scale: 0.98 }}
                     className="border-2 border-gray-700 rounded-xl p-6 cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors"
-                    onClick={() => handleExpertiseSelection(level.id)}
+                    onClick={() => handleExpertiseSelection()}
                   >
                     <div className="text-center">
                       <div className="bg-blue-900/50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-300">
@@ -343,7 +341,6 @@ export default function InvestmentQuiz() {
               <button
                 onClick={() => {
                   setStep('expertise');
-                  setSelectedExpertise('');
                   setAnswers([]);
                   setCurrentQuestionIndex(0);
                   setShowExplanation(false);

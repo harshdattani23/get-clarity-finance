@@ -8,7 +8,7 @@ export default function WhatIsStockMarket() {
     <LessonLayout title={lessonTitle} description={lessonDescription} lessonSlug="what-is-stock-market">
       <h2>The Heart of Investment</h2>
       <p>
-        The stock market, also known as the capital market, is where people and institutions trade financial securities. Think of it as a large, organized marketplace, but instead of goods, you're buying and selling small pieces of ownership in companies (stocks) or loans to corporations and governments (bonds).
+        The stock market, also known as the capital market, is where people and institutions trade financial securities. Think of it as a large, organized marketplace, but instead of goods, you&apos;re buying and selling small pieces of ownership in companies (stocks) or loans to corporations and governments (bonds).
       </p>
       
       <h3>Two Main Parts: Primary and Secondary Markets</h3>
@@ -20,7 +20,7 @@ export default function WhatIsStockMarket() {
           <strong>The Primary Market:</strong> This is where new stocks and bonds are sold for the very first time. When a company wants to raise money from the public, it issues shares through an Initial Public Offering (IPO). This is the primary market in action.
         </li>
         <li>
-          <strong>The Secondary Market:</strong> This is what most people think of as the "stock market." It's where investors buy and sell existing securities from each other. The main goal here is to provide liquidity, allowing you to sell your investments when you need to. The most well-known parts of the secondary market are the stock exchanges.
+          <strong>The Secondary Market:</strong> This is what most people think of as the &quot;stock market.&quot; It&apos;s where investors buy and sell existing securities from each other. The main goal here is to provide liquidity, allowing you to sell your investments when you need to. The most well-known parts of the secondary market are the stock exchanges.
         </li>
       </ul>
 

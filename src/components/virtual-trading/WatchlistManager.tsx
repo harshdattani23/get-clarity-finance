@@ -1,46 +1,31 @@
 'use client';
 
-import { useState } from 'react';
 import { useWatchlist } from '@/contexts/virtual-trading/WatchlistContext';
-import WatchlistView from './WatchlistView';
+import dynamic from 'next/dynamic';
+import { useUser } from '@clerk/nextjs';
+import LoginPrompt from './LoginPrompt';
+
+const WatchlistView = dynamic(() => import('./WatchlistView'), { ssr: false });
 
 export default function WatchlistManager() {
-  const { watchlists, createWatchlist } = useWatchlist();
-  const [newWatchlistName, setNewWatchlistName] = useState('');
+  const { watchlist, loading } = useWatchlist();
+  const { isSignedIn } = useUser();
 
-  const handleCreate = () => {
-    if (newWatchlistName.trim()) {
-      createWatchlist(newWatchlistName.trim());
-      setNewWatchlistName('');
-    }
-  };
+  if (!isSignedIn) {
+    return <LoginPrompt />;
+  }
+
+  if (loading) {
+    return <div className="text-center p-4">Loading watchlist...</div>;
+  }
+  
+  if (!watchlist) {
+    return <div className="text-center p-4">No watchlist found.</div>;
+  }
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg mt-4">
-      <div className="mb-4">
-        <h4 className="font-semibold mb-2">Create New Watchlist</h4>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newWatchlistName}
-            onChange={(e) => setNewWatchlistName(e.target.value)}
-            placeholder="New watchlist name"
-            className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-          />
-          <button
-            onClick={handleCreate}
-            disabled={watchlists.length >= 3}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:bg-gray-500"
-          >
-            Create
-          </button>
-        </div>
-        {watchlists.length >= 3 && (
-            <p className="text-xs text-red-500 mt-1">You have reached the maximum of 3 watchlists.</p>
-        )}
-      </div>
-
-      <WatchlistView />
+    <div className="bg-slate-900 rounded-lg">
+      <WatchlistView watchlist={watchlist} />
     </div>
   );
 }

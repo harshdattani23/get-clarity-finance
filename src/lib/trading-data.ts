@@ -124,9 +124,11 @@ const uniqueStocks = new Map();
 
 export const allStocks = Array.from(uniqueStocks.values());
 
+export const industries = [...new Set(allStocks.map(stock => stock.industry))];
+
 export const indices = {
   nifty: { name: 'NIFTY 50', value: 22500, change: 0.0 },
-  sensex: { name: 'SENSEX', value: 74000, change: 0.0 },
+  sensex: { name: 'SENSEX 30', value: 74000, change: 0.0 },
   bankNifty: { name: 'BANK NIFTY', value: 48000, change: 0.0 },
   niftyNext50: { name: 'NIFTY NEXT 50', value: 66202, change: 0.0 },
   bseMidcap: { name: 'BSE MIDCAP', value: 45217, change: 0.0 },

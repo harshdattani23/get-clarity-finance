@@ -21,7 +21,7 @@ export default function LocalPartnershipsPage() {
             </div>
             <div className="ml-3">
               <p className="text-md text-blue-800">
-                <strong>Core Concept:</strong> A local partner isn't just a vendor or a distributor; they are your cultural and business translator, your guide through bureaucracy, and your first bridge to the local ecosystem.
+                <strong>Core Concept:</strong> A local partner isn&apos;t just a vendor or a distributor; they are your cultural and business translator, your guide through bureaucracy, and your first bridge to the local ecosystem.
               </p>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function LocalPartnershipsPage() {
             <Link2 className="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-bold text-lg text-gray-800">Joint Ventures (JVs)</h3>
-              <p className="text-gray-600">A formal partnership where you create a new entity with a local company. This is common in sectors with high regulatory oversight (like insurance or defense) or where deep local infrastructure is needed. It's a high-commitment, high-reward strategy.</p>
+              <p className="text-gray-600">A formal partnership where you create a new entity with a local company. This is common in sectors with high regulatory oversight (like insurance or defense) or where deep local infrastructure is needed. It&apos;s a high-commitment, high-reward strategy.</p>
             </div>
           </li>
           <li className="flex items-start">
@@ -63,10 +63,10 @@ export default function LocalPartnershipsPage() {
         <div className="mt-8 p-6 bg-white rounded-xl shadow-md border">
             <h3 className="text-2xl font-bold text-gray-800 mb-3">Key Takeaways for Investors</h3>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li><span className="font-semibold">Conduct Rigorous Due Diligence:</span> Investigate a potential partner's reputation, financial stability, and track record. Don't rely on face value. Talk to their other partners and customers.</li>
+                <li><span className="font-semibold">Conduct Rigorous Due Diligence:</span> Investigate a potential partner&apos;s reputation, financial stability, and track record. Don&apos;t rely on face value. Talk to their other partners and customers.</li>
                 <li><span className="font-semibold">Define Everything in Writing:</span> While relationships are key, the contract must be watertight. Clearly outline roles, responsibilities, financial arrangements, exit clauses, and dispute resolution mechanisms.</li>
                 <li><span className="font-semibold">Look for Aligned Values:</span> A mismatch in business ethics, long-term vision, or work culture can doom a partnership, even if the commercial logic is sound.</li>
-                <li><span className="font-semibold">"Promoter" is a Key Concept:</span> Understand the role of the "promoter" or founding family in the partner company. Their influence and reputation are critical assets (or liabilities).</li>
+                <li><span className="font-semibold">&quot;Promoter&quot; is a Key Concept:</span> Understand the role of the &quot;promoter&quot; or founding family in the partner company. Their influence and reputation are critical assets (or liabilities).</li>
             </ul>
         </div>
       </AnimatedDiv>

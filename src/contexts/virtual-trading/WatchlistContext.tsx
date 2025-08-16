@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { useUser } from '@clerk/nextjs';
 import toast from 'react-hot-toast';
 
@@ -16,105 +16,52 @@ export interface Watchlist {
 }
 
 interface WatchlistContextType {
-  watchlists: Watchlist[];
+  watchlist: Watchlist | null;
   loading: boolean;
-  createWatchlist: (name: string) => Promise<void>;
-  renameWatchlist: (id: number, newName: string) => Promise<void>;
-  deleteWatchlist: (id: number) => Promise<void>;
-  addStockToWatchlist: (watchlistId: number, ticker: string) => Promise<void>;
-  removeStockFromWatchlist: (watchlistId: number, ticker: string) => Promise<void>;
+  addStockToWatchlist: (ticker: string) => Promise<void>;
+  removeStockFromWatchlist: (ticker: string) => Promise<void>;
 }
 
 const WatchlistContext = createContext<WatchlistContextType | undefined>(undefined);
 
 export function WatchlistProvider({ children }: { children: ReactNode }) {
   const { isSignedIn } = useUser();
-  const [watchlists, setWatchlists] = useState<Watchlist[]>([]);
+  const [watchlist, setWatchlist] = useState<Watchlist | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchWatchlists = async () => {
+  const fetchWatchlist = useCallback(async () => {
     if (isSignedIn) {
       try {
         setLoading(true);
         const response = await fetch('/api/watchlist');
         if (response.ok) {
           const data = await response.json();
-          setWatchlists(data);
+          // The API now returns a single watchlist object or null
+          setWatchlist(data);
         }
       } catch (error) {
-        console.error('Failed to fetch watchlists', error);
+        console.error('Failed to fetch watchlist', error);
       } finally {
         setLoading(false);
       }
     }
-  };
-
-  useEffect(() => {
-    fetchWatchlists();
   }, [isSignedIn]);
 
-  const createWatchlist = async (name: string) => {
-    const promise = fetch('/api/watchlist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    });
+  useEffect(() => {
+    fetchWatchlist();
+  }, [fetchWatchlist]);
 
-    toast.promise(promise, {
-      loading: 'Creating watchlist...',
-      success: 'Watchlist created!',
-      error: 'Failed to create watchlist',
-    });
-
-    await promise;
-    await fetchWatchlists();
-  };
-
-  const renameWatchlist = async (id: number, newName: string) => {
-    const promise = fetch('/api/watchlist', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, newName }),
-    });
-
-    toast.promise(promise, {
-        loading: 'Renaming watchlist...',
-        success: 'Watchlist renamed!',
-        error: 'Failed to rename watchlist',
-    });
-
-    await promise;
-    await fetchWatchlists();
-  };
-
-  const deleteWatchlist = async (id: number) => {
-    const promise = fetch('/api/watchlist', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
-    });
-
-    toast.promise(promise, {
-        loading: 'Deleting watchlist...',
-        success: 'Watchlist deleted!',
-        error: 'Failed to delete watchlist',
-    });
-
-    await promise;
-    await fetchWatchlists();
-  };
-
-  const addStockToWatchlist = async (watchlistId: number, ticker: string) => {
-    const watchlist = watchlists.find((w) => w.id === watchlistId);
-    if (watchlist && watchlist.items.length >= 10) {
-      toast.error('Watchlist is full (max 10 stocks).');
+  const addStockToWatchlist = async (ticker: string) => {
+    if (!watchlist) return;
+    if (watchlist.items && watchlist.items.length >= 20) { // Increased limit for a single list
+      toast.error('Watchlist is full (max 20 stocks).');
       return;
     }
 
     const promise = fetch('/api/watchlist/items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ watchlistId, ticker }),
+      body: JSON.stringify({ watchlistId: watchlist.id, ticker }),
     });
 
     toast.promise(promise, {
@@ -124,14 +71,15 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
     });
 
     await promise;
-    await fetchWatchlists();
+    await fetchWatchlist();
   };
 
-  const removeStockFromWatchlist = async (watchlistId: number, ticker: string) => {
+  const removeStockFromWatchlist = async (ticker: string) => {
+    if (!watchlist) return;
     const promise = fetch('/api/watchlist/items', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ watchlistId, ticker }),
+        body: JSON.stringify({ watchlistId: watchlist.id, ticker }),
     });
 
     toast.promise(promise, {
@@ -141,17 +89,14 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
     });
     
     await promise;
-    await fetchWatchlists();
+    await fetchWatchlist();
   };
 
   return (
     <WatchlistContext.Provider
       value={{
-        watchlists,
+        watchlist,
         loading,
-        createWatchlist,
-        renameWatchlist,
-        deleteWatchlist,
         addStockToWatchlist,
         removeStockFromWatchlist,
       }}

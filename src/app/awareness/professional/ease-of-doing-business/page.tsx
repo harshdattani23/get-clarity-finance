@@ -1,5 +1,5 @@
 import LessonLayout from "@/app/awareness/LessonLayout";
-import { Zap, Shield, FileText, BarChart, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Shield, FileText, BarChart, TrendingUp, AlertTriangle } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function EaseOfDoingBusinessPage() {
@@ -12,7 +12,7 @@ export default function EaseOfDoingBusinessPage() {
       <AnimatedDiv>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">The Official Narrative: A Remarkable Climb</h2>
         <p className="mb-4">
-          India's jump in the World Bank's 'Ease of Doing Business' rankings has been a significant headline. From ranking 142nd in 2014 to 63rd in 2019, the improvement is statistically impressive. This leap was driven by key reforms aimed at streamlining business operations.
+          India&apos;s jump in the World Bank&apos;s &apos;Ease of Doing Business&apos; rankings has been a significant headline. From ranking 142nd in 2014 to 63rd in 2019, the improvement is statistically impressive. This leap was driven by key reforms aimed at streamlining business operations.
         </p>
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg my-6">
           <div className="flex">
@@ -51,7 +51,7 @@ export default function EaseOfDoingBusinessPage() {
           
           <div className="bg-green-50 p-4 rounded-lg border border-green-200">
             <h3 className="font-bold text-lg text-green-800 flex items-center mb-2"><FileText className="w-5 h-5 mr-2" />The Myth: Simplified Taxation under GST</h3>
-            <p className="text-gray-700">GST is a 'one nation, one tax' system that's easy to comply with.</p>
+            <p className="text-gray-700">GST is a &apos;one nation, one tax&apos; system that&apos;s easy to comply with.</p>
             <hr className="my-2"/>
             <p className="text-gray-600"><span className="font-semibold">The Reality:</span> GST has multiple slabs, complex input tax credit rules, and frequent amendments. Compliance requires sophisticated software and expert guidance, posing a significant challenge for smaller businesses.</p>
           </div>
@@ -73,7 +73,7 @@ export default function EaseOfDoingBusinessPage() {
                 <li><span className="font-semibold">Due Diligence is Non-Negotiable:</span> Thoroughly investigate every aspect of a deal, from land titles to local permits. Do not rely solely on national-level declarations.</li>
                 <li><span className="font-semibold">Local Expertise is Key:</span> Partner with on-the-ground experts—lawyers, accountants, and consultants—who understand the nuances of the local state and city-level bureaucracy.</li>
                 <li><span className="font-semibold">Factor in Delays:</span> Build buffers into your timelines and budgets for unforeseen regulatory and legal delays. Patience is a critical asset.</li>
-                <li><i className="fas fa-balance-scale"></i><span className="font-semibold">Leverage Digital, But Don't Abandon Physical:</span> Use online portals for everything you can, but be prepared to send a representative to a government office to move a file from one desk to another.</li>
+                <li><i className="fas fa-balance-scale"></i><span className="font-semibold">Leverage Digital, But Don&apos;t Abandon Physical:</span> Use online portals for everything you can, but be prepared to send a representative to a government office to move a file from one desk to another.</li>
             </ul>
         </div>
       </AnimatedDiv>

@@ -17,9 +17,9 @@ model User {
   clerkId              String               @id @unique
   email                String               @unique
   username             String?
-  investmentExperience InvestmentExperience?
+  virtualCash          Decimal              @default(1000000.00)
   onboarded            Boolean              @default(false)
-  virtualCash          Decimal              @default(100000.00)
+  investmentExperience InvestmentExperience?
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @updatedAt
   courseProgress       CourseProgress[]
@@ -71,6 +71,8 @@ model Watchlist {
   items     WatchlistItem[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
+
+  @@unique([userClerkId, name])
 }
 
 model WatchlistItem {
@@ -98,4 +100,18 @@ enum CourseStatus {
 enum TradeType {
   BUY
   SELL
+}
+
+model Stock {
+  id            Int      @id @default(autoincrement())
+  ticker        String   @unique
+  name          String
+  industry      String
+  marketCap     String
+  indices       String[]
+  price         Decimal?
+  change        Decimal?
+  percentChange Decimal?
+  volume        Decimal?
+  lastUpdatedAt DateTime?
 }

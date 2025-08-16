@@ -2,6 +2,23 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
 
+interface TradingViewWindow extends Window {
+  TradingView: {
+    widget: new (config: {
+      autosize: boolean;
+      symbol: string;
+      interval: string;
+      timezone: string;
+      theme: string;
+      style: string;
+      locale: string;
+      enable_publishing: boolean;
+      allow_symbol_change: boolean;
+      container_id: string;
+    }) => void;
+  };
+}
+
 let tvScriptLoadingPromise: Promise<Event> | null = null;
 
 export default function TradingViewWidget({ symbol = "NASDAQ:AAPL", theme = "light" }) {
@@ -34,7 +51,7 @@ export default function TradingViewWidget({ symbol = "NASDAQ:AAPL", theme = "lig
 
       function createWidget() {
         if (document.getElementById('tradingview_33958') && 'TradingView' in window) {
-          new (window as any).TradingView.widget({
+          new ((window as TradingViewWindow).TradingView).widget({
             autosize: true,
             symbol: symbol,
             interval: "D",

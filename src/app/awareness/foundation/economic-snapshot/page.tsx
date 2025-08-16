@@ -1,5 +1,5 @@
 import LessonLayout from '../../LessonLayout';
-import { ChevronsRight, PieChart as PieIcon, ShoppingCart, Gem } from 'lucide-react';
+import { ChevronsRight, ShoppingCart, Gem } from 'lucide-react';
 import GdpPieChart from '@/components/infographics/GdpPieChart';
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
@@ -13,7 +13,7 @@ export default function EconomicSnapshot() {
             <div className="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-lg mb-8">
                 <h3 className="font-bold text-xl text-indigo-900 mb-2">Key Takeaways</h3>
                 <ul className="space-y-2 text-indigo-800">
-                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>India's economy is service-led, with the Services sector contributing over 50% to the GDP.</span></li>
+                    <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>India&apos;s economy is service-led, with the Services sector contributing over 50% to the GDP.</span></li>
                     <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Growth is powered by strong domestic consumption, government reforms, and a world-class digital infrastructure.</span></li>
                     <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>Inflation is actively managed by the Reserve Bank of India (RBI) to balance growth and price stability.</span></li>
                 </ul>
@@ -23,7 +23,7 @@ export default function EconomicSnapshot() {
         <AnimatedDiv delay={0.3}>
             <h2>The Engine of a Rising Power</h2>
             <p>
-                India's economy is one of the fastest-growing major economies in the world. Understanding its composition and key drivers is fundamental to grasping the opportunities it presents.
+                India&apos;s economy is one of the fastest-growing major economies in the world. Understanding its composition and key drivers is fundamental to grasping the opportunities it presents.
             </p>
         </AnimatedDiv>
 
@@ -41,7 +41,7 @@ export default function EconomicSnapshot() {
                 </div>
                 <div className="bg-white p-6 rounded-lg border border-gray-200">
                     <h4 className="font-bold text-lg text-indigo-800 flex items-center gap-2 mb-2"><Gem className="w-5 h-5"/>Digital Infrastructure</h4>
-                    <p className="text-gray-600">The "India Stack" (Aadhaar, UPI) has enabled a massive digital transformation.</p>
+                    <p className="text-gray-600">The &quot;India Stack&quot; (Aadhaar, UPI) has enabled a massive digital transformation.</p>
                 </div>
             </div>
         </AnimatedDiv>

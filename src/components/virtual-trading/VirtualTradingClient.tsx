@@ -1,116 +1,170 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useUser } from '@clerk/nextjs';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import MarketFilters from './MarketFilters';
 import ScreenerView from './ScreenerView';
-import PortfolioDashboard from './PortfolioDashboard';
-import WatchlistManager from './WatchlistManager';
 import WarningBanner from './WarningBanner';
-import LoginPrompt from './LoginPrompt';
-import IndexTicker from './IndexTicker';
-import ScrollingTicker from './ScrollingTicker';
 import AcknowledgementModal from './AcknowledgementModal';
 import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
 import { WatchlistProvider } from '@/contexts/virtual-trading/WatchlistContext';
-import NewsFeed from './NewsFeed';
+import ClientOnly from '../ClientOnly';
+import IndexTicker from './IndexTicker';
+import ScrollingTicker from './ScrollingTicker';
+import PortfolioSummary from './PortfolioSummary';
+import TradingActions from './TradingActions';
+import Pagination from './Pagination'; // Import Pagination
+import { usePathname } from 'next/navigation'; // Get pathname
+import WatchlistManager from './WatchlistManager';
+import { useUser } from '@clerk/nextjs';
+import LoginPrompt from './LoginPrompt';
+import PortfolioView from './PortfolioView'; // Import the new component
+import { Stock } from '@/lib/trading-data';
 
-const ITEMS_PER_PAGE = 15;
-
-export default function VirtualTradingClient({ initialStocks: serverStocks }: { initialStocks: any[] }) {
-  const router = useRouter();
+const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[], totalCount: number } }) => {
+  const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists'>('markets');
+  const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio'>('summary');
   const searchParams = useSearchParams();
+  const pathname = usePathname(); // Get pathname
   const { isSignedIn } = useUser();
 
-  const [view, setView] = useState('screener');
-  const [stocks, setStocks] = useState(serverStocks);
-  const [loading, setLoading] = useState(false);
-  
-  const page = searchParams?.get('page') ? Number(searchParams.get('page')) : 1;
-
   useEffect(() => {
-    const fetchStocks = async () => {
-      setLoading(true);
-      const params = new URLSearchParams(searchParams?.toString());
-      const response = await fetch(`/api/virtual-trading/stocks?${params.toString()}`);
-      const data = await response.json();
-      setStocks(data);
-      setLoading(false);
-    };
-    // Fetch stocks whenever searchParams change
-    fetchStocks();
-  }, [searchParams]);
+    if (!isSignedIn) {
+      setLeftColumnView('markets');
+      setRightColumnView('summary');
+    }
+  }, [isSignedIn]);
 
-  const paginatedStocks = useMemo(() => {
-    const startIndex = (page - 1) * ITEMS_PER_PAGE;
-    return stocks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [stocks, page]);
+  const filteredAndSortedStocks = useMemo(() => {
+    const searchTerm = searchParams?.get('search') || '';
+    const index = searchParams?.get('index') || 'all';
+    const industry = searchParams?.get('industry') || 'all';
+    const sort = searchParams?.get('sort') || 'name-asc';
+
+    let filteredStocks = [...initialData.stocks];
+
+    if (searchTerm) {
+      filteredStocks = filteredStocks.filter(
+        (stock) =>
+          stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          stock.ticker.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    if (index !== 'all') {
+      filteredStocks = filteredStocks.filter((stock) => stock.indices.includes(index));
+    }
+    if (industry !== 'all') {
+      filteredStocks = filteredStocks.filter((stock) => stock.industry === industry);
+    }
+
+    const [sortKey, sortOrder] = sort.split('-');
+    filteredStocks.sort((a: Stock, b: Stock) => {
+      if (sortKey === 'name') {
+        return sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      }
+      if (['price', 'change', 'marketCapValue', 'percentChange'].includes(sortKey)) {
+        const aValue = (a as Stock & { [key: string]: number })[sortKey] || 0;
+        const bValue = (b as Stock & { [key: string]: number })[sortKey] || 0;
+        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+      return 0;
+    });
+
+    return filteredStocks;
+  }, [searchParams, initialData.stocks]);
+
+  const currentPage = Number(searchParams?.get('page')) || 1;
+  const itemsPerPage = 15;
+  const paginatedStocks = filteredAndSortedStocks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <PortfolioProvider>
       <WatchlistProvider>
-        <div className="bg-gray-900 text-white min-h-screen">
+        <div className="bg-slate-900 text-white min-h-screen">
           <WarningBanner />
           <AcknowledgementModal />
-          <IndexTicker />
-          <ScrollingTicker />
+          <ClientOnly>
+            <IndexTicker />
+            <ScrollingTicker />
+          </ClientOnly>
           <div className="container mx-auto p-4">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-3xl font-bold">
-                {view === 'screener' && 'Markets'}
-                {view === 'portfolio' && 'Portfolio'}
-                {view === 'watchlist' && 'Watchlist'}
-                {view === 'news' && 'News'}
-              </h1>
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => setView('screener')}
-                  className={`px-4 py-2 rounded ${view === 'screener' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
-                >
-                  Markets
-                </button>
-                <button
-                  onClick={() => setView('portfolio')}
-                  className={`px-4 py-2 rounded ${view === 'portfolio' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
-                >
-                  Portfolio
-                </button>
-                <button
-                  onClick={() => setView('watchlist')}
-                  className={`px-4 py-2 rounded ${view === 'watchlist' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
-                >
-                  Watchlist
-                </button>
-                <button
-                  onClick={() => setView('news')}
-                  className={`px-4 py-2 rounded ${view === 'news' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
-                >
-                  News
-                </button>
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              {/* Left Column */}
+              <div className="lg:col-span-2 bg-slate-900 p-4 rounded-lg">
+                <div className="flex space-x-2 mb-4">
+                  <button
+                    onClick={() => setLeftColumnView('markets')}
+                    className={`px-4 py-2 rounded-md font-semibold w-full ${leftColumnView === 'markets' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                  >
+                    Markets
+                  </button>
+                  {isSignedIn && (
+                    <button
+                      onClick={() => setLeftColumnView('watchlists')}
+                      className={`px-4 py-2 rounded-md font-semibold w-full ${leftColumnView === 'watchlists' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                    >
+                      Watchlists
+                    </button>
+                  )}
+                </div>
+
+                {leftColumnView === 'markets' && (
+                  <>
+                    <MarketFilters />
+                    <ScreenerView
+                      paginatedStocks={paginatedStocks}
+                    />
+                    <Pagination
+                      totalItems={filteredAndSortedStocks.length}
+                      itemsPerPage={itemsPerPage}
+                      currentPage={currentPage}
+                      pathname={pathname || ''}
+                      searchParams={searchParams || new URLSearchParams()}
+                    />
+                  </>
+                )}
+
+                {leftColumnView === 'watchlists' && <WatchlistManager />}
+              </div>
+
+              {/* Right Column */}
+              <div className="lg:col-span-3">
+                <div className="flex space-x-2 mb-4">
+                  <button
+                    onClick={() => setRightColumnView('summary')}
+                    className={`px-4 py-2 rounded-md font-semibold w-full ${rightColumnView === 'summary' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                  >
+                    Summary
+                  </button>
+                  {isSignedIn && (
+                    <button
+                      onClick={() => setRightColumnView('portfolio')}
+                      className={`px-4 py-2 rounded-md font-semibold w-full ${rightColumnView === 'portfolio' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                    >
+                      Portfolio
+                    </button>
+                  )}
+                </div>
+                {isSignedIn ? (
+                  <>
+                    {rightColumnView === 'summary' && (
+                      <>
+                        <PortfolioSummary />
+                        <TradingActions />
+                      </>
+                    )}
+                    {rightColumnView === 'portfolio' && <PortfolioView allStocks={initialData.stocks} />}
+                  </>
+                ) : (
+                  <LoginPrompt />
+                )}
               </div>
             </div>
-
-            {view === 'screener' && (
-              <>
-                <MarketFilters />
-                <ScreenerView
-                  paginatedStocks={paginatedStocks}
-                  totalStocks={stocks.length}
-                  itemsPerPage={ITEMS_PER_PAGE}
-                  currentPage={page}
-                />
-              </>
-            )}
-            
-            {view === 'portfolio' && (isSignedIn ? <PortfolioDashboard /> : <LoginPrompt />)}
-
-            {view === 'watchlist' && (isSignedIn ? <WatchlistManager /> : <LoginPrompt />)}
-
-            {view === 'news' && <NewsFeed symbol="general" />}
           </div>
         </div>
       </WatchlistProvider>
     </PortfolioProvider>
   );
-}
+};
+
+export default VirtualTradingClient;

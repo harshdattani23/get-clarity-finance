@@ -1,5 +1,5 @@
 import LessonLayout from "@/app/awareness/LessonLayout";
-import { Scale, FileText, AlertTriangle, CheckSquare, Users } from 'lucide-react';
+import { Scale, FileText, AlertTriangle, Users } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function IndianContractsPage() {
@@ -39,21 +39,21 @@ export default function IndianContractsPage() {
             <AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-bold text-lg text-gray-800">Vague and Ambiguous Language</h3>
-              <p className="text-gray-600">Many traditional Indian contracts suffer from overly complex, non-specific language. This can lead to differing interpretations and lengthy disputes. Precision is paramount—avoid leaving anything to be "mutually agreed upon later."</p>
+              <p className="text-gray-600">Many traditional Indian contracts suffer from overly complex, non-specific language. This can lead to differing interpretations and lengthy disputes. Precision is paramount—avoid leaving anything to be &quot;mutually agreed upon later.&quot;</p>
             </div>
           </li>
           <li className="flex items-start">
             <Scale className="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-bold text-lg text-gray-800">Jurisdiction and Dispute Resolution Clauses</h3>
-              <p className="text-gray-600">Specifying the jurisdiction (e.g., "Courts of Mumbai") is vital. Without this, legal battles can span multiple states. While arbitration is becoming popular, the process can still be slower than in other countries. Singapore and London are often preferred as neutral arbitration seats.</p>
+              <p className="text-gray-600">Specifying the jurisdiction (e.g., &quot;Courts of Mumbai&quot;) is vital. Without this, legal battles can span multiple states. While arbitration is becoming popular, the process can still be slower than in other countries. Singapore and London are often preferred as neutral arbitration seats.</p>
             </div>
           </li>
           <li className="flex items-start">
             <Users className="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-bold text-lg text-gray-800">Stamping and Registration</h3>
-              <p className="text-gray-600">Certain contracts in India are not legally enforceable unless they are "stamped" with the appropriate government duty and, in some cases, registered. This is a common and costly oversight for foreign companies.</p>
+              <p className="text-gray-600">Certain contracts in India are not legally enforceable unless they are &quot;stamped&quot; with the appropriate government duty and, in some cases, registered. This is a common and costly oversight for foreign companies.</p>
             </div>
           </li>
         </ul>

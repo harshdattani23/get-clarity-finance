@@ -2,7 +2,7 @@
 
 import LessonLayout from "../LessonLayout";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Wallet, Landmark, ArrowRightLeft, CheckCircle } from 'lucide-react';
+import { Wallet, Landmark, CheckCircle } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function OpeningDematAccountPage() {

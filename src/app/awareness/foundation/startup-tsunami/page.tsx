@@ -24,14 +24,14 @@ export default function StartupTsunami() {
             <h3 className="font-bold text-xl text-indigo-900 mb-2">Key Takeaways</h3>
             <ul className="space-y-2 text-indigo-800">
                 <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>India is a global top-tier startup ecosystem, driven by cheap data, digital payments (UPI), and a massive domestic market.</span></li>
-                <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>A 'Unicorn' is a startup valued at over $1 billion, and India has produced over 100 of them.</span></li>
+                <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>A &apos;Unicorn&apos; is a startup valued at over $1 billion, and India has produced over 100 of them.</span></li>
                 <li className="flex items-start gap-3"><ChevronsRight className="w-5 h-5 mt-1 flex-shrink-0" /><span>The ecosystem is centered around key hubs like Bengaluru, Delhi-NCR, and Mumbai, each with its own specialty.</span></li>
             </ul>
         </div>
 
         <h2>The New Engine of Innovation</h2>
         <p>
-            In stark contrast to the legacy conglomerates, India has cultivated one of the world's most dynamic and fastest-growing startup ecosystems. Fueled by venture capital, a massive domestic market, and a pool of skilled tech talent, startups are now at the forefront of innovation in India.
+            In stark contrast to the legacy conglomerates, India has cultivated one of the world&apos;s most dynamic and fastest-growing startup ecosystems. Fueled by venture capital, a massive domestic market, and a pool of skilled tech talent, startups are now at the forefront of innovation in India.
         </p>
 
         <h3>Key Enablers of the Boom</h3>
@@ -46,7 +46,7 @@ export default function StartupTsunami() {
                 <Milestone className="w-12 h-12 flex-shrink-0"/>
                 <div>
                     <h3 className="font-bold text-2xl">The Rise of the Unicorns</h3>
-                    <p className="mt-1 opacity-90">A "Unicorn" is a privately held startup company with a value of over $1 billion. India has become a Unicorn factory, producing over 100 of them across various sectors. These companies are not just disrupting old industries; they are creating entirely new ones.</p>
+                    <p className="mt-1 opacity-90">A &quot;Unicorn&quot; is a privately held startup company with a value of over $1 billion. India has become a Unicorn factory, producing over 100 of them across various sectors. These companies are not just disrupting old industries; they are creating entirely new ones.</p>
                 </div>
             </div>
         </div>
@@ -56,13 +56,13 @@ export default function StartupTsunami() {
             While startups are emerging all over the country, the ecosystem is concentrated in a few key urban centers:
         </p>
         <div className="grid md:grid-cols-3 gap-6 my-6">
-            <HubCard title="Bengaluru (Bangalore)" description="The 'Silicon Valley of India,' known for deep tech talent and a strong VC presence."/>
+            <HubCard title="Bengaluru (Bangalore)" description="The &apos;Silicon Valley of India,&apos; known for deep tech talent and a strong VC presence."/>
             <HubCard title="Delhi-NCR" description="A massive consumer market with a focus on e-commerce, logistics, and fintech."/>
             <HubCard title="Mumbai" description="The financial capital, with natural strengths in fintech, media, and entertainment."/>
         </div>
 
         <p>
-            Understanding this ecosystem is key to understanding the future of the Indian economy, as today's startups are poised to become tomorrow's industry leaders.
+            Understanding this ecosystem is key to understanding the future of the Indian economy, as today&apos;s startups are poised to become tomorrow&apos;s industry leaders.
         </p>
     </LessonLayout>
   );

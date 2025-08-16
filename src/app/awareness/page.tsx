@@ -13,7 +13,7 @@ interface LevelCardProps {
     lessons: { href: string }[];
 }
 
-const LevelCard = ({ icon, title, description, href, level, lessons }: LevelCardProps) => {
+const LevelCard = ({ icon, title, description, href, lessons }: Omit<LevelCardProps, 'level'>) => {
   const { t } = useTranslation();
   const isLocked = !lessons.some(lesson => lesson.href !== '#');
 

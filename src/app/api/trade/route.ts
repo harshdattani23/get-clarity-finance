@@ -35,17 +35,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
+    console.log(`Trade request: ${tradeType} ${quantity} shares of ${ticker} at ₹${price}`);
+    console.log(`User ${userId} current virtualCash: ₹${user.virtualCash.toNumber()}`);
+
     if (tradeType === "BUY") {
       const cost = quantity * price;
+      console.log(`Buy cost: ₹${cost}`);
+      
       if (user.virtualCash.toNumber() < cost) {
+        console.log(`Insufficient funds: need ₹${cost}, have ₹${user.virtualCash.toNumber()}`);
         return NextResponse.json({ message: "Insufficient funds" }, { status: 400 });
       }
 
       await db.$transaction(async (tx) => {
-        await tx.user.update({
+        const updatedUser = await tx.user.update({
           where: { clerkId: userId },
           data: { virtualCash: { decrement: cost } },
         });
+        console.log(`Updated user virtualCash to: ₹${updatedUser.virtualCash.toNumber()}`);
 
         const holding = await tx.portfolioHolding.findUnique({
           where: { userClerkId_ticker: { userClerkId: userId, ticker } },
@@ -62,6 +69,7 @@ export async function POST(req: NextRequest) {
               averagePrice: newAveragePrice,
             },
           });
+          console.log(`Updated existing holding: ${newQuantity} shares at ₹${newAveragePrice.toFixed(2)} average`);
         } else {
           await tx.portfolioHolding.create({
             data: {
@@ -71,6 +79,7 @@ export async function POST(req: NextRequest) {
               averagePrice: price,
             },
           });
+          console.log(`Created new holding: ${quantity} shares at ₹${price}`);
         }
 
         await tx.virtualTrade.create({
@@ -82,6 +91,7 @@ export async function POST(req: NextRequest) {
             tradeType: "BUY",
           },
         });
+        console.log(`Trade record created`);
       });
     } else if (tradeType === "SELL") {
       const holding = await db.portfolioHolding.findUnique({
@@ -89,25 +99,30 @@ export async function POST(req: NextRequest) {
       });
 
       if (!holding || holding.quantity < quantity) {
+        console.log(`Insufficient holdings: need ${quantity}, have ${holding?.quantity || 0}`);
         return NextResponse.json({ message: "Insufficient holdings" }, { status: 400 });
       }
 
       const revenue = quantity * price;
+      console.log(`Sell revenue: ₹${revenue}`);
 
       await db.$transaction(async (tx) => {
-        await tx.user.update({
+        const updatedUser = await tx.user.update({
           where: { clerkId: userId },
           data: { virtualCash: { increment: revenue } },
         });
+        console.log(`Updated user virtualCash to: ₹${updatedUser.virtualCash.toNumber()}`);
 
         const newQuantity = holding.quantity - quantity;
         if (newQuantity === 0) {
           await tx.portfolioHolding.delete({ where: { id: holding.id } });
+          console.log(`Deleted holding (quantity became 0)`);
         } else {
           await tx.portfolioHolding.update({
             where: { id: holding.id },
             data: { quantity: newQuantity },
           });
+          console.log(`Updated holding quantity to: ${newQuantity}`);
         }
 
         await tx.virtualTrade.create({
@@ -119,9 +134,11 @@ export async function POST(req: NextRequest) {
             tradeType: "SELL",
           },
         });
+        console.log(`Trade record created`);
       });
     }
 
+    console.log(`Trade completed successfully`);
     return NextResponse.json({ message: "Trade executed successfully" }, { status: 200 });
   } catch (error) {
     console.error("[TRADE_POST]", error);

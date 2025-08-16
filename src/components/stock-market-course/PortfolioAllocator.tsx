@@ -2,7 +2,6 @@
 "use client";
 import React, { useState, useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useTranslation } from '../../hooks/useTranslation';
 
 interface Allocation {
   name: string;
@@ -11,7 +10,6 @@ interface Allocation {
 }
 
 const PortfolioAllocator = () => {
-  const { t } = useTranslation();
   const [allocations, setAllocations] = useState<Allocation[]>([
     { name: 'Stocks', value: 40, color: '#8884d8' },
     { name: 'Bonds', value: 30, color: '#82ca9d' },

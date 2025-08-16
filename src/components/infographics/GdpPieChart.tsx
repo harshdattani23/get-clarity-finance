@@ -11,7 +11,7 @@ const data = [
 const GdpPieChart = () => {
   return (
     <div className="w-full h-96 bg-white p-4 rounded-xl shadow-lg border border-gray-200 mt-6 flex flex-col">
-        <h3 className="font-bold text-lg text-center text-gray-800 mb-4">India's GDP Composition (Approx.)</h3>
+        <h3 className="font-bold text-lg text-center text-gray-800 mb-4">India&apos;s GDP Composition (Approx.)</h3>
         <div className="flex-grow">
             <ResponsiveContainer>
                 <PieChart>

@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
   try {
     const analysis = await analyzeUrl(url);
     return NextResponse.json(analysis);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to analyze URL' }, { status: 500 });
   }
 }

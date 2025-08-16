@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const { userId } = await auth();
 
@@ -28,6 +28,8 @@ export async function GET(req: NextRequest) {
     if (!user) {
         return new NextResponse("User not found", { status: 404 });
     }
+
+    console.log(`Portfolio API: User ${userId} virtualCash: ₹${user.virtualCash.toNumber()}, Holdings: ${holdings.length}`);
 
     return NextResponse.json({
       virtualCash: user.virtualCash,

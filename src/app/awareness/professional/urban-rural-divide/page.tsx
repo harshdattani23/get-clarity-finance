@@ -1,5 +1,5 @@
 import LessonLayout from "@/app/awareness/LessonLayout";
-import { Mountain, Store, Smartphone, CircleDollarSign } from 'lucide-react';
+import { Mountain, Store } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function UrbanRuralDividePage() {
@@ -12,7 +12,7 @@ export default function UrbanRuralDividePage() {
       <AnimatedDiv>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">Two Indias: A Tale of Contrasts</h2>
         <p className="mb-4">
-          The most common mistake foreign businesses make is viewing India as a single market. In reality, it's a complex patchwork of many markets, with the most significant split being between urban and rural areas. Roughly 65% of India's population lives in rural areas, representing a massive, yet challenging, consumer base.
+          The most common mistake foreign businesses make is viewing India as a single market. In reality, it&apos;s a complex patchwork of many markets, with the most significant split being between urban and rural areas. Roughly 65% of India&apos;s population lives in rural areas, representing a massive, yet challenging, consumer base.
         </p>
         <div className="grid md:grid-cols-2 gap-8 mt-6">
           <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
@@ -46,12 +46,12 @@ export default function UrbanRuralDividePage() {
       </AnimatedDiv>
 
       <AnimatedDiv delay={0.2}>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-10">The "Sachet Revolution" and Its Legacy</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-10">The &quot;Sachet Revolution&quot; and Its Legacy</h2>
         <p className="mb-4">
-          A classic example of understanding the rural market is the "sachet revolution." Companies like Unilever and P&G realized that rural consumers couldn't afford large bottles of shampoo or detergent. They introduced single-use sachets at very low price points (e.g., ₹1 or ₹2). This strategy unlocked a massive, previously untapped market by aligning the product size and price with the purchasing power and daily-wage earning cycles of rural consumers.
+          A classic example of understanding the rural market is the &quot;sachet revolution.&quot; Companies like Unilever and P&G realized that rural consumers couldn&apos;t afford large bottles of shampoo or detergent. They introduced single-use sachets at very low price points (e.g., ₹1 or ₹2). This strategy unlocked a massive, previously untapped market by aligning the product size and price with the purchasing power and daily-wage earning cycles of rural consumers.
         </p>
          <div className="bg-gray-100 p-4 rounded-lg mt-4 italic">
-            <p>"The sachet is the single most important innovation in reaching the rural Indian consumer. It's not just about a smaller size; it's a different business model."</p>
+            <p>&quot;The sachet is the single most important innovation in reaching the rural Indian consumer. It&apos;s not just about a smaller size; it&apos;s a different business model.&quot;</p>
         </div>
       </AnimatedDiv>
       
@@ -59,7 +59,7 @@ export default function UrbanRuralDividePage() {
         <div className="mt-8 p-6 bg-white rounded-xl shadow-md border">
             <h3 className="text-2xl font-bold text-gray-800 mb-3">Key Takeaways for Investors</h3>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li><span className="font-semibold">Don't "Shrink it and Pink it":</span> You cannot simply take an urban product, make it smaller or cheaper, and expect it to sell in rural markets. The entire value proposition needs to be rethought.</li>
+                <li><span className="font-semibold">Don&apos;t &quot;Shrink it and Pink it&quot;:</span> You cannot simply take an urban product, make it smaller or cheaper, and expect it to sell in rural markets. The entire value proposition needs to be rethought.</li>
                 <li><span className="font-semibold">Distribution is King:</span> Reaching the rural consumer requires a deep, multi-layered distribution network that leverages local partners.</li>
                 <li><span className="font-semibold">Aspiration vs. Affordability:</span> While rural consumers are aspirational, their purchasing decisions are governed by immediate affordability. Products must deliver clear value for money.</li>
                 <li><span className="font-semibold">The Digital Bridge:</span> Mobile payments and vernacular content are rapidly bridging the gap, creating new opportunities to engage with rural customers directly.</li>

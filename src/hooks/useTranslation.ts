@@ -113,12 +113,16 @@ const translations = {
   }
 };
 
+type TranslationValue = string | string[] | { [key: string]: TranslationValue };
+type TranslationData = Record<string, TranslationValue>;
+type TranslationScope = Record<string, TranslationData>;
+
 export const useTranslation = (namespace?: keyof typeof translations) => {
   const { language } = useLanguage();
   
-  const t = (key: string) => {
+  const t = (key: string): string => {
     const keys = key.split('.');
-    let translationScope: any;
+    let translationScope: TranslationScope;
 
     if (namespace && translations[namespace]) {
       translationScope = translations[namespace];
@@ -135,18 +139,25 @@ export const useTranslation = (namespace?: keyof typeof translations) => {
       };
     }
 
-    let result: any = translationScope[language as keyof typeof translationScope];
+    let result: TranslationValue | undefined = translationScope[language as keyof typeof translationScope];
     if (!result) {
         // Fallback to English if the language is not found
         result = translationScope['en'];
     }
 
     for (const k of keys) {
-      if (result === undefined) break;
+      if (typeof result !== 'object' || result === null || Array.isArray(result)) {
+        return key; // Return key if path is invalid
+      }
       result = result[k];
     }
 
-    return result || key;
+    if (typeof result === 'string') {
+      return result;
+    }
+
+    // If the result is an object or something else, return the key as a fallback.
+    return key;
   };
 
   return { t };
