@@ -15,7 +15,7 @@ model User {
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
   onboarded            Boolean               @default(false)
-  virtualCash          Decimal               @default(1000000.00)
+  virtualCash          Decimal               @default(100000.00)
   courseProgress       CourseProgress[]
   holdings             PortfolioHolding[]
   virtualTrades        VirtualTrade[]
