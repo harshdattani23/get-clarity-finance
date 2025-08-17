@@ -17,6 +17,6 @@ body {
   }
 
   .animate-scrolling-ticker {
-    animation: scrolling-ticker 120s linear infinite;
+    animation: scrolling-ticker 300s linear infinite;
   }
 }

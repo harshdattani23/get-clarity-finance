@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import ContentAnalyzer from '@/components/ContentAnalyzer';
+import MarketIndices from '@/components/MarketIndices';
 import { useTranslation } from '@/hooks/useTranslation';
 import { BookOpen, ShieldCheck, TrendingUp, ArrowRight } from 'lucide-react';
 import FloatingElementsAnimation from '@/components/animations/FloatingElementsAnimation';
@@ -78,6 +79,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      {/* Market Indices Section */}
+      <MarketIndices />
       
       {/* Content Analyzer Section */}
       <section id="analyzer" className="py-20 bg-gray-50">

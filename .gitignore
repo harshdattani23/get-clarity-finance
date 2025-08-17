@@ -56,3 +56,7 @@ cloud-sql-proxy.exe
 
 # Project planning file
 todo.md
+
+# Ignore local data/automation directories (do not affect Next.js build)
+/python/
+/scripts/

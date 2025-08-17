@@ -36,7 +36,6 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
         const response = await fetch('/api/watchlist');
         if (response.ok) {
           const data = await response.json();
-          // The API now returns a single watchlist object or null
           setWatchlist(data);
         }
       } catch (error) {

@@ -2,13 +2,16 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { industries } from '@/lib/trading-data';
+import { industries, allStocks } from '@/lib/trading-data';
 import { Search } from 'lucide-react';
 
 const MarketFilters = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Get all unique indices from the stocks data
+  const allIndices = Array.from(new Set(allStocks.flatMap(stock => stock.indices))).sort();
 
   const handleFilterChange = (key: string, value: string) => {
     const current = new URLSearchParams(Array.from(searchParams?.entries() || []));
@@ -44,10 +47,10 @@ const MarketFilters = () => {
             <div>
                 <label htmlFor="index" className="text-sm font-medium text-gray-400 block mb-1">Index</label>
                 <select id="index" name="index" defaultValue={searchParams?.get('index') || 'all'} className="w-full bg-slate-700 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="all">All Indices</option>
-                    <option value="NIFTY 50">NIFTY 50</option>
-                    <option value="SENSEX 30">SENSEX 30</option>
-                    <option value="BANK NIFTY">BANK NIFTY</option>
+                    <option value="all">All Stocks</option>
+                    {allIndices.map(index => (
+                      <option key={index} value={index}>{index}</option>
+                    ))}
                 </select>
             </div>
             <div>

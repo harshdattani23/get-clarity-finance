@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,14 +8,14 @@ datasource db {
 }
 
 model User {
-  clerkId              String               @id @unique
-  email                String               @unique
+  clerkId              String                @id @unique
+  email                String                @unique
   username             String?
-  virtualCash          Decimal              @default(1000000.00)
-  onboarded            Boolean              @default(false)
   investmentExperience InvestmentExperience?
-  createdAt            DateTime             @default(now())
-  updatedAt            DateTime             @updatedAt
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  onboarded            Boolean               @default(false)
+  virtualCash          Decimal               @default(1000000.00)
   courseProgress       CourseProgress[]
   holdings             PortfolioHolding[]
   virtualTrades        VirtualTrade[]
@@ -29,60 +23,74 @@ model User {
 }
 
 model CourseProgress {
-  id        Int          @id @default(autoincrement())
-  user      User         @relation(fields: [userClerkId], references: [clerkId])
+  id          Int          @id @default(autoincrement())
   userClerkId String
-  courseId  String
-  lessonId  String
-  status    CourseStatus @default(NOT_STARTED)
+  courseId    String
+  lessonId    String
+  status      CourseStatus @default(NOT_STARTED)
   completedAt DateTime?
+  user        User         @relation(fields: [userClerkId], references: [clerkId])
 
   @@unique([userClerkId, courseId, lessonId])
 }
 
 model PortfolioHolding {
   id           Int      @id @default(autoincrement())
-  user         User     @relation(fields: [userClerkId], references: [clerkId])
   userClerkId  String
   ticker       String
   quantity     Int
   averagePrice Decimal
   updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userClerkId], references: [clerkId])
 
   @@unique([userClerkId, ticker])
 }
 
 model VirtualTrade {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userClerkId], references: [clerkId])
+  id          Int       @id @default(autoincrement())
   userClerkId String
-  ticker    String
-  quantity  Int
-  price     Decimal
-  tradeType TradeType
-  tradedAt  DateTime @default(now())
+  ticker      String
+  quantity    Int
+  price       Decimal
+  tradeType   TradeType
+  tradedAt    DateTime  @default(now())
+  user        User      @relation(fields: [userClerkId], references: [clerkId])
 }
 
 model Watchlist {
-  id        Int             @id @default(autoincrement())
-  name      String          @default("My Watchlist")
-  user      User            @relation(fields: [userClerkId], references: [clerkId])
+  id          Int             @id @default(autoincrement())
   userClerkId String
-  items     WatchlistItem[]
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  name        String          @default("My Watchlist")
+  user        User            @relation(fields: [userClerkId], references: [clerkId])
+  items       WatchlistItem[]
 
   @@unique([userClerkId, name])
 }
 
 model WatchlistItem {
   id          Int       @id @default(autoincrement())
-  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
   watchlistId Int
   ticker      String
   createdAt   DateTime  @default(now())
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
 
   @@unique([watchlistId, ticker])
+}
+
+model Stock {
+  id            Int       @id @default(autoincrement())
+  ticker        String    @unique
+  name          String
+  industry      String
+  marketCap     String
+  indices       String[]
+  price         Decimal?
+  change        Decimal?
+  percentChange Decimal?
+  volume        Decimal?
+  lastUpdatedAt DateTime?
 }
 
 enum InvestmentExperience {
@@ -100,18 +108,4 @@ enum CourseStatus {
 enum TradeType {
   BUY
   SELL
-}
-
-model Stock {
-  id            Int      @id @default(autoincrement())
-  ticker        String   @unique
-  name          String
-  industry      String
-  marketCap     String
-  indices       String[]
-  price         Decimal?
-  change        Decimal?
-  percentChange Decimal?
-  volume        Decimal?
-  lastUpdatedAt DateTime?
 }

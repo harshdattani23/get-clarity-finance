@@ -95,3 +95,58 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ---
 *Note: A small change to trigger deployment.*
+
+---
+
+## Market Data and Virtual Trading
+
+- Virtual trading reads prices, changes, and volumes from the database via the API route `POST /api/stock-data`.
+- The indices banner (NIFTY 50, SENSEX 30, BANK NIFTY, FINNIFTY) and the scrolling ticker also pull from the database.
+- The UI is a simulated environment. Prices reflect the previous trading day’s close and are for illustration only. Orders and P&L are simulated. Nothing here is investment advice.
+
+### Updating Prices into the Database
+
+Use the Python updater in `python/update_prices.py` to fetch closing data and write to Cloud SQL.
+
+Prereqs:
+- Cloud SQL Proxy running locally (connects to your instance and exposes 127.0.0.1:5432)
+- `DATABASE_URL` set for the app (same connection string used by Next.js)
+
+Example (PowerShell):
+```powershell
+# Start Cloud SQL Proxy separately (example; adjust to your instance)
+# .\cloud-sql-proxy.exe <INSTANCE_CONNECTION_NAME>=tcp:5432
+
+# Set DB URL for this shell
+$env:DATABASE_URL="postgresql://<user>:<pass>@127.0.0.1:5432/<database>"
+
+# Run the updater
+cd python
+python update_prices.py
+```
+
+Notes:
+- The updater fetches via Groww and writes to `Stock` (price, change, percentChange, volume, lastUpdatedAt).
+- It detects index tickers and uses the appropriate exchange (e.g., `SENSEX` via BSE; `NIFTY`/`BANKNIFTY`/`FINNIFTY` via NSE) and retries across exchanges for symbols when needed.
+- Market cap is not populated by the current API (returns `null`); volume and price are.
+
+### Ensure Index Rows Exist
+
+Create these rows once if they are missing, so banners can display values from DB:
+```sql
+INSERT INTO "Stock"(ticker, name, industry, "marketCap", indices)
+VALUES
+ ('NIFTY','NIFTY 50','Index','0',ARRAY['Index']),
+ ('SENSEX','SENSEX 30','Index','0',ARRAY['Index']),
+ ('BANKNIFTY','BANK NIFTY','Index','0',ARRAY['Index']),
+ ('FINNIFTY','FINNIFTY','Index','0',ARRAY['Index'])
+ON CONFLICT (ticker) DO NOTHING;
+```
+
+### API: Fetching Stock Data
+
+- Endpoint: `POST /api/stock-data`
+- Body: `{ "tickers": ["RELIANCE", "TCS"] }`
+- Response: `[{ ticker, price, change, percentChange, volume, lastUpdatedAt }]`
+
+The frontend uses a small hook to call this endpoint and render values without any real-time subscriptions.
