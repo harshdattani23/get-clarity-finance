@@ -8,10 +8,11 @@ import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { useWatchlist } from '@/contexts/virtual-trading/WatchlistContext';
 import { Check, Plus } from 'lucide-react';
 
+// This should align with the Stock type defined in the parent page
 interface StockData {
-  symbol: string;
+  ticker: string;
   price: number;
-  [key: string]: string | number;
+  name: string; // Adding name for modals
 }
 
 export default function TradingActions({ stock }: { stock: StockData }) {
@@ -29,19 +30,19 @@ export default function TradingActions({ stock }: { stock: StockData }) {
     );
   }
 
-  const userHolding = portfolio?.holdings.find(h => h.ticker === stock.symbol);
+  const userHolding = portfolio?.holdings.find(h => h.ticker === stock.ticker);
   const maxSellQuantity = userHolding ? userHolding.quantity : 0;
-  const isInWatchlist = watchlist?.items.some(item => item.ticker === stock.symbol);
+  const isInWatchlist = watchlist?.items.some(item => item.ticker === stock.ticker);
 
   const handleSell = (quantity: number) => {
-    sellStock(stock.symbol, quantity, stock.price);
+    sellStock(stock.ticker, quantity, stock.price);
   };
   
   const handleWatchlistToggle = () => {
     if (isInWatchlist) {
-      removeStockFromWatchlist(stock.symbol);
+      removeStockFromWatchlist(stock.ticker);
     } else {
-      addStockToWatchlist(stock.symbol);
+      addStockToWatchlist(stock.ticker);
     }
   };
 
@@ -72,13 +73,13 @@ export default function TradingActions({ stock }: { stock: StockData }) {
       <BuyModal
         isOpen={isBuyModalOpen}
         onClose={() => setBuyModalOpen(false)}
-        stock={{ ...stock, ticker: stock.symbol, price: stock.price }}
+        stock={stock}
       />
       <SellModal
         isOpen={isSellModalOpen}
         onClose={() => setSellModalOpen(false)}
         onConfirm={handleSell}
-        ticker={stock.symbol}
+        ticker={stock.ticker}
         maxQuantity={maxSellQuantity}
       />
     </div>

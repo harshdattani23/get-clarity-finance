@@ -83,14 +83,31 @@ model Stock {
   id            Int       @id @default(autoincrement())
   ticker        String    @unique
   name          String
-  industry      String
-  marketCap     String
+  industry      String?
+  marketCap     Decimal?
   indices       String[]
   price         Decimal?
   change        Decimal?
   percentChange Decimal?
   volume        Decimal?
+  avgVolume     Decimal?
+  peRatio       Decimal?
+  eps           Decimal?
+  dividendYield Decimal?
+  beta          Decimal?
+  high          Decimal?
+  low           Decimal?
+  open          Decimal?
+  close         Decimal?
+  description   String?
+  sector        String?
+  website       String?
+  ceo           String?
+  headquarters  String?
+  employees     Int?
   lastUpdatedAt DateTime?
+  week52High    Decimal?
+  week52Low     Decimal?
 }
 
 enum InvestmentExperience {
