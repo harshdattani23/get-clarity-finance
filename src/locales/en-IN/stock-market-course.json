@@ -256,6 +256,26 @@
     "module7": {
             "title": "Module 7: Ek Majboot Portfolio Banana aur Manage Karna",
             "description": "Ek long-term investment portfolio banane, manage karne aur maintain karne ke liye ek holistic approach mein sabhi seekhe gaye concepts ko synthesize karna."
+    },
+    "module8": {
+            "title": "Module 8: Advanced Technical Analysis",
+            "description": "Advanced charting techniques aur patterns ke saath technical analysis ke basics se aage badhein."
+    },
+    "module9": {
+            "title": "Module 9: Advanced Derivatives Strategies",
+            "description": "Alag-alag market conditions ke liye sophisticated options strategies ko explore karein."
+    },
+    "module10": {
+            "title": "Module 10: Doosre Markets ko Explore Karna",
+            "description": "Currency aur commodity markets ko explore karke apne investment horizons ko badhayein."
+    },
+    "module11": {
+            "title": "Module 11: Quantitative and Algorithmic Trading",
+            "description": "Data-driven aur automated trading strategies ki duniya mein ek parichay."
+    },
+    "module12": {
+            "title": "Module 12: Financial Planning and Wealth Management",
+            "description": "Long-term wealth creation ke liye ek comprehensive financial plan kaise banayein, yeh seekhein."
     }
   },
     "opening-a-demat-and-trading-account": {
@@ -291,52 +311,68 @@
         }
     },
     "the-know-your-customer-kyc-process": {
-        "title": "Know Your Customer (KYC) Process"
+        "title": "Know Your Customer (KYC) Process",
+        "description": "Fraud ko rokne aur suraksha sunishchit karne ke liye sabhi financial institutions dwara anivarya identity verification process ko samjhein."
     },
     "placing-your-first-trade-order-types": {
-        "title": "Apna Pehla Trade Lagana: Order Types"
+        "title": "Apna Pehla Trade Lagana: Order Types",
+        "description": "Market, Limit, aur Stop-Loss jaise zaroori order types ko seekhein taaki aap stocks kaise khareedein aur bechein, is par poora control paa sakein."
     },
     "the-different-players-in-the-market": {
-        "title": "Market ke Alag-Alag Khiladi"
+        "title": "Market ke Alag-Alag Khiladi",
+        "description": "Financial market ke vividh kirdaaron se milen, individual retail investors se lekar bade institutional giants tak, aur unke dwara nibhaye jaane wale roles ko samjhein."
     },
     "introduction-to-fundamental-analysis": {
-        "title": "Fundamental Analysis ka Parichay"
+        "title": "Fundamental Analysis ka Parichay",
+        "description": "Ek company ki financial health aur intrinsic value ka mulyankan karna seekhein, sirf stock price se aage badhkar."
     },
     "reading-the-balance-sheet": {
-        "title": "Balance Sheet Padhna"
+        "title": "Balance Sheet Padhna",
+        "description": "Ek company ki balance sheet ko padhna aur samajhna seekhein, jo ek mahatvapurna financial statement hai aur uski financial health ka ek snapshot pradan karta hai."
     },
     "reading-the-profit-loss-p&l-statement": {
-        "title": "Profit & Loss (P&L) Statement Padhna"
+        "title": "Profit & Loss (P&L) Statement Padhna",
+        "description": "Ek P&L statement ko kaise padhein, yeh samajhne ke liye ki ek company ek samay avadhi mein kitni labhdayak rahi hai."
     },
     "reading-the-cash-flow-statement": {
-        "title": "Cash Flow Statement Padhna"
+        "title": "Cash Flow Statement Padhna",
+        "description": "Cash Flow Statement ka vishleshan karna seekhein, yeh dekhne ke liye ki ek company kaise cash generate aur upyog kar rahi hai."
     },
     "using-key-financial-ratios-eps-p/e-p/b-roe": {
-        "title": "Mukhya Financial Ratios ka Upyog (EPS, P/E, P/B, ROE)"
+        "title": "Mukhya Financial Ratios ka Upyog (EPS, P/E, P/B, ROE)",
+        "description": "Numbers mein chhipi kahaniyon ko unlock karein. Yeh lesson aapko ek company ki health, profitability, aur value ka mulyankan karne ke liye chaar sabse shaktishali financial ratios ka upyog karna sikhayega."
     },
     "introduction-to-technical-analysis": {
-        "title": "Technical Analysis ka Parichay"
+        "title": "Technical Analysis ka Parichay",
+        "description": "Apna dhyan ek company ke fundamentals se hatakar uske market statistics par kendrit karein. Technical analysis ke basics aur yeh bhavishya ke price movements ka anuman lagane ke liye charts ka upyog kaise karta hai, yeh seekhein."
     },
     "how-to-read-candlestick-charts": {
-        "title": "Candlestick Charts Kaise Padhein"
+        "title": "Candlestick Charts Kaise Padhein",
+        "description": "Sabse lokpriya prakar ke financial chart ko interpret karna seekhein aur har ek candlestick kharidaron aur vikretaon ke beech ki ladai ke baare mein kya kahani batata hai, yeh samjhein."
     },
     "identifying-trends-support-and-resistance": {
-        "title": "Trends, Support, aur Resistance ko Pehchanna"
+        "title": "Trends, Support, aur Resistance ko Pehchanna",
+        "description": "Market ki disha aur mukhya price levels ko pehchanna seekhein jahan khareedari aur bikwali ka dabav mazboot hone ki ummeed hai."
     },
     "using-essential-technical-indicators-moving-averages-rsi-macd": {
-        "title": "Zaroori Technical Indicators ka Upyog (Moving Averages, RSI, MACD)"
+        "title": "Zaroori Technical Indicators ka Upyog (Moving Averages, RSI, MACD)",
+        "description": "Basic charts se aage badhein. Yeh lesson aapko teen sabse shaktishali aur vyaapak roop se istemal kiye jaane wale technical indicators se lais karega: Moving Averages, Relative Strength Index (RSI), aur Moving Average Convergence Divergence (MACD)."
     },
     "introduction-to-derivatives": {
-        "title": "Derivatives ka Parichay"
+        "title": "Derivatives ka Parichay",
+        "description": "Derivatives kya hain, unke alag-alag prakar, aur financial markets mein unki bhumika ko samjhein."
     },
     "understanding-futures-contracts": {
-        "title": "Futures Contracts ko Samajhna"
+        "title": "Futures Contracts ko Samajhna",
+        "description": "Futures contracts ki duniya mein gote lagayein. Yeh lesson batata hai ki ve kya hain, kaise kaam karte hain, aur ve options se kaise alag hain, is avashyak derivative ki ek spasht samajh pradan karte hue."
     },
     "understanding-options-contracts-calls-and-puts": {
-        "title": "Options Contracts ko Samajhna: Calls aur Puts"
+        "title": "Options Contracts ko Samajhna: Calls aur Puts",
+        "description": "Options ki shakti ko unlock karein. Yeh lesson call aur put options ko saral banata hai, yeh samjhate hue ki ve kaise kaam karte hain aur speculation aur hedging dono ranneetiyon mein unki maulik bhumika kya hai."
     },
     "introduction-to-hedging-and-speculation-strategies": {
-        "title": "Hedging aur Speculation Strategies ka Parichay"
+        "title": "Hedging aur Speculation Strategies ka Parichay",
+        "description": "Derivatives ka upyog karne ke do prathamik prerakon ko seekhein: jokhim kam karne ke liye hedging aur munafa kamane ke liye speculation. Yeh paath antar ko spasht karta hai aur pratyek ka udaharan pradan karta hai."
     },
     "the-principle-of-portfolio-diversification": {
         "title": "Portfolio Diversification ka Siddhant",
@@ -394,9 +430,31 @@
         "conclusion_p1": "Asset allocation ek baar ka faisla nahi hai. Apne portfolio ko samay-samay par review karna aur zaroorat padne par use rebalance karna mahatvapurna hai taaki yeh aapke lakshyon ke anukool bana rahe. Ek soch-samajhkar banayi gayi asset allocation strategy banakar, aap apne financial future ke liye ek thos neev rakh rahe hain."
     },
     "risk-management-position-sizing-and-stop-loss-orders": {
-        "title": "Risk Management: Position Sizing aur Stop-Loss Orders"
+        "title": "Risk Management: Position Sizing aur Stop-Loss Orders",
+        "description": "Apne capital ko do sabse mahatvapurna risk management techniques se bachana seekhein: position sizing aur stop-loss orders. Yeh lesson aapko har ek trade par apne risk ko control karna sikhayega."
     },
     "the-investors-mind-managing-psychological-biases": {
-        "title": "Investor ka Dimag: Psychological Biases ko Manage Karna"
+        "title": "Investor ka Dimag: Psychological Biases ko Manage Karna",
+        "description": "Investment mein sabse bada dushman aksar market nahi, balki aap khud hote hain. Yeh lesson un aam psychological biases ko explore karta hai jo kharab investment decisions ka karan ban sakte hain aur un par kabu paane ke liye strategies pradan karta hai."
+    },
+    "advanced-candlestick-patterns": {
+        "title": "Advanced Candlestick Patterns",
+        "description": "Single candles se aage badhein aur shaktishali multi-candlestick patterns ko pehchanna seekhein jo trend continuations aur reversals ka sanket dete hain."
+    },
+    "option-greeks": {
+        "title": "Option Greeks ko Samajhna",
+        "description": "Options positions ke risks aur rewards ko samajhne aur manage karne ke liye 'Greeks' (Delta, Gamma, Theta, Vega) ko saral banayein."
+    },
+    "currency-and-commodity-markets": {
+        "title": "Currency aur Commodity Markets ka Parichay",
+        "description": "Forex (currency) aur commodity (gold, oil, etc.) markets mein trading ke basics ko explore karein."
+    },
+    "introduction-to-algo-trading": {
+        "title": "Algorithmic Trading ka Parichay",
+        "description": "Algorithmic trading ke fundamentals aur modern markets mein automated strategies ka upyog kaise kiya jaata hai, yeh discover karein."
+    },
+    "creating-a-financial-plan": {
+        "title": "Financial Plan Banana",
+        "description": "Apne jeevan ke lakshyon ko prapt karne ke liye ek personal financial plan banane ki step-by-step prakriya seekhein."
     }
 }

@@ -258,6 +258,26 @@
         "module7": {
             "title": "Module 7: Building and Managing a Resilient Portfolio",
             "description": "To synthesize all learned concepts into a holistic approach for building, managing, and maintaining a long-term investment portfolio."
+        },
+        "module8": {
+            "title": "Module 8: Advanced Technical Analysis",
+            "description": "Go beyond the basics of technical analysis with advanced charting techniques and patterns."
+        },
+        "module9": {
+            "title": "Module 9: Advanced Derivatives Strategies",
+            "description": "Explore sophisticated options strategies for various market conditions."
+        },
+        "module10": {
+            "title": "Module 10: Exploring Other Markets",
+            "description": "Broaden your investment horizons by exploring currency and commodity markets."
+        },
+        "module11": {
+            "title": "Module 11: Quantitative and Algorithmic Trading",
+            "description": "An introduction to the world of data-driven and automated trading strategies."
+        },
+        "module12": {
+            "title": "Module 12: Financial Planning and Wealth Management",
+            "description": "Learn how to build a comprehensive financial plan for long-term wealth creation."
         }
     },
     "opening-a-demat-and-trading-account": {
@@ -290,7 +310,8 @@
             "item2": "A <strong>Demat Account HOLDS</strong> your shares electronically.",
             "item3": "A <strong>Trading Account EXECUTES</strong> your buy and sell orders.",
             "item4": "Most brokers today offer a convenient 2-in-1 account that combines both."
-        }
+        },
+        "conclusion_p1": "The difference between a good investor and a great one often comes down to temperament. By recognizing the psychological biases we are all prone to and implementing practical strategies to counteract them, you can build the mental fortitude required for long-term investment success. Control your emotions, or they will control your portfolio."
     },
     "the-know-your-customer-kyc-process": {
         "title": "The Know Your Customer (KYC) Process",
@@ -928,6 +949,58 @@
         "section3_l5": "<strong>Set Stop-Loss Orders:</strong> Decide in advance the maximum loss you are willing to take on a position. A stop-loss order automatically sells the stock if it hits that price, taking the emotional decision out of your hands.",
         "conclusion_title": "Conclusion: Your Mind is Your Greatest Asset (or Liability)",
         "conclusion_p1": "The difference between a good investor and a great one often comes down to temperament. By recognizing the psychological biases we are all prone to and implementing practical strategies to counteract them, you can build the mental fortitude required for long-term investment success. Control your emotions, or they will control your portfolio."
-
-    }
+    },
+    "advanced-candlestick-patterns": {
+        "title": "Advanced Candlestick Patterns",
+        "description": "Move beyond single candles and learn to recognize powerful multi-candlestick patterns that signal trend continuations and reversals."
+    },
+    "option-greeks": {
+        "title": "Understanding Option Greeks",
+        "description": "Demystify the 'Greeks' (Delta, Gamma, Theta, Vega) to understand and manage the risks and rewards of options positions."
+    },
+    "currency-and-commodity-markets": {
+        "title": "Introduction to Currency and Commodity Markets",
+        "description": "Explore the basics of trading in the forex (currency) and commodity (gold, oil, etc.) markets."
+    },
+    "introduction-to-algo-trading": {
+        "title": "Introduction to Algorithmic Trading",
+        "description": "Discover the fundamentals of algorithmic trading and how automated strategies are used in modern markets."
+    },
+    "creating-a-financial-plan": {
+        "title": "Creating a Financial Plan",
+        "description": "Learn the step-by-step process of creating a personal financial plan to achieve your life goals."
+    },
+    "using-key-financial-ratios-eps-p/e-p/b-roe.title": "Using Key Financial Ratios (EPS, P/E, P/B, ROE)",
+    "introduction-to-technical-analysis.title": "Introduction to Technical Analysis",
+    "how-to-read-candlestick-charts.title": "How to Read Candlestick Charts",
+    "identifying-trends-support-and-resistance.title": "Identifying Trends, Support, and Resistance",
+    "using-essential-technical-indicators-moving-averages-rsi-macd.title": "Using Essential Technical Indicators (Moving Averages, RSI, MACD)",
+    "introduction-to-derivatives.title": "Introduction to Derivatives",
+    "understanding-futures-contracts.title": "Understanding Futures Contracts",
+    "understanding-options-contracts-calls-and-puts.title": "Understanding Options Contracts (Calls and Puts)",
+    "introduction-to-hedging-and-speculation-strategies.title": "Introduction to Hedging and Speculation Strategies",
+    "the-principle-of-portfolio-diversification.title": "The Principle of Portfolio Diversification",
+    "asset-allocation-strategies.title": "Asset Allocation Strategies",
+    "risk-management-position-sizing-and-stop-loss-orders.title": "Risk Management: Position Sizing and Stop-Loss Orders",
+    "the-investors-mind-managing-psychological-biases.title": "The Investor's Mind: Managing Psychological Biases",
+    "advanced-candlestick-patterns.title": "Advanced Candlestick Patterns",
+    "elliott-wave-theory.title": "Elliott Wave Theory",
+    "fibonacci-retracements.title": "Fibonacci Retracements",
+    "volume-profile-analysis.title": "Volume Profile Analysis",
+    "option-greeks.title": "Option Greeks (Delta, Gamma, Theta, Vega)",
+    "basic-option-strategies.title": "Basic Option Strategies (Covered Call, Protective Put)",
+    "spread-strategies.title": "Spread Strategies (Bull/Bear Spreads)",
+    "advanced-option-strategies.title": "Advanced Option Strategies (Iron Condor, Butterfly)",
+    "currency-and-commodity-markets.title": "Currency and Commodity Markets",
+    "real-estate-investing.title": "Real Estate Investing (REITs)",
+    "bonds-and-fixed-income.title": "Bonds and Fixed Income Securities",
+    "alternative-investments.title": "Alternative Investments (Gold, Art, etc.)",
+    "introduction-to-algo-trading.title": "Introduction to Algorithmic Trading",
+    "building-a-trading-bot.title": "Building a Simple Trading Bot",
+    "backtesting-strategies.title": "Backtesting and Paper Trading",
+    "machine-learning-in-finance.title": "Machine Learning in Finance",
+    "creating-a-financial-plan.title": "Creating a Financial Plan",
+    "retirement-planning.title": "Retirement Planning (NPS, PPF)",
+    "tax-planning-for-investors.title": "Tax Planning for Investors",
+    "estate-planning-and-wills.title": "Estate Planning and Wills"
 }

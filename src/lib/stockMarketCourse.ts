@@ -83,7 +83,57 @@ export const stockMarketCourseStructure: Module[] = [
         { slug: "risk-management-position-sizing-and-stop-loss-orders", title: "risk-management-position-sizing-and-stop-loss-orders.title", href: "/stock-market-course/risk-management-position-sizing-and-stop-loss-orders" },
         { slug: "the-investors-mind-managing-psychological-biases", title: "the-investors-mind-managing-psychological-biases.title", href: "/stock-market-course/the-investors-mind-managing-psychological-biases" },
     ]
-  }
+  },
+  {
+    title: "stockMarketCourse.module8.title",
+    description: "stockMarketCourse.module8.description",
+    lessons: [
+        { slug: "advanced-candlestick-patterns", title: "advanced-candlestick-patterns.title", href: "/stock-market-course/advanced-candlestick-patterns" },
+        { slug: "elliott-wave-theory", title: "elliott-wave-theory.title", href: "/stock-market-course/elliott-wave-theory" },
+        { slug: "fibonacci-retracements", title: "fibonacci-retracements.title", href: "/stock-market-course/fibonacci-retracements" },
+        { slug: "volume-profile-analysis", title: "volume-profile-analysis.title", href: "/stock-market-course/volume-profile-analysis" },
+    ]
+  },
+  {
+    title: "stockMarketCourse.module9.title",
+    description: "stockMarketCourse.module9.description",
+    lessons: [
+        { slug: "option-greeks", title: "option-greeks.title", href: "/stock-market-course/option-greeks" },
+        { slug: "basic-option-strategies", title: "basic-option-strategies.title", href: "/stock-market-course/basic-option-strategies" },
+        { slug: "spread-strategies", title: "spread-strategies.title", href: "/stock-market-course/spread-strategies" },
+        { slug: "advanced-option-strategies", title: "advanced-option-strategies.title", href: "/stock-market-course/advanced-option-strategies" },
+    ]
+  },
+  {
+    title: "stockMarketCourse.module10.title",
+    description: "stockMarketCourse.module10.description",
+    lessons: [
+        { slug: "currency-and-commodity-markets", title: "currency-and-commodity-markets.title", href: "/stock-market-course/currency-and-commodity-markets" },
+        { slug: "real-estate-investing", title: "real-estate-investing.title", href: "/stock-market-course/real-estate-investing" },
+        { slug: "bonds-and-fixed-income", title: "bonds-and-fixed-income.title", href: "/stock-market-course/bonds-and-fixed-income" },
+        { slug: "alternative-investments", title: "alternative-investments.title", href: "/stock-market-course/alternative-investments" },
+    ]
+  },
+    {
+    title: "stockMarketCourse.module11.title",
+    description: "stockMarketCourse.module11.description",
+    lessons: [
+        { slug: "introduction-to-algo-trading", title: "introduction-to-algo-trading.title", href: "/stock-market-course/introduction-to-algo-trading" },
+        { slug: "building-a-trading-bot", title: "building-a-trading-bot.title", href: "/stock-market-course/building-a-trading-bot" },
+        { slug: "backtesting-strategies", title: "backtesting-strategies.title", href: "/stock-market-course/backtesting-strategies" },
+        { slug: "machine-learning-in-finance", title: "machine-learning-in-finance.title", href: "/stock-market-course/machine-learning-in-finance" },
+    ]
+    },
+    {
+    title: "stockMarketCourse.module12.title",
+    description: "stockMarketCourse.module12.description",
+    lessons: [
+        { slug: "creating-a-financial-plan", title: "creating-a-financial-plan.title", href: "/stock-market-course/creating-a-financial-plan" },
+        { slug: "retirement-planning", title: "retirement-planning.title", href: "/stock-market-course/retirement-planning" },
+        { slug: "tax-planning-for-investors", title: "tax-planning-for-investors.title", href: "/stock-market-course/tax-planning-for-investors" },
+        { slug: "estate-planning-and-wills", title: "estate-planning-and-wills.title", href: "/stock-market-course/estate-planning-and-wills" },
+    ]
+    }
 ];
 
 // A helper function to get the next and previous lesson for this specific course
