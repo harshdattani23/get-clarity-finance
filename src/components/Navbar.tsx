@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import { ShieldCheck, Menu } from 'lucide-react';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import LanguageSelector from './i18n/LanguageSelector';
 import { useTranslation } from '@/hooks/useTranslation';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -59,7 +58,6 @@ const Navbar = () => {
             </nav>
             <div className="flex items-center gap-4">
               <ClientOnly>
-                <LanguageSelector />
                 <SignedIn>
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>
@@ -104,7 +102,6 @@ const Navbar = () => {
             </nav>
             <div className="border-t border-white/10 mt-4 pt-4 flex flex-col items-start gap-4">
               <ClientOnly>
-                <LanguageSelector />
                 <SignedIn>
                   <UserButton afterSignOutUrl="/" />
                 </SignedIn>

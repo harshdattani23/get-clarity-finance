@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { LanguageProvider } from '@/contexts/LanguageContext';
+
 import { ClerkProvider } from '@clerk/nextjs';
 import { ToastProvider } from '@/contexts/ToastContext';
 
@@ -21,18 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-        <LanguageProvider>
-          <html lang="en">
-            <body className={`${inter.className} bg-gray-50 text-gray-800`}>
-                <ToastProvider />
-                <Navbar />
-                <main className="min-h-screen">
-                  {children}
-                </main>
-                <Footer />
-            </body>
-          </html>
-        </LanguageProvider>
+        <html lang="en">
+          <body className={`${inter.className} bg-gray-50 text-gray-800`}>
+              <ToastProvider />
+              <Navbar />
+              <main className="min-h-screen">
+                {children}
+              </main>
+              <Footer />
+          </body>
+        </html>
     </ClerkProvider>
   );
 }

@@ -57,6 +57,9 @@ cloud-sql-proxy.exe
 # Project planning file
 todo.md
 
+# Audio files (large files, not needed in git)
+public/audio/
+
 # Ignore local data/automation directories (do not affect Next.js build)
 /python/
 /scripts/

@@ -1,36 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslation } from "@/hooks/useTranslation";
 import LessonLayout from "../LessonLayout";
 import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import InteractiveQuiz from "@/components/stock-market-course/InteractiveQuiz";
 import InteractiveSelection from "@/components/stock-market-course/InteractiveSelection";
 import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
-import AudioElement from "@/components/stock-market-course/AudioElement";
+
+import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { motion } from "framer-motion";
 import { Trophy } from "lucide-react";
 
 export default function WhatIsAStock() {
-  const { t, translations } = useTranslation('stock-market-course.what-is-a-stock');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
-
-  // Check if translations are loading
-  if (!translations) {
-    return (
-      <LessonLayout
-        title="Loading..."
-        description="Loading lesson content..."
-        lessonSlug="what-is-a-stock"
-      >
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-        </div>
-      </LessonLayout>
-    );
-  }
 
   const handleLessonComplete = (totalScore: number) => {
     setFinalScore(totalScore);
@@ -75,8 +59,8 @@ export default function WhatIsAStock() {
   // Define lesson parts
   const lessonParts = [
     {
-      id: "introduction",
-      title: "Introduction to Stocks",
+      id: "introduction-with-audio",
+      title: "What is a Stock?",
       content: (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -89,9 +73,7 @@ export default function WhatIsAStock() {
               What You&apos;ll Learn
             </h3>
             <p className="text-blue-700">
-              In this lesson, you&apos;ll discover what stocks are, how they work, 
-              and why they&apos;re fundamental to investing. Get ready to understand 
-              the building blocks of the stock market!
+                             In this lesson, you&apos;ll discover what stocks are, how they work, and why they&apos;re fundamental to investing. Get ready to understand the building blocks of the stock market!
             </p>
           </div>
 
@@ -100,13 +82,10 @@ export default function WhatIsAStock() {
               What is a Stock?
             </h3>
             <p className="text-gray-700 leading-relaxed mb-4">
-              A stock represents ownership in a company. When you buy a stock, 
-              you&apos;re purchasing a small piece of that company, making you a 
-              partial owner or &quot;shareholder.&quot;
+                             A stock represents ownership in a company. When you buy a stock, you&apos;re purchasing a small piece of that company, making you a shareholder. This means you have a claim on the company&apos;s assets and earnings.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Think of it like buying a slice of a pizza - you own a portion of 
-              the whole pizza, and as the pizza becomes more valuable, so does your slice!
+                             Think of it like owning a slice of a pizza - you don&apos;t own the entire pizza, but you own a portion of it. As the pizza becomes more valuable, so does your slice!
             </p>
           </div>
 
@@ -131,16 +110,44 @@ export default function WhatIsAStock() {
             </div>
           </div>
 
-                     <ConfirmationCheck
-             title="Ready to Continue?"
-             description="Before moving to the next part, please confirm that you understand the basic concept:"
-             checkboxes={[
-               "I understand that stocks represent ownership in companies",
-               "I recognize that stock prices can go up or down"
-             ]}
-             partId="introduction"
-             onPartComplete={createConfirmationHandler("introduction")}
-           />
+          {/* Audio Summary Section */}
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
+            <h3 className="text-xl font-semibold text-purple-800 mb-4">
+              🎧 Listen to the Multi-Language Audio Summary
+            </h3>
+            <p className="text-purple-700 mb-6">
+              Take a moment to listen to this comprehensive audio summary available in multiple languages including Hindi, English, Bengali, Marathi, Gujarati, and Tamil. 
+              Perfect for auditory learners and those who prefer listening over reading.
+            </p>
+            
+                         <AudioSummary
+               title="What is a Stock? - Audio Summary"
+              description="Listen to a comprehensive audio summary of what stocks are, available in multiple languages. Perfect for auditory learners and those who prefer listening over reading."
+              hindiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-hi.m4a"
+              englishAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-en.m4a"
+              bengaliAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-bn.m4a"
+              marathiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-mr.m4a"
+              gujaratiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-gu.m4a"
+              tamilAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/what-is-stock-ta.m4a"
+              hindiTranscript="स्टॉक्स की ABCD - पिज़्ज़ा से समझें हिस्सेदारी, प्रकार और निवेश के बुनियादी सिद्धांत। जब आप किसी कंपनी का स्टॉक खरीदते हैं, तो आप उस कंपनी के एक छोटे हिस्से के मालिक बन जाते हैं।"
+              englishTranscript="Stocks 101: Your Slice of the Market, from Pizza to Portfolios. Learn the ABCs of stocks through the pizza analogy. Understand ownership, types, and basic investment principles. When you buy a stock, you become a partial owner of that company. Think of it like buying a slice of a pizza - you own a portion of the whole pizza, and as the pizza becomes more valuable, so does your slice!"
+              bengaliTranscript="স্টক কী - পিজ্জার স্লাইস থেকে রিলায়েন্সের উত্থান। শেয়ার বাজারে বিনিয়োগের ক, খ, গ। যখন আপনি কোন কোম্পানির স্টক কিনেন, তখন আপনি সেই কোম্পানির একটি ছোট অংশের মালিক হন।"
+              marathiTranscript="स्टॉक म्हणजे काय - प्रकार, फायदे, तोटे आणि गुंतवणुकीची मानसिकता। जेव्हा तुम्ही एखाद्या कंपनीचा स्टॉक खरेदी करता, तेव्हा तुम्ही त्या कंपनीच्या एका लहान भागाचे मालक बनता।"
+              gujaratiTranscript="સ્ટોક્સ - રોકાણના મૂળભૂત સિદ્ધાંતો, પ્રકારો અને જોખમનું વ્યવસ્થાપન। જ્યારે તમે કોઈ કંપનીનો સ્ટોક ખરીદો છો, ત્યારે તમે તે કંપનીના એક નાના ભાગના માલિક બનો છો।"
+              tamilTranscript="பங்குகளின் உலகத்தில் - உங்கள் முதலீட்டு வழிகாட்டி. ரிஸ்க், லாபம், மற்றும் நீண்ட கால உத்திகள்! நீங்கள் ஒரு நிறுவனத்தின் பங்குகளை வாங்கும்போது, நீங்கள் அந்த நிறுவனத்தின் ஒரு சிறிய பகுதியின் உரிமையாளராக மாறுகிறீர்கள்."
+            />
+          </div>
+
+          <ConfirmationCheck
+            title="Ready to Continue?"
+            description="Before moving to the next part, please confirm that you understand the basic concept:"
+            checkboxes={[
+              "I understand that stocks represent ownership in companies",
+              "I recognize that stock prices can go up or down"
+            ]}
+            partId="introduction-with-audio"
+            onPartComplete={createConfirmationHandler("introduction-with-audio")}
+          />
         </motion.div>
       ),
       isRequired: true,
@@ -262,7 +269,7 @@ export default function WhatIsAStock() {
     },
     {
       id: "types-of-stocks",
-      title: "Types of Stocks",
+      title: "Different Types of Stocks",
       content: (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -525,43 +532,7 @@ export default function WhatIsAStock() {
        minScore: 0,
        skipAllowed: false
     },
-    {
-      id: "audio-summary",
-      title: "Audio Summary",
-      content: (
-        <div className="space-y-6">
-          <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
-            <h3 className="text-xl font-semibold text-purple-800 mb-4">
-              🎧 Listen to the Lesson Summary
-            </h3>
-            <p className="text-purple-700">
-              Take a moment to listen to this audio summary that recaps all the 
-              key points we&apos;ve covered about stocks.
-            </p>
-          </div>
 
-          <AudioElement
-            audioUrl="/audio/stock-basics-summary.mp3"
-            title="Stock Basics Summary"
-            description="Listen to a comprehensive summary of what we've learned about stocks"
-            transcript="Welcome to the stock basics summary. In this lesson, we learned that stocks represent ownership in companies. When you buy a stock, you become a partial owner or shareholder. We explored this concept using a pizza analogy - just like owning slices of a pizza, you own pieces of a company. Stocks come in different types: large-cap for established companies, mid-cap for growing companies, and small-cap for newer companies with high growth potential. We saw real examples from Indian markets like Reliance Industries and TCS, which have grown tremendously over time. Remember, stock investing requires patience, research, and understanding that prices can go up or down. The key is to invest in quality companies for the long term. Congratulations on completing this lesson on stock basics!"
-          />
-
-          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-            <h4 className="font-semibold text-green-800 mb-2">Audio Benefits:</h4>
-            <ul className="text-green-700 text-sm space-y-1">
-              <li>• Reinforces key concepts through listening</li>
-              <li>• Helps with retention and understanding</li>
-              <li>• Accessible learning format</li>
-              <li>• Can be replayed for review</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      isRequired: true,
-      type: 'audio' as const,
-      skipAllowed: false
-    },
     {
       id: "key-takeaways",
       title: "Key Takeaways",
@@ -687,7 +658,7 @@ export default function WhatIsAStock() {
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}</div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}/{lessonParts.length * 100}</div>
                 <div className="text-gray-600">Total Score</div>
               </div>
               <div className="text-center">
@@ -726,8 +697,8 @@ export default function WhatIsAStock() {
 
   return (
     <LessonLayout
-      title={t('title') as string}
-      description={t('description') as string}
+      title="What is a Stock?"
+      description="Learn the fundamentals of stocks, ownership, and investing through interactive lessons and real-world examples."
       lessonSlug="what-is-a-stock"
     >
              <MultiPartLesson

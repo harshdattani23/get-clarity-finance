@@ -60,11 +60,11 @@ export default function ShortQuestions({
     
     // Clear any existing timeout
     if ((window as unknown as { scoringTimeout?: NodeJS.Timeout }).scoringTimeout) {
-      clearTimeout((window as unknown as { scoringTimeout: NodeJS.Timeout }).scoringTimeout);
+      clearTimeout((window as unknown as { scoringTimeout?: NodeJS.Timeout }).scoringTimeout);
     }
     
-    // Auto-score the answer when it's long enough and not already scored
-    if (answer.length >= 20 && !scoringResults[currentQuestion.id] && !isScoring) {
+    // Auto-score the answer when it's not empty and not already scored
+    if (answer.trim() && !scoringResults[currentQuestion.id] && !isScoring) {
       // Debounce the scoring to avoid too many API calls
       (window as unknown as { scoringTimeout?: NodeJS.Timeout }).scoringTimeout = setTimeout(async () => {
         // Check if the answer is still the same and not already scored
@@ -251,7 +251,10 @@ export default function ShortQuestions({
         </div>
         <h3 className="text-2xl font-bold text-gray-800 mb-2">Questions Complete!</h3>
         <p className="text-gray-600 mb-6">
-          Your average score: {averageScore}/100
+          Your total score: {totalScore}/{questions.length * 100} points
+        </p>
+        <p className="text-gray-600 mb-6">
+          Average score: {averageScore}/100
         </p>
         
         <div className="space-y-4 mb-6 text-left">
@@ -374,15 +377,15 @@ export default function ShortQuestions({
             <textarea
               value={currentAnswer}
               onChange={(e) => handleAnswerChange(e.target.value)}
-              placeholder="Type your answer here... (minimum 20 characters)"
+              placeholder="Type your answer here..."
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
               rows={3}
               maxLength={500}
             />
             <div className="flex justify-between text-sm text-gray-500">
               <span>{currentAnswer.length}/500 characters</span>
-              <span className={currentAnswer.length < 20 ? 'text-red-500' : 'text-green-500'}>
-                {currentAnswer.length < 20 ? 'Minimum 20 characters required' : '✓ Good length'}
+              <span className="text-green-500">
+                ✓ Ready to answer
               </span>
             </div>
           </div>
@@ -432,12 +435,12 @@ export default function ShortQuestions({
           )}
           
           {/* Manual scoring button for answers that haven't been scored yet */}
-          {currentAnswer.length >= 20 && !scoringResults[currentQuestion.id] && !isScoring && (
+          {currentAnswer.trim() && !scoringResults[currentQuestion.id] && !isScoring && (
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <div className="text-sm text-blue-700">
                   <span className="font-medium">Ready to score?</span>
-                  <p className="text-xs mt-1">Your answer meets the minimum length requirement</p>
+                  <p className="text-xs mt-1">Your answer is ready for AI assessment</p>
                 </div>
                 <button
                   onClick={async () => {
@@ -484,7 +487,7 @@ export default function ShortQuestions({
         
         <button
           onClick={handleNextQuestion}
-          disabled={!currentAnswer.trim() || currentAnswer.length < 20 || isScoring}
+          disabled={!currentAnswer.trim() || isScoring}
           className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           {isScoring ? (
