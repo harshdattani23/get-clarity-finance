@@ -1,27 +1,728 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import LessonLayout from '../LessonLayout';
-import InteractiveQuiz from '@/components/stock-market-course/InteractiveQuiz';
-import InteractiveSelection from '@/components/stock-market-course/InteractiveSelection';
-import ShortQuestions from '@/components/stock-market-course/ShortQuestions';
-import AudioElement from '@/components/stock-market-course/AudioElement';
-import { 
-  Building, 
-  Users, 
-  TrendingUp, 
-  Shield, 
-  Target, 
-  CheckCircle, 
-  ArrowRight, 
-  DollarSign, 
-  BookOpen, 
-  AlertTriangle, 
-  Lightbulb 
-} from 'lucide-react';
+import LessonLayout from "../LessonLayout";
+import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
+import InteractiveQuiz from "@/components/stock-market-course/InteractiveQuiz";
+import InteractiveSelection from "@/components/stock-market-course/InteractiveSelection";
+import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
+import AudioElement from "@/components/stock-market-course/AudioElement";
+import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
+import { motion } from "framer-motion";
+import { Trophy } from "lucide-react";
 
-export default function WhatIsAStockPage() {
-  const { t } = useTranslation('stock-market-course.what-is-a-stock');
+export default function WhatIsAStock() {
+  const { t, translations } = useTranslation('stock-market-course.what-is-a-stock');
+  const [lessonCompleted, setLessonCompleted] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+
+  // Check if translations are loading
+  if (!translations) {
+    return (
+      <LessonLayout
+        title="Loading..."
+        description="Loading lesson content..."
+        lessonSlug="what-is-a-stock"
+      >
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        </div>
+      </LessonLayout>
+    );
+  }
+
+  const handleLessonComplete = (totalScore: number) => {
+    setFinalScore(totalScore);
+    setLessonCompleted(true);
+  };
+
+  const handlePartComplete = (partId: string, score: number) => {
+    console.log(`Part ${partId} completed with score: ${score}`);
+    // This function is called by MultiPartLesson when a part is completed
+    // The actual completion logic is handled by MultiPartLesson internally
+  };
+
+  // Create a completion handler that can be passed to interactive components
+  const createCompletionHandler = (partId: string) => {
+    return (score: number, total?: number) => {
+      // Convert score to 0-100 scale if total is provided
+      const scaledScore = total ? Math.round((score / total) * 100) : score;
+      console.log(`Part ${partId} completed:`);
+      console.log(`- Raw score: ${score}`);
+      console.log(`- Total questions: ${total}`);
+      console.log(`- Scaled score: ${scaledScore}/100`);
+      
+      // Call the MultiPartLesson's completion handler directly
+      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, scaledScore);
+      }
+    };
+  };
+
+  // Create a completion handler for ConfirmationCheck component
+  const createConfirmationHandler = (partId: string) => {
+    return (partIdParam: string, score: number) => {
+      console.log(`Part ${partIdParam} completed with score: ${score}`);
+      
+      // Call the MultiPartLesson's completion handler directly
+      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partIdParam, score);
+      }
+    };
+  };
+
+  // Define lesson parts
+  const lessonParts = [
+    {
+      id: "introduction",
+      title: "Introduction to Stocks",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-blue-800 mb-3">
+              What You&apos;ll Learn
+            </h3>
+            <p className="text-blue-700">
+              In this lesson, you&apos;ll discover what stocks are, how they work, 
+              and why they&apos;re fundamental to investing. Get ready to understand 
+              the building blocks of the stock market!
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              What is a Stock?
+            </h3>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              A stock represents ownership in a company. When you buy a stock, 
+              you&apos;re purchasing a small piece of that company, making you a 
+              partial owner or &quot;shareholder.&quot;
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              Think of it like buying a slice of a pizza - you own a portion of 
+              the whole pizza, and as the pizza becomes more valuable, so does your slice!
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <h4 className="font-semibold text-green-800 mb-2">Key Benefits</h4>
+              <ul className="text-green-700 space-y-1 text-sm">
+                <li>• Potential for growth and profits</li>
+                <li>• Ownership in real companies</li>
+                <li>• Dividend income possibilities</li>
+                <li>• Portfolio diversification</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+              <h4 className="font-semibold text-orange-800 mb-2">Important Notes</h4>
+              <ul className="text-orange-700 space-y-1 text-sm">
+                <li>• Stock prices can go up or down</li>
+                <li>• Past performance doesn&apos;t guarantee future results</li>
+                <li>• Research companies before investing</li>
+                <li>• Consider your risk tolerance</li>
+              </ul>
+            </div>
+          </div>
+
+                     <ConfirmationCheck
+             title="Ready to Continue?"
+             description="Before moving to the next part, please confirm that you understand the basic concept:"
+             checkboxes={[
+               "I understand that stocks represent ownership in companies",
+               "I recognize that stock prices can go up or down"
+             ]}
+             partId="introduction"
+             onPartComplete={createConfirmationHandler("introduction")}
+           />
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'interactive' as const,
+      skipAllowed: false
+    },
+    {
+      id: "pizza-analogy",
+      title: "The Pizza Analogy",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200">
+            <h3 className="text-xl font-semibold text-purple-800 mb-4">
+              🍕 Understanding Stocks Through Pizza
+            </h3>
+            <p className="text-purple-700 leading-relaxed mb-4">
+              Let&apos;s break down stocks using a simple pizza analogy that makes 
+              everything crystal clear!
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">The Pizza Company</h4>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                Imagine a pizza company that wants to expand. They need money to buy 
+                new ovens, hire more chefs, and open new locations. Instead of taking 
+                a loan, they decide to sell shares of their company.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Your Investment</h4>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                You buy 10 shares at ₹100 each, investing ₹1,000 total. Now you own 
+                10 slices of the pizza company. If the company does well and grows, 
+                your shares become more valuable.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-3">Real Example: Indian Companies</h4>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <h5 className="font-medium text-yellow-800">Reliance Industries</h5>
+                <p className="text-yellow-700">Started small, now one of India&apos;s largest companies</p>
+              </div>
+              <div>
+                <h5 className="font-medium text-yellow-800">TCS (Tata Consultancy)</h5>
+                <p className="text-yellow-700">IT giant that grew from a small division</p>
+              </div>
+              <div>
+                <h5 className="font-medium text-yellow-800">HDFC Bank</h5>
+                <p className="text-yellow-700">Started in 1994, now a banking leader</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "quiz-1",
+      title: "Stock Basics Quiz",
+      content: (
+        <InteractiveQuiz
+          questions={[
+            {
+              id: "ownership",
+              question: "What does owning a stock mean?",
+              options: [
+                "You lend money to the company",
+                "You own a small piece of the company",
+                "You work for the company",
+                "You are the company's customer"
+              ],
+              correctAnswer: 1,
+              explanation: "Correct! When you buy a stock, you become a partial owner of that company. This means you have a claim on the company's assets and earnings."
+            },
+            {
+              id: "investment",
+              question: "If you buy 5 shares of a company at ₹200 each, how much did you invest?",
+              options: [
+                "₹200",
+                "₹400",
+                "₹1,000",
+                "₹5,000"
+              ],
+              correctAnswer: 2,
+              explanation: "Great! 5 shares × ₹200 = ₹1,000. This is your total investment in the company."
+            },
+            {
+              id: "growth",
+              question: "What happens to your stock value if the company grows and becomes more successful?",
+              options: [
+                "Your stock value stays the same",
+                "Your stock value decreases",
+                "Your stock value increases",
+                "You lose your investment"
+              ],
+              correctAnswer: 2,
+              explanation: "Excellent! When a company grows and becomes more successful, the value of your stock typically increases because the company is worth more."
+            }
+          ]}
+          onComplete={createCompletionHandler("quiz-1")}
+        />
+      ),
+      isRequired: true,
+      type: 'quiz' as const,
+      minScore: 50,
+      skipAllowed: false
+    },
+    {
+      id: "types-of-stocks",
+      title: "Types of Stocks",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <h3 className="text-xl font-semibold text-blue-800 mb-4">
+              Different Categories of Stocks
+            </h3>
+            <p className="text-blue-700">
+              Stocks come in different types, each with its own characteristics and 
+              risk levels. Understanding these helps you make better investment decisions.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Large-Cap Stocks</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                These are shares of large, well-established companies with market 
+                values typically above ₹20,000 crores.
+              </p>
+              <div className="bg-green-50 p-3 rounded border border-green-200">
+                <h5 className="font-medium text-green-800 mb-2">Indian Examples:</h5>
+                <ul className="text-green-700 text-xs space-y-1">
+                  <li>• Reliance Industries</li>
+                  <li>• TCS</li>
+                  <li>• HDFC Bank</li>
+                  <li>• Infosys</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Mid-Cap Stocks</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                Medium-sized companies with market values between ₹5,000-20,000 crores. 
+                They offer growth potential with moderate risk.
+              </p>
+              <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-800 mb-2">Indian Examples:</h5>
+                <ul className="text-blue-700 text-xs space-y-1">
+                  <li>• Bajaj Finance</li>
+                  <li>• Titan Company</li>
+                  <li>• Maruti Suzuki</li>
+                  <li>• Asian Paints</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-orange-50 p-6 rounded-lg border border-orange-200">
+            <h4 className="font-semibold text-orange-800 mb-3">Small-Cap Stocks</h4>
+            <p className="text-orange-700 leading-relaxed mb-3">
+              Small companies with market values below ₹5,000 crores. They have 
+              high growth potential but also higher risk.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <h5 className="font-medium text-orange-800 mb-2">High Growth Potential:</h5>
+                <ul className="text-orange-700 text-sm space-y-1">
+                  <li>• Can grow rapidly</li>
+                  <li>• Undiscovered gems</li>
+                  <li>• Higher returns possible</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-medium text-orange-800 mb-2">Higher Risk:</h5>
+                <ul className="text-orange-700 text-sm space-y-1">
+                  <li>• Less established</li>
+                  <li>• More volatile</li>
+                  <li>• Higher chance of loss</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "selection-exercise",
+      title: "Stock Classification Exercise",
+      content: (
+        <InteractiveSelection
+          title="Classify these Indian companies by their stock type"
+          description="Select the correct category for each company. This will help you understand how to classify stocks based on company size and characteristics."
+          options={[
+            {
+              id: "reliance",
+              text: "Reliance Industries - ₹15 lakh crore market value, oil & gas giant",
+              isCorrect: true,
+              explanation: "Correct! Reliance Industries is a large-cap stock with market value above ₹20,000 crores."
+            },
+            {
+              id: "tcs",
+              text: "TCS - ₹12 lakh crore market value, IT services leader",
+              isCorrect: true,
+              explanation: "Correct! TCS is a large-cap stock with market value above ₹20,000 crores."
+            },
+            {
+              id: "bajaj-finance",
+              text: "Bajaj Finance - ₹1.2 lakh crore market value, consumer finance",
+              isCorrect: true,
+              explanation: "Correct! Bajaj Finance is a mid-cap stock with market value between ₹5,000-20,000 crores."
+            },
+            {
+              id: "titan",
+              text: "Titan Company - ₹2.8 lakh crore market value, watches & jewelry",
+              isCorrect: true,
+              explanation: "Correct! Titan Company is a mid-cap stock with market value between ₹5,000-20,000 crores."
+            },
+            {
+              id: "small-company",
+              text: "ABC Tech - ₹800 crore market value, new software startup",
+              isCorrect: true,
+              explanation: "Correct! ABC Tech is a small-cap stock with market value below ₹5,000 crores."
+            }
+          ]}
+                     onComplete={createCompletionHandler("selection-exercise")}
+        />
+      ),
+      isRequired: true,
+      type: 'selection' as const,
+      minScore: 50,
+      skipAllowed: false
+    },
+    {
+      id: "real-world-examples",
+      title: "Real World Examples",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
+              🌟 Success Stories from Indian Markets
+            </h3>
+            <p className="text-green-700">
+              Let&apos;s look at some real examples of how stocks have performed 
+              in the Indian market over time.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Reliance Industries</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Started:</span>
+                  <span className="font-medium">1977</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Initial Price:</span>
+                  <span className="font-medium">₹10</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Current Price:</span>
+                  <span className="font-medium text-green-600">₹2,500+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Growth:</span>
+                  <span className="font-medium text-green-600">25,000%+</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">TCS (Tata Consultancy)</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Started:</span>
+                  <span className="font-medium">1968</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">IPO Price:</span>
+                  <span className="font-medium">₹850</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Current Price:</span>
+                  <span className="font-medium text-green-600">₹3,800+</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Growth:</span>
+                  <span className="font-medium text-green-600">350%+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <h4 className="font-semibold text-blue-800 mb-3">Key Learning Points</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <h5 className="font-medium text-blue-800 mb-2">Long-term Perspective:</h5>
+                <ul className="text-blue-700 text-sm space-y-1">
+                  <li>• Stocks can grow significantly over decades</li>
+                  <li>• Patience is key to wealth building</li>
+                  <li>• Quality companies tend to perform well</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-medium text-blue-800 mb-2">Risk Management:</h5>
+                <ul className="text-blue-700 text-sm space-y-1">
+                  <li>• Not all companies succeed</li>
+                  <li>• Diversification reduces risk</li>
+                  <li>• Research before investing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "short-questions",
+      title: "Understanding Check",
+      content: (
+        <ShortQuestions
+          title="Test Your Understanding"
+          description="Answer these questions to ensure you've grasped the key concepts about stocks."
+          questions={[
+            {
+              id: "ownership",
+              question: "Explain in your own words what it means to own a stock.",
+              hint: "Think about what you actually own when you buy shares of a company.",
+              correctAnswer: "stock ownership company piece share",
+              explanation: "Great! When you own a stock, you own a small piece of that company. This means you have a claim on the company's assets and earnings, and you may receive dividends if the company pays them."
+            },
+            {
+              id: "investment",
+              question: "If you want to invest ₹5,000 in a company whose stock costs ₹250 per share, how many shares can you buy?",
+              hint: "Divide your total investment by the price per share.",
+              correctAnswer: "20",
+              explanation: "Perfect! ₹5,000 ÷ ₹250 = 20 shares. You can buy 20 shares of the company with your ₹5,000 investment."
+            },
+            {
+              id: "growth",
+              question: "Why do stock prices change over time?",
+              hint: "Consider what factors make a company more or less valuable.",
+              correctAnswer: "company performance earnings growth market demand",
+              explanation: "Excellent! Stock prices change based on company performance, earnings, growth prospects, market demand, economic conditions, and investor sentiment. Good news typically increases prices, while bad news decreases them."
+            }
+          ]}
+                     onComplete={createCompletionHandler("short-questions")}
+        />
+      ),
+             isRequired: true,
+       type: 'short-answer' as const,
+       minScore: 0,
+       skipAllowed: false
+    },
+    {
+      id: "audio-summary",
+      title: "Audio Summary",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+            <h3 className="text-xl font-semibold text-purple-800 mb-4">
+              🎧 Listen to the Lesson Summary
+            </h3>
+            <p className="text-purple-700">
+              Take a moment to listen to this audio summary that recaps all the 
+              key points we&apos;ve covered about stocks.
+            </p>
+          </div>
+
+          <AudioElement
+            audioUrl="/audio/stock-basics-summary.mp3"
+            title="Stock Basics Summary"
+            description="Listen to a comprehensive summary of what we've learned about stocks"
+            transcript="Welcome to the stock basics summary. In this lesson, we learned that stocks represent ownership in companies. When you buy a stock, you become a partial owner or shareholder. We explored this concept using a pizza analogy - just like owning slices of a pizza, you own pieces of a company. Stocks come in different types: large-cap for established companies, mid-cap for growing companies, and small-cap for newer companies with high growth potential. We saw real examples from Indian markets like Reliance Industries and TCS, which have grown tremendously over time. Remember, stock investing requires patience, research, and understanding that prices can go up or down. The key is to invest in quality companies for the long term. Congratulations on completing this lesson on stock basics!"
+          />
+
+          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+            <h4 className="font-semibold text-green-800 mb-2">Audio Benefits:</h4>
+            <ul className="text-green-700 text-sm space-y-1">
+              <li>• Reinforces key concepts through listening</li>
+              <li>• Helps with retention and understanding</li>
+              <li>• Accessible learning format</li>
+              <li>• Can be replayed for review</li>
+            </ul>
+          </div>
+        </div>
+      ),
+      isRequired: true,
+      type: 'audio' as const,
+      skipAllowed: false
+    },
+    {
+      id: "key-takeaways",
+      title: "Key Takeaways",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
+              🎯 What You&apos;ve Learned
+            </h3>
+            <p className="text-green-700">
+              Congratulations! You&apos;ve completed the &quot;What is a Stock?&quot; lesson. 
+              Here&apos;s a summary of the key concepts you now understand.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Core Concepts</h4>
+              <ul className="text-gray-700 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Stocks represent ownership in companies</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>You become a shareholder when you buy stocks</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Stock prices reflect company value and performance</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Different types: large-cap, mid-cap, small-cap</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Investment Principles</h4>
+              <ul className="text-gray-700 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Long-term perspective is key</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Research companies before investing</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Diversification reduces risk</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Past performance doesn&apos;t guarantee future results</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-3">Next Steps</h4>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-blue-600 font-bold">1</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Practice</h5>
+                <p className="text-yellow-700 text-sm">Use virtual trading to practice</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-green-600 font-bold">2</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Research</h5>
+                <p className="text-yellow-700 text-sm">Study real companies</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-purple-600 font-bold">3</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Learn More</h5>
+                <p className="text-yellow-700 text-sm">Continue with next lessons</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    }
+  ];
+
+  if (lessonCompleted) {
+    return (
+      <LessonLayout
+        title="Lesson Completed!"
+        description="Congratulations on completing the 'What is a Stock?' lesson"
+        lessonSlug="what-is-a-stock"
+      >
+        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <Trophy className="w-12 h-12 text-green-600" />
+          </motion.div>
+          
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            🎉 Lesson Completed Successfully!
+          </h2>
+          
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}</div>
+                <div className="text-gray-600">Total Score</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 mb-2">
+                  {Math.round((finalScore / (lessonParts.length * 100)) * 100)}%
+                </div>
+                <div className="text-gray-600">Overall Performance</div>
+              </div>
+            </div>
+          </div>
+          
+          <p className="text-gray-600 mb-6">
+            You&apos;ve successfully learned the fundamentals of stocks and demonstrated 
+            your understanding through various interactive exercises. You&apos;re now 
+            ready to explore more advanced concepts!
+          </p>
+          
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => setLessonCompleted(false)}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Review Lesson
+            </button>
+            <a
+              href="/stock-market-course/what-is-a-stock-market"
+              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Next Lesson
+            </a>
+          </div>
+        </div>
+      </LessonLayout>
+    );
+  }
 
   return (
     <LessonLayout
@@ -29,521 +730,12 @@ export default function WhatIsAStockPage() {
       description={t('description') as string}
       lessonSlug="what-is-a-stock"
     >
-      <div className="max-w-4xl mx-auto space-y-8">
-        
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-blue-100 p-3 rounded-full">
-              <Building className="w-8 h-8 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('simpleDefinition') as string}</h2>
-          </div>
-          <div className="space-y-4 text-lg text-gray-700">
-            <p dangerouslySetInnerHTML={{ __html: t('simpleDefinitionP1') }} />
-            <p dangerouslySetInnerHTML={{ __html: t('simpleDefinitionP2') }} />
-          </div>
-        </div>
-
-        {/* Pizza Analogy Card */}
-        <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-orange-100 p-2 rounded-full">
-              <Target className="w-6 h-6 text-orange-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-orange-800">{t('ownershipVisualTitle') as string}</h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            <div className="space-y-3">
-              <p className="text-orange-700">{t('ownershipVisualP1') as string}</p>
-              <p className="text-orange-700 font-medium">{t('ownershipVisualP2') as string}</p>
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-orange-200 text-center">
-              <div className="text-6xl mb-2">🍕</div>
-              <p className="text-sm text-orange-600">Each slice = 1 share</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Interactive Quiz - Understanding Ownership */}
-        <InteractiveQuiz
-          questions={[
-            {
-              id: 'ownership-1',
-              question: 'If you own 10 shares of a company that has 1000 total shares, what percentage of the company do you own?',
-              options: ['1%', '10%', '0.1%', '100%'],
-              correctAnswer: 0,
-              explanation: 'Correct! 10 shares out of 1000 total shares equals 1% ownership. This means you own 1% of the company.'
-            },
-            {
-              id: 'ownership-2',
-              question: 'What happens to your ownership percentage if the company issues more shares?',
-              options: ['Your percentage increases', 'Your percentage decreases', 'Your percentage stays the same', 'You lose all ownership'],
-              correctAnswer: 1,
-              explanation: 'Correct! When a company issues more shares, your ownership percentage decreases because the total number of shares increases while you still own the same number.'
-            },
-            {
-              id: 'ownership-3',
-              question: 'Which of the following is NOT a right that comes with stock ownership?',
-              options: ['Voting on company decisions', 'Receiving dividends', 'Guaranteed profits', 'Claiming company assets if it goes bankrupt'],
-              correctAnswer: 2,
-              explanation: 'Correct! Stock ownership does NOT guarantee profits. Stock prices can go up or down, and there&apos;s always a risk of losing money.'
-            }
-          ]}
-          onComplete={(score, total) => {
-            console.log(`Quiz completed! Score: ${score}/${total}`);
-          }}
-        />
-
-        {/* Detailed Explanation */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-indigo-100 p-2 rounded-full">
-              <BookOpen className="w-6 h-6 text-indigo-600" />
-            </div>
-            <h2 className="text-xl font-semibold text-gray-800">{t('detailedExplanation') as string}</h2>
-          </div>
-          <div className="space-y-4 text-gray-700">
-            <p>{t('detailedExplanationP1') as string}</p>
-            <p>{t('detailedExplanationP2') as string}</p>
-          </div>
-        </div>
-
-        {/* Interactive Selection - Stock Characteristics */}
-        <InteractiveSelection
-          title="Understanding Stock Characteristics"
-          description="Select all the characteristics that apply to stocks. Think about what makes stocks unique as an investment."
-          options={[
-            {
-              id: 'characteristic-1',
-              text: 'Stocks represent partial ownership in a company',
-              isCorrect: true,
-              explanation: 'Correct! When you buy a stock, you become a partial owner of that company.'
-            },
-            {
-              id: 'characteristic-2',
-              text: 'Stock prices are guaranteed to increase over time',
-              isCorrect: false,
-              explanation: 'Incorrect! Stock prices are not guaranteed to increase. They can go up or down based on many factors.'
-            },
-            {
-              id: 'characteristic-3',
-              text: 'Stockholders can vote on important company decisions',
-              isCorrect: true,
-              explanation: 'Correct! Common stockholders typically have voting rights on major company decisions.'
-            },
-            {
-              id: 'characteristic-4',
-              text: 'Stocks provide regular fixed income payments',
-              isCorrect: false,
-              explanation: 'Incorrect! Stocks don\'t provide fixed income. Dividends may be paid but they\'re not guaranteed or fixed.'
-            },
-            {
-              id: 'characteristic-5',
-              text: 'Stock ownership can be transferred to others',
-              isCorrect: true,
-              explanation: 'Correct! Stocks are easily transferable and can be bought or sold on stock exchanges.'
-            },
-            {
-              id: 'characteristic-6',
-              text: 'Stockholders have unlimited liability for company debts',
-              isCorrect: false,
-              explanation: 'Incorrect! Stockholders have limited liability - they can only lose what they invested, not more.'
-            }
-          ]}
-          onComplete={(score, total) => {
-            console.log(`Selection completed! Score: ${score}/${total}`);
-          }}
-        />
-
-        {/* Real World Example */}
-        <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-green-100 p-2 rounded-full">
-              <TrendingUp className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-green-800">{t('realWorldExample') as string}</h3>
-          </div>
-          <p className="text-green-700 mb-4">{t('realWorldExampleP1') as string}</p>
-          <div className="bg-white rounded-xl p-4 border border-green-200">
-            <ul className="space-y-2 text-green-700">
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                {t('realWorldExampleP2') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                {t('realWorldExampleP3') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                {t('realWorldExampleP3') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                {t('realWorldExampleP5') as string}
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Short Questions - Real World Application */}
-        <ShortQuestions
-          title="Understanding Real World Stock Examples"
-          description="Answer these questions to test your understanding of how stocks work in the real world."
-          questions={[
-            {
-              id: 'real-world-1',
-              question: 'If you buy 100 shares of Reliance Industries at ₹2,500 per share, what is your total investment?',
-              hint: 'Think about multiplying the number of shares by the price per share.',
-              correctAnswer: '₹2,50,000',
-              explanation: 'Correct! 100 shares × ₹2,500 = ₹2,50,000. This is your total investment in Reliance Industries.'
-            },
-            {
-              id: 'real-world-2',
-              question: 'What happens to your investment if Reliance Industries\' stock price increases to ₹3,000 per share?',
-              hint: 'Calculate the new total value and compare it to your original investment.',
-              correctAnswer: 'Your investment increases to ₹3,00,000, giving you a profit of ₹50,000',
-              explanation: 'Correct! 100 shares × ₹3,000 = ₹3,00,000. Your profit is ₹3,00,000 - ₹2,50,000 = ₹50,000.'
-            },
-            {
-              id: 'real-world-3',
-              question: 'If Reliance Industries pays a dividend of ₹25 per share, how much dividend income will you receive?',
-              hint: 'Multiply the dividend per share by the number of shares you own.',
-              correctAnswer: '₹2,500',
-              explanation: 'Correct! 100 shares × ₹25 = ₹2,500. This is additional income you receive as a shareholder.'
-            }
-          ]}
-          onComplete={(score, total) => {
-            console.log(`Short questions completed! Score: ${score}/${total}`);
-          }}
-        />
-
-        {/* Ownership Rights Section */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('ownershipRights') as string}</h2>
-            <p className="text-gray-600">{t('ownershipRightsP1') as string}</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Voting Rights Card */}
-            <div className="bg-purple-50 border border-purple-200 rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <Users className="w-5 h-5 text-purple-600" />
-                </div>
-                <h3 className="font-semibold text-purple-800">{t('votingRights') as string}</h3>
-              </div>
-              <p className="text-purple-700 text-sm mb-3">{t('votingRightsP1') as string}</p>
-              <ul className="space-y-1 text-sm text-purple-700">
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  {t('votingRightsP2') as string}
-                </li>
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  {t('votingRightsP3') as string}
-                </li>
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  {t('votingRightsP4') as string}
-                </li>
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  {t('votingRightsP5') as string}
-                </li>
-              </ul>
-              <p className="text-xs text-purple-600 italic mt-3">{t('votingRightsP6') as string}</p>
-            </div>
-
-            {/* Profit Sharing Card */}
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-emerald-100 p-2 rounded-full">
-                  <DollarSign className="w-5 h-5 text-emerald-600" />
-                </div>
-                <h3 className="font-semibold text-emerald-800">{t('profitSharing') as string}</h3>
-              </div>
-              <p className="text-emerald-700 text-sm mb-3">{t('profitSharingP1') as string}</p>
-              <ul className="space-y-1 text-sm text-emerald-700">
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  <span dangerouslySetInnerHTML={{ __html: t('profitSharingP2') }} />
-                </li>
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3" />
-                  <span dangerouslySetInnerHTML={{ __html: t('profitSharingP3') }} />
-                </li>
-              </ul>
-            </div>
-
-            {/* Asset Claims Card */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-amber-100 p-2 rounded-full">
-                  <Shield className="w-5 h-5 text-amber-600" />
-                </div>
-                <h3 className="font-semibold text-amber-800">{t('assetClaims') as string}</h3>
-              </div>
-              <p className="text-amber-700 text-sm mb-3">{t('assetClaimsP1') as string}</p>
-              <p className="text-amber-700 text-sm">{t('assetClaimsP2') as string}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Why Companies Issue Stock */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('whyCompaniesIssue') as string}</h2>
-          <p className="text-gray-700 mb-6" dangerouslySetInnerHTML={{ __html: t('whyCompaniesIssueP1') }} />
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">{t('fundingGrowth') as string}</h3>
-                <p className="text-gray-600">{t('fundingGrowthP') as string}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">{t('goingPublic') as string}</h3>
-                <p className="text-gray-600">{t('goingPublicP') as string}</p>
-              </div>
-            </div>
-            
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <h3 className="font-semibold text-blue-800 mb-3">{t('additionalReasons') as string}</h3>
-              <p className="text-blue-700 text-sm mb-4">{t('additionalReasonsP1') as string}</p>
-              
-              <div className="space-y-3">
-                <div>
-                  <h4 className="font-medium text-blue-800 text-sm">{t('acquisitions') as string}</h4>
-                  <p className="text-blue-600 text-xs">{t('acquisitionsP1') as string}</p>
-                  <p className="text-blue-600 text-xs italic">{t('acquisitionsP2') as string}</p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-blue-800 text-sm">{t('employeeCompensation') as string}</h4>
-                  <p className="text-blue-600 text-xs">{t('employeeCompensationP1') as string}</p>
-                  <p className="text-blue-600 text-xs italic">{t('employeeCompensationP2') as string}</p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-blue-800 text-sm">{t('debtReduction') as string}</h4>
-                  <p className="text-blue-600 text-xs">{t('debtReductionP1') as string}</p>
-                  <p className="text-blue-600 text-xs italic">{t('debtReductionP2') as string}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Why People Buy Stock */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('whyPeopleBuy') as string}</h2>
-          <p className="text-gray-700 mb-6">{t('whyPeopleBuyP') as string}</p>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <h3 className="font-semibold text-green-800 mb-2">{t('capitalGains') as string}</h3>
-              <p className="text-green-700 text-sm">{t('capitalGainsP') as string}</p>
-            </div>
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <h3 className="font-semibold text-blue-800 mb-2">{t('dividends') as string}</h3>
-              <p className="text-blue-700 text-sm">{t('dividendsP') as string}</p>
-            </div>
-          </div>
-
-          <h3 className="font-semibold text-gray-800 mb-3">{t('investmentMotivations') as string}</h3>
-          <p className="text-gray-700 mb-4">{t('investmentMotivationsP1') as string}</p>
-          
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-              <h4 className="font-medium text-yellow-800 mb-2">{t('wealthBuilding') as string}</h4>
-              <p className="text-yellow-700 text-sm mb-2">{t('wealthBuildingP1') as string}</p>
-              <p className="text-yellow-600 text-xs italic">{t('wealthBuildingP2') as string}</p>
-            </div>
-            <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-              <h4 className="font-medium text-red-800 mb-2">{t('inflationProtection') as string}</h4>
-              <p className="text-red-700 text-sm mb-2">{t('inflationProtectionP1') as string}</p>
-              <p className="text-red-600 text-xs italic">{t('inflationProtectionP2') as string}</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-4 border border-purple-200">
-              <h4 className="font-medium text-purple-800 mb-2">{t('ownershipPride') as string}</h4>
-              <p className="text-purple-700 text-sm mb-2">{t('ownershipPrideP1') as string}</p>
-              <p className="text-purple-600 text-xs italic">{t('ownershipPrideP2') as string}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Stock Types Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('stockTypes') as string}</h2>
-          <p className="text-gray-700 mb-6">{t('stockTypesP1') as string}</p>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">{t('commonStock') as string}</h3>
-                <p className="text-gray-600 text-sm">{t('commonStockP1') as string}</p>
-                <p className="text-gray-600 text-sm">{t('commonStockP2') as string}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">{t('preferredStock') as string}</h3>
-                <p className="text-gray-600 text-sm">{t('preferredStockP1') as string}</p>
-                <p className="text-gray-600 text-sm">{t('preferredStockP2') as string}</p>
-              </div>
-            </div>
-            
-            <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-200">
-              <h3 className="font-semibold text-indigo-800 mb-3">{t('stockClasses') as string}</h3>
-              <p className="text-indigo-700 text-sm mb-3">{t('stockClassesP1') as string}</p>
-              <ul className="space-y-1 text-sm text-indigo-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('stockClassesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('stockClassesP3') }} />
-              </ul>
-              <p className="text-indigo-600 text-xs">{t('stockClassesP4') as string}</p>
-            </div>
-          </div>
-
-          <h3 className="font-semibold text-gray-800 mb-3">{t('marketCapCategories') as string}</h3>
-          <p className="text-gray-700 mb-4">{t('marketCapCategoriesP1') as string}</p>
-          
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <h4 className="font-medium text-green-800 mb-2">{t('largeCap') as string}</h4>
-              <p className="text-green-700 text-sm mb-2">{t('largeCapP1') as string}</p>
-              <p className="text-green-600 text-xs">{t('largeCapP2') as string}</p>
-            </div>
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-              <h4 className="font-medium text-yellow-800 mb-2">{t('midCap') as string}</h4>
-              <p className="text-yellow-700 text-sm mb-2">{t('midCapP1') as string}</p>
-              <p className="text-yellow-600 text-xs">{t('midCapP2') as string}</p>
-            </div>
-            <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-              <h4 className="font-medium text-red-800 mb-2">{t('smallCap') as string}</h4>
-              <p className="text-red-700 text-sm mb-2">{t('smallCapP1') as string}</p>
-              <p className="text-red-600 text-xs">{t('smallCapP2') as string}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Stock Risks Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('stockRisks') as string}</h2>
-          <p className="text-gray-700 mb-6">{t('stockRisksP1') as string}</p>
-          
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-5 h-5 text-red-500" />
-                <h3 className="font-semibold text-red-800">{t('marketRisk') as string}</h3>
-              </div>
-              <p className="text-red-700 text-sm mb-2">{t('marketRiskP1') as string}</p>
-              <p className="text-red-600 text-xs">{t('marketRiskP2') as string}</p>
-            </div>
-            <div className="bg-orange-50 rounded-xl p-4 border border-orange-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-5 h-5 text-orange-500" />
-                <h3 className="font-semibold text-orange-800">{t('companyRisk') as string}</h3>
-              </div>
-              <p className="text-orange-700 text-sm mb-2">{t('companyRiskP1') as string}</p>
-              <p className="text-orange-600 text-xs">{t('companyRiskP2') as string}</p>
-            </div>
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-500" />
-                <h3 className="font-semibold text-yellow-800">{t('liquidityRisk') as string}</h3>
-              </div>
-              <p className="text-yellow-700 text-sm mb-2">{t('liquidityRiskP1') as string}</p>
-              <p className="text-yellow-600 text-xs">{t('liquidityRiskP2') as string}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Practical Example */}
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-emerald-100 p-2 rounded-full">
-              <Lightbulb className="w-6 h-6 text-emerald-600" />
-            </div>
-            <h2 className="text-xl font-semibold text-emerald-800">{t('practicalExample') as string}</h2>
-          </div>
-          <p className="text-emerald-700 mb-4">{t('practicalExampleP1') as string}</p>
-          <div className="bg-white rounded-xl p-4 border border-emerald-200">
-            <ul className="space-y-2 text-emerald-700">
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP2') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP3') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP4') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP5') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP6') as string}
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {t('practicalExampleP7') as string}
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Audio Summary */}
-        <AudioElement
-          title="Audio Summary: What is a Stock?"
-          description="Listen to a concise summary of this lesson to reinforce your understanding."
-          audioUrl="/audio/what-is-a-stock-summary.mp3"
-          transcript="Welcome to the world of stocks! In this lesson, we learned that a stock represents partial ownership in a company. Think of it like owning a slice of pizza - the more slices you own, the bigger your share of the company. When you buy stocks, you become a shareholder with rights to vote on company decisions and receive dividends. However, remember that stock prices can go up or down, so there's always risk involved. The key is to understand what you're investing in and never invest more than you can afford to lose. Happy investing!"
-          showTranscript={true}
-        />
-
-        {/* Key Takeaways */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTakeaways') as string}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7].map((num) => (
-              <div key={num} className="flex items-start gap-3">
-                <div className="bg-blue-100 p-1 rounded-full mt-1">
-                  <CheckCircle className="w-4 h-4 text-blue-600" />
-                </div>
-                <li className="text-gray-700 list-none" dangerouslySetInnerHTML={{ __html: t(`takeaway${num}`) }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Key Terms */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTerms') as string}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-              <div key={num} className="bg-gray-50 rounded-lg p-3">
-                <li className="text-gray-700 list-none text-sm" dangerouslySetInnerHTML={{ __html: t(`term${num}`) }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Next Steps */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 rounded-2xl p-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="bg-blue-100 p-2 rounded-full">
-              <ArrowRight className="w-5 h-5 text-blue-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-blue-800">{t('nextSteps') as string}</h3>
-          </div>
-          <p className="text-blue-700 mb-2">{t('nextStepsP1') as string}</p>
-          <p className="text-blue-700">{t('nextStepsP2') as string}</p>
-        </div>
-      </div>
+             <MultiPartLesson
+         parts={lessonParts}
+         onComplete={handleLessonComplete}
+         onPartComplete={handlePartComplete}
+         onPartCompleteDirect={handlePartComplete}
+       />
     </LessonLayout>
   );
 }

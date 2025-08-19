@@ -23,7 +23,10 @@ const safetySettings = [
 ];
 
 async function analyzeText(text: string) {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash', safetySettings });
+  const model = genAI.getGenerativeModel({ 
+    model: process.env.GEMINI_MODEL_NAME || 'gemini-2.5-flash', 
+    safetySettings 
+  });
   
   const prompt = `
     Analyze the following text and identify potential red flags for investment fraud.

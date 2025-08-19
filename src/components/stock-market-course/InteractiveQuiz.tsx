@@ -22,6 +22,7 @@ export default function InteractiveQuiz({ questions, onComplete }: InteractiveQu
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [questionResults, setQuestionResults] = useState<Record<number, boolean>>({});
 
   const currentQuestion = questions[currentQuestionIndex];
   const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
@@ -29,9 +30,22 @@ export default function InteractiveQuiz({ questions, onComplete }: InteractiveQu
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedAnswer !== null) return; // Prevent multiple selections
     
+    const isCorrect = answerIndex === currentQuestion.correctAnswer;
+    
     setSelectedAnswer(answerIndex);
-    if (answerIndex === currentQuestion.correctAnswer) {
-      setScore(score + 1);
+    setQuestionResults(prev => ({
+      ...prev,
+      [currentQuestionIndex]: isCorrect
+    }));
+    
+    if (isCorrect) {
+      setScore(prevScore => {
+        const newScore = prevScore + 1;
+        console.log(`Correct answer! Score updated from ${prevScore} to ${newScore}`);
+        return newScore;
+      });
+    } else {
+      console.log(`Wrong answer. Selected: ${answerIndex}, Correct: ${currentQuestion.correctAnswer}. Score remains: ${score}`);
     }
     setShowExplanation(true);
   };
@@ -42,8 +56,15 @@ export default function InteractiveQuiz({ questions, onComplete }: InteractiveQu
       setSelectedAnswer(null);
       setShowExplanation(false);
     } else {
+      // Calculate final score using tracked results
+      const finalScore = Object.values(questionResults).filter(result => result).length;
+      console.log(`Quiz completed! Final score calculation:`);
+      console.log(`- Question results:`, questionResults);
+      console.log(`- Correct answers: ${finalScore}`);
+      console.log(`- Total questions: ${questions.length}`);
+      console.log(`- Final score: ${finalScore}/${questions.length}`);
       setQuizCompleted(true);
-      onComplete?.(score + (isCorrect ? 1 : 0), questions.length);
+      onComplete?.(finalScore, questions.length);
     }
   };
 
@@ -53,11 +74,17 @@ export default function InteractiveQuiz({ questions, onComplete }: InteractiveQu
     setShowExplanation(false);
     setScore(0);
     setQuizCompleted(false);
+    setQuestionResults({});
   };
 
   if (quizCompleted) {
-    const finalScore = score + (isCorrect ? 1 : 0);
+    const finalScore = Object.values(questionResults).filter(result => result).length;
     const percentage = Math.round((finalScore / questions.length) * 100);
+    
+    console.log(`Displaying completion screen:`);
+    console.log(`- Question results:`, questionResults);
+    console.log(`- Final score: ${finalScore}/${questions.length}`);
+    console.log(`- Percentage: ${percentage}%`);
     
     return (
       <div className="bg-gradient-to-br from-green-50 to-blue-50 border border-green-200 rounded-2xl p-8 text-center">
