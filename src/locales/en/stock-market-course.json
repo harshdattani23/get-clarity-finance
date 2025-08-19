@@ -1,6 +1,80 @@
 {
     "title": "The Complete Indian Stock Market Course",
     "description": "From absolute beginner to confident investor, this comprehensive course will guide you through everything you need to know to navigate the Indian stock market.",
+    "courseModules": {
+        "iposAndNewListings": {
+            "title": "IPOs and New Listings",
+            "description": "Learn how to evaluate and invest in Initial Public Offerings and new market listings.",
+            "lessons": {
+                "understandingIpos": "Understanding IPOs",
+                "howToApplyForIpos": "How to Apply for IPOs",
+                "evaluatingIpoValuations": "Evaluating IPO Valuations",
+                "ipoRisksAndRewards": "IPO Risks and Rewards",
+                "smeIposAndNseEmerge": "SME IPOs and NSE Emerge"
+            }
+        },
+        "mutualFunds": {
+            "title": "Mutual Funds and ETFs",
+            "description": "Master mutual fund investing and understand Exchange Traded Funds.",
+            "lessons": {
+                "introductionToMutualFunds": "Introduction to Mutual Funds",
+                "typesOfMutualFunds": "Types of Mutual Funds",
+                "howToChooseTheRightFund": "How to Choose the Right Fund",
+                "systematicInvestmentPlans": "Systematic Investment Plans (SIPs)",
+                "exchangeTradedFunds": "Exchange Traded Funds (ETFs)",
+                "indexFundsAndPassiveInvesting": "Index Funds and Passive Investing"
+            }
+        },
+        "goldAndCommodities": {
+            "title": "Gold and Commodities Investing",
+            "description": "Learn to invest in gold, silver, and other commodities as part of your portfolio.",
+            "lessons": {
+                "investingInGold": "Investing in Gold",
+                "goldEtfsAndSovereignGoldBonds": "Gold ETFs and Sovereign Gold Bonds",
+                "silverAndPreciousMetals": "Silver and Precious Metals",
+                "agriculturalCommodities": "Agricultural Commodities",
+                "energyCommodities": "Energy Commodities (Oil, Gas)",
+                "commodityTradingStrategies": "Commodity Trading Strategies"
+            }
+        },
+        "currencyTrading": {
+            "title": "Currency Trading and Forex",
+            "description": "Understand currency markets and foreign exchange trading.",
+            "lessons": {
+                "introductionToCurrencyMarkets": "Introduction to Currency Markets",
+                "majorCurrencyPairs": "Major Currency Pairs",
+                "forexTradingStrategies": "Forex Trading Strategies",
+                "currencyDerivatives": "Currency Derivatives",
+                "riskManagementInForex": "Risk Management in Forex"
+            }
+        },
+        "categories": {
+            "basics": "Basics",
+            "practical": "Practical",
+            "analysis": "Analysis",
+            "advanced": "Advanced",
+            "investment": "Investment",
+            "planning": "Planning",
+            "all": "All Categories"
+        },
+        "courseStats": {
+            "courseModules": "Course Modules",
+            "totalLessons": "Total Lessons",
+            "hoursOfContent": "Hours of Content"
+        },
+        "navigation": {
+            "backToModule": "Back to {moduleName} Module",
+            "nextLesson": "Next: {lessonName}",
+            "startModule": "Start Module"
+        },
+        "search": {
+            "placeholder": "Search courses and lessons...",
+            "resultsCount": "Showing {count} of {total} modules",
+            "searchFor": "for \"{term}\"",
+            "noResults": "No courses found",
+            "noResultsDescription": "Try adjusting your search terms or category filter."
+        }
+    },
     "what-is-a-stock": {
         "title": "What is a Stock?",
         "description": "Let's start with the absolute basics. Understand what a stock is and why it's the fundamental building block of the market.",
