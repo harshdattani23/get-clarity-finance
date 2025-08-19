@@ -6,7 +6,7 @@ import AnimatedDiv from "@/components/animations/AnimatedDiv";
 import Image from 'next/image';
 
 export default function IdentifyingTrendsSupportAndResistancePage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/identifying-trends-support-and-resistance');
   return (
     <LessonLayout
       title={t('identifying-trends-support-and-resistance.title')}

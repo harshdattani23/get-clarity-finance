@@ -6,7 +6,7 @@ import { Landmark, HandCoins, ShieldCheck } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function ReadingBalanceSheetPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/reading-the-balance-sheet');
   return (
     <LessonLayout
       title={t('reading-the-balance-sheet.title')}

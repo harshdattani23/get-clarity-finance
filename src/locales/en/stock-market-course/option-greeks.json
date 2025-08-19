@@ -1,0 +1,57 @@
+{
+    "title": "Understanding Option Greeks",
+    "description": "Demystify the 'Greeks' (Delta, Gamma, Theta, Vega) to understand and manage the risks and rewards of options positions.",
+    "introduction": "Option Greeks are mathematical measures that help traders understand how various factors affect the price of an option. They are essential tools for managing risk and making informed trading decisions.",
+    "delta": {
+        "title": "Delta: The Directional Risk",
+        "p1": "Delta measures how much an option's price changes for every ₹1 change in the underlying asset's price.",
+        "characteristics": {
+            "callOptions": "Call options have positive delta (0 to 1)",
+            "putOptions": "Put options have negative delta (-1 to 0)",
+            "atTheMoney": "At-the-money options have delta around 0.5 (calls) or -0.5 (puts)",
+            "deepInTheMoney": "Deep in-the-money options approach delta of 1.0 (calls) or -1.0 (puts)"
+        }
+    },
+    "gamma": {
+        "title": "Gamma: The Rate of Change",
+        "p1": "Gamma measures how much delta changes for every ₹1 change in the underlying asset's price.",
+        "characteristics": {
+            "atTheMoney": "Gamma is highest for at-the-money options",
+            "timeDecay": "Gamma increases as expiration approaches",
+            "riskManagement": "High gamma means delta can change rapidly, increasing risk"
+        }
+    },
+    "theta": {
+        "title": "Theta: The Time Decay",
+        "p1": "Theta measures how much an option's value decreases as time passes (time decay).",
+        "characteristics": {
+            "alwaysNegative": "Theta is always negative for long options",
+            "acceleration": "Time decay accelerates as expiration approaches",
+            "outOfTheMoney": "Out-of-the-money options lose value fastest"
+        }
+    },
+    "vega": {
+        "title": "Vega: The Volatility Risk",
+        "p1": "Vega measures how much an option's price changes for every 1% change in implied volatility.",
+        "characteristics": {
+            "atTheMoney": "Vega is highest for at-the-money options",
+            "timeEffect": "Longer-term options have higher vega",
+            "volatilityImpact": "High vega means the option is sensitive to volatility changes"
+        }
+    },
+    "practicalApplications": {
+        "title": "Practical Applications",
+        "p1": "Understanding Greeks helps you:",
+        "use1": "Manage portfolio risk more effectively",
+        "use2": "Choose the right options for your strategy",
+        "use3": "Understand why options prices change",
+        "use4": "Make better hedging decisions"
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Delta measures directional risk and ranges from -1 to +1.",
+        "takeaway2": "Gamma measures how quickly delta changes and is highest for at-the-money options.",
+        "takeaway3": "Theta represents time decay and always works against long options.",
+        "takeaway4": "Vega measures sensitivity to volatility changes and is highest for longer-term options."
+    }
+}

@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function ReadingPandLStatementPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/reading-the-profit-loss-p&l-statement');
   return (
     <LessonLayout
       title={t('reading-the-profit-loss-p&l-statement.title')}

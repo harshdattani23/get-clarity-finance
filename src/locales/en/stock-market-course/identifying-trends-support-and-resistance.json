@@ -1,0 +1,37 @@
+{
+    "title": "Identifying Trends, Support, and Resistance",
+    "description": "Learn to identify the market's direction and key price levels where buying and selling pressure is expected to be strong.",
+    "intro": "Understanding the market's direction and identifying key price levels are fundamental skills in technical analysis. These concepts help traders make more informed decisions.",
+    "image_alt": "Chart showing support and resistance levels",
+    "trends": {
+        "title": "What is a Trend?",
+        "p1": "A trend is the general direction in which a stock's price is moving.",
+        "uptrend": {
+            "title": "Uptrend (Bullish)",
+            "p1": "Characterized by a series of 'higher highs' and 'higher lows'."
+        },
+        "downtrend": {
+            "title": "Downtrend (Bearish)",
+            "p1": "Characterized by a series of 'lower highs' and 'lower lows'."
+        },
+        "sideways": {
+            "title": "Sideways Trend (Ranging)",
+            "p1": "Occurs when the price trades within a relatively narrow range."
+        }
+    },
+    "support": {
+        "title": "Support: The Price Floor",
+        "p1": "A price level where a downtrend can be expected to pause due to a concentration of demand. It's a level where buyers are likely to step in and buy."
+    },
+    "resistance": {
+        "title": "Resistance: The Price Ceiling",
+        "p1": "A price level where an uptrend can be expected to pause due to a concentration of supply. It's a level where sellers are likely to step in and sell."
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "An <strong>uptrend</strong> consists of higher highs and higher lows; a <strong>downtrend</strong> consists of lower highs and lower lows.",
+        "takeaway2": "<strong>Support</strong> is a price level where buying pressure is strong enough to potentially halt a downtrend.",
+        "takeaway3": "<strong>Resistance</strong> is a price level where selling pressure is strong enough to potentially halt an uptrend.",
+        "takeaway4": "Identifying these levels is a core skill for anticipating potential market turning points."
+    }
+}

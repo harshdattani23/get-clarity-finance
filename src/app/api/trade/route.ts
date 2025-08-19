@@ -2,6 +2,9 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { PrismaClient } from "@prisma/client";
+
+type TransactionClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">;
 
 const tradeSchema = z.object({
   ticker: z.string(),
@@ -47,7 +50,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Insufficient funds" }, { status: 400 });
       }
 
-      await db.$transaction(async (tx) => {
+      await db.$transaction(async (tx: TransactionClient) => {
         const updatedUser = await tx.user.update({
           where: { clerkId: userId },
           data: { virtualCash: { decrement: cost } },
@@ -106,7 +109,7 @@ export async function POST(req: NextRequest) {
       const revenue = quantity * price;
       console.log(`Sell revenue: ₹${revenue}`);
 
-      await db.$transaction(async (tx) => {
+      await db.$transaction(async (tx: TransactionClient) => {
         const updatedUser = await tx.user.update({
           where: { clerkId: userId },
           data: { virtualCash: { increment: revenue } },

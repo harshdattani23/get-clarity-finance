@@ -14,7 +14,7 @@ interface LessonLayoutProps {
 
 export default function LessonLayout({ children, title, description, lessonSlug }: LessonLayoutProps) {
   const { prevLesson, nextLesson } = getStockMarketLessonNavigation(lessonSlug);
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course');
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen">

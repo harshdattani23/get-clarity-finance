@@ -1,0 +1,94 @@
+{
+    "title": "Advanced Candlestick Patterns",
+    "description": "Move beyond single candles and learn to recognize powerful multi-candlestick patterns that signal trend continuations and reversals.",
+    "introduction": "While single candlesticks provide valuable information, the real power of candlestick analysis lies in recognizing patterns formed by multiple candles. These patterns can signal potential trend reversals, continuations, or indecision in the market.",
+    "reversalPatterns": {
+        "title": "Reversal Patterns",
+        "p1": "Reversal patterns suggest that the current trend may be coming to an end and a new trend in the opposite direction may begin.",
+        "patterns": {
+            "engulfing": {
+                "title": "Engulfing Pattern",
+                "p1": "A two-candle pattern where the second candle completely engulfs the body of the first candle.",
+                "bullish": "Bullish Engulfing: A small bearish candle followed by a larger bullish candle that engulfs it. Signals potential upward reversal.",
+                "bearish": "Bearish Engulfing: A small bullish candle followed by a larger bearish candle that engulfs it. Signals potential downward reversal."
+            },
+            "hammer": {
+                "title": "Hammer and Hanging Man",
+                "p1": "Single-candle patterns with long lower shadows and small bodies.",
+                "hammer": "Hammer: Bullish reversal pattern appearing at the bottom of downtrends.",
+                "hangingMan": "Hanging Man: Bearish reversal pattern appearing at the top of uptrends."
+            },
+            "doji": {
+                "title": "Doji Patterns",
+                "p1": "Candles with very small bodies, indicating indecision in the market.",
+                "types": {
+                    "longLegged": "Long-Legged Doji: Long upper and lower shadows, strong indecision.",
+                    "dragonfly": "Dragonfly Doji: Long lower shadow, no upper shadow, potential bullish reversal.",
+                    "gravestone": "Gravestone Doji: Long upper shadow, no lower shadow, potential bearish reversal."
+                }
+            }
+        }
+    },
+    "continuationPatterns": {
+        "title": "Continuation Patterns",
+        "p1": "Continuation patterns suggest that the current trend will continue after a brief pause or consolidation.",
+        "patterns": {
+            "flags": {
+                "title": "Flags and Pennants",
+                "p1": "Short consolidation patterns that occur after strong moves.",
+                "flag": "Flag: Rectangular consolidation with parallel trend lines.",
+                "pennant": "Pennant: Triangular consolidation with converging trend lines."
+            },
+            "triangles": {
+                "title": "Triangle Patterns",
+                "p1": "Consolidation patterns with converging trend lines.",
+                "ascending": "Ascending Triangle: Flat top with rising bottom, bullish continuation.",
+                "descending": "Descending Triangle: Flat bottom with falling top, bearish continuation.",
+                "symmetrical": "Symmetrical Triangle: Converging trend lines, continuation in trend direction."
+            }
+        }
+    },
+    "threeCandlePatterns": {
+        "title": "Three-Candle Patterns",
+        "p1": "More complex patterns that provide stronger signals due to the confirmation from multiple candles.",
+        "patterns": {
+            "morningStar": {
+                "title": "Morning Star",
+                "p1": "A three-candle bullish reversal pattern: bearish candle, small-bodied candle, bullish candle.",
+                "signal": "Appears at the bottom of downtrends, signals potential upward reversal."
+            },
+            "eveningStar": {
+                "title": "Evening Star",
+                "p1": "A three-candle bearish reversal pattern: bullish candle, small-bodied candle, bearish candle.",
+                "signal": "Appears at the top of uptrends, signals potential downward reversal."
+            },
+            "threeWhiteSoldiers": {
+                "title": "Three White Soldiers",
+                "p1": "Three consecutive bullish candles with higher highs and higher lows.",
+                "signal": "Strong bullish continuation pattern."
+            },
+            "threeBlackCrows": {
+                "title": "Three Black Crows",
+                "p1": "Three consecutive bearish candles with lower highs and lower lows.",
+                "signal": "Strong bearish continuation pattern."
+            }
+        }
+    },
+    "patternRecognition": {
+        "title": "Pattern Recognition Tips",
+        "p1": "Successfully identifying candlestick patterns requires practice and attention to detail:",
+        "tips": {
+            "context": "Always consider the pattern in the context of the overall trend and market conditions.",
+            "confirmation": "Look for confirmation from other technical indicators or support/resistance levels.",
+            "volume": "Higher volume during pattern formation increases the reliability of the signal.",
+            "timeframe": "Patterns on longer timeframes are generally more reliable than those on shorter timeframes."
+        }
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Advanced candlestick patterns provide stronger signals than single candles.",
+        "takeaway2": "Reversal patterns suggest trend changes, while continuation patterns suggest trend resumption.",
+        "takeaway3": "Three-candle patterns offer more confirmation than two-candle patterns.",
+        "takeaway4": "Always consider pattern context and confirm with other technical analysis tools."
+    }
+}

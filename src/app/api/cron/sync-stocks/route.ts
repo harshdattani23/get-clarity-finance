@@ -97,7 +97,7 @@ export async function POST(request: Request) {
 
     // Determine tickers to update: prefer DB stocks; fallback to static list
     const existingStocks = await db.stock.findMany({ select: { ticker: true, name: true, industry: true, marketCap: true, indices: true } });
-    const tickers = (existingStocks.length ? existingStocks.map((s) => s.ticker) : allStocks.map((s) => s.ticker)).filter(Boolean);
+    const tickers = (existingStocks.length ? existingStocks.map((s: { ticker: string }) => s.ticker) : allStocks.map((s: { ticker: string }) => s.ticker)).filter(Boolean);
 
     // Simple concurrency control
     const concurrency = 8;
@@ -139,7 +139,7 @@ export async function POST(request: Request) {
           const prevClose = prev ? prev[4] : undefined;
 
           // Upsert DB
-          const meta: UpsertMeta = existingStocks.find((s) => s.ticker === ticker) || allStocks.find((s) => s.ticker === ticker);
+          const meta: UpsertMeta = existingStocks.find((s: { ticker: string }) => s.ticker === ticker) || allStocks.find((s: { ticker: string }) => s.ticker === ticker);
           const change = prevClose !== undefined ? close - prevClose : null;
           const percentChange = prevClose && prevClose !== 0 ? ((change as number) / prevClose) * 100 : null;
 

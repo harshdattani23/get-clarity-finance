@@ -14,7 +14,7 @@ interface LevelCardProps {
 }
 
 const LevelCard = ({ icon, title, description, href, lessons }: Omit<LevelCardProps, 'level'>) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('course');
   const isLocked = !lessons.some(lesson => lesson.href !== '#');
 
   return (
@@ -41,7 +41,7 @@ const LevelCard = ({ icon, title, description, href, lessons }: Omit<LevelCardPr
 };
 
 export default function AwarenessHub() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('course');
   const courseLevels = [
     {
       icon: <Layers className="w-8 h-8 text-blue-700" />,

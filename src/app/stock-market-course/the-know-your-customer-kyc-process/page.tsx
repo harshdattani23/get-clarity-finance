@@ -6,7 +6,7 @@ import { FileText, ShieldCheck, UserCheck, Banknote } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function KYCProcessPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/the-know-your-customer-kyc-process');
   return (
     <LessonLayout
       title={t('the-know-your-customer-kyc-process.title')}

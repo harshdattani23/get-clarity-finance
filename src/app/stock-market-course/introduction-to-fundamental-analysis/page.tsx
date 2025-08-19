@@ -6,7 +6,7 @@ import { BookOpen, BarChart, FileText, Activity } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function IntroFundamentalAnalysisPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/introduction-to-fundamental-analysis');
   return (
     <LessonLayout
       title={t('introduction-to-fundamental-analysis.title')}

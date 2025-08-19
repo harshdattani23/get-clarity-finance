@@ -1,0 +1,31 @@
+{
+    "title": "Introduction to Technical Analysis",
+    "description": "Shift your focus from a company's fundamentals to its market statistics. Learn the basics of technical analysis and how it uses charts to predict future price movements.",
+    "whatIsIt": "What is Technical Analysis?",
+    "whatIsItP1": "Technical analysis is a trading discipline that evaluates investments and identifies trading opportunities by analyzing statistical trends gathered from trading activity, such as price movement and volume.",
+    "whatIsItP2": "The core assumption is that all known information is already priced into the stock, and that history tends to repeat itself.",
+    "coreTenets": {
+        "title": "Core Tenets of Technical Analysis",
+        "marketAction": "Market Action Discounts Everything",
+        "marketActionP": "All information, from fundamentals to market psychology, is reflected in the stock price.",
+        "pricesMove": "Prices Move in Trends",
+        "pricesMoveP": "Prices move in recognizable trends and are likely to continue until a clear reversal occurs.",
+        "historyRepeats": "History Tends to Repeat Itself",
+        "historyRepeatsP": "Recurring price patterns are attributed to consistent market psychology."
+    },
+    "keyTools": {
+        "title": "Key Tools of the Trade",
+        "p1": "Technical analysts use a variety of tools to analyze the market:",
+        "charts": "Charts",
+        "chartsP": "Visual representations of price action over time, such as candlestick charts.",
+        "indicators": "Indicators",
+        "indicatorsP": "Mathematical calculations based on price and/or volume, such as moving averages and RSI."
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Technical Analysis uses historical price and volume data to predict future price movements.",
+        "takeaway2": "It is based on three principles: the market discounts everything, prices move in trends, and history repeats itself.",
+        "takeaway3": "It's a tool for <strong>timing the market</strong>, identifying good entry and exit points.",
+        "takeaway4": "It can be used in conjunction with fundamental analysis for a comprehensive trading strategy."
+    }
+}

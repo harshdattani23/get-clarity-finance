@@ -1,0 +1,58 @@
+{
+    "title": "Fibonacci Retracements",
+    "description": "Learn how to use Fibonacci retracement levels to identify potential support and resistance levels in trading.",
+    "introduction": "Fibonacci retracements are a popular technical analysis tool that uses horizontal lines to indicate areas of support or resistance at the key Fibonacci levels before the price continues in the original direction.",
+    "whatAreFibonacciLevels": {
+        "title": "What Are Fibonacci Levels?",
+        "p1": "Fibonacci levels are based on the Fibonacci sequence, a series of numbers where each number is the sum of the two preceding ones: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144...",
+        "p2": "The key Fibonacci retracement levels are derived from this sequence and expressed as percentages: 23.6%, 38.2%, 50%, 61.8%, and 78.6%."
+    },
+    "keyLevels": {
+        "title": "Key Fibonacci Retracement Levels",
+        "p1": "The most important Fibonacci retracement levels are:",
+        "levels": {
+            "level1": "23.6%: Often the shallowest retracement, indicating strong momentum",
+            "level2": "38.2%: A common retracement level in trending markets",
+            "level3": "50%: A psychological level that many traders watch",
+            "level4": "61.8%: The golden ratio, often a strong support/resistance level",
+            "level5": "78.6%: Deep retracement, may indicate trend reversal"
+        }
+    },
+    "howToUse": {
+        "title": "How to Use Fibonacci Retracements",
+        "p1": "To apply Fibonacci retracements:",
+        "steps": {
+            "step1": "1. Identify a significant swing high and swing low in the trend",
+            "step2": "2. Draw the Fibonacci retracement tool from the swing low to the swing high (uptrend) or vice versa (downtrend)",
+            "step3": "3. The retracement levels will automatically appear as horizontal lines",
+            "step4": "4. Look for price action around these levels for potential support/resistance"
+        }
+    },
+    "tradingApplications": {
+        "title": "Trading Applications",
+        "p1": "Fibonacci retracements can be used for:",
+        "applications": {
+            "entry": "Entry Points: Enter trades when price bounces off Fibonacci levels",
+            "exit": "Exit Points: Set profit targets at Fibonacci extension levels",
+            "stops": "Stop Losses: Place stops below/above key Fibonacci levels",
+            "confirmation": "Confirmation: Use with other technical indicators for stronger signals"
+        }
+    },
+    "limitations": {
+        "title": "Limitations and Considerations",
+        "p1": "While useful, Fibonacci retracements have limitations:",
+        "limitations": {
+            "notGuaranteed": "Not guaranteed to work in all market conditions",
+            "subjective": "Can be subjective in identifying swing points",
+            "overuse": "Overuse can lead to self-fulfilling prophecies",
+            "confirmation": "Should be used with other analysis tools"
+        }
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Fibonacci retracements identify potential support and resistance levels.",
+        "takeaway2": "The 61.8% level (golden ratio) is often the most significant.",
+        "takeaway3": "Use Fibonacci levels in conjunction with other technical analysis tools.",
+        "takeaway4": "Fibonacci retracements work best in trending markets."
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "title": "Elliott Wave Theory",
+    "description": "Learn about Elliott Wave Theory, a powerful tool for understanding market cycles and predicting future price movements.",
+    "introduction": "Elliott Wave Theory is a method of technical analysis that looks for recurring long-term price patterns related to persistent changes in investor sentiment and psychology. It was developed by Ralph Nelson Elliott in the 1930s and is based on the idea that markets move in predictable cycles.",
+    "basicPrinciples": {
+        "title": "Basic Principles of Elliott Wave Theory",
+        "p1": "Elliott Wave Theory is based on several key principles:",
+        "principles": {
+            "impulse": "Impulse waves move in the direction of the main trend and consist of five waves.",
+            "correction": "Correction waves move against the main trend and consist of three waves.",
+            "fractal": "Wave patterns are fractal, meaning they repeat at different time scales.",
+            "alternation": "Waves alternate in character, with different wave types following each other."
+        }
+    },
+    "impulseWaves": {
+        "title": "Impulse Waves (1-2-3-4-5)",
+        "p1": "Impulse waves are the main directional moves in the market:",
+        "waves": {
+            "wave1": "Wave 1: The initial move, often unnoticed by most investors.",
+            "wave2": "Wave 2: A correction that retraces part of Wave 1 but doesn't go below the start of Wave 1.",
+            "wave3": "Wave 3: Usually the strongest and longest wave, often the most dramatic.",
+            "wave4": "Wave 4: Another correction that doesn't overlap with Wave 1.",
+            "wave5": "Wave 5: The final move in the direction of the trend, often showing exhaustion."
+        }
+    },
+    "correctionWaves": {
+        "title": "Correction Waves (A-B-C)",
+        "p1": "Correction waves move against the main trend:",
+        "waves": {
+            "waveA": "Wave A: The first move against the trend, often sharp and quick.",
+            "waveB": "Wave B: A partial retracement of Wave A, often weak.",
+            "waveC": "Wave C: The final correction wave, often as strong as Wave A."
+        }
+    },
+    "waveCharacteristics": {
+        "title": "Characteristics of Different Waves",
+        "p1": "Each wave has specific characteristics that help identify them:",
+        "characteristics": {
+            "wave1": "Wave 1: Often starts with fundamental news, volume increases.",
+            "wave2": "Wave 2: Retraces 50-78% of Wave 1, volume decreases.",
+            "wave3": "Wave 3: Strongest wave, high volume, often extends beyond Wave 1.",
+            "wave4": "Wave 4: Gentle correction, often forms triangles or flags.",
+            "wave5": "Wave 5: Final push, often shows divergence with indicators."
+        }
+    },
+    "waveExtensions": {
+        "title": "Wave Extensions",
+        "p1": "Sometimes one of the impulse waves extends beyond normal proportions:",
+        "extensions": {
+            "wave3": "Wave 3 Extension: Most common, creates a strong trending move.",
+            "wave5": "Wave 5 Extension: Less common, often in commodities.",
+            "wave1": "Wave 1 Extension: Rare, usually in new markets or after major corrections."
+        }
+    },
+    "practicalApplication": {
+        "title": "Practical Application",
+        "p1": "To use Elliott Wave Theory effectively:",
+        "steps": {
+            "step1": "1. Identify the overall trend direction.",
+            "step2": "2. Count the waves from a significant low or high.",
+            "step3": "3. Look for wave relationships and Fibonacci retracements.",
+            "step4": "4. Use other technical indicators for confirmation.",
+            "step5": "5. Remember that Elliott Wave is a guide, not a guarantee."
+        }
+    },
+    "limitations": {
+        "title": "Limitations and Challenges",
+        "p1": "Elliott Wave Theory has some limitations:",
+        "limitations": {
+            "subjectivity": "Wave counting can be subjective and open to interpretation.",
+            "complexity": "The theory can be complex and difficult to master.",
+            "timing": "It doesn't provide exact timing for wave completion.",
+            "confirmation": "Waves are only confirmed after they're completed."
+        }
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Elliott Wave Theory identifies recurring market patterns based on investor psychology.",
+        "takeaway2": "Impulse waves (1-2-3-4-5) move with the trend, correction waves (A-B-C) move against it.",
+        "takeaway3": "Wave 3 is typically the strongest and most reliable for trading.",
+        "takeaway4": "Use Elliott Wave as a framework, not as the sole basis for trading decisions."
+    }
+}

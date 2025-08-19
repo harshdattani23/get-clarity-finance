@@ -1,12 +1,12 @@
 "use client";
 
-import LessonLayout from "@/app/stock-market-course/LessonLayout";
 import { useTranslation } from "@/hooks/useTranslation";
+import LessonLayout from '../../../LessonLayout';
 import { FaChartLine, FaBalanceScale, FaBook, FaBullseye } from "react-icons/fa";
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function UsingKeyFinancialRatiosPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/using-key-financial-ratios-eps-p/e-p/b-roe');
     const lessonKey = "using-key-financial-ratios-eps-p/e-p/b-roe";
 
     const renderKeyTakeaways = () => (

@@ -1,0 +1,33 @@
+{
+    "title": "Reading the Profit & Loss (P&L) Statement",
+    "description": "Understand how to read a P&L statement to see how profitable a company has been over a period of time.",
+    "whatIsIt": "What is the P&L Statement?",
+    "whatIsItP1": "The Profit & Loss (P&L) statement, or Income Statement, summarizes a company's revenues, costs, and expenses over a specific period. It shows how profitable a company is.",
+    "whatIsItP2": "The P&L statement follows a simple formula: Revenue - Expenses = Net Income.",
+    "keyComponents": "Key Components",
+    "revenue": "Revenue (Top Line)",
+    "revenueP": "The total amount of money generated from sales.",
+    "cogs": "Cost of Goods Sold (COGS)",
+    "cogsP": "Direct costs related to producing goods.",
+    "grossProfit": "Gross Profit",
+    "grossProfitP": "Revenue minus COGS, showing production efficiency.",
+    "netIncome": "Net Income (Bottom Line)",
+    "netIncomeP": "The final profit after all expenses, including taxes and interest, are deducted.",
+    "sampleTable": {
+        "title": "Sample P&L Statement",
+        "particulars": "Particulars",
+        "amount": "Amount (in ₹)",
+        "revenue": "Revenue",
+        "cogs": "Cost of Goods Sold (COGS)",
+        "grossProfit": "Gross Profit",
+        "expenses": "Operating Expenses",
+        "pbt": "Profit Before Tax (PBT)",
+        "tax": "Tax",
+        "netIncome": "Net Income"
+    },
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The P&L statement shows a company's <strong>financial performance over a period</strong>.",
+    "takeaway2": "It starts with the <strong>'top line' (Revenue)</strong> and ends with the <strong>'bottom line' (Net Income)</strong>.",
+    "takeaway3": "Analyzing the P&L helps you understand a company's <strong>profitability and operational efficiency</strong>.",
+    "takeaway4": "Look for consistent growth in both revenue and net income."
+}

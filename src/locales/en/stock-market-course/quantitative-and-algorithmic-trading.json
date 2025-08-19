@@ -1,0 +1,15 @@
+{
+	"title": "Quantitative and Algorithmic Trading",
+	"description": "Systematic approaches to trading using rules, data, and automation.",
+	"introduction": "Quant and algo trading use statistics and software to create consistent, testable strategies.",
+	"algorithmicTrading": { "title": "Algorithmic Trading", "description": "Automated execution of predefined strategies with minimal human intervention." },
+	"tradingBots": { "title": "Trading Bots", "description": "Programs that implement strategy logic, risk controls, and order execution." },
+	"backtesting": { "title": "Backtesting", "description": "Evaluate strategies using historical data before going live." },
+	"machineLearning": { "title": "Machine Learning", "description": "Apply ML techniques to prediction, classification, and portfolio optimization." },
+	"keyTakeaways": {
+		"title": "Key Takeaways",
+		"takeaway1": "Rules-based systems reduce emotional decision-making.",
+		"takeaway2": "Backtesting and risk controls are mandatory steps.",
+		"takeaway3": "ML can enhance strategies but must address overfitting."
+	}
+}

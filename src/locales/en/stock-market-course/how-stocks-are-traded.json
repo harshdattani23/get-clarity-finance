@@ -1,0 +1,32 @@
+{
+    "title": "How Stocks Are Traded",
+    "description": "Go behind the scenes to understand the difference between the primary and secondary markets, and the key players involved in every transaction.",
+    "primarySecondary": {
+        "title": "Primary vs. Secondary Markets",
+        "p1": "Stock trading happens in two distinct markets:",
+        "primary": {
+            "title": "The Primary Market",
+            "p": "This is where stocks are born. When a company holds an Initial Public Offering (IPO), it sells its shares directly to investors for the first time. The money goes directly to the company."
+        },
+        "secondary": {
+            "title": "The Secondary Market",
+            "p": "This is what we typically call 'the stock market.' It's where investors trade stocks among themselves without the company's involvement. The price is determined by supply and demand."
+        }
+    },
+    "keyPlayers": {
+        "title": "The Key Players",
+        "exchanges": {
+            "title": "Stock Exchanges",
+            "p": "These are the organized marketplaces where trading occurs. In India, the two main exchanges are the <strong>National Stock Exchange (NSE)</strong> and the <strong>Bombay Stock Exchange (BSE)</strong>."
+        },
+        "brokers": {
+            "title": "Brokers",
+            "p": "Retail investors can't trade directly on an exchange. They need a licensed intermediary called a stockbroker (like Zerodha, Upstox, etc.) to execute trades on their behalf."
+        }
+    },
+    "takeaways": {
+        "item1": "The <strong>Primary Market</strong> is for new stocks (IPOs), where money goes to the company.",
+        "item2": "The <strong>Secondary Market</strong> is where investors trade existing stocks with each other.",
+        "item3": "You need a <strong>broker</strong> to trade on the major <strong>stock exchanges</strong> like NSE and BSE."
+    }
+}

@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Shield, BookUser, AlertTriangle } from 'lucide-react';
 
 const RoleOfSebi = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course/role-of-sebi');
 
   return (
     <LessonLayout

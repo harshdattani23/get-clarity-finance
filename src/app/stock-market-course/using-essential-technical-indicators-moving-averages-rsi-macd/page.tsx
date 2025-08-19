@@ -6,7 +6,7 @@ import { FaChartLine, FaTachometerAlt, FaWaveSquare } from 'react-icons/fa';
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 const UsingEssentialTechnicalIndicatorsPage = () => {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation('stock-market-course/using-essential-technical-indicators-moving-averages-rsi-macd');
 
   return (
     <LessonLayout

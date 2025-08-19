@@ -1,0 +1,57 @@
+{
+    "title": "Spread Strategies",
+    "description": "Explore bull and bear spreads, which are options strategies that limit both risk and reward for more controlled trading.",
+    "introduction": "Spread strategies involve simultaneously buying and selling options to create a position with limited risk and limited reward. They're excellent for traders who want more control over their risk exposure.",
+    "bullSpread": {
+        "title": "Bull Spread (Call Spread)",
+        "description": "A bullish strategy that profits when the underlying asset rises in price.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "Buy a call option at a lower strike price and simultaneously sell a call option at a higher strike price.",
+            "p2": "Both options have the same expiration date."
+        },
+        "profitLoss": {
+            "title": "Profit and Loss",
+            "maxProfit": "Maximum profit = Difference between strike prices - Net premium paid",
+            "maxLoss": "Maximum loss = Net premium paid",
+            "breakeven": "Breakeven point = Lower strike price + Net premium paid"
+        },
+        "whenToUse": "Use when you're moderately bullish on a stock and want to limit your risk"
+    },
+    "bearSpread": {
+        "title": "Bear Spread (Put Spread)",
+        "description": "A bearish strategy that profits when the underlying asset falls in price.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "Buy a put option at a higher strike price and simultaneously sell a put option at a lower strike price.",
+            "p2": "Both options have the same expiration date."
+        },
+        "profitLoss": {
+            "title": "Profit and Loss",
+            "maxProfit": "Maximum profit = Difference between strike prices - Net premium paid",
+            "maxLoss": "Maximum loss = Net premium paid",
+            "breakeven": "Breakeven point = Higher strike price - Net premium paid"
+        },
+        "whenToUse": "Use when you're moderately bearish on a stock and want to limit your risk"
+    },
+    "advantages": {
+        "title": "Advantages of Spread Strategies",
+        "limitedRisk": "Limited and known maximum risk",
+        "limitedReward": "Limited but potentially significant reward",
+        "lowerCost": "Lower cost than buying options outright",
+        "definedRisk": "Clear risk-reward profile"
+    },
+    "disadvantages": {
+        "title": "Disadvantages of Spread Strategies",
+        "limitedUpside": "Limited profit potential compared to buying options outright",
+        "complexity": "More complex than simple long or short positions",
+        "commissions": "Higher transaction costs due to multiple option trades"
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Spread strategies limit both risk and reward for more controlled trading.",
+        "takeaway2": "Bull spreads profit when the underlying asset rises; bear spreads profit when it falls.",
+        "takeaway3": "Maximum risk is limited to the net premium paid.",
+        "takeaway4": "These strategies are excellent for traders who want defined risk exposure."
+    }
+}

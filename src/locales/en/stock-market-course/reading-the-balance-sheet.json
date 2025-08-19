@@ -1,0 +1,19 @@
+{
+    "title": "Reading the Balance Sheet",
+    "description": "Learn to read and understand a company's balance sheet, a critical financial statement that provides a snapshot of its financial health.",
+    "whatIsIt": "What is the Balance Sheet?",
+    "whatIsItP1": "The Balance Sheet provides a snapshot of a company's financial position at a single point in time. It's based on the fundamental accounting equation, which must always balance:",
+    "formula": "Assets = Liabilities + Shareholder Equity",
+    "coreComponents": "Core Components",
+    "assets": "1. Assets: What the Company Owns",
+    "assetsP": "Economic resources owned by the company that have future economic value, such as cash, inventory, and property.",
+    "liabilities": "2. Liabilities: What the Company Owes",
+    "liabilitiesP": "A company's financial obligations to other parties, such as loans and accounts payable.",
+    "equity": "3. Shareholder Equity: The Net Worth",
+    "equityP": "The net worth of a company, representing the amount that would be returned to shareholders if all assets were liquidated and all debts paid off.",
+    "keyTakeaways": "Key Takeaways",
+    "takeaway1": "The Balance Sheet is a <strong>snapshot of financial health</strong> at a specific point in time.",
+    "takeaway2": "It's based on the equation: <strong>Assets = Liabilities + Shareholder Equity</strong>.",
+    "takeaway3": "It shows what a company <strong>owns (Assets)</strong>, what it <strong>owes (Liabilities)</strong>, and its <strong>net worth (Equity)</strong>.",
+    "takeaway4": "A strong balance sheet is a sign of a financially stable company."
+}

@@ -6,7 +6,7 @@ import { ShoppingCart, Target, TrendingUp, Zap } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function PlacingFirstTradePage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/placing-your-first-trade-order-types');
   return (
     <LessonLayout
       title={t('placing-your-first-trade-order-types.title')}

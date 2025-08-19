@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 const IntroToHedgingAndSpeculationPage = () => {
-    const { t } = useTranslation('stock-market-course');
+    const { t } = useTranslation('stock-market-course/introduction-to-hedging-and-speculation-strategies');
 
   return (
     <LessonLayout

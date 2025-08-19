@@ -1,0 +1,57 @@
+{
+    "title": "Basic Option Strategies",
+    "description": "Learn fundamental options strategies including covered calls and protective puts to enhance your trading toolkit.",
+    "introduction": "Options offer a wide range of strategies for different market conditions and risk profiles. Let's explore two of the most popular and practical strategies: covered calls and protective puts.",
+    "coveredCall": {
+        "title": "Covered Call Strategy",
+        "description": "A covered call involves selling a call option against stock you already own.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "You own 100 shares of a stock and sell one call option contract (representing 100 shares) at a strike price above the current market price.",
+            "p2": "You receive a premium for selling the call option, which provides income and some downside protection."
+        },
+        "benefits": {
+            "title": "Benefits",
+            "income": "Generates income from option premiums",
+            "downsideProtection": "Provides some protection against small declines in stock price",
+            "reducedCost": "Lowers your effective cost basis in the stock"
+        },
+        "risks": {
+            "title": "Risks",
+            "limitedUpside": "Your upside potential is limited to the strike price plus the premium received",
+            "obligation": "You're obligated to sell your shares if the option is exercised"
+        }
+    },
+    "protectivePut": {
+        "title": "Protective Put Strategy",
+        "description": "A protective put involves buying a put option to protect against downside risk in a stock you own.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "You own 100 shares of a stock and buy one put option contract at a strike price below the current market price.",
+            "p2": "If the stock price falls below the strike price, the put option increases in value, offsetting some of your losses."
+        },
+        "benefits": {
+            "title": "Benefits",
+            "downsideProtection": "Limits your maximum loss to the difference between current price and strike price, minus the premium paid",
+            "unlimitedUpside": "You maintain unlimited upside potential on the stock",
+            "peaceOfMind": "Provides insurance against significant market declines"
+        },
+        "risks": {
+            "title": "Risks",
+            "premiumCost": "You pay a premium for the put option, which reduces your overall returns",
+            "timeDecay": "The put option loses value over time due to theta decay"
+        }
+    },
+    "whenToUse": {
+        "title": "When to Use Each Strategy",
+        "coveredCall": "Use covered calls when you're moderately bullish on a stock and want to generate income",
+        "protectivePut": "Use protective puts when you're concerned about downside risk but want to maintain upside potential"
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Covered calls generate income but limit upside potential.",
+        "takeaway2": "Protective puts provide downside protection but cost money in premiums.",
+        "takeaway3": "Both strategies can be effective for managing risk and enhancing returns.",
+        "takeaway4": "Always understand the risks and obligations before implementing these strategies."
+    }
+}

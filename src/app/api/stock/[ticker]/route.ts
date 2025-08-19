@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 export async function GET(
   request: NextRequest
@@ -13,7 +11,7 @@ export async function GET(
   }
 
   try {
-    const stock = await prisma.stock.findUnique({
+    const stock = await db.stock.findUnique({
       where: { ticker },
     });
 
@@ -45,7 +43,5 @@ export async function GET(
   } catch (error) {
     console.error(`Error fetching stock data for ${ticker}:`, error);
     return NextResponse.json({ error: 'Failed to fetch stock data' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }

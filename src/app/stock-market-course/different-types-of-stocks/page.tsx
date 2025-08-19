@@ -3,7 +3,7 @@ import LessonLayout from '../LessonLayout';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const DifferentTypesOfStocks = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course/different-types-of-stocks');
 
   return (
     <LessonLayout

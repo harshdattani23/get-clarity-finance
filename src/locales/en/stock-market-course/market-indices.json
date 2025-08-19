@@ -1,0 +1,20 @@
+{
+    "title": "Market Indices (Sensex & Nifty)",
+    "description": "Learn how market indices work as a barometer for the overall health of the stock market.",
+    "intro": "A market index is a statistical measure of the performance of a specific group of stocks. It provides a snapshot of the market's health and direction. In India, the two most famous indices are:",
+    "sensex": {
+        "title": "BSE Sensex",
+        "p1": "The <strong>Sensex</strong> is the benchmark index of the <strong>Bombay Stock Exchange (BSE)</strong>.",
+        "p2": "It comprises 30 of the largest and most actively-traded stocks on the exchange, providing a sample of the overall market."
+    },
+    "nifty": {
+        "title": "NSE Nifty 50",
+        "p1": "The <strong>Nifty 50</strong> is the benchmark index of the <strong>National Stock Exchange (NSE)</strong>.",
+        "p2": "It comprises 50 of the largest Indian companies, representing a broad cross-section of the economy."
+    },
+    "takeaways": {
+        "item1": "Market indices like Sensex and Nifty act as a <strong>barometer for the overall market</strong>.",
+        "item2": "The <strong>BSE Sensex</strong> tracks 30 major stocks.",
+        "item3": "The <strong>NSE Nifty 50</strong> tracks 50 major stocks."
+    }
+}

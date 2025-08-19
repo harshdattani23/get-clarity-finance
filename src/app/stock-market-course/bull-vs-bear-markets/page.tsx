@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 
 const BullVsBearMarkets = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course/bull-vs-bear-markets');
 
   return (
     <LessonLayout

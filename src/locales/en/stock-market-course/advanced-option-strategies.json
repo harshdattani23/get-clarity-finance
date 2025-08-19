@@ -1,0 +1,52 @@
+{
+    "title": "Advanced Option Strategies",
+    "description": "Master complex options strategies including Iron Condors and Butterflies for sophisticated risk management and income generation.",
+    "introduction": "Advanced option strategies combine multiple options positions to create sophisticated risk profiles. These strategies are designed for experienced traders who understand options pricing and risk management.",
+    "ironCondor": {
+        "title": "Iron Condor Strategy",
+        "description": "A neutral strategy that profits from low volatility and sideways price movement.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "Sell an out-of-the-money put spread and an out-of-the-money call spread simultaneously.",
+            "p2": "Both spreads have the same expiration date and are centered around the current stock price."
+        },
+        "profitLoss": {
+            "title": "Profit and Loss",
+            "maxProfit": "Maximum profit = Net premium received from both spreads",
+            "maxLoss": "Maximum loss = Width of one spread - Net premium received",
+            "breakeven": "Two breakeven points, one above and one below the current price"
+        },
+        "whenToUse": "Use when you expect the stock to trade sideways with low volatility"
+    },
+    "butterfly": {
+        "title": "Butterfly Strategy",
+        "description": "A strategy that profits from the stock staying close to a specific price at expiration.",
+        "howItWorks": {
+            "title": "How It Works",
+            "p1": "Buy one option at a lower strike, sell two options at a middle strike, and buy one option at a higher strike.",
+            "p2": "All options have the same expiration date."
+        },
+        "profitLoss": {
+            "title": "Profit and Loss",
+            "maxProfit": "Maximum profit occurs when the stock is at the middle strike at expiration",
+            "maxLoss": "Maximum loss = Net premium paid",
+            "breakeven": "Two breakeven points, one above and one below the middle strike"
+        },
+        "whenToUse": "Use when you expect the stock to be at a specific price at expiration"
+    },
+    "riskManagement": {
+        "title": "Risk Management Considerations",
+        "p1": "Advanced strategies require careful risk management:",
+        "positionSizing": "Use appropriate position sizing to limit exposure",
+        "stopLosses": "Consider implementing stop-losses or profit targets",
+        "monitoring": "Monitor positions closely, especially as expiration approaches",
+        "adjustments": "Be prepared to adjust positions if market conditions change"
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "takeaway1": "Advanced strategies offer sophisticated risk profiles but require deep options knowledge.",
+        "takeaway2": "Iron Condors profit from sideways, low-volatility markets.",
+        "takeaway3": "Butterflies profit from the stock being at a specific price at expiration.",
+        "takeaway4": "These strategies require active management and understanding of options pricing."
+    }
+}

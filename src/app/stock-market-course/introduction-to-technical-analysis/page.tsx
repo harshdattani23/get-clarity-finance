@@ -6,7 +6,7 @@ import AnimatedDiv from "@/components/animations/AnimatedDiv";
 import TradingViewWidget from "@/components/tradingview/AdvancedChart";
 
 export default function IntroTechnicalAnalysisPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/introduction-to-technical-analysis');
   return (
     <LessonLayout
       title={t('introduction-to-technical-analysis.title')}

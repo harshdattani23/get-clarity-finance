@@ -1,0 +1,26 @@
+{
+    "title": "Different Types of Stocks",
+    "description": "Not all stocks are created equal. This lesson will introduce you to the various categories of stocks, helping you understand their unique characteristics and risk profiles.",
+    "commonVsPreferred": {
+        "title": "Common vs. Preferred Stocks",
+        "p1": "<strong>Common Stock:</strong> This is what most people mean when they talk about stocks. It grants voting rights, giving shareholders a say in company decisions. Common stockholders may receive dividends, but these are not guaranteed.",
+        "p2": "<strong>Preferred Stock:</strong> These stocks generally do not have voting rights. However, they typically pay a fixed dividend that is paid out before common stock dividends. In case of liquidation, preferred stockholders have a higher claim on company assets."
+    },
+    "byMarketCap": {
+        "title": "Classification by Market Capitalization",
+        "p1": "<strong>Large-Cap Stocks:</strong> These are stocks of large, well-established companies with a market capitalization of over $10 billion. They are generally considered less risky.",
+        "p2": "<strong>Mid-Cap Stocks:</strong> These are stocks of companies with a market capitalization between $2 billion and $10 billion. They offer a balance of growth potential and stability.",
+        "p3": "<strong>Small-Cap Stocks:</strong> These are stocks of smaller companies with a market capitalization between $300 million and $2 billion. They have high growth potential but also come with higher risk."
+    },
+    "byStyle": {
+        "title": "Classification by Investment Style",
+        "p1": "<strong>Growth Stocks:</strong> These are stocks of companies that are expected to grow at an above-average rate compared to other companies in the market. They often do not pay dividends, as they reinvest earnings to fuel expansion.",
+        "p2": "<strong>Value Stocks:</strong> These are stocks that trade at a lower price compared to their fundamentals, such as earnings, sales, and book value. They are often overlooked by investors and may be undervalued."
+    },
+    "keyTakeaways": {
+        "title": "Key Takeaways",
+        "item1": "Stocks can be broadly categorized into common and preferred stocks, each with different rights and benefits.",
+        "item2": "Market capitalization (large-cap, mid-cap, small-cap) is a key factor in assessing a stock's risk and growth potential.",
+        "item3": "Investment style (growth vs. value) helps investors align their stock choices with their financial goals and risk tolerance."
+    }
+}

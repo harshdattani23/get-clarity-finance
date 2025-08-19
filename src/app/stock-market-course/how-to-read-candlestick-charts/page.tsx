@@ -6,7 +6,7 @@ import AnimatedDiv from "@/components/animations/AnimatedDiv";
 import Image from 'next/image';
 
 export default function HowToReadCandlestickChartsPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/how-to-read-candlestick-charts');
   return (
     <LessonLayout
       title={t('how-to-read-candlestick-charts.title')}

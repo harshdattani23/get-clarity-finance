@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Image from 'next/image';
 
 const ReadingAStockQuote = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course/reading-a-stock-quote');
 
   return (
     <LessonLayout

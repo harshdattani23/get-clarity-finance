@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 export default function IntroToDerivativesPage() {
-    const { t } = useTranslation('stock-market-course');
+    const { t } = useTranslation('stock-market-course/introduction-to-derivatives');
   return (
     <LessonLayout
       title={t('introduction-to-derivatives.title')}

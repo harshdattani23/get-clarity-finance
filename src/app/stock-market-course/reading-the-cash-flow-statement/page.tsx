@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function ReadingCashFlowStatementPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/reading-the-cash-flow-statement');
   return (
     <LessonLayout
       title={t('reading-the-cash-flow-statement.title')}

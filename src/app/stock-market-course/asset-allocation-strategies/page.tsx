@@ -6,7 +6,7 @@ import AnimatedDiv from '@/components/animations/AnimatedDiv';
 import PortfolioAllocator from '@/components/stock-market-course/PortfolioAllocator';
 
 const AssetAllocationStrategiesPage = () => {
-    const { t } = useTranslation('stock-market-course');
+    const { t } = useTranslation('stock-market-course/asset-allocation-strategies');
 
   return (
     <LessonLayout

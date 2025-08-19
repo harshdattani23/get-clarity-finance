@@ -6,7 +6,7 @@ import { Wallet, Landmark, CheckCircle } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function OpeningDematAccountPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/opening-a-demat-and-trading-account');
 
   return (
     <LessonLayout

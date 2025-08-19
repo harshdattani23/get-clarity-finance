@@ -6,7 +6,7 @@ import { User, Building, Landmark, Scale } from 'lucide-react';
 import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 export default function DifferentPlayersPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('stock-market-course/the-different-players-in-the-market');
   return (
     <LessonLayout
       title={t('the-different-players-in-the-market.title')}

@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import AnimatedDiv from '@/components/animations/AnimatedDiv';
 
 const RiskManagementPage = () => {
-    const { t } = useTranslation('stock-market-course');
+    const { t } = useTranslation('stock-market-course/risk-management-position-sizing-and-stop-loss-orders');
 
   return (
     <LessonLayout

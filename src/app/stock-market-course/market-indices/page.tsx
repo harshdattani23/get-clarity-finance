@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { LineChart, BarChart } from 'lucide-react';
 
 const MarketIndices = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('stock-market-course/market-indices');
 
   return (
     <LessonLayout

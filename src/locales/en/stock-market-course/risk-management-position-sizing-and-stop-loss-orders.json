@@ -1,0 +1,16 @@
+{
+    "title": "Risk Management: Position Sizing and Stop-Loss Orders",
+    "description": "Learn to protect your capital with two of the most critical risk management techniques: position sizing and stop-loss orders. This lesson will teach you how to control your risk on every single trade.",
+    "introduction": "Successful investing isn't just about picking winners; it's about managing losers. Effective risk management is what separates consistently profitable traders from those who experience wild swings and eventual losses. Two of the most fundamental and powerful tools in a trader's risk management toolkit are position sizing and stop-loss orders. Mastering these can protect your capital and keep you in the game for the long haul.",
+    "section1_title": "Position Sizing: How Much to Risk?",
+    "section1_p1": "Position sizing is the process of determining how many shares to buy or sell in a single trade. It's not about how much you *think* a stock will go up, but about how much you are willing to *lose* if you are wrong. A common rule of thumb is the 1% rule:",
+    "section1_l1": "<strong>The 1% Rule:</strong> Never risk more than 1% of your total trading capital on a single trade. For example, if you have a ₹1,00,000 portfolio, you should not risk more than ₹1,000 on any one trade.",
+    "section1_l2": "<strong>Calculating Position Size:</strong> To calculate your position size, you need to know your entry price and your stop-loss price. The formula is: Position Size = (Total Capital * Risk Percentage) / (Entry Price - Stop-Loss Price).",
+    "section1_l3": "<strong>Why it's Crucial:</strong> Proper position sizing ensures that a single bad trade won't wipe out a significant portion of your account. It keeps losses manageable and prevents emotional decision-making.",
+    "section2_title": "Stop-Loss Orders: Your Automated Safety Net",
+    "section2_p1": "A stop-loss order is an order placed with a broker to automatically sell a security when it reaches a certain price. It is designed to limit an investor's loss on a position. For example, if you buy a stock at ₹100 and set a stop-loss at ₹95, your broker will automatically sell your shares if the price drops to ₹95, limiting your loss to 5%. It is a critical tool for taking emotion out of the decision to sell a losing position.",
+    "section3_title": "The Synergy of Position Sizing and Stop-Losses",
+    "section3_p1": "Position sizing and stop-loss orders work together. Your stop-loss determines the 'risk' part of the position sizing equation. By deciding where you will get out *before* you get in, and sizing your position accordingly, you are taking control of your risk in a disciplined and systematic way. This combination helps you to survive the inevitable losing streaks and stay profitable over the long term.",
+    "conclusion_title": "Conclusion: Trade to Trade Another Day",
+    "conclusion_p1": "Risk management is not the most glamorous part of trading, but it is the most important. By consistently applying sound position sizing rules and using stop-loss orders to protect your downside, you ensure that you can preserve your capital and live to trade another day. Remember, the goal is not to be right on every trade, but to make more money on your winners than you lose on your losers."
+}
