@@ -25,10 +25,10 @@ export default function FraudProtectionTips() {
 
   const fraudTips = fraudTipsData.map(tip => ({
     ...tip,
-    title: t(`${tip.id}.title`),
-    description: t(`${tip.id}.description`),
-    redFlags: Array.from({ length: 4 }, (_, i) => t(`${tip.id}.redFlags.${i}`)),
-    protectiveActions: Array.from({ length: 4 }, (_, i) => t(`${tip.id}.protectiveActions.${i}`)),
+    title: t(`${tip.id}.title`) as string,
+    description: t(`${tip.id}.description`) as string,
+    redFlags: Array.from({ length: 4 }, (_, i) => t(`${tip.id}.redFlags.${i}`) as string),
+    protectiveActions: Array.from({ length: 4 }, (_, i) => t(`${tip.id}.protectiveActions.${i}`) as string),
   }));
 
   return (
@@ -37,11 +37,11 @@ export default function FraudProtectionTips() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-              {t('mainTitle')}
+              {t('mainTitle') as string}
             </span>
           </h1>
           <p className="text-xl text-gray-300">
-            {t('mainSubtitle')}
+            {t('mainSubtitle') as string}
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export default function FraudProtectionTips() {
                     <div>
                       <h3 className="text-xl font-semibold text-red-400 mb-4 flex items-center gap-2">
                         <AlertTriangle className="w-5 h-5" />
-                        {t('redFlagsTitle')}
+                        {t('redFlagsTitle') as string}
                       </h3>
                       <ul className="space-y-3">
                         {tip.redFlags.map((flag, index) => (
@@ -104,7 +104,7 @@ export default function FraudProtectionTips() {
                     <div>
                       <h3 className="text-xl font-semibold text-green-400 mb-4 flex items-center gap-2">
                         <Shield className="w-5 h-5" />
-                        {t('protectiveActionsTitle')}
+                        {t('protectiveActionsTitle') as string}
                       </h3>
                       <ul className="space-y-3">
                         {tip.protectiveActions.map((action, index) => (
@@ -120,10 +120,10 @@ export default function FraudProtectionTips() {
                   <div className="mt-8 p-4 bg-blue-900/50 rounded-lg">
                     <h4 className="font-semibold text-blue-300 mb-2 flex items-center gap-2">
                       <Eye className="w-5 h-5" />
-                      {t('rememberTitle')}
+                      {t('rememberTitle') as string}
                     </h4>
                     <p className="text-blue-200">
-                      {t('rememberContent')}
+                      {t('rememberContent') as string}
                     </p>
                   </div>
                 </div>
@@ -136,10 +136,10 @@ export default function FraudProtectionTips() {
           <div className="bg-yellow-900/50 border border-yellow-700 rounded-xl p-6 max-w-2xl mx-auto">
             <h3 className="text-xl font-semibold text-yellow-300 mb-4">
               <AlertTriangle className="w-6 h-6 inline mr-2" />
-              {t('disclaimerTitle')}
+              {t('disclaimerTitle') as string}
             </h3>
             <p className="text-yellow-200">
-              {t('disclaimerContent')}
+              {t('disclaimerContent') as string}
             </p>
           </div>
         </div>

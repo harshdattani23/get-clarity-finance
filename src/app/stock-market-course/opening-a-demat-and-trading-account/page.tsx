@@ -10,8 +10,8 @@ export default function OpeningDematAccountPage() {
 
   return (
     <LessonLayout
-      title={t('title')}
-      description={t('description')}
+      title={t('title') as string}
+      description={t('description') as string}
       lessonSlug="opening-a-demat-and-trading-account"
     >
         <AnimatedDiv>

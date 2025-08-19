@@ -8,8 +8,8 @@ export default function MachineLearningInFinancePage() {
 
   return (
     <LessonLayout
-      title={t('title')}
-      description={t('description')}
+      title={t('title') as string}
+      description={t('description') as string}
       lessonSlug="machine-learning-in-finance"
     >
       <div className="max-w-4xl mx-auto px-4 py-8">

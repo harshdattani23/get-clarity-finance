@@ -9,23 +9,23 @@ export default function DifferentPlayersPage() {
     const { t } = useTranslation('stock-market-course.the-different-players-in-the-market');
   return (
     <LessonLayout
-      title={t('title')}
-      description={t('description')}
+      title={t('title') as string}
+      description={t('description') as string}
       lessonSlug="the-different-players-in-the-market"
     >
       <AnimatedDiv>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">{t('introduction')}</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">{t('introduction') as string}</h2>
         <p className="mb-4" dangerouslySetInnerHTML={{ __html: t('introductionP1') }} />
       </AnimatedDiv>
 
       <AnimatedDiv delay={0.2}>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">{t('mainPlayers')}</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4 mt-8">{t('mainPlayers') as string}</h2>
         <div className="grid md:grid-cols-2 gap-8 mt-6">
           
           <div className="flex items-start">
             <User className="w-8 h-8 text-blue-500 mr-4 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-xl text-gray-800">{t('retailInvestors')}</h3>
+              <h3 className="font-bold text-xl text-gray-800">{t('retailInvestors') as string}</h3>
               <p className="text-gray-600 mt-1" dangerouslySetInnerHTML={{ __html: t('retailInvestorsP') }} />
             </div>
           </div>
@@ -33,7 +33,7 @@ export default function DifferentPlayersPage() {
           <div className="flex items-start">
             <Building className="w-8 h-8 text-green-500 mr-4 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-xl text-gray-800">{t('institutionalInvestors')}</h3>
+              <h3 className="font-bold text-xl text-gray-800">{t('institutionalInvestors') as string}</h3>
               <p className="text-gray-600 mt-1" dangerouslySetInnerHTML={{ __html: t('institutionalInvestorsP') }} />
             </div>
           </div>
@@ -41,7 +41,7 @@ export default function DifferentPlayersPage() {
           <div className="flex items-start">
             <Landmark className="w-8 h-8 text-indigo-500 mr-4 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-xl text-gray-800">{t('marketMakers')}</h3>
+              <h3 className="font-bold text-xl text-gray-800">{t('marketMakers') as string}</h3>
               <p className="text-gray-600 mt-1" dangerouslySetInnerHTML={{ __html: t('marketMakersP') }} />
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function DifferentPlayersPage() {
           <div className="flex items-start">
             <Scale className="w-8 h-8 text-red-500 mr-4 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-xl text-gray-800">{t('regulators')}</h3>
+              <h3 className="font-bold text-xl text-gray-800">{t('regulators') as string}</h3>
               <p className="text-gray-600 mt-1" dangerouslySetInnerHTML={{ __html: t('regulatorsP') }} />
             </div>
           </div>
@@ -59,14 +59,14 @@ export default function DifferentPlayersPage() {
 
       <AnimatedDiv delay={0.4}>
         <div className="mt-12 bg-gray-50 p-8 rounded-xl border">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('ecosystem')}</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('ecosystem') as string}</h3>
             <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: t('ecosystemP') }}/>
         </div>
       </AnimatedDiv>
 
       <AnimatedDiv delay={0.6}>
         <div className="mt-8 p-6 bg-white rounded-xl shadow-md border">
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">{t('keyTakeaways')}</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-3">{t('keyTakeaways') as string}</h3>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
                 <li dangerouslySetInnerHTML={{ __html: t('takeaway1') }} />
                 <li dangerouslySetInnerHTML={{ __html: t('takeaway2') }} />

@@ -8,8 +8,8 @@ const ReadingAStockQuote = () => {
 
   return (
     <LessonLayout
-      title={t('title')}
-      description={t('description')}
+      title={t('title') as string}
+      description={t('description') as string}
       lessonSlug="reading-a-stock-quote"
     >
       <div className="space-y-8">
@@ -19,29 +19,29 @@ const ReadingAStockQuote = () => {
         {/* Stock Quote Image */}
         <div className="bg-white p-4 rounded-lg border shadow-sm">
           <Image src="/stock-quote-example.png" alt="Example of a stock quote" className="w-full rounded-md" width={800} height={400} />
-          <p className="text-center text-sm text-gray-500 mt-2">{t('imageCaption')}</p>
+          <p className="text-center text-sm text-gray-500 mt-2">{t('imageCaption') as string}</p>
         </div>
         
         {/* Key Terms */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTerms.title')}</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTerms.title') as string}</h2>
           <div className="space-y-4">
             <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div className="p-4 bg-gray-50 rounded-lg">
-                <dt className="font-bold text-gray-900">{t('keyTerms.price.term')}</dt>
-                <dd className="text-gray-600">{t('keyTerms.price.def')}</dd>
+                <dt className="font-bold text-gray-900">{t('keyTerms.price.term') as string}</dt>
+                <dd className="text-gray-600">{t('keyTerms.price.def') as string}</dd>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <dt className="font-bold text-gray-900">{t('keyTerms.change.term')}</dt>
-                <dd className="text-gray-600">{t('keyTerms.change.def')}</dd>
+                <dt className="font-bold text-gray-900">{t('keyTerms.change.term') as string}</dt>
+                <dd className="text-gray-600">{t('keyTerms.change.def') as string}</dd>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <dt className="font-bold text-gray-900">{t('keyTerms.volume.term')}</dt>
-                <dd className="text-gray-600">{t('keyTerms.volume.def')}</dd>
+                <dt className="font-bold text-gray-900">{t('keyTerms.volume.term') as string}</dt>
+                <dd className="text-gray-600">{t('keyTerms.volume.def') as string}</dd>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <dt className="font-bold text-gray-900">{t('keyTerms.marketCap.term')}</dt>
-                <dd className="text-gray-600">{t('keyTerms.marketCap.def')}</dd>
+                <dt className="font-bold text-gray-900">{t('keyTerms.marketCap.term') as string}</dt>
+                <dd className="text-gray-600">{t('keyTerms.marketCap.def') as string}</dd>
               </div>
             </dl>
           </div>

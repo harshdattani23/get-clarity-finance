@@ -23,16 +23,16 @@ export default function UnderstandingIPOsPage() {
             <span>→</span>
             <Link href="/stock-market-course#ipos-and-new-listings" className="hover:text-green-600">IPOs and New Listings</Link>
             <span>→</span>
-            <span className="text-gray-900">{t('title')}</span>
+            <span className="text-gray-900">{t('title') as string}</span>
           </nav>
 
           {/* Header */}
           <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {t('title')}
+              {t('title') as string}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('description')}
+              {t('description') as string}
             </p>
           </header>
 
@@ -50,65 +50,65 @@ export default function UnderstandingIPOsPage() {
           {/* Main Content */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('whatIsIpo')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('whatIsIpo') as string}</h2>
               
               <p className="text-gray-700 mb-6">
-                {t('whatIsIpoP1')}
+                {t('whatIsIpoP1') as string}
               </p>
 
               <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
                 <div className="flex items-start">
                   <BookOpen className="text-blue-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-blue-900">{t('keyTakeaway')}</h4>
+                    <h4 className="font-semibold text-blue-900">{t('keyTakeaway') as string}</h4>
                     <p className="text-blue-800">
-                      {t('keyTakeawayP')}
+                      {t('keyTakeawayP') as string}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('whyCompaniesGoPublic')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('whyCompaniesGoPublic') as string}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-900 mb-2">💰 {t('raisingCapital')}</h4>
+                  <h4 className="font-semibold text-green-900 mb-2">💰 {t('raisingCapital') as string}</h4>
                   <p className="text-green-800 text-sm">
-                    {t('raisingCapitalP')}
+                    {t('raisingCapitalP') as string}
                   </p>
                 </div>
                 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">🏢 {t('enhancedCredibility')}</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">🏢 {t('enhancedCredibility') as string}</h4>
                   <p className="text-blue-800 text-sm">
-                    {t('enhancedCredibilityP')}
+                    {t('enhancedCredibilityP') as string}
                   </p>
                 </div>
                 
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-900 mb-2">📈 {t('liquidityForShareholders')}</h4>
+                  <h4 className="font-semibold text-purple-900 mb-2">📈 {t('liquidityForShareholders') as string}</h4>
                   <p className="text-purple-800 text-sm">
-                    {t('liquidityForShareholdersP')}
+                    {t('liquidityForShareholdersP') as string}
                   </p>
                 </div>
                 
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-orange-900 mb-2">🎯 {t('employeeBenefits')}</h4>
+                  <h4 className="font-semibold text-orange-900 mb-2">🎯 {t('employeeBenefits') as string}</h4>
                   <p className="text-orange-800 text-sm">
-                    {t('employeeBenefitsP')}
+                    {t('employeeBenefitsP') as string}
                   </p>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('ipoProcessInIndia')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('ipoProcessInIndia') as string}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">1</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('companyPreparation')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('companyPreparation') as string}</h4>
                     <p className="text-gray-700">
-                      {t('companyPreparationP')}
+                      {t('companyPreparationP') as string}
                     </p>
                   </div>
                 </div>
@@ -116,9 +116,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">2</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('draftRedHerringProspectus')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('draftRedHerringProspectus') as string}</h4>
                     <p className="text-gray-700">
-                      {t('draftRedHerringProspectusP')}
+                      {t('draftRedHerringProspectusP') as string}
                     </p>
                   </div>
                 </div>
@@ -126,9 +126,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">3</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('sebiReview')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('sebiReview') as string}</h4>
                     <p className="text-gray-700">
-                      {t('sebiReviewP')}
+                      {t('sebiReviewP') as string}
                     </p>
                   </div>
                 </div>
@@ -136,9 +136,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">4</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('ipoLaunch')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('ipoLaunch') as string}</h4>
                     <p className="text-gray-700">
-                      {t('ipoLaunchP')}
+                      {t('ipoLaunchP') as string}
                     </p>
                   </div>
                 </div>
@@ -146,62 +146,62 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">5</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('listing')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('listing') as string}</h4>
                     <p className="text-gray-700">
-                      {t('listingP')}
+                      {t('listingP') as string}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('typesOfIposInIndia')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('typesOfIposInIndia') as string}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">📊 {t('bookBuildingIpo')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">📊 {t('bookBuildingIpo') as string}</h4>
                   <p className="text-gray-700 text-sm mb-3">
-                    {t('bookBuildingIpoP')}
+                    {t('bookBuildingIpoP') as string}
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    {t('mostCommonInIndia')}
+                    {t('mostCommonInIndia') as string}
                   </div>
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">💰 {t('fixedPriceIpo')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">💰 {t('fixedPriceIpo') as string}</h4>
                   <p className="text-gray-700 text-sm mb-3">
-                    {t('fixedPriceIpoP')}
+                    {t('fixedPriceIpoP') as string}
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    {t('simplerProcess')}
+                    {t('simplerProcess') as string}
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('importantIpoTerms')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('importantIpoTerms') as string}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('faceValue')}</h4>
-                    <p className="text-gray-700 text-sm">{t('faceValueP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('faceValue') as string}</h4>
+                    <p className="text-gray-700 text-sm">{t('faceValueP') as string}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('issuePrice')}</h4>
-                    <p className="text-gray-700 text-sm">{t('issuePriceP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('issuePrice') as string}</h4>
+                    <p className="text-gray-700 text-sm">{t('issuePriceP') as string}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('lotSize')}</h4>
-                    <p className="text-gray-700 text-sm">{t('lotSizeP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('lotSize') as string}</h4>
+                    <p className="text-gray-700 text-sm">{t('lotSizeP') as string}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('subscription')}</h4>
-                    <p className="text-gray-700 text-sm">{t('subscriptionP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('subscription') as string}</h4>
+                    <p className="text-gray-700 text-sm">{t('subscriptionP') as string}</p>
                   </div>
                 </div>
               </div>
@@ -210,9 +210,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start">
                   <AlertTriangle className="text-yellow-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-yellow-900">{t('importantNote')}</h4>
+                    <h4 className="font-semibold text-yellow-900">{t('importantNote') as string}</h4>
                     <p className="text-yellow-800">
-                      {t('importantNoteP')}
+                      {t('importantNoteP') as string}
                     </p>
                   </div>
                 </div>

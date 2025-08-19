@@ -57,10 +57,10 @@ export const useTranslation = (namespace?: string) => {
     let result: TranslationValue | undefined = translations;
 
     for (const k of keys) {
-      if (typeof result !== 'object' || result === null) {
+      if (typeof result !== 'object' || result === null || Array.isArray(result)) {
         return key; // Return key if path is invalid
       }
-      result = result[k];
+      result = (result as { [key: string]: TranslationValue })[k];
     }
 
     if (result !== undefined) {

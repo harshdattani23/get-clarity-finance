@@ -59,7 +59,7 @@ export default function ContentAnalyzer() {
       <textarea
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder={t('analyzer.placeholder')}
+        placeholder={t('analyzer.placeholder') as string}
         className="w-full p-4 bg-gray-100 text-gray-800 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9FE870] focus:border-[#9FE870] transition-colors duration-300"
         rows={6}
       />
@@ -70,11 +70,11 @@ export default function ContentAnalyzer() {
         style={{ borderRadius: '1000px' }}
       >
         {isLoading ? (
-          t('analyzer.button.loading')
+          t('analyzer.button.loading') as string
         ) : (
           <>
             <Sparkles className="w-4 h-4" />
-            {t('analyzer.button.submit')}
+            {t('analyzer.button.submit') as string}
           </>
         )}
       </button>
@@ -86,7 +86,7 @@ export default function ContentAnalyzer() {
           <div className={`p-4 rounded-lg border ${response.riskScore > 70 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
             <h3 className={`text-lg font-bold flex items-center gap-2 ${response.riskScore > 70 ? 'text-red-700' : 'text-green-700'}`}>
               {response.riskScore > 70 ? <ThumbsDown className="w-5 h-5" /> : <ThumbsUp className="w-5 h-5" />}
-              {response.riskScore > 70 ? t('analyzer.result.scam') : t('analyzer.result.safe')}
+              {response.riskScore > 70 ? t('analyzer.result.scam') as string : t('analyzer.result.safe') as string}
             </h3>
             <div className="text-gray-800 mt-2 pl-7 prose prose-sm max-w-none">
               <ReactMarkdown>{response.detailedAnalysis}</ReactMarkdown>
@@ -97,7 +97,7 @@ export default function ContentAnalyzer() {
         {/* result?.type === 'answer' && ( // This block was removed as per the new_code
           <div className="p-4 rounded-lg bg-blue-50 border-blue-200">
              <h3 className="text-lg font-bold flex items-center gap-2 text-blue-700">
-               {t('analyzer.result.aiAssistant')}
+               {t('analyzer.result.aiAssistant') as string}
              </h3>
              <div className="text-gray-800 mt-2 pl-7 prose prose-sm max-w-none">
                 <ReactMarkdown>{result.payload.answer}</ReactMarkdown>

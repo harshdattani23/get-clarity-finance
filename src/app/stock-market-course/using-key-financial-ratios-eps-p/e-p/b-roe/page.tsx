@@ -11,7 +11,7 @@ export default function UsingKeyFinancialRatiosPage() {
 
     const renderKeyTakeaways = () => (
         <div className="p-6 bg-gray-50 rounded-xl shadow-md">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">{t(`${lessonKey}.takeaways.title`)}</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">{t(`${lessonKey}.takeaways.title`) as string}</h3>
             <ul className="space-y-3">
                 {[...Array(5)].map((_, i) => (
                     <li key={i} className="flex items-start">
@@ -25,36 +25,36 @@ export default function UsingKeyFinancialRatiosPage() {
 
     const renderSummaryTable = () => (
         <div className="mt-10 bg-white p-6 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-bold text-center text-gray-800 mb-6">{t(`${lessonKey}.summaryTable.title`)}</h3>
+            <h3 className="text-2xl font-bold text-center text-gray-800 mb-6">{t(`${lessonKey}.summaryTable.title`) as string}</h3>
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-100">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.ratio`)}</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.whatItMeasures`)}</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.ruleOfThumb`)}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.ratio`) as string}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.whatItMeasures`) as string}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t(`${lessonKey}.summaryTable.ruleOfThumb`) as string}</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">EPS</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.eps`)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.epsRule`)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.eps`) as string}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.epsRule`) as string}</td>
                         </tr>
                         <tr>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P/E</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pe`)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.peRule`)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pe`) as string}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.peRule`) as string}</td>
                         </tr>
                         <tr>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P/B</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pb`)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pbRule`)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pb`) as string}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.pbRule`) as string}</td>
                         </tr>
                         <tr>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ROE</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.roe`)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.roeRule`)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.roe`) as string}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{t(`${lessonKey}.summaryTable.roeRule`) as string}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -83,8 +83,8 @@ export default function UsingKeyFinancialRatiosPage() {
 
     return (
         <LessonLayout
-            title={t(`${lessonKey}.title`)}
-            description={t(`${lessonKey}.description`)}
+            title={t(`${lessonKey}.title`) as string}
+            description={t(`${lessonKey}.description`) as string}
             lessonSlug={lessonKey}
         >
             <div className="space-y-12">

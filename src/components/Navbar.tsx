@@ -37,7 +37,7 @@ const Navbar = () => {
           <Link href="/" className="flex items-center gap-2">
             <ShieldCheck className="w-8 h-8 text-white" />
             <span className="font-['Inter_Tight',_sans-serif] text-2xl sm:text-3xl font-semibold text-white tracking-tight whitespace-nowrap">
-              {t('title')}
+              {t('title') as string}
             </span>
           </Link>
           
@@ -53,7 +53,7 @@ const Navbar = () => {
                       : 'text-white/80 hover:text-white'
                   }`}
                 >
-                  {t(link.key)}
+                  {t(link.key) as string}
                 </Link>
               ))}
             </nav>
@@ -68,7 +68,7 @@ const Navbar = () => {
                     href="/sign-in"
                     className="px-4 py-2 rounded-full text-sm font-semibold text-white border border-neutral-200 hover:bg-white/10 transition-colors whitespace-nowrap"
                   >
-                    {t('signIn')}
+                    {t('signIn') as string}
                   </Link>
                 </SignedOut>
               </ClientOnly>
@@ -98,7 +98,7 @@ const Navbar = () => {
                       : 'text-white/80 hover:text-white'
                   }`}
                 >
-                  {t(link.key)}
+                  {t(link.key) as string}
                 </Link>
               ))}
             </nav>
@@ -114,7 +114,7 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
                   >
-                    {t('signIn')}
+                    {t('signIn') as string}
                   </Link>
                 </SignedOut>
               </ClientOnly>
