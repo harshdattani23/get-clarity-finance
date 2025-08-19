@@ -2,6 +2,10 @@
 
 import { useTranslation } from "@/hooks/useTranslation";
 import LessonLayout from '../LessonLayout';
+import InteractiveQuiz from '@/components/stock-market-course/InteractiveQuiz';
+import InteractiveSelection from '@/components/stock-market-course/InteractiveSelection';
+import ShortQuestions from '@/components/stock-market-course/ShortQuestions';
+import AudioElement from '@/components/stock-market-course/AudioElement';
 import { 
   Building, 
   Users, 
@@ -61,6 +65,36 @@ export default function WhatIsAStockPage() {
           </div>
         </div>
 
+        {/* Interactive Quiz - Understanding Ownership */}
+        <InteractiveQuiz
+          questions={[
+            {
+              id: 'ownership-1',
+              question: 'If you own 10 shares of a company that has 1000 total shares, what percentage of the company do you own?',
+              options: ['1%', '10%', '0.1%', '100%'],
+              correctAnswer: 0,
+              explanation: 'Correct! 10 shares out of 1000 total shares equals 1% ownership. This means you own 1% of the company.'
+            },
+            {
+              id: 'ownership-2',
+              question: 'What happens to your ownership percentage if the company issues more shares?',
+              options: ['Your percentage increases', 'Your percentage decreases', 'Your percentage stays the same', 'You lose all ownership'],
+              correctAnswer: 1,
+              explanation: 'Correct! When a company issues more shares, your ownership percentage decreases because the total number of shares increases while you still own the same number.'
+            },
+            {
+              id: 'ownership-3',
+              question: 'Which of the following is NOT a right that comes with stock ownership?',
+              options: ['Voting on company decisions', 'Receiving dividends', 'Guaranteed profits', 'Claiming company assets if it goes bankrupt'],
+              correctAnswer: 2,
+              explanation: 'Correct! Stock ownership does NOT guarantee profits. Stock prices can go up or down, and there&apos;s always a risk of losing money.'
+            }
+          ]}
+          onComplete={(score, total) => {
+            console.log(`Quiz completed! Score: ${score}/${total}`);
+          }}
+        />
+
         {/* Detailed Explanation */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
@@ -74,6 +108,53 @@ export default function WhatIsAStockPage() {
             <p>{t('detailedExplanationP2') as string}</p>
           </div>
         </div>
+
+        {/* Interactive Selection - Stock Characteristics */}
+        <InteractiveSelection
+          title="Understanding Stock Characteristics"
+          description="Select all the characteristics that apply to stocks. Think about what makes stocks unique as an investment."
+          options={[
+            {
+              id: 'characteristic-1',
+              text: 'Stocks represent partial ownership in a company',
+              isCorrect: true,
+              explanation: 'Correct! When you buy a stock, you become a partial owner of that company.'
+            },
+            {
+              id: 'characteristic-2',
+              text: 'Stock prices are guaranteed to increase over time',
+              isCorrect: false,
+              explanation: 'Incorrect! Stock prices are not guaranteed to increase. They can go up or down based on many factors.'
+            },
+            {
+              id: 'characteristic-3',
+              text: 'Stockholders can vote on important company decisions',
+              isCorrect: true,
+              explanation: 'Correct! Common stockholders typically have voting rights on major company decisions.'
+            },
+            {
+              id: 'characteristic-4',
+              text: 'Stocks provide regular fixed income payments',
+              isCorrect: false,
+              explanation: 'Incorrect! Stocks don\'t provide fixed income. Dividends may be paid but they\'re not guaranteed or fixed.'
+            },
+            {
+              id: 'characteristic-5',
+              text: 'Stock ownership can be transferred to others',
+              isCorrect: true,
+              explanation: 'Correct! Stocks are easily transferable and can be bought or sold on stock exchanges.'
+            },
+            {
+              id: 'characteristic-6',
+              text: 'Stockholders have unlimited liability for company debts',
+              isCorrect: false,
+              explanation: 'Incorrect! Stockholders have limited liability - they can only lose what they invested, not more.'
+            }
+          ]}
+          onComplete={(score, total) => {
+            console.log(`Selection completed! Score: ${score}/${total}`);
+          }}
+        />
 
         {/* Real World Example */}
         <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
@@ -105,6 +186,38 @@ export default function WhatIsAStockPage() {
             </ul>
           </div>
         </div>
+
+        {/* Short Questions - Real World Application */}
+        <ShortQuestions
+          title="Understanding Real World Stock Examples"
+          description="Answer these questions to test your understanding of how stocks work in the real world."
+          questions={[
+            {
+              id: 'real-world-1',
+              question: 'If you buy 100 shares of Reliance Industries at ₹2,500 per share, what is your total investment?',
+              hint: 'Think about multiplying the number of shares by the price per share.',
+              correctAnswer: '₹2,50,000',
+              explanation: 'Correct! 100 shares × ₹2,500 = ₹2,50,000. This is your total investment in Reliance Industries.'
+            },
+            {
+              id: 'real-world-2',
+              question: 'What happens to your investment if Reliance Industries\' stock price increases to ₹3,000 per share?',
+              hint: 'Calculate the new total value and compare it to your original investment.',
+              correctAnswer: 'Your investment increases to ₹3,00,000, giving you a profit of ₹50,000',
+              explanation: 'Correct! 100 shares × ₹3,000 = ₹3,00,000. Your profit is ₹3,00,000 - ₹2,50,000 = ₹50,000.'
+            },
+            {
+              id: 'real-world-3',
+              question: 'If Reliance Industries pays a dividend of ₹25 per share, how much dividend income will you receive?',
+              hint: 'Multiply the dividend per share by the number of shares you own.',
+              correctAnswer: '₹2,500',
+              explanation: 'Correct! 100 shares × ₹25 = ₹2,500. This is additional income you receive as a shareholder.'
+            }
+          ]}
+          onComplete={(score, total) => {
+            console.log(`Short questions completed! Score: ${score}/${total}`);
+          }}
+        />
 
         {/* Ownership Rights Section */}
         <div className="space-y-6">
@@ -382,6 +495,15 @@ export default function WhatIsAStockPage() {
             </ul>
           </div>
         </div>
+
+        {/* Audio Summary */}
+        <AudioElement
+          title="Audio Summary: What is a Stock?"
+          description="Listen to a concise summary of this lesson to reinforce your understanding."
+          audioUrl="/audio/what-is-a-stock-summary.mp3"
+          transcript="Welcome to the world of stocks! In this lesson, we learned that a stock represents partial ownership in a company. Think of it like owning a slice of pizza - the more slices you own, the bigger your share of the company. When you buy stocks, you become a shareholder with rights to vote on company decisions and receive dividends. However, remember that stock prices can go up or down, so there's always risk involved. The key is to understand what you're investing in and never invest more than you can afford to lose. Happy investing!"
+          showTranscript={true}
+        />
 
         {/* Key Takeaways */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
