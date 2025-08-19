@@ -1,38 +1,706 @@
 "use client";
 
-import { useTranslation } from "@/hooks/useTranslation";
-import LessonLayout from '../LessonLayout';
-import { 
-  TrendingUp, 
-  Shield, 
-  CheckCircle, 
-  Users,
-  Building2,
-  Target,
-  Lightbulb,
-  BookOpen,
-  ArrowRight
-} from 'lucide-react';
+import { useState } from "react";
+import LessonLayout from "../LessonLayout";
+import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
+import InteractiveQuiz from "@/components/stock-market-course/InteractiveQuiz";
+import InteractiveSelection from "@/components/stock-market-course/InteractiveSelection";
+import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
+import AudioSummary from "@/components/stock-market-course/AudioSummary";
+import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
+import { motion } from "framer-motion";
+import { Trophy, Building, TrendingUp, Shield, Target, Zap, CheckCircle, ArrowRight, BarChart3, DollarSign, BookOpen, UserCheck, AlertTriangle, MapPin, Calendar, ChartBar, Handshake, Rocket, ShieldCheck, Clock, TrendingDown, PieChart, Layers, Target as TargetIcon } from 'lucide-react';
 
-export default function DifferentTypesOfStocksPage() {
-  const { t, translations } = useTranslation('stock-market-course.different-types-of-stocks');
+export default function DifferentTypesOfStocks() {
+  const [lessonCompleted, setLessonCompleted] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
 
-  // Check if translations are loaded
-  const isLoading = Object.keys(translations).length === 0;
+  const handleLessonComplete = (totalScore: number) => {
+    setFinalScore(totalScore);
+    setLessonCompleted(true);
+  };
 
+  const handlePartComplete = (partId: string, score: number) => {
+    console.log(`Part ${partId} completed with score: ${score}`);
+  };
 
+  // Create a completion handler that can be passed to interactive components
+  const createCompletionHandler = (partId: string) => {
+    return (score: number, total?: number) => {
+      const scaledScore = total ? Math.round((score / total) * 100) : score;
+      console.log(`Part ${partId} completed:`);
+      console.log(`- Raw score: ${score}`);
+      console.log(`- Total questions: ${total}`);
+      console.log(`- Scaled score: ${scaledScore}/100`);
+      
+      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, scaledScore);
+      }
+    };
+  };
 
-  if (isLoading) {
+  // Create a completion handler for ConfirmationCheck component
+  const createConfirmationHandler = (partId: string) => {
+    return (partIdParam: string, score: number) => {
+      console.log(`Part ${partIdParam} completed with score: ${score}`);
+      
+      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partIdParam, score);
+      }
+    };
+  };
+
+  // Define lesson parts
+  const lessonParts = [
+    {
+      id: "introduction-with-audio",
+      title: "Understanding Stock Classification",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-blue-800 mb-3">
+              What You&apos;ll Learn
+            </h3>
+            <p className="text-blue-700">
+              In this lesson, you&apos;ll discover the different ways stocks are classified and categorized. Learn about common vs preferred stocks, market capitalization categories, and how to build a diversified portfolio based on your risk tolerance.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              Why Stock Classification Matters
+            </h3>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Just like there are different types of cars (sedans, SUVs, sports cars), there are different types of stocks, each with unique characteristics, risks, and potential rewards. Understanding these differences is crucial for building a well-balanced portfolio.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              In this lesson, we&apos;ll explore the major ways stocks are classified and how each type fits into different investment strategies.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <h4 className="font-semibold text-green-800 mb-2">Key Classifications</h4>
+              <ul className="text-green-700 space-y-1 text-sm">
+                <li>• Common vs Preferred stocks</li>
+                <li>• Market capitalization (Large/Mid/Small cap)</li>
+                <li>• Investment style (Growth vs Value)</li>
+                <li>• Sector-based classification</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+              <h4 className="font-semibold text-orange-800 mb-2">Investment Benefits</h4>
+              <ul className="text-orange-700 space-y-1 text-sm">
+                <li>• Build diversified portfolios</li>
+                <li>• Match investments to risk tolerance</li>
+                <li>• Understand different risk profiles</li>
+                <li>• Make informed investment decisions</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Audio Summary Section */}
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
+            <h3 className="text-xl font-semibold text-purple-800 mb-4">
+              🎧 Listen to the Multi-Language Audio Summary
+            </h3>
+            <p className="text-purple-700 mb-6">
+              Take a moment to listen to this comprehensive audio summary available in multiple languages including Hindi, English, Bengali, Marathi, Gujarati, and Tamil. 
+              Perfect for auditory learners and those who prefer listening over reading.
+            </p>
+            
+            <AudioSummary
+              title="Different Types of Stocks - Audio Summary"
+              description="Listen to a comprehensive audio summary of different types of stocks, available in multiple languages. Perfect for auditory learners and those who prefer listening over reading."
+              hindiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-hi.m4a"
+              englishAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-en.m4a"
+              bengaliAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-bn.m4a"
+              marathiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-mr.m4a"
+              gujaratiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-gu.m4a"
+              tamilAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/introduction/different-types-of-stocks-ta.m4a"
+              hindiTranscript="स्टॉक के विभिन्न प्रकार - आम बनाम पसंदीदा स्टॉक, बाजार पूंजीकरण के आधार पर वर्गीकरण, और निवेश रणनीतियों के लिए महत्वपूर्ण अंतर्दृष्टि।"
+              englishTranscript="Different Types of Stocks - Common vs Preferred stocks, classification by market capitalization, and crucial insights for investment strategies."
+              bengaliTranscript="স্টকের বিভিন্ন প্রকার - সাধারণ বনাম পছন্দের স্টক, বাজার মূলধনের ভিত্তিতে শ্রেণীবিন্যাস, এবং বিনিয়োগ কৌশলের জন্য গুরুত্বপূর্ণ অন্তর্দৃষ্টি।"
+              marathiTranscript="स्टॉक्सचे विविध प्रकार - सामान्य बनाम पसंती स्टॉक्स, बाजार भांडवलानुसार वर्गीकरण, आणि गुंतवणूक धोरणांसाठी महत्त्वाचे अंतर्दृष्टी।"
+              gujaratiTranscript="સ્ટોક્સના વિવિધ પ્રકારો - સામાન્ય બનામ પસંદગીના સ્ટોક્સ, બજાર મૂડીકરણના આધારે વર્ગીકરણ, અને રોકાણ વ્યૂહરચના માટે મહત્વપૂર્ણ અંતર્દૃષ્ટિ।"
+              tamilTranscript="பங்குகளின் பல்வேறு வகைகள் - பொதுவான மற்றும் விருப்ப பங்குகள், சந்தை மூலதனத்தின் அடிப்படையில் வகைப்பாடு, மற்றும் முதலீட்டு உத்திகளுக்கான முக்கியமான நுண்ணறிவு."
+            />
+          </div>
+
+          <ConfirmationCheck
+            title="Ready to Continue?"
+            description="Before moving to the next part, please confirm that you understand the basic concept:"
+            checkboxes={[
+              "I understand that stocks can be classified in different ways",
+              "I recognize that different stock types have different risk profiles"
+            ]}
+            partId="introduction-with-audio"
+            onPartComplete={createConfirmationHandler("introduction-with-audio")}
+          />
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'interactive' as const,
+      skipAllowed: false
+    },
+    {
+      id: "common-vs-preferred",
+      title: "Common vs Preferred Stocks",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
+              🏢 Two Main Types of Stock Ownership
+            </h3>
+            <p className="text-green-700 leading-relaxed">
+              Understanding the difference between common and preferred stocks is fundamental to stock market investing. Each type offers different rights, benefits, and risks.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Common Stock</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                This is what most people mean when they talk about stocks. It grants voting rights, giving shareholders a say in company decisions.
+              </p>
+              <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-800 mb-2">Key Features:</h5>
+                <ul className="text-blue-700 text-xs space-y-1">
+                  <li>• Voting rights on company decisions</li>
+                  <li>• May receive dividends (not guaranteed)</li>
+                  <li>• Unlimited growth potential</li>
+                  <li>• Highest risk - can lose entire investment</li>
+                  <li>• Last priority for company assets</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Preferred Stock</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                These stocks generally do not have voting rights but typically pay a fixed dividend that is paid out before common stock dividends.
+              </p>
+              <div className="bg-purple-50 p-3 rounded border border-purple-200">
+                <h5 className="font-medium text-purple-800 mb-2">Key Features:</h5>
+                <ul className="text-purple-700 text-xs space-y-1">
+                  <li>• Fixed dividend rate</li>
+                  <li>• Higher claim on company assets</li>
+                  <li>• No voting rights</li>
+                  <li>• Limited growth potential</li>
+                  <li>• Company can buy back shares</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-3">Real-World Examples</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <h5 className="font-medium text-yellow-800 mb-2">Common Stock Examples:</h5>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• Reliance Industries - Most widely held in India</li>
+                  <li>• TCS - Regular dividend payments</li>
+                  <li>• HDFC Bank - Voting rights and growth potential</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-medium text-yellow-800 mb-2">Preferred Stock Examples:</h5>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• Tata Motors - Has issued preferred shares</li>
+                  <li>• Some PSUs - Government companies</li>
+                  <li>• Note: Less common in India vs US</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "quiz-1",
+      title: "Stock Types Quiz",
+      content: (
+        <InteractiveQuiz
+          questions={[
+            {
+              id: "common-stock",
+              question: "Which type of stock gives shareholders voting rights?",
+              options: [
+                "Preferred stock",
+                "Common stock",
+                "Both types",
+                "Neither type"
+              ],
+              correctAnswer: 1,
+              explanation: "Correct! Common stock grants voting rights, allowing shareholders to participate in company decisions at shareholder meetings."
+            },
+            {
+              id: "preferred-dividend",
+              question: "Which type of stock typically pays a fixed dividend?",
+              options: [
+                "Common stock",
+                "Preferred stock",
+                "Both types",
+                "Neither type"
+              ],
+              correctAnswer: 1,
+              explanation: "Great! Preferred stock typically pays a fixed dividend rate, while common stock dividends are not guaranteed and can vary."
+            },
+            {
+              id: "risk-profile",
+              question: "Which type of stock has the highest risk and growth potential?",
+              options: [
+                "Preferred stock",
+                "Common stock",
+                "Both have equal risk",
+                "Risk depends on company size"
+              ],
+              correctAnswer: 1,
+              explanation: "Excellent! Common stock has the highest risk (you can lose your entire investment) but also offers unlimited growth potential."
+            }
+          ]}
+          onComplete={createCompletionHandler("quiz-1")}
+        />
+      ),
+      isRequired: true,
+      type: 'quiz' as const,
+      minScore: 50,
+      skipAllowed: false
+    },
+    {
+      id: "market-cap-classification",
+      title: "Market Capitalization Classification",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <h3 className="text-xl font-semibold text-blue-800 mb-4">
+              📊 Understanding Market Capitalization
+            </h3>
+            <p className="text-blue-700">
+              Market capitalization (or &apos;market cap&apos;) is the total value of a company&apos;s shares. It&apos;s calculated by multiplying the current share price by the total number of outstanding shares.
+            </p>
+            <div className="bg-white p-4 rounded border border-blue-200 mt-4">
+              <p className="text-blue-800 font-medium">Formula: Market Cap = Share Price × Number of Shares</p>
+              <p className="text-blue-700 text-sm mt-2">Example: If HDFC Bank has 5.5 billion shares at ₹1,500 each, Market Cap = ₹1,500 × 5.5 billion = ₹8.25 trillion</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Large-Cap Stocks</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                Companies with market cap over ₹20,000 crore. These are the biggest, most established companies.
+              </p>
+              <div className="bg-green-50 p-3 rounded border border-green-200">
+                <h5 className="font-medium text-green-800 mb-2">Characteristics:</h5>
+                <ul className="text-green-700 text-xs space-y-1">
+                  <li>• Stable and less volatile</li>
+                  <li>• Often pay regular dividends</li>
+                  <li>• Steady but slower growth</li>
+                  <li>• Lower risk</li>
+                  <li>• High liquidity</li>
+                </ul>
+              </div>
+              <div className="mt-3 p-2 bg-green-100 rounded text-green-800 text-xs">
+                <strong>Examples:</strong> Reliance Industries, TCS, HDFC Bank, Infosys, ITC
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Mid-Cap Stocks</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                Companies with market cap between ₹5,000-20,000 crore. Balance of growth potential and stability.
+              </p>
+              <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-800 mb-2">Characteristics:</h5>
+                <ul className="text-blue-700 text-xs space-y-1">
+                  <li>• Higher growth potential</li>
+                  <li>• Moderate risk and volatility</li>
+                  <li>• Can become large caps over time</li>
+                  <li>• May or may not pay dividends</li>
+                  <li>Good liquidity</li>
+                </ul>
+              </div>
+              <div className="mt-3 p-2 bg-blue-100 rounded text-blue-800 text-xs">
+                <strong>Examples:</strong> Tata Elxsi, Mindtree, L&T Technology Services
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Small-Cap Stocks</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                Companies with market cap under ₹5,000 crore. Emerging companies with high growth potential.
+              </p>
+              <div className="bg-orange-50 p-3 rounded border border-orange-200">
+                <h5 className="font-medium text-orange-800 mb-2">Characteristics:</h5>
+                <ul className="text-orange-700 text-xs space-y-1">
+                  <li>• Highest growth potential</li>
+                  <li>• Highest risk and volatility</li>
+                  <li>• Rarely pay dividends</li>
+                  <li>• Lower trading volumes</li>
+                  <li>Can become mid/large caps</li>
+                </ul>
+              </div>
+              <div className="mt-3 p-2 bg-orange-100 rounded text-orange-800 text-xs">
+                <strong>Examples:</strong> Emerging tech companies, startup companies, regional companies
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "selection-exercise",
+      title: "Market Cap Matching Exercise",
+      content: (
+        <InteractiveSelection
+          title="Match each market cap category with its characteristics"
+          description="Select the correct market cap category for each description. This will help you understand the differences between large, mid, and small-cap stocks."
+          options={[
+            {
+              id: "large-cap",
+              text: "Stable companies with regular dividends and lower risk",
+              isCorrect: true,
+              explanation: "Correct! This describes large-cap stocks - the biggest, most established companies that are generally stable and often pay regular dividends."
+            },
+            {
+              id: "mid-cap",
+              text: "Companies with balanced growth potential and moderate risk",
+              isCorrect: true,
+              explanation: "Correct! This describes mid-cap stocks - companies that offer a balance between growth potential and stability."
+            },
+            {
+              id: "small-cap",
+              text: "Emerging companies with highest growth potential but highest risk",
+              isCorrect: true,
+              explanation: "Correct! This describes small-cap stocks - emerging companies with high growth potential but also the highest risk and volatility."
+            }
+          ]}
+          onComplete={createCompletionHandler("selection-exercise")}
+        />
+      ),
+      isRequired: true,
+      type: 'selection' as const,
+      minScore: 50,
+      skipAllowed: false
+    },
+    {
+      id: "investment-strategies",
+      title: "Building Investment Strategies",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
+              🎯 Portfolio Allocation Strategies
+            </h3>
+            <p className="text-green-700">
+              Understanding different stock types helps you build a diversified portfolio that matches your investment goals and risk tolerance.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Conservative Strategy</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                For conservative investors who prioritize safety over growth.
+              </p>
+              <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-800 mb-2">Allocation:</h5>
+                <ul className="text-blue-700 text-xs space-y-1">
+                  <li>• 70% Large-cap stocks</li>
+                  <li>• 20% Mid-cap stocks</li>
+                  <li>• 10% Small-cap stocks</li>
+                  <li>• Focus on value stocks</li>
+                  <li>• Defensive sectors</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Moderate Strategy</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                For moderate investors who want balance between growth and stability.
+              </p>
+              <div className="bg-green-50 p-3 rounded border border-green-200">
+                <h5 className="font-medium text-green-800 mb-2">Allocation:</h5>
+                <ul className="text-green-700 text-xs space-y-1">
+                  <li>• 50% Large-cap stocks</li>
+                  <li>• 30% Mid-cap stocks</li>
+                  <li>• 20% Small-cap stocks</li>
+                  <li>• Mix of growth and value</li>
+                  <li>• Diversified sectors</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Aggressive Strategy</h4>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                For aggressive investors who prioritize growth over safety.
+              </p>
+              <div className="bg-orange-50 p-3 rounded border border-orange-200">
+                <h5 className="font-medium text-orange-800 mb-2">Allocation:</h5>
+                <ul className="text-orange-700 text-xs space-y-1">
+                  <li>• 30% Large-cap stocks</li>
+                  <li>• 40% Mid-cap stocks</li>
+                  <li>• 30% Small-cap stocks</li>
+                  <li>• Focus on growth stocks</li>
+                  <li>• Emerging sectors</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-3">Key Diversification Principles</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <h5 className="font-medium text-yellow-800 mb-2">Sector Diversification:</h5>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• Don&apos;t put more than 20-25% in any single sector</li>
+                  <li>• Include defensive sectors (consumer, healthcare)</li>
+                  <li>• Include cyclical sectors (banking, automobile)</li>
+                  <li>• Consider emerging sectors (technology, renewable energy)</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-medium text-yellow-800 mb-2">Risk Management:</h5>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• Large-cap: Lower risk, lower potential returns</li>
+                  <li>• Mid-cap: Moderate risk, moderate potential returns</li>
+                  <li>• Small-cap: Higher risk, higher potential returns</li>
+                  <li>• Consider liquidity before investing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    },
+    {
+      id: "short-questions",
+      title: "Understanding Check",
+      content: (
+        <ShortQuestions
+          title="Test Your Understanding"
+          description="Answer these questions to ensure you&apos;ve grasped the key concepts about different types of stocks."
+          questions={[
+            {
+              id: "stock-types",
+              question: "Explain the main differences between common and preferred stocks.",
+              hint: "Think about voting rights, dividends, and risk profiles.",
+              correctAnswer: "common stock voting rights dividends growth potential preferred stock fixed dividend priority assets",
+              explanation: "Great! Common stock gives voting rights, may pay variable dividends, has unlimited growth potential, but highest risk. Preferred stock has no voting rights, pays fixed dividends, has higher claim on assets, but limited growth potential."
+            },
+            {
+              id: "market-cap",
+              question: "What are the three main market capitalization categories and their characteristics?",
+              hint: "Consider the size, risk, and growth potential of each category.",
+              correctAnswer: "large cap mid cap small cap market capitalization risk growth potential",
+              explanation: "Perfect! Large-cap stocks (₹20,000+ crore) are stable with lower risk and steady growth. Mid-cap stocks (₹5,000-20,000 crore) offer balanced growth and moderate risk. Small-cap stocks (under ₹5,000 crore) have highest growth potential but also highest risk."
+            },
+            {
+              id: "diversification",
+              question: "Why is diversification important when investing in different types of stocks?",
+              hint: "Think about risk management and capturing opportunities.",
+              correctAnswer: "risk management portfolio balance different sectors market conditions growth opportunities",
+              explanation: "Excellent! Diversification is crucial because it helps manage risk by spreading investments across different stock types, sectors, and market conditions. It reduces the impact of any single investment&apos;s poor performance and captures growth opportunities across different areas."
+            }
+          ]}
+          onComplete={createCompletionHandler("short-questions")}
+        />
+      ),
+      isRequired: true,
+      type: 'short-answer' as const,
+      minScore: 0,
+      skipAllowed: false
+    },
+    {
+      id: "key-takeaways",
+      title: "Key Takeaways",
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
+              🎯 What You&apos;ve Learned
+            </h3>
+            <p className="text-green-700">
+              Congratulations! You&apos;ve completed the &quot;Different Types of Stocks&quot; lesson. 
+              Here&apos;s a summary of the key concepts you now understand.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Stock Classifications</h4>
+              <ul className="text-gray-700 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Common vs Preferred stocks with different rights and benefits</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Market capitalization categories (Large/Mid/Small cap)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Investment style classification (Growth vs Value)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Sector-based classification for diversification</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h4 className="font-semibold text-gray-800 mb-3">Investment Strategy</h4>
+              <ul className="text-gray-700 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Portfolio allocation based on risk tolerance</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Conservative, Moderate, and Aggressive strategies</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Importance of diversification across sectors</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span>Risk management through balanced allocation</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-3">Next Steps</h4>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-blue-600 font-bold">1</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Learn More</h5>
+                <p className="text-yellow-700 text-sm">Continue with next lessons</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-green-600 font-bold">2</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Practice</h5>
+                <p className="text-yellow-700 text-sm">Apply concepts to real stocks</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-purple-600 font-bold">3</span>
+                </div>
+                <h5 className="font-medium text-yellow-800 mb-1">Research</h5>
+                <p className="text-yellow-700 text-sm">Study different stock types</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ),
+      isRequired: true,
+      type: 'content' as const,
+      skipAllowed: false
+    }
+  ];
+
+  if (lessonCompleted) {
     return (
       <LessonLayout
-        title="Loading..."
-        description="Loading lesson content..."
+        title="Lesson Completed!"
+        description="Congratulations on completing the &apos;Different Types of Stocks&apos; lesson"
         lessonSlug="different-types-of-stocks"
       >
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading lesson content...</p>
+        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <Trophy className="w-12 h-12 text-green-600" />
+          </motion.div>
+          
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            🎉 Lesson Completed Successfully!
+          </h2>
+          
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}/{lessonParts.length * 100}</div>
+                <div className="text-gray-600">Total Score</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 mb-2">
+                  {Math.round((finalScore / (lessonParts.length * 100)) * 100)}%
+                </div>
+                <div className="text-gray-600">Overall Performance</div>
+              </div>
+            </div>
+          </div>
+          
+          <p className="text-gray-600 mb-6">
+            You&apos;ve successfully learned about different types of stocks and demonstrated 
+            your understanding through various interactive exercises. You&apos;re now 
+            ready to explore how stocks are traded!
+          </p>
+          
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => setLessonCompleted(false)}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Review Lesson
+            </button>
+            <a
+              href="/stock-market-course/how-stocks-are-traded"
+              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Next Lesson
+            </a>
           </div>
         </div>
       </LessonLayout>
@@ -41,490 +709,16 @@ export default function DifferentTypesOfStocksPage() {
 
   return (
     <LessonLayout
-      title={t('title') as string}
-      description={t('description') as string}
+      title="Different Types of Stocks"
+      description="Learn about the various categories of stocks, their unique characteristics, risk profiles, and how to build diversified portfolios based on your investment goals."
       lessonSlug="different-types-of-stocks"
     >
-      <div className="max-w-4xl mx-auto space-y-8">
-        
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-200">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-100 p-3 rounded-full">
-              <BookOpen className="w-8 h-8 text-purple-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('introduction') as string}</h2>
-          </div>
-          <div className="space-y-4 text-lg text-gray-700">
-            <p>{t('introductionP1') as string}</p>
-            <p>{t('introductionP2') as string}</p>
-          </div>
-        </div>
-
-        {/* Common vs Preferred Stocks */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('commonVsPreferred.title') as string}</h2>
-          <div className="space-y-4 mb-6">
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.p1') }} />
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.p2') }} />
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('commonVsPreferred.detailedComparison') as string}</h3>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            {/* Common Stock Details */}
-            <div className="bg-blue-50 rounded-xl p-5 border border-blue-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <Users className="w-5 h-5 text-blue-600" />
-                </div>
-                <h4 className="font-semibold text-blue-800">{t('commonVsPreferred.commonStockDetails') as string}</h4>
-              </div>
-              <p className="text-blue-700 text-sm mb-3">{t('commonVsPreferred.commonStockDetailsP1') as string}</p>
-              <p className="text-blue-700 text-sm mb-3">{t('commonVsPreferred.commonStockDetailsP2') as string}</p>
-              <ul className="space-y-1 text-sm text-blue-700">
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockFeatures.votingRights') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockFeatures.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockFeatures.capitalGains') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockFeatures.risk') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockFeatures.priority') }} />
-              </ul>
-            </div>
-
-            {/* Preferred Stock Details */}
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <Shield className="w-5 h-5 text-green-600" />
-                </div>
-                <h4 className="font-semibold text-green-800">{t('commonVsPreferred.preferredStockDetails') as string}</h4>
-              </div>
-              <p className="text-green-700 text-sm mb-3">{t('commonVsPreferred.preferredStockDetailsP1') as string}</p>
-              <p className="text-green-700 text-sm mb-3">{t('commonVsPreferred.preferredStockDetailsP2') as string}</p>
-              <ul className="space-y-1 text-sm text-green-700">
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockFeatures.fixedDividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockFeatures.priority') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockFeatures.noVoting') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockFeatures.limitedGrowth') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockFeatures.callable') }} />
-              </ul>
-            </div>
-          </div>
-
-          {/* Real World Examples */}
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('commonVsPreferred.realWorldExamples') as string}</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <h4 className="font-medium text-blue-800 mb-2">{t('commonVsPreferred.commonStockExamples') as string}</h4>
-              <ul className="space-y-1 text-sm text-blue-700">
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.commonStockExamplesP3') }} />
-              </ul>
-            </div>
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <h4 className="font-medium text-green-800 mb-2">{t('commonVsPreferred.preferredStockExamples') as string}</h4>
-              <ul className="space-y-1 text-sm text-green-700">
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('commonVsPreferred.preferredStockExamplesP3') }} />
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Market Cap Classification */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('byMarketCap.title') as string}</h2>
-          <div className="space-y-4 mb-6">
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('byMarketCap.p1') }} />
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('byMarketCap.p2') }} />
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('byMarketCap.p3') }} />
-          </div>
-
-          {/* Market Cap Definition */}
-          <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-200 mb-6">
-            <h3 className="text-xl font-semibold text-indigo-800 mb-3">{t('byMarketCap.marketCapDefinition') as string}</h3>
-            <p className="text-indigo-700 mb-3">{t('byMarketCap.marketCapDefinitionP1') as string}</p>
-            <p className="text-indigo-700 mb-3" dangerouslySetInnerHTML={{ __html: t('byMarketCap.marketCapDefinitionP2') }} />
-            <div className="bg-white rounded-lg p-4 border border-indigo-200">
-              <h4 className="font-medium text-indigo-800 mb-2">{t('byMarketCap.marketCapExample') as string}</h4>
-              <p className="text-indigo-700 text-sm mb-2">{t('byMarketCap.marketCapExampleP1') as string}</p>
-              <p className="text-indigo-700 text-sm font-medium">{t('byMarketCap.marketCapExampleP2') as string}</p>
-            </div>
-          </div>
-
-          {/* Market Cap Categories */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Large Cap */}
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <Building2 className="w-5 h-5 text-green-600" />
-                </div>
-                <h3 className="font-semibold text-green-800">{t('byMarketCap.largeCapStocks') as string}</h3>
-              </div>
-              <p className="text-green-700 text-sm mb-3">{t('byMarketCap.largeCapStocksP1') as string}</p>
-              <p className="text-green-700 text-sm mb-3">{t('byMarketCap.largeCapStocksP2') as string}</p>
-              <ul className="space-y-1 text-sm text-green-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapCharacteristics.stability') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapCharacteristics.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapCharacteristics.growth') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapCharacteristics.risk') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapCharacteristics.liquidity') }} />
-              </ul>
-              <h4 className="font-medium text-green-800 mb-2">{t('byMarketCap.largeCapExamples') as string}</h4>
-              <ul className="space-y-1 text-xs text-green-600">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapExamplesP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapExamplesP4') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.largeCapExamplesP5') }} />
-              </ul>
-            </div>
-
-            {/* Mid Cap */}
-            <div className="bg-yellow-50 rounded-xl p-5 border border-yellow-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-yellow-100 p-2 rounded-full">
-                  <TrendingUp className="w-5 h-5 text-yellow-600" />
-                </div>
-                <h3 className="font-semibold text-yellow-800">{t('byMarketCap.midCapStocks') as string}</h3>
-              </div>
-              <p className="text-yellow-700 text-sm mb-3">{t('byMarketCap.midCapStocksP1') as string}</p>
-              <p className="text-yellow-700 text-sm mb-3">{t('byMarketCap.midCapStocksP2') as string}</p>
-              <ul className="space-y-1 text-sm text-yellow-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapCharacteristics.growth') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapCharacteristics.risk') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapCharacteristics.opportunity') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapCharacteristics.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapCharacteristics.liquidity') }} />
-              </ul>
-              <h4 className="font-medium text-yellow-800 mb-2">{t('byMarketCap.midCapExamples') as string}</h4>
-              <ul className="space-y-1 text-xs text-yellow-600">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapExamplesP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.midCapExamplesP4') }} />
-              </ul>
-            </div>
-
-            {/* Small Cap */}
-            <div className="bg-red-50 rounded-xl p-5 border border-red-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-red-100 p-2 rounded-full">
-                  <TrendingUp className="w-5 h-5 text-red-600" />
-                </div>
-                <h3 className="font-semibold text-red-800">{t('byMarketCap.smallCapStocks') as string}</h3>
-              </div>
-              <p className="text-red-700 text-sm mb-3">{t('byMarketCap.smallCapStocksP1') as string}</p>
-              <p className="text-red-700 text-sm mb-3">{t('byMarketCap.smallCapStocksP2') as string}</p>
-              <ul className="space-y-1 text-sm text-red-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapCharacteristics.growth') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapCharacteristics.risk') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapCharacteristics.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapCharacteristics.liquidity') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapCharacteristics.opportunity') }} />
-              </ul>
-              <h4 className="font-medium text-red-800 mb-2">{t('byMarketCap.smallCapExamples') as string}</h4>
-              <ul className="space-y-1 text-xs text-red-600">
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapExamplesP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byMarketCap.smallCapExamplesP4') }} />
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Investment Style Classification */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('byStyle.title') as string}</h2>
-          <div className="space-y-4 mb-6">
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('byStyle.p1') }} />
-            <p className="text-gray-700" dangerouslySetInnerHTML={{ __html: t('byStyle.p2') }} />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Growth Stocks */}
-            <div className="bg-emerald-50 rounded-xl p-5 border border-emerald-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-emerald-100 p-2 rounded-full">
-                  <TrendingUp className="w-5 h-5 text-emerald-600" />
-                </div>
-                <h3 className="font-semibold text-emerald-800">{t('byStyle.growthStocks') as string}</h3>
-              </div>
-              <p className="text-emerald-700 text-sm mb-3">{t('byStyle.growthStocksP1') as string}</p>
-              <p className="text-emerald-700 text-sm mb-3">{t('byStyle.growthStocksP2') as string}</p>
-              <ul className="space-y-1 text-sm text-emerald-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthCharacteristics.revenue') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthCharacteristics.earnings') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthCharacteristics.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthCharacteristics.valuation') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthCharacteristics.risk') }} />
-              </ul>
-              <h4 className="font-medium text-emerald-800 mb-2">{t('byStyle.growthStockExamples') as string}</h4>
-              <ul className="space-y-1 text-xs text-emerald-600">
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthStockExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthStockExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthStockExamplesP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.growthStockExamplesP4') }} />
-              </ul>
-            </div>
-
-            {/* Value Stocks */}
-            <div className="bg-blue-50 rounded-xl p-5 border border-blue-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <Target className="w-5 h-5 text-blue-600" />
-                </div>
-                <h3 className="font-semibold text-blue-800">{t('byStyle.valueStocks') as string}</h3>
-              </div>
-              <p className="text-blue-700 text-sm mb-3">{t('byStyle.valueStocksP1') as string}</p>
-              <p className="text-blue-700 text-sm mb-3">{t('byStyle.valueStocksP2') as string}</p>
-              <ul className="space-y-1 text-sm text-blue-700 mb-3">
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueCharacteristics.valuation') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueCharacteristics.dividends') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueCharacteristics.growth') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueCharacteristics.recognition') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueCharacteristics.opportunity') }} />
-              </ul>
-              <h4 className="font-medium text-blue-800 mb-2">{t('byStyle.valueStockExamples') as string}</h4>
-              <ul className="space-y-1 text-xs text-blue-600">
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueStockExamplesP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueStockExamplesP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueStockExamplesP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('byStyle.valueStockExamplesP4') }} />
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Sector Classification */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('bySector.title') as string}</h2>
-          <div className="space-y-4 mb-6">
-            <p className="text-gray-700">{t('bySector.sectorDefinitionP1') as string}</p>
-            <p className="text-gray-700">{t('bySector.sectorDefinitionP2') as string}</p>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('bySector.majorSectors') as string}</h3>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Banking */}
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <Building2 className="w-4 h-4 text-green-600" />
-                </div>
-                <h4 className="font-medium text-green-800">{t('bySector.banking') as string}</h4>
-              </div>
-              <p className="text-green-700 text-sm mb-2">{t('bySector.bankingP1') as string}</p>
-              <p className="text-green-700 text-sm mb-2">{t('bySector.bankingP2') as string}</p>
-              <p className="text-green-600 text-xs">{t('bySector.bankingP3') as string}</p>
-            </div>
-
-            {/* Technology */}
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <Lightbulb className="w-4 h-4 text-blue-600" />
-                </div>
-                <h4 className="font-medium text-blue-800">{t('bySector.technology') as string}</h4>
-              </div>
-              <p className="text-blue-700 text-sm mb-2">{t('bySector.technologyP1') as string}</p>
-              <p className="text-blue-700 text-sm mb-2">{t('bySector.technologyP2') as string}</p>
-              <p className="text-blue-600 text-xs">{t('bySector.technologyP3') as string}</p>
-            </div>
-
-            {/* Consumer */}
-            <div className="bg-purple-50 rounded-xl p-4 border border-purple-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <BookOpen className="w-4 h-4 text-purple-600" />
-                </div>
-                <h4 className="font-medium text-purple-800">{t('bySector.consumer') as string}</h4>
-              </div>
-              <p className="text-purple-700 text-sm mb-2">{t('bySector.consumerP1') as string}</p>
-              <p className="text-purple-700 text-sm mb-2">{t('bySector.consumerP2') as string}</p>
-              <p className="text-purple-600 text-xs">{t('bySector.consumerP3') as string}</p>
-            </div>
-
-            {/* Energy */}
-            <div className="bg-orange-50 rounded-xl p-4 border border-orange-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-orange-100 p-2 rounded-full">
-                  <TrendingUp className="w-4 h-4 text-orange-600" />
-                </div>
-                <h4 className="font-medium text-orange-800">{t('bySector.energy') as string}</h4>
-              </div>
-              <p className="text-orange-700 text-sm mb-2">{t('bySector.energyP1') as string}</p>
-              <p className="text-orange-700 text-sm mb-2">{t('bySector.energyP2') as string}</p>
-              <p className="text-orange-600 text-xs">{t('bySector.energyP3') as string}</p>
-            </div>
-
-            {/* Healthcare */}
-            <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-red-100 p-2 rounded-full">
-                  <Shield className="w-4 h-4 text-red-600" />
-                </div>
-                <h4 className="font-medium text-red-800">{t('bySector.healthcare') as string}</h4>
-              </div>
-              <p className="text-red-700 text-sm mb-2">{t('bySector.healthcareP1') as string}</p>
-              <p className="text-red-700 text-sm mb-2">{t('bySector.healthcareP2') as string}</p>
-              <p className="text-red-600 text-xs">{t('bySector.healthcareP3') as string}</p>
-            </div>
-
-            {/* Automobile */}
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-yellow-100 p-2 rounded-full">
-                  <TrendingUp className="w-4 h-4 text-yellow-600" />
-                </div>
-                <h4 className="font-medium text-yellow-800">{t('bySector.automobile') as string}</h4>
-              </div>
-              <p className="text-yellow-700 text-sm mb-2">{t('bySector.automobileP1') as string}</p>
-              <p className="text-yellow-700 text-sm mb-2">{t('bySector.automobileP2') as string}</p>
-              <p className="text-yellow-600 text-xs">{t('bySector.automobileP3') as string}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Investment Strategy */}
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-2xl p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('investmentStrategy') as string}</h2>
-          <p className="text-gray-700 mb-6">{t('investmentStrategyP1') as string}</p>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Conservative Strategy */}
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <Shield className="w-5 h-5 text-green-600" />
-                </div>
-                <h3 className="font-semibold text-green-800">{t('conservativeStrategy') as string}</h3>
-              </div>
-              <p className="text-green-700 text-sm mb-3">{t('conservativeStrategyP1') as string}</p>
-              <ul className="space-y-1 text-sm text-green-700">
-                <li dangerouslySetInnerHTML={{ __html: t('conservativeStrategyP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('conservativeStrategyP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('conservativeStrategyP4') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('conservativeStrategyP5') }} />
-              </ul>
-            </div>
-
-            {/* Moderate Strategy */}
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-yellow-100 p-2 rounded-full">
-                  <Target className="w-5 h-5 text-yellow-600" />
-                </div>
-                <h3 className="font-semibold text-yellow-800">{t('moderateStrategy') as string}</h3>
-              </div>
-              <p className="text-yellow-700 text-sm mb-3">{t('moderateStrategyP1') as string}</p>
-              <ul className="space-y-1 text-sm text-yellow-700">
-                <li dangerouslySetInnerHTML={{ __html: t('moderateStrategyP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('moderateStrategyP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('moderateStrategyP4') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('moderateStrategyP5') }} />
-              </ul>
-            </div>
-
-            {/* Aggressive Strategy */}
-            <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-red-100 p-2 rounded-full">
-                  <TrendingUp className="w-5 h-5 text-red-600" />
-                </div>
-                <h3 className="font-semibold text-red-800">{t('aggressiveStrategy') as string}</h3>
-              </div>
-              <p className="text-red-700 text-sm mb-3">{t('aggressiveStrategyP1') as string}</p>
-              <ul className="space-y-1 text-sm text-red-700">
-                <li dangerouslySetInnerHTML={{ __html: t('aggressiveStrategyP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('aggressiveStrategyP3') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('aggressiveStrategyP4') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('aggressiveStrategyP5') }} />
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Portfolio Allocation */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('portfolioAllocation') as string}</h2>
-          <p className="text-gray-700 mb-6">{t('portfolioAllocationP1') as string}</p>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <h3 className="font-semibold text-blue-800 mb-3">{t('allocationByMarketCap') as string}</h3>
-              <ul className="space-y-2 text-sm text-blue-700">
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByMarketCapP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByMarketCapP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByMarketCapP3') }} />
-              </ul>
-            </div>
-            
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <h3 className="font-semibold text-green-800 mb-3">{t('allocationByStyle') as string}</h3>
-              <ul className="space-y-2 text-sm text-green-700">
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByStyleP1') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByStyleP2') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('allocationByStyleP3') }} />
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-purple-50 rounded-xl p-4 border border-purple-200 mt-6">
-            <h3 className="font-semibold text-purple-800 mb-3">{t('sectorDiversification') as string}</h3>
-            <ul className="space-y-2 text-sm text-purple-700">
-              <li dangerouslySetInnerHTML={{ __html: t('sectorDiversificationP1') }} />
-              <li dangerouslySetInnerHTML={{ __html: t('sectorDiversificationP2') }} />
-              <li dangerouslySetInnerHTML={{ __html: t('sectorDiversificationP3') }} />
-              <li dangerouslySetInnerHTML={{ __html: t('sectorDiversificationP4') }} />
-            </ul>
-          </div>
-        </div>
-
-        {/* Key Takeaways */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTakeaways.title') as string}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-              <div key={num} className="flex items-start gap-3">
-                <div className="bg-purple-100 p-1 rounded-full mt-1">
-                  <CheckCircle className="w-4 h-4 text-purple-600" />
-                </div>
-                <li className="text-gray-700 list-none" dangerouslySetInnerHTML={{ __html: t(`keyTakeaways.item${num}`) }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Key Terms */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('keyTerms.title') as string}</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
-              <div key={num} className="bg-gray-50 rounded-lg p-3">
-                <li className="text-gray-700 list-none text-sm" dangerouslySetInnerHTML={{ __html: t(`keyTerms.term${num}`) }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Next Steps */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 rounded-2xl p-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="bg-blue-100 p-2 rounded-full">
-              <ArrowRight className="w-5 h-5 text-blue-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-blue-800">{t('nextSteps') as string}</h3>
-          </div>
-          <p className="text-blue-700 mb-2">{t('nextStepsP1') as string}</p>
-          <p className="text-blue-700">{t('nextStepsP2') as string}</p>
-        </div>
-      </div>
+      <MultiPartLesson
+        parts={lessonParts}
+        onComplete={handleLessonComplete}
+        onPartComplete={handlePartComplete}
+        onPartCompleteDirect={handlePartComplete}
+      />
     </LessonLayout>
   );
 }
