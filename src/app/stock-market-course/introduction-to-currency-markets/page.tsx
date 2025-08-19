@@ -4,29 +4,13 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
 import LessonLayout from '../LessonLayout';
 import { 
-  Building, 
   Globe, 
-  TrendingUp, 
-  Shield, 
-  CheckCircle, 
-  DollarSign, 
-  TrendingDown, 
   ArrowRight, 
   ArrowLeft,
   BarChart3, 
   BookOpen, 
   Target, 
-  Zap, 
-  Users, 
-  AlertTriangle, 
-  Lightbulb, 
-  GraduationCap, 
-  UserCheck, 
-  Clock, 
-  MapPin, 
-  Handshake, 
-  Rocket, 
-  ShieldCheck 
+  AlertTriangle 
 } from 'lucide-react';
 
 export default function IntroductionToCurrencyMarketsPage() {
@@ -35,11 +19,7 @@ export default function IntroductionToCurrencyMarketsPage() {
   // Check if translations are loaded
   const isLoading = Object.keys(translations).length === 0;
 
-  // Helper function to safely get array values
-  const getArray = (key: string): string[] => {
-    const value = t(key);
-    return Array.isArray(value) ? value : [];
-  };
+
 
   if (isLoading) {
     return (

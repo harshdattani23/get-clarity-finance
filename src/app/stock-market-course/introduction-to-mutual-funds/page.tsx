@@ -3,29 +3,12 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
 import { 
-  Building, 
-  Globe, 
-  TrendingUp, 
-  Shield, 
-  CheckCircle, 
-  DollarSign, 
-  TrendingDown, 
   ArrowRight, 
   ArrowLeft,
   BarChart3, 
   BookOpen, 
   Target, 
-  Zap, 
-  Users, 
   AlertTriangle, 
-  Lightbulb, 
-  GraduationCap, 
-  UserCheck, 
-  Clock, 
-  MapPin, 
-  Handshake, 
-  Rocket, 
-  ShieldCheck,
   PieChart
 } from 'lucide-react';
 

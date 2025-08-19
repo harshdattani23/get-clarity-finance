@@ -20,11 +20,7 @@ export default function DifferentTypesOfStocksPage() {
   // Check if translations are loaded
   const isLoading = Object.keys(translations).length === 0;
 
-  // Helper function to safely get array values
-  const getArray = (key: string): string[] => {
-    const value = t(key);
-    return Array.isArray(value) ? value : [];
-  };
+
 
   if (isLoading) {
     return (

@@ -278,14 +278,14 @@ export default function InvestmentQuiz() {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold mb-4">
                 <CheckCircle className="w-8 h-8 inline mr-2 text-green-500" />
-                {t('resultsTitle')}
+                {t('resultsTitle') as string}
               </h1>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-700">
                 <h2 className="text-2xl font-bold mb-6 text-center">
-                  {t('investmentKnowledge')}
+                  {t('investmentKnowledge') as string}
                 </h2>
                 <div className="text-center mb-6">
                   <div className="text-4xl font-bold text-blue-400 mb-2">
@@ -302,14 +302,14 @@ export default function InvestmentQuiz() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <p className="text-gray-300 mb-4">{getRecommendations(investmentScore, investmentTotal)}</p>
+                  <p className="text-gray-300 mb-4">{getRecommendations(investmentScore, investmentTotal) as string}</p>
                 </div>
               </div>
 
               <div className="bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-700">
                 <h2 className="text-2xl font-bold mb-6 text-center">
                   <Shield className="w-6 h-6 inline mr-2 text-yellow-400" />
-                  {t('fraudProtection')}
+                  {t('fraudProtection') as string}
                 </h2>
                 <div className="text-center mb-6">
                   <div className="text-4xl font-bold text-yellow-400 mb-2">
@@ -327,11 +327,11 @@ export default function InvestmentQuiz() {
                 </div>
                 <div className="text-center">
                   {fraudScore === fraudTotal ? (
-                    <p className="text-green-400 font-semibold">{t('fraudAwareness.excellent')}</p>
+                    <p className="text-green-400 font-semibold">{t('fraudAwareness.excellent') as string}</p>
                   ) : fraudScore >= (fraudTotal * 0.66) ? (
-                    <p className="text-yellow-400">{t('fraudAwareness.good')}</p>
+                    <p className="text-yellow-400">{t('fraudAwareness.good') as string}</p>
                   ) : (
-                    <p className="text-red-400">{t('fraudAwareness.poor')}</p>
+                    <p className="text-red-400">{t('fraudAwareness.poor') as string}</p>
                   )}
                 </div>
               </div>
@@ -347,13 +347,13 @@ export default function InvestmentQuiz() {
                 }}
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
-                {t('takeQuizAgain')}
+                {t('takeQuizAgain') as string}
               </button>
               <Link
                 href="/fraud-protection"
                 className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors inline-block"
               >
-                {t('fraudProtectionGuide')}
+                {t('fraudProtectionGuide') as string}
               </Link>
             </div>
           </motion.div>

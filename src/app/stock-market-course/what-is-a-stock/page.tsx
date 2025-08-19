@@ -4,27 +4,16 @@ import { useTranslation } from "@/hooks/useTranslation";
 import LessonLayout from '../LessonLayout';
 import { 
   Building, 
-  Store, 
   Users, 
   TrendingUp, 
   Shield, 
   Target, 
-  Zap, 
   CheckCircle, 
   ArrowRight, 
-  BarChart3, 
   DollarSign, 
   BookOpen, 
-  UserCheck, 
   AlertTriangle, 
-  MapPin, 
-  Calendar, 
-  ChartBar, 
-  Handshake, 
-  Lightbulb, 
-  Rocket, 
-  ShieldCheck, 
-  Clock 
+  Lightbulb 
 } from 'lucide-react';
 
 export default function WhatIsAStockPage() {
