@@ -2,10 +2,61 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, Shield, AlertTriangle, CheckCircle, Globe, BarChart3, Target, DollarSign, TrendingDown } from 'lucide-react';
+import LessonLayout from '../LessonLayout';
+import { 
+  Building, 
+  Globe, 
+  TrendingUp, 
+  Shield, 
+  CheckCircle, 
+  DollarSign, 
+  TrendingDown, 
+  ArrowRight, 
+  ArrowLeft,
+  BarChart3, 
+  BookOpen, 
+  Target, 
+  Zap, 
+  Users, 
+  AlertTriangle, 
+  Lightbulb, 
+  GraduationCap, 
+  UserCheck, 
+  Clock, 
+  MapPin, 
+  Handshake, 
+  Rocket, 
+  ShieldCheck 
+} from 'lucide-react';
 
 export default function IntroductionToCurrencyMarketsPage() {
-  const { t } = useTranslation('stock-market-course');
+  const { t, translations } = useTranslation('stock-market-course.introduction-to-currency-markets');
+
+  // Check if translations are loaded
+  const isLoading = Object.keys(translations).length === 0;
+
+  // Helper function to safely get array values
+  const getArray = (key: string): string[] => {
+    const value = t(key);
+    return Array.isArray(value) ? value : [];
+  };
+
+  if (isLoading) {
+    return (
+      <LessonLayout
+        title="Loading..."
+        description="Loading lesson content..."
+        lessonSlug="introduction-to-currency-markets"
+      >
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading lesson content...</p>
+          </div>
+        </div>
+      </LessonLayout>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -17,16 +68,16 @@ export default function IntroductionToCurrencyMarketsPage() {
             <span>→</span>
             <Link href="/stock-market-course#currency-trading" className="hover:text-green-600">Currency Trading and Forex</Link>
             <span>→</span>
-            <span className="text-gray-900">{t('introduction-to-currency-markets.title')}</span>
+            <span className="text-gray-900">{t('title')}</span>
           </nav>
 
           {/* Header */}
           <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {t('introduction-to-currency-markets.title')}
+              {t('title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('introduction-to-currency-markets.description')}
+              {t('description')}
             </p>
           </header>
 
@@ -44,25 +95,25 @@ export default function IntroductionToCurrencyMarketsPage() {
           {/* Main Content */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('introduction-to-currency-markets.whatIsCurrencyMarket')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('whatIsCurrencyMarket')}</h2>
               
               <p className="text-gray-700 mb-6">
-                {t('introduction-to-currency-markets.whatIsCurrencyMarketP1')}
+                {t('whatIsCurrencyMarketP1')}
               </p>
 
               <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
                 <div className="flex items-start">
                   <BookOpen className="text-blue-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-blue-900">{t('introduction-to-currency-markets.keyTakeaway')}</h4>
+                    <h4 className="font-semibold text-blue-900">{t('keyTakeaway')}</h4>
                     <p className="text-blue-800">
-                      {t('introduction-to-currency-markets.keyTakeawayP')}
+                      {t('keyTakeawayP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-currency-markets.howCurrencyMarketsWork')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('howCurrencyMarketsWork')}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-3 gap-6">
@@ -70,9 +121,9 @@ export default function IntroductionToCurrencyMarketsPage() {
                     <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <Globe className="w-8 h-8 text-green-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">1. {t('introduction-to-currency-markets.globalNetwork')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">1. {t('globalNetwork')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-currency-markets.globalNetworkP')}
+                      {t('globalNetworkP')}
                     </p>
                   </div>
                   
@@ -80,9 +131,9 @@ export default function IntroductionToCurrencyMarketsPage() {
                     <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <BarChart3 className="w-8 h-8 text-blue-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">2. {t('introduction-to-currency-markets.priceDiscovery')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">2. {t('priceDiscovery')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-currency-markets.priceDiscoveryP')}
+                      {t('priceDiscoveryP')}
                     </p>
                   </div>
                   
@@ -90,27 +141,27 @@ export default function IntroductionToCurrencyMarketsPage() {
                     <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <Target className="w-8 h-8 text-purple-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">3. {t('introduction-to-currency-markets.continuousTrading')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">3. {t('continuousTrading')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-currency-markets.continuousTradingP')}
+                      {t('continuousTradingP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-currency-markets.majorCurrencyPairs')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('majorCurrencyPairs')}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-start space-x-4">
                     <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">💱</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-currency-markets.eurUsd')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('eurUsd')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-currency-markets.eurUsdP')}
+                        {t('eurUsdP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-currency-markets.eurUsdNickname')}
+                        {t('eurUsdNickname')}
                       </div>
                     </div>
                   </div>
@@ -120,12 +171,12 @@ export default function IntroductionToCurrencyMarketsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">💱</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-currency-markets.usdJpy')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('usdJpy')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-currency-markets.usdJpyP')}
+                        {t('usdJpyP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-currency-markets.usdJpyNickname')}
+                        {t('usdJpyNickname')}
                       </div>
                     </div>
                   </div>
@@ -135,12 +186,12 @@ export default function IntroductionToCurrencyMarketsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-purple-100 text-purple-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">💱</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-currency-markets.gbpUsd')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('gbpUsd')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-currency-markets.gbpUsdP')}
+                        {t('gbpUsdP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-currency-markets.gbpUsdNickname')}
+                        {t('gbpUsdNickname')}
                       </div>
                     </div>
                   </div>
@@ -150,135 +201,135 @@ export default function IntroductionToCurrencyMarketsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-orange-100 text-orange-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">💱</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-currency-markets.usdChf')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('usdChf')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-currency-markets.usdChfP')}
+                        {t('usdChfP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-currency-markets.usdChfNickname')}
+                        {t('usdChfNickname')}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-currency-markets.factorsAffectingCurrencyPrices')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('factorsAffectingCurrencyPrices')}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-900 mb-2">🏦 {t('introduction-to-currency-markets.centralBankPolicies')}</h4>
+                  <h4 className="font-semibold text-green-900 mb-2">🏦 {t('centralBankPolicies')}</h4>
                   <p className="text-green-800 text-sm">
-                    {t('introduction-to-currency-markets.centralBankPoliciesP')}
+                    {t('centralBankPoliciesP')}
                   </p>
                 </div>
                 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">📊 {t('introduction-to-currency-markets.economicIndicators')}</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">📊 {t('economicIndicators')}</h4>
                   <p className="text-blue-800 text-sm">
-                    {t('introduction-to-currency-markets.economicIndicatorsP')}
+                    {t('economicIndicatorsP')}
                   </p>
                 </div>
                 
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-900 mb-2">🌍 {t('introduction-to-currency-markets.politicalEvents')}</h4>
+                  <h4 className="font-semibold text-purple-900 mb-2">🌍 {t('politicalEvents')}</h4>
                   <p className="text-purple-800 text-sm">
-                    {t('introduction-to-currency-markets.politicalEventsP')}
+                    {t('politicalEventsP')}
                   </p>
                 </div>
                 
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-orange-900 mb-2">💼 {t('introduction-to-currency-markets.marketSentiment')}</h4>
+                  <h4 className="font-semibold text-orange-900 mb-2">💼 {t('marketSentiment')}</h4>
                   <p className="text-orange-800 text-sm">
-                    {t('introduction-to-currency-markets.marketSentimentP')}
+                    {t('marketSentimentP')}
                   </p>
                 </div>
                 
                 <div className="bg-indigo-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-indigo-900 mb-2">🛢️ {t('introduction-to-currency-markets.commodityPrices')}</h4>
+                  <h4 className="font-semibold text-indigo-900 mb-2">🛢️ {t('commodityPrices')}</h4>
                   <p className="text-indigo-800 text-sm">
-                    {t('introduction-to-currency-markets.commodityPricesP')}
+                    {t('commodityPricesP')}
                   </p>
                 </div>
                 
                 <div className="bg-pink-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-pink-900 mb-2">📈 {t('introduction-to-currency-markets.technicalFactors')}</h4>
+                  <h4 className="font-semibold text-pink-900 mb-2">📈 {t('technicalFactors')}</h4>
                   <p className="text-pink-800 text-sm">
-                    {t('introduction-to-currency-markets.technicalFactorsP')}
+                    {t('technicalFactorsP')}
                   </p>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-currency-markets.currencyMarketParticipants')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('currencyMarketParticipants')}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">🏦 {t('introduction-to-currency-markets.centralBanks')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">🏦 {t('centralBanks')}</h4>
                   <p className="text-gray-700 text-sm">
-                    {t('introduction-to-currency-markets.centralBanksP')}
+                    {t('centralBanksP')}
                   </p>
                 </div>
                 
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">🏛️ {t('introduction-to-currency-markets.commercialBanks')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">🏛️ {t('commercialBanks')}</h4>
                   <p className="text-gray-700 text-sm">
-                    {t('introduction-to-currency-markets.commercialBanksP')}
+                    {t('commercialBanksP')}
                   </p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">💼 {t('introduction-to-currency-markets.investmentFunds')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">💼 {t('investmentFunds')}</h4>
                   <p className="text-gray-700 text-sm">
-                    {t('introduction-to-currency-markets.investmentFundsP')}
+                    {t('investmentFundsP')}
                   </p>
                 </div>
                 
                 <div className="border-l-4 border-orange-500 pl-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">🏢 {t('introduction-to-currency-markets.corporations')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">🏢 {t('corporations')}</h4>
                   <p className="text-gray-700 text-sm">
-                    {t('introduction-to-currency-markets.corporationsP')}
+                    {t('corporationsP')}
                   </p>
                 </div>
                 
                 <div className="border-l-4 border-red-500 pl-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">👤 {t('introduction-to-currency-markets.retailTraders')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">👤 {t('retailTraders')}</h4>
                   <p className="text-gray-700 text-sm">
-                    {t('introduction-to-currency-markets.retailTradersP')}
+                    {t('retailTradersP')}
                   </p>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-currency-markets.currencyMarketCharacteristics')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('currencyMarketCharacteristics')}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">⏰ {t('introduction-to-currency-markets.trading24_5')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.trading24_5P')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">⏰ {t('trading24_5')}</h4>
+                    <p className="text-gray-700 text-sm">{t('trading24_5P')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">💧 {t('introduction-to-currency-markets.highLiquidity')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.highLiquidityP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">💧 {t('highLiquidity')}</h4>
+                    <p className="text-gray-700 text-sm">{t('highLiquidityP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">📊 {t('introduction-to-currency-markets.leverageAvailable')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.leverageAvailableP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">📊 {t('leverageAvailable')}</h4>
+                    <p className="text-gray-700 text-sm">{t('leverageAvailableP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">🌍 {t('introduction-to-currency-markets.globalMarket')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.globalMarketP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">🌍 {t('globalMarket')}</h4>
+                    <p className="text-gray-700 text-sm">{t('globalMarketP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">📈 {t('introduction-to-currency-markets.lowTransactionCosts')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.lowTransactionCostsP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">📈 {t('lowTransactionCosts')}</h4>
+                    <p className="text-gray-700 text-sm">{t('lowTransactionCostsP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">🎯 {t('introduction-to-currency-markets.twoWayTrading')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-currency-markets.twoWayTradingP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">🎯 {t('twoWayTrading')}</h4>
+                    <p className="text-gray-700 text-sm">{t('twoWayTradingP')}</p>
                   </div>
                 </div>
               </div>
@@ -287,9 +338,9 @@ export default function IntroductionToCurrencyMarketsPage() {
                 <div className="flex items-start">
                   <AlertTriangle className="text-yellow-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-yellow-900">{t('introduction-to-currency-markets.riskWarning')}</h4>
+                    <h4 className="font-semibold text-yellow-900">{t('riskWarning')}</h4>
                     <p className="text-yellow-800">
-                      {t('introduction-to-currency-markets.riskWarningP')}
+                      {t('riskWarningP')}
                     </p>
                   </div>
                 </div>

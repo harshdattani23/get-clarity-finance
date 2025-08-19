@@ -6,7 +6,7 @@ import AnimatedDiv from "@/components/animations/AnimatedDiv";
 
 
 const PsychologicalBiasesPage = () => {
-    const { t } = useTranslation('stock-market-course/the-investors-mind-managing-psychological-biases');
+    const { t } = useTranslation('stock-market-course.the-investors-mind-managing-psychological-biases');
 
   return (
     <LessonLayout

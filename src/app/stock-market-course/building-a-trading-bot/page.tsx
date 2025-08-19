@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function BuildingATradingBotPage() {
-  const { t } = useTranslation('stock-market-course/building-a-trading-bot');
+  const { t } = useTranslation('stock-market-course.building-a-trading-bot');
 
   return (
     <LessonLayout

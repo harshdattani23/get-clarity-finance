@@ -15,13 +15,29 @@ export const useTranslation = (namespace?: string) => {
       if (!namespace) return;
 
       try {
-        const a = await import(`@/locales/${language}/${namespace}.json`);
-        setTranslations(a.default);
+        // First try to load from the nested stock-market-course directory
+        if (namespace.includes('.')) {
+          const [course, lesson] = namespace.split('.');
+          const a = await import(`@/locales/${language}/${course}/${lesson}.json`);
+          setTranslations(a.default);
+        } else {
+          // Try to load from the root locales directory
+          const a = await import(`@/locales/${language}/${namespace}.json`);
+          setTranslations(a.default);
+        }
       } catch {
         console.warn(`Could not load translations for namespace "${namespace}" and language "${language}". Falling back to English.`);
         try {
-          const a = await import(`@/locales/en/${namespace}.json`);
-          setTranslations(a.default);
+          // First try to load from the nested stock-market-course directory
+          if (namespace.includes('.')) {
+            const [course, lesson] = namespace.split('.');
+            const a = await import(`@/locales/en/${course}/${lesson}.json`);
+            setTranslations(a.default);
+          } else {
+            // Try to load from the root locales directory
+            const a = await import(`@/locales/en/${namespace}.json`);
+            setTranslations(a.default);
+          }
         } catch {
           console.error(`Failed to load fallback English translations for namespace "${namespace}".`);
         }
@@ -31,7 +47,7 @@ export const useTranslation = (namespace?: string) => {
     fetchTranslations();
   }, [language, namespace]);
 
-  const t = (key: string): string => {
+  const t = (key: string): TranslationValue => {
     if (!namespace) {
       console.warn("No namespace provided to useTranslation hook, but t() function was called.");
       return key;
@@ -41,19 +57,19 @@ export const useTranslation = (namespace?: string) => {
     let result: TranslationValue | undefined = translations;
 
     for (const k of keys) {
-      if (typeof result !== 'object' || result === null || Array.isArray(result)) {
+      if (typeof result !== 'object' || result === null) {
         return key; // Return key if path is invalid
       }
       result = result[k];
     }
 
-    if (typeof result === 'string') {
+    if (result !== undefined) {
       return result;
     }
 
-    // If the result is an object or something else, return the key as a fallback.
+    // If the result is undefined, return the key as a fallback.
     return key;
   };
 
-  return { t };
+  return { t, translations };
 };

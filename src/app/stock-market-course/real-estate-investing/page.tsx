@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function RealEstateInvestingPage() {
-  const { t } = useTranslation('stock-market-course/real-estate-investing');
+  const { t } = useTranslation('stock-market-course.real-estate-investing');
 
   return (
     <LessonLayout

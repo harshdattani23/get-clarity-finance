@@ -14,7 +14,17 @@ interface LessonLayoutProps {
 
 export default function LessonLayout({ children, title, description, lessonSlug }: LessonLayoutProps) {
   const { prevLesson, nextLesson } = getStockMarketLessonNavigation(lessonSlug);
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation('stock-market-course.course-modules');
+  
+  // Helper function to get lesson title from translation
+  const getLessonTitle = (lessonSlug: string) => {
+    // For now, return a human-readable version of the slug
+    // This is a temporary solution until we implement proper lesson title translation
+    return lessonSlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen">
@@ -45,14 +55,14 @@ export default function LessonLayout({ children, title, description, lessonSlug 
             {prevLesson ? (
               <Link href={prevLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
                 <ChevronLeft className="w-5 h-5" />
-                {t('navigation.previous')}: {t(prevLesson.slug + '.title')}
+                {t('navigation.previous')}: {getLessonTitle(prevLesson.slug)}
               </Link>
             ) : (
               <div /> // Empty div to maintain spacing
             )}
             {nextLesson ? (
               <Link href={nextLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
-                {t('navigation.next')}: {t(nextLesson.slug + '.title')} <ChevronRight className="w-5 h-5" />
+                {t('navigation.next')}: {getLessonTitle(nextLesson.slug)} <ChevronRight className="w-5 h-5" />
               </Link>
             ) : (
               <div /> // Empty div to maintain spacing

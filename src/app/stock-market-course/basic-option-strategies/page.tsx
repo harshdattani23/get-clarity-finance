@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function BasicOptionStrategiesPage() {
-  const { t } = useTranslation('stock-market-course/basic-option-strategies');
+  const { t } = useTranslation('stock-market-course.basic-option-strategies');
 
   return (
     <LessonLayout

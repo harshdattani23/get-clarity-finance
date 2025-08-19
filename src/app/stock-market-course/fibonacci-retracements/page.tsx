@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function FibonacciRetracementsPage() {
-  const { t } = useTranslation('stock-market-course/fibonacci-retracements');
+  const { t } = useTranslation('stock-market-course.fibonacci-retracements');
 
   return (
     <LessonLayout

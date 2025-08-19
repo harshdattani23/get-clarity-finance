@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function FinancialPlanningAndWealthManagementPage() {
-  const { t } = useTranslation('stock-market-course/financial-planning-and-wealth-management');
+  const { t } = useTranslation('stock-market-course.financial-planning-and-wealth-management');
 
   return (
     <LessonLayout

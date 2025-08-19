@@ -2,10 +2,34 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, Shield, AlertTriangle, CheckCircle } from 'lucide-react';
+import { 
+  Building, 
+  Globe, 
+  TrendingUp, 
+  Shield, 
+  CheckCircle, 
+  DollarSign, 
+  TrendingDown, 
+  ArrowRight, 
+  ArrowLeft,
+  BarChart3, 
+  BookOpen, 
+  Target, 
+  Zap, 
+  Users, 
+  AlertTriangle, 
+  Lightbulb, 
+  GraduationCap, 
+  UserCheck, 
+  Clock, 
+  MapPin, 
+  Handshake, 
+  Rocket, 
+  ShieldCheck 
+} from 'lucide-react';
 
 export default function UnderstandingIPOsPage() {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation('stock-market-course.understanding-ipos');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -17,16 +41,16 @@ export default function UnderstandingIPOsPage() {
             <span>→</span>
             <Link href="/stock-market-course#ipos-and-new-listings" className="hover:text-green-600">IPOs and New Listings</Link>
             <span>→</span>
-            <span className="text-gray-900">{t('understanding-ipos.title')}</span>
+            <span className="text-gray-900">{t('title')}</span>
           </nav>
 
           {/* Header */}
           <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {t('understanding-ipos.title')}
+              {t('title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('understanding-ipos.description')}
+              {t('description')}
             </p>
           </header>
 
@@ -44,65 +68,65 @@ export default function UnderstandingIPOsPage() {
           {/* Main Content */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('understanding-ipos.whatIsIpo')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('whatIsIpo')}</h2>
               
               <p className="text-gray-700 mb-6">
-                {t('understanding-ipos.whatIsIpoP1')}
+                {t('whatIsIpoP1')}
               </p>
 
               <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
                 <div className="flex items-start">
                   <BookOpen className="text-blue-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-blue-900">{t('understanding-ipos.keyTakeaway')}</h4>
+                    <h4 className="font-semibold text-blue-900">{t('keyTakeaway')}</h4>
                     <p className="text-blue-800">
-                      {t('understanding-ipos.keyTakeawayP')}
+                      {t('keyTakeawayP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('understanding-ipos.whyCompaniesGoPublic')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('whyCompaniesGoPublic')}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-900 mb-2">💰 {t('understanding-ipos.raisingCapital')}</h4>
+                  <h4 className="font-semibold text-green-900 mb-2">💰 {t('raisingCapital')}</h4>
                   <p className="text-green-800 text-sm">
-                    {t('understanding-ipos.raisingCapitalP')}
+                    {t('raisingCapitalP')}
                   </p>
                 </div>
                 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">🏢 {t('understanding-ipos.enhancedCredibility')}</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">🏢 {t('enhancedCredibility')}</h4>
                   <p className="text-blue-800 text-sm">
-                    {t('understanding-ipos.enhancedCredibilityP')}
+                    {t('enhancedCredibilityP')}
                   </p>
                 </div>
                 
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-900 mb-2">📈 {t('understanding-ipos.liquidityForShareholders')}</h4>
+                  <h4 className="font-semibold text-purple-900 mb-2">📈 {t('liquidityForShareholders')}</h4>
                   <p className="text-purple-800 text-sm">
-                    {t('understanding-ipos.liquidityForShareholdersP')}
+                    {t('liquidityForShareholdersP')}
                   </p>
                 </div>
                 
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-orange-900 mb-2">🎯 {t('understanding-ipos.employeeBenefits')}</h4>
+                  <h4 className="font-semibold text-orange-900 mb-2">🎯 {t('employeeBenefits')}</h4>
                   <p className="text-orange-800 text-sm">
-                    {t('understanding-ipos.employeeBenefitsP')}
+                    {t('employeeBenefitsP')}
                   </p>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('understanding-ipos.ipoProcessInIndia')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('ipoProcessInIndia')}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">1</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('understanding-ipos.companyPreparation')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('companyPreparation')}</h4>
                     <p className="text-gray-700">
-                      {t('understanding-ipos.companyPreparationP')}
+                      {t('companyPreparationP')}
                     </p>
                   </div>
                 </div>
@@ -110,9 +134,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">2</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('understanding-ipos.draftRedHerringProspectus')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('draftRedHerringProspectus')}</h4>
                     <p className="text-gray-700">
-                      {t('understanding-ipos.draftRedHerringProspectusP')}
+                      {t('draftRedHerringProspectusP')}
                     </p>
                   </div>
                 </div>
@@ -120,9 +144,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">3</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('understanding-ipos.sebiReview')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('sebiReview')}</h4>
                     <p className="text-gray-700">
-                      {t('understanding-ipos.sebiReviewP')}
+                      {t('sebiReviewP')}
                     </p>
                   </div>
                 </div>
@@ -130,9 +154,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">4</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('understanding-ipos.ipoLaunch')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('ipoLaunch')}</h4>
                     <p className="text-gray-700">
-                      {t('understanding-ipos.ipoLaunchP')}
+                      {t('ipoLaunchP')}
                     </p>
                   </div>
                 </div>
@@ -140,62 +164,62 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start space-x-4">
                   <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">5</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{t('understanding-ipos.listing')}</h4>
+                    <h4 className="font-semibold text-gray-900">{t('listing')}</h4>
                     <p className="text-gray-700">
-                      {t('understanding-ipos.listingP')}
+                      {t('listingP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('understanding-ipos.typesOfIposInIndia')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('typesOfIposInIndia')}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">📊 {t('understanding-ipos.bookBuildingIpo')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">📊 {t('bookBuildingIpo')}</h4>
                   <p className="text-gray-700 text-sm mb-3">
-                    {t('understanding-ipos.bookBuildingIpoP')}
+                    {t('bookBuildingIpoP')}
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    {t('understanding-ipos.mostCommonInIndia')}
+                    {t('mostCommonInIndia')}
                   </div>
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">💰 {t('understanding-ipos.fixedPriceIpo')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">💰 {t('fixedPriceIpo')}</h4>
                   <p className="text-gray-700 text-sm mb-3">
-                    {t('understanding-ipos.fixedPriceIpoP')}
+                    {t('fixedPriceIpoP')}
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    {t('understanding-ipos.simplerProcess')}
+                    {t('simplerProcess')}
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('understanding-ipos.importantIpoTerms')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('importantIpoTerms')}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('understanding-ipos.faceValue')}</h4>
-                    <p className="text-gray-700 text-sm">{t('understanding-ipos.faceValueP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('faceValue')}</h4>
+                    <p className="text-gray-700 text-sm">{t('faceValueP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('understanding-ipos.issuePrice')}</h4>
-                    <p className="text-gray-700 text-sm">{t('understanding-ipos.issuePriceP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('issuePrice')}</h4>
+                    <p className="text-gray-700 text-sm">{t('issuePriceP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('understanding-ipos.lotSize')}</h4>
-                    <p className="text-gray-700 text-sm">{t('understanding-ipos.lotSizeP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('lotSize')}</h4>
+                    <p className="text-gray-700 text-sm">{t('lotSizeP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('understanding-ipos.subscription')}</h4>
-                    <p className="text-gray-700 text-sm">{t('understanding-ipos.subscriptionP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('subscription')}</h4>
+                    <p className="text-gray-700 text-sm">{t('subscriptionP')}</p>
                   </div>
                 </div>
               </div>
@@ -204,9 +228,9 @@ export default function UnderstandingIPOsPage() {
                 <div className="flex items-start">
                   <AlertTriangle className="text-yellow-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-yellow-900">{t('understanding-ipos.importantNote')}</h4>
+                    <h4 className="font-semibold text-yellow-900">{t('importantNote')}</h4>
                     <p className="text-yellow-800">
-                      {t('understanding-ipos.importantNoteP')}
+                      {t('importantNoteP')}
                     </p>
                   </div>
                 </div>

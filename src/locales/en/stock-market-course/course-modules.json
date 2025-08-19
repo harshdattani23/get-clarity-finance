@@ -1,48 +1,178 @@
 {
-    "iposAndNewListings": {
-        "title": "IPOs and New Listings",
-        "description": "Learn how to evaluate and invest in Initial Public Offerings and new market listings.",
-        "lessons": {
-            "understandingIpos": "Understanding IPOs",
-            "howToApplyForIpos": "How to Apply for IPOs",
-            "evaluatingIpoValuations": "Evaluating IPO Valuations",
-            "ipoRisksAndRewards": "IPO Risks and Rewards",
-            "smeIposAndNseEmerge": "SME IPOs and NSE Emerge"
-        }
-    },
-    "mutualFunds": {
-        "title": "Mutual Funds and ETFs",
-        "description": "Master mutual fund investing and understand Exchange Traded Funds.",
-        "lessons": {
-            "introductionToMutualFunds": "Introduction to Mutual Funds",
-            "typesOfMutualFunds": "Types of Mutual Funds",
-            "howToChooseTheRightFund": "How to Choose the Right Fund",
-            "systematicInvestmentPlans": "Systematic Investment Plans (SIPs)",
-            "exchangeTradedFunds": "Exchange Traded Funds (ETFs)",
-            "indexFundsAndPassiveInvesting": "Index Funds and Passive Investing"
-        }
-    },
-    "goldAndCommodities": {
-        "title": "Gold and Commodities Investing",
-        "description": "Learn to invest in gold, silver, and other commodities as part of your portfolio.",
-        "lessons": {
-            "investingInGold": "Investing in Gold",
-            "goldEtfsAndSovereignGoldBonds": "Gold ETFs and Sovereign Gold Bonds",
-            "silverAndPreciousMetals": "Silver and Precious Metals",
-            "agriculturalCommodities": "Agricultural Commodities",
-            "energyCommodities": "Energy Commodities (Oil, Gas)",
-            "commodityTradingStrategies": "Commodity Trading Strategies"
-        }
-    },
-    "currencyTrading": {
-        "title": "Currency Trading and Forex",
-        "description": "Understand currency markets and foreign exchange trading.",
-        "lessons": {
-            "introductionToCurrencyMarkets": "Introduction to Currency Markets",
-            "majorCurrencyPairs": "Major Currency Pairs",
-            "forexTradingStrategies": "Forex Trading Strategies",
-            "currencyDerivatives": "Currency Derivatives",
-            "riskManagementInForex": "Risk Management in Forex"
+    "courseModules": {
+        "iposAndNewListings": {
+            "title": "IPOs and New Listings",
+            "description": "Learn how to evaluate and invest in Initial Public Offerings and new market listings.",
+            "lessons": {
+                "understandingIpos": "Understanding IPOs",
+                "howToApplyForIpos": "How to Apply for IPOs",
+                "evaluatingIpoValuations": "Evaluating IPO Valuations",
+                "ipoRisksAndRewards": "IPO Risks and Rewards",
+                "smeIposAndNseEmerge": "SME IPOs and NSE Emerge"
+            }
+        },
+        "mutualFunds": {
+            "title": "Mutual Funds and ETFs",
+            "description": "Master mutual fund investing and understand Exchange Traded Funds.",
+            "lessons": {
+                "introductionToMutualFunds": "Introduction to Mutual Funds",
+                "typesOfMutualFunds": "Types of Mutual Funds",
+                "howToChooseTheRightFund": "How to Choose the Right Fund",
+                "systematicInvestmentPlans": "Systematic Investment Plans (SIPs)",
+                "exchangeTradedFunds": "Exchange Traded Funds (ETFs)",
+                "indexFundsAndPassiveInvesting": "Index Funds and Passive Investing"
+            }
+        },
+        "goldAndCommodities": {
+            "title": "Gold and Commodities Investing",
+            "description": "Learn to invest in gold, silver, and other commodities as part of your portfolio.",
+            "lessons": {
+                "investingInGold": "Investing in Gold",
+                "goldEtfsAndSovereignGoldBonds": "Gold ETFs and Sovereign Gold Bonds",
+                "silverAndPreciousMetals": "Silver and Precious Metals",
+                "agriculturalCommodities": "Agricultural Commodities",
+                "energyCommodities": "Energy Commodities (Oil, Gas)",
+                "commodityTradingStrategies": "Commodity Trading Strategies"
+            }
+        },
+        "currencyTrading": {
+            "title": "Currency Trading and Forex",
+            "description": "Understand currency markets and foreign exchange trading.",
+            "lessons": {
+                "introductionToCurrencyMarkets": "Introduction to Currency Markets",
+                "majorCurrencyPairs": "Major Currency Pairs",
+                "forexTradingStrategies": "Forex Trading Strategies",
+                "currencyDerivatives": "Currency Derivatives",
+                "riskManagementInForex": "Risk Management in Forex"
+            }
+        },
+        "marketFundamentals": {
+            "title": "Market Fundamentals",
+            "description": "Start with the absolute basics - understanding what stocks are and how the market works.",
+            "lessons": {
+                "whatIsAStock": "What is a Stock?",
+                "differentTypesOfStocks": "Different Types of Stocks",
+                "whatIsAStockMarket": "What is a Stock Market?",
+                "howStocksAreTraded": "How Stocks Are Traded",
+                "readingAStockQuote": "Reading a Stock Quote"
+            }
+        },
+        "marketMechanics": {
+            "title": "Market Mechanics & Regulation",
+            "description": "Learn about market mechanics, indices, and the role of regulators.",
+            "lessons": {
+                "bullVsBearMarkets": "Bull vs Bear Markets",
+                "marketIndices": "Market Indices",
+                "roleOfSebi": "Role of SEBI"
+            }
+        },
+        "gettingStarted": {
+            "title": "Getting Started in Trading",
+            "description": "Take your first steps into the market with practical guidance.",
+            "lessons": {
+                "openingADematAndTradingAccount": "Opening a Demat and Trading Account",
+                "theKycProcess": "The KYC Process",
+                "placingYourFirstTrade": "Placing Your First Trade",
+                "differentPlayersInTheMarket": "Different Players in the Market"
+            }
+        },
+        "fundamentalAnalysis": {
+            "title": "Fundamental Analysis",
+            "description": "Master the art of stock selection through fundamental analysis.",
+            "lessons": {
+                "introductionToFundamentalAnalysis": "Introduction to Fundamental Analysis",
+                "readingTheBalanceSheet": "Reading the Balance Sheet",
+                "readingThePnLStatement": "Reading the P&L Statement",
+                "readingTheCashFlowStatement": "Reading the Cash Flow Statement",
+                "keyFinancialRatios": "Key Financial Ratios"
+            }
+        },
+        "technicalAnalysis": {
+            "title": "Technical Analysis",
+            "description": "Learn the science of timing through technical analysis.",
+            "lessons": {
+                "introductionToTechnicalAnalysis": "Introduction to Technical Analysis",
+                "readingCandlestickCharts": "Reading Candlestick Charts",
+                "trendsSupportAndResistance": "Trends, Support and Resistance",
+                "essentialTechnicalIndicators": "Essential Technical Indicators"
+            }
+        },
+        "derivatives": {
+            "title": "Derivatives and Advanced Instruments",
+            "description": "Master derivatives, futures, and options for advanced trading strategies.",
+            "lessons": {
+                "introductionToDerivatives": "Introduction to Derivatives",
+                "understandingFuturesContracts": "Understanding Futures Contracts",
+                "understandingOptionsContracts": "Understanding Options Contracts",
+                "hedgingAndSpeculationStrategies": "Hedging and Speculation Strategies"
+            }
+        },
+        "portfolioManagement": {
+            "title": "Portfolio Management and Risk",
+            "description": "Build and manage a diversified investment portfolio with proper risk management.",
+            "lessons": {
+                "portfolioDiversification": "Portfolio Diversification",
+                "assetAllocationStrategies": "Asset Allocation Strategies",
+                "riskManagement": "Risk Management and Position Sizing",
+                "psychologicalBiases": "Managing Psychological Biases"
+            }
+        },
+        "advancedTechnicalAnalysis": {
+            "title": "Advanced Technical Analysis",
+            "description": "Master advanced chart patterns and technical analysis techniques.",
+            "lessons": {
+                "advancedCandlestickPatterns": "Advanced Candlestick Patterns",
+                "elliottWaveTheory": "Elliott Wave Theory",
+                "fibonacciRetracements": "Fibonacci Retracements",
+                "volumeProfileAnalysis": "Volume Profile Analysis"
+            }
+        },
+        "optionsTrading": {
+            "title": "Options Trading Strategies",
+            "description": "Learn advanced options trading strategies and risk management.",
+            "lessons": {
+                "optionGreeks": "Option Greeks",
+                "basicOptionStrategies": "Basic Option Strategies",
+                "spreadStrategies": "Spread Strategies",
+                "advancedOptionStrategies": "Advanced Option Strategies"
+            }
+        },
+        "alternativeInvestments": {
+            "title": "Alternative Investments",
+            "description": "Explore beyond stocks with bonds, real estate, and other investment vehicles.",
+            "lessons": {
+                "currencyAndCommodityMarkets": "Currency and Commodity Markets",
+                "realEstateInvesting": "Real Estate Investing",
+                "bondsAndFixedIncome": "Bonds and Fixed Income",
+                "alternativeInvestments": "Alternative Investments"
+            }
+        },
+        "algorithmicTrading": {
+            "title": "Algorithmic and Quantitative Trading",
+            "description": "Learn about automated trading systems and quantitative strategies.",
+            "lessons": {
+                "introductionToAlgoTrading": "Introduction to Algorithmic Trading",
+                "buildingATradingBot": "Building a Trading Bot",
+                "backtestingStrategies": "Backtesting Strategies",
+                "machineLearningInFinance": "Machine Learning in Finance"
+            }
+        },
+        "financialPlanning": {
+            "title": "Financial Planning and Wealth Management",
+            "description": "Plan for your financial future with comprehensive wealth management strategies.",
+            "lessons": {
+                "creatingAFinancialPlan": "Creating a Financial Plan",
+                "retirementPlanning": "Retirement Planning",
+                "taxPlanningForInvestors": "Tax Planning for Investors",
+                "estatePlanningAndWills": "Estate Planning and Wills"
+            }
+        },
+        "advancedDerivativesStrategies": {
+            "title": "Advanced Derivatives Strategies",
+            "description": "Learn advanced derivatives strategies and risk management.",
+            "lessons": {
+                "advancedDerivativesStrategies": "Advanced Derivatives Strategies"
+            }
         }
     },
     "categories": {
@@ -59,16 +189,16 @@
         "totalLessons": "Total Lessons",
         "hoursOfContent": "Hours of Content"
     },
-    "navigation": {
-        "backToModule": "Back to {moduleName} Module",
-        "nextLesson": "Next: {lessonName}",
-        "startModule": "Start Module"
-    },
     "search": {
         "placeholder": "Search courses and lessons...",
         "resultsCount": "Showing {count} of {total} modules",
         "searchFor": "for \"{term}\"",
         "noResults": "No courses found",
         "noResultsDescription": "Try adjusting your search terms or category filter."
+    },
+    "navigation": {
+        "backToModules": "Back to Course Modules",
+        "previous": "Previous",
+        "next": "Next"
     }
 }

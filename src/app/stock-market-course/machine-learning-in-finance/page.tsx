@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function MachineLearningInFinancePage() {
-  const { t } = useTranslation('stock-market-course/machine-learning-in-finance');
+  const { t } = useTranslation('stock-market-course.machine-learning-in-finance');
 
   return (
     <LessonLayout

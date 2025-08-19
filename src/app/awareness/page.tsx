@@ -27,10 +27,10 @@ const LevelCard = ({ icon, title, description, href, lessons }: Omit<LevelCardPr
           {icon}
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-blue-900">{t(title)}</h2>
+          <h2 className="text-2xl font-bold text-blue-900">{t(title as string) as string}</h2>
         </div>
       </div>
-      <p className="text-gray-600 mt-4">{t(description)}</p>
+      <p className="text-gray-600 mt-4">{t(description as string) as string}</p>
       <div className="text-right mt-4">
         <span className={`font-semibold ${isLocked ? 'text-gray-400' : 'text-blue-600 hover:underline'}`}>
           {isLocked ? 'Coming Soon' : 'Start Learning →'}
@@ -71,11 +71,11 @@ export default function AwarenessHub() {
       <header className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-            {t('awareness_hub.title')}
+            {t('awareness_hub.title') as string}
           </span>
         </h1>
         <p className="text-xl text-gray-600 mt-2 max-w-3xl mx-auto">
-          {t('awareness_hub.description')}
+          {t('awareness_hub.description') as string}
         </p>
       </header>
       

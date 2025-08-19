@@ -2,10 +2,35 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, Shield, AlertTriangle, CheckCircle, PieChart, BarChart3, Target } from 'lucide-react';
+import { 
+  Building, 
+  Globe, 
+  TrendingUp, 
+  Shield, 
+  CheckCircle, 
+  DollarSign, 
+  TrendingDown, 
+  ArrowRight, 
+  ArrowLeft,
+  BarChart3, 
+  BookOpen, 
+  Target, 
+  Zap, 
+  Users, 
+  AlertTriangle, 
+  Lightbulb, 
+  GraduationCap, 
+  UserCheck, 
+  Clock, 
+  MapPin, 
+  Handshake, 
+  Rocket, 
+  ShieldCheck,
+  PieChart
+} from 'lucide-react';
 
 export default function IntroductionToMutualFundsPage() {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation('stock-market-course.introduction-to-mutual-funds');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -17,16 +42,16 @@ export default function IntroductionToMutualFundsPage() {
             <span>→</span>
             <Link href="/stock-market-course#mutual-funds" className="hover:text-green-600">Mutual Funds and ETFs</Link>
             <span>→</span>
-            <span className="text-gray-900">{t('introduction-to-mutual-funds.title')}</span>
+            <span className="text-gray-900">{t('title')}</span>
           </nav>
 
           {/* Header */}
           <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {t('introduction-to-mutual-funds.title')}
+              {t('title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('introduction-to-mutual-funds.description')}
+              {t('description')}
             </p>
           </header>
 
@@ -44,25 +69,25 @@ export default function IntroductionToMutualFundsPage() {
           {/* Main Content */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('introduction-to-mutual-funds.whatAreMutualFunds')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('whatAreMutualFunds')}</h2>
               
               <p className="text-gray-700 mb-6">
-                {t('introduction-to-mutual-funds.whatAreMutualFundsP1')}
+                {t('whatAreMutualFundsP1')}
               </p>
 
               <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
                 <div className="flex items-start">
                   <BookOpen className="text-blue-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-blue-900">{t('introduction-to-mutual-funds.keyTakeaway')}</h4>
+                    <h4 className="font-semibold text-blue-900">{t('keyTakeaway')}</h4>
                     <p className="text-blue-800">
-                      {t('introduction-to-mutual-funds.keyTakeawayP')}
+                      {t('keyTakeawayP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-mutual-funds.howMutualFundsWork')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('howMutualFundsWork')}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-3 gap-6">
@@ -70,9 +95,9 @@ export default function IntroductionToMutualFundsPage() {
                     <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <PieChart className="w-8 h-8 text-green-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">1. {t('introduction-to-mutual-funds.pooling')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">1. {t('pooling')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-mutual-funds.poolingP')}
+                      {t('poolingP')}
                     </p>
                   </div>
                   
@@ -80,9 +105,9 @@ export default function IntroductionToMutualFundsPage() {
                     <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <BarChart3 className="w-8 h-8 text-blue-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">2. {t('introduction-to-mutual-funds.professionalManagement')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">2. {t('professionalManagement')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-mutual-funds.professionalManagementP')}
+                      {t('professionalManagementP')}
                     </p>
                   </div>
                   
@@ -90,73 +115,73 @@ export default function IntroductionToMutualFundsPage() {
                     <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                       <Target className="w-8 h-8 text-purple-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 mb-2">3. {t('introduction-to-mutual-funds.diversification')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-2">3. {t('diversification')}</h4>
                     <p className="text-gray-700 text-sm">
-                      {t('introduction-to-mutual-funds.diversificationP')}
+                      {t('diversificationP')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-mutual-funds.benefitsOfMutualFunds')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('benefitsOfMutualFunds')}</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-900 mb-2">🎯 {t('introduction-to-mutual-funds.diversificationBenefit')}</h4>
+                  <h4 className="font-semibold text-green-900 mb-2">🎯 {t('diversificationBenefit')}</h4>
                   <p className="text-green-800 text-sm">
-                    {t('introduction-to-mutual-funds.diversificationBenefitP')}
+                    {t('diversificationBenefitP')}
                   </p>
                 </div>
                 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">👨‍💼 {t('introduction-to-mutual-funds.professionalManagementBenefit')}</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">👨‍💼 {t('professionalManagementBenefit')}</h4>
                   <p className="text-blue-800 text-sm">
-                    {t('introduction-to-mutual-funds.professionalManagementBenefitP')}
+                    {t('professionalManagementBenefitP')}
                   </p>
                 </div>
                 
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-900 mb-2">💰 {t('introduction-to-mutual-funds.affordability')}</h4>
+                  <h4 className="font-semibold text-purple-900 mb-2">💰 {t('affordability')}</h4>
                   <p className="text-purple-800 text-sm">
-                    {t('introduction-to-mutual-funds.affordabilityP')}
+                    {t('affordabilityP')}
                   </p>
                 </div>
                 
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-orange-900 mb-2">📊 {t('introduction-to-mutual-funds.liquidity')}</h4>
+                  <h4 className="font-semibold text-orange-900 mb-2">📊 {t('liquidity')}</h4>
                   <p className="text-orange-800 text-sm">
-                    {t('introduction-to-mutual-funds.liquidityP')}
+                    {t('liquidityP')}
                   </p>
                 </div>
                 
                 <div className="bg-indigo-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-indigo-900 mb-2">📈 {t('introduction-to-mutual-funds.systematicInvesting')}</h4>
+                  <h4 className="font-semibold text-indigo-900 mb-2">📈 {t('systematicInvesting')}</h4>
                   <p className="text-indigo-800 text-sm">
-                    {t('introduction-to-mutual-funds.systematicInvestingP')}
+                    {t('systematicInvestingP')}
                   </p>
                 </div>
                 
                 <div className="bg-pink-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-pink-900 mb-2">🏛️ {t('introduction-to-mutual-funds.regulatoryOversight')}</h4>
+                  <h4 className="font-semibold text-pink-900 mb-2">🏛️ {t('regulatoryOversight')}</h4>
                   <p className="text-pink-800 text-sm">
-                    {t('introduction-to-mutual-funds.regulatoryOversightP')}
+                    {t('regulatoryOversightP')}
                   </p>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-mutual-funds.typesByAssetClass')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('typesByAssetClass')}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-start space-x-4">
                     <div className="bg-red-100 text-red-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">📈</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-mutual-funds.equityFunds')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('equityFunds')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-mutual-funds.equityFundsP')}
+                        {t('equityFundsP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-mutual-funds.equityFundsExamples')}
+                        {t('equityFundsExamples')}
                       </div>
                     </div>
                   </div>
@@ -166,12 +191,12 @@ export default function IntroductionToMutualFundsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">💰</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-mutual-funds.debtFunds')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('debtFunds')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-mutual-funds.debtFundsP')}
+                        {t('debtFundsP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-mutual-funds.debtFundsExamples')}
+                        {t('debtFundsExamples')}
                       </div>
                     </div>
                   </div>
@@ -181,12 +206,12 @@ export default function IntroductionToMutualFundsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">⚖️</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-mutual-funds.hybridFunds')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('hybridFunds')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-mutual-funds.hybridFundsP')}
+                        {t('hybridFundsP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-mutual-funds.hybridFundsExamples')}
+                        {t('hybridFundsExamples')}
                       </div>
                     </div>
                   </div>
@@ -196,50 +221,50 @@ export default function IntroductionToMutualFundsPage() {
                   <div className="flex items-start space-x-4">
                     <div className="bg-yellow-100 text-yellow-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-1">🌍</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{t('introduction-to-mutual-funds.internationalFunds')}</h4>
+                      <h4 className="font-semibold text-gray-900">{t('internationalFunds')}</h4>
                       <p className="text-gray-700 text-sm mb-2">
-                        {t('introduction-to-mutual-funds.internationalFundsP')}
+                        {t('internationalFundsP')}
                       </p>
                       <div className="text-xs text-gray-500">
-                        {t('introduction-to-mutual-funds.internationalFundsExamples')}
+                        {t('internationalFundsExamples')}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('introduction-to-mutual-funds.keyTerms')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('keyTerms')}</h3>
               
               <div className="bg-gray-50 rounded-lg p-6 mb-8">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.nav')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.navP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('nav')}</h4>
+                    <p className="text-gray-700 text-sm">{t('navP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.expenseRatio')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.expenseRatioP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('expenseRatio')}</h4>
+                    <p className="text-gray-700 text-sm">{t('expenseRatioP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.entryLoad')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.entryLoadP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('entryLoad')}</h4>
+                    <p className="text-gray-700 text-sm">{t('entryLoadP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.exitLoad')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.exitLoadP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('exitLoad')}</h4>
+                    <p className="text-gray-700 text-sm">{t('exitLoadP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.sip')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.sipP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('sip')}</h4>
+                    <p className="text-gray-700 text-sm">{t('sipP')}</p>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">{t('introduction-to-mutual-funds.lumpSum')}</h4>
-                    <p className="text-gray-700 text-sm">{t('introduction-to-mutual-funds.lumpSumP')}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">{t('lumpSum')}</h4>
+                    <p className="text-gray-700 text-sm">{t('lumpSumP')}</p>
                   </div>
                 </div>
               </div>
@@ -248,9 +273,9 @@ export default function IntroductionToMutualFundsPage() {
                 <div className="flex items-start">
                   <AlertTriangle className="text-yellow-500 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-yellow-900">{t('introduction-to-mutual-funds.importantNote')}</h4>
+                    <h4 className="font-semibold text-yellow-900">{t('importantNote')}</h4>
                     <p className="text-yellow-800">
-                      {t('introduction-to-mutual-funds.importantNoteP')}
+                      {t('importantNoteP')}
                     </p>
                   </div>
                 </div>

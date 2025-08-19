@@ -48,20 +48,20 @@ export default function InvestmentQuiz() {
 
   const expertiseLevels = expertiseLevelsData.map(level => ({
     ...level,
-    name: t(`expertiseLevels.${level.id}.name`),
-    description: t(`expertiseLevels.${level.id}.description`),
+    name: t(`expertiseLevels.${level.id}.name`) as string,
+    description: t(`expertiseLevels.${level.id}.description`) as string,
   }));
 
   const allQuestions = allQuestionsData.map(q => ({
     ...q,
-    question: t(`questions.${q.id}.question`),
+    question: t(`questions.${q.id}.question`) as string,
     options: [
-      t(`questions.${q.id}.options.0`),
-      t(`questions.${q.id}.options.1`),
-      t(`questions.${q.id}.options.2`),
-      t(`questions.${q.id}.options.3`),
+      t(`questions.${q.id}.options.0`) as string,
+      t(`questions.${q.id}.options.1`) as string,
+      t(`questions.${q.id}.options.2`) as string,
+      t(`questions.${q.id}.options.3`) as string,
     ],
-    explanation: t(`questions.${q.id}.explanation`),
+    explanation: t(`questions.${q.id}.explanation`) as string,
   }));
   
   const handleExpertiseSelection = () => {
@@ -131,17 +131,17 @@ export default function InvestmentQuiz() {
             <div className="text-center mb-12">
               <h1 className="text-4xl font-bold mb-4">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                  {t('pageTitle')}
+                  {t('pageTitle') as string}
                 </span>
               </h1>
               <p className="text-xl text-gray-300">
-                {t('pageSubtitle')}
+                {t('pageSubtitle') as string}
               </p>
             </div>
 
             <div className="bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-700">
               <h2 className="text-2xl font-bold text-white mb-6 text-center">
-                {t('expertiseTitle')}
+                {t('expertiseTitle') as string}
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {expertiseLevels.map((level) => (
@@ -184,10 +184,10 @@ export default function InvestmentQuiz() {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold mb-4">
                 <Brain className="w-8 h-8 inline mr-2 text-blue-400" />
-                {t('quizTitle')}
+                {t('quizTitle') as string}
               </h1>
               <div className="flex justify-center items-center gap-4 text-sm text-gray-400">
-                <span>{t('questionLabel')} {currentQuestionIndex + 1} {t('ofLabel')} {allQuestions.length}</span>
+                <span>{t('questionLabel') as string} {currentQuestionIndex + 1} {t('ofLabel') as string} {allQuestions.length}</span>
                 <div className="w-32 bg-gray-700 rounded-full h-2">
                   <div 
                     className="bg-blue-500 h-2 rounded-full transition-all duration-300"
@@ -234,7 +234,7 @@ export default function InvestmentQuiz() {
                     onClick={() => setShowExplanation(true)}
                     className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
                   >
-                    {t('submitAnswer')}
+                    {t('submitAnswer') as string}
                   </button>
                 </div>
               )}
@@ -245,13 +245,13 @@ export default function InvestmentQuiz() {
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 p-4 bg-gray-700/50 rounded-lg"
                 >
-                  <h3 className="font-semibold mb-2">{t('explanation')}</h3>
+                  <h3 className="font-semibold mb-2">{t('explanation') as string}</h3>
                   <p className="text-gray-300">{currentQContent.explanation}</p>
                   <button
                     onClick={nextQuestion}
                     className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                   >
-                    {currentQuestionIndex === allQuestions.length - 1 ? t('seeResults') : t('nextQuestion')}
+                    {currentQuestionIndex === allQuestions.length - 1 ? t('seeResults') as string : t('nextQuestion') as string}
                   </button>
                 </motion.div>
               )}

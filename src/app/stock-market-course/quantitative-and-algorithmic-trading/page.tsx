@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function QuantitativeAndAlgorithmicTradingPage() {
-  const { t } = useTranslation('stock-market-course/quantitative-and-algorithmic-trading');
+  const { t } = useTranslation('stock-market-course.quantitative-and-algorithmic-trading');
 
   return (
     <LessonLayout

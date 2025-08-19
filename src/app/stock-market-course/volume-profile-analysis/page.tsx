@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function VolumeProfileAnalysisPage() {
-  const { t } = useTranslation('stock-market-course/volume-profile-analysis');
+  const { t } = useTranslation('stock-market-course.volume-profile-analysis');
 
   return (
     <LessonLayout

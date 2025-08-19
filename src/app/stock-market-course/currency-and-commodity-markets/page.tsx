@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function CurrencyAndCommodityMarketsPage() {
-  const { t } = useTranslation('stock-market-course/currency-and-commodity-markets');
+  const { t } = useTranslation('stock-market-course.currency-and-commodity-markets');
 
   return (
     <LessonLayout

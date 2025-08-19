@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function BondsAndFixedIncomePage() {
-  const { t } = useTranslation('stock-market-course/bonds-and-fixed-income');
+  const { t } = useTranslation('stock-market-course.bonds-and-fixed-income');
 
   return (
     <LessonLayout

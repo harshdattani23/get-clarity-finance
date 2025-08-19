@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 
 export default function StockMarketCoursePage() {
-  const { t } = useTranslation('stock-market-course');
+  const { t } = useTranslation('stock-market-course.course-modules');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -128,44 +128,44 @@ export default function StockMarketCoursePage() {
     },
     {
       id: 'derivatives',
-      title: 'Derivatives & Advanced Instruments',
-      description: 'Explore advanced instruments and strategies.',
+      title: t('courseModules.derivatives.title'),
+      description: t('courseModules.derivatives.description'),
       category: 'advanced',
       lessons: [
-        { title: 'Introduction to Derivatives', href: "/stock-market-course/introduction-to-derivatives" },
-        { title: 'Understanding Futures Contracts', href: "/stock-market-course/understanding-futures-contracts" },
-        { title: 'Understanding Options Contracts', href: "/stock-market-course/understanding-options-contracts-calls-and-puts" },
-        { title: 'Hedging and Speculation Strategies', href: "/stock-market-course/introduction-to-hedging-and-speculation-strategies" }
+        { title: t('courseModules.derivatives.lessons.introductionToDerivatives'), href: "/stock-market-course/introduction-to-derivatives" },
+        { title: t('courseModules.derivatives.lessons.understandingFuturesContracts'), href: "/stock-market-course/understanding-futures-contracts" },
+        { title: t('courseModules.derivatives.lessons.understandingOptionsContracts'), href: "/stock-market-course/understanding-options-contracts-calls-and-puts" },
+        { title: t('courseModules.derivatives.lessons.hedgingAndSpeculationStrategies'), href: "/stock-market-course/introduction-to-hedging-and-speculation-strategies" }
       ]
     },
     {
       id: 'portfolio-management',
-      title: 'Portfolio Management',
-      description: 'Build and manage a resilient portfolio.',
+      title: t('courseModules.portfolioManagement.title'),
+      description: t('courseModules.portfolioManagement.description'),
       category: 'advanced',
       lessons: [
-        { title: 'Portfolio Diversification', href: "/stock-market-course/the-principle-of-portfolio-diversification" },
-        { title: 'Asset Allocation Strategies', href: "/stock-market-course/asset-allocation-strategies" },
-        { title: 'Risk Management & Position Sizing', href: "/stock-market-course/risk-management-position-sizing-and-stop-loss-orders" },
-        { title: 'Managing Psychological Biases', href: "/stock-market-course/the-investors-mind-managing-psychological-biases" }
+        { title: t('courseModules.portfolioManagement.lessons.portfolioDiversification'), href: "/stock-market-course/the-principle-of-portfolio-diversification" },
+        { title: t('courseModules.portfolioManagement.lessons.assetAllocationStrategies'), href: "/stock-market-course/asset-allocation-strategies" },
+        { title: t('courseModules.portfolioManagement.lessons.riskManagement'), href: "/stock-market-course/risk-management-position-sizing-and-stop-loss-orders" },
+        { title: t('courseModules.portfolioManagement.lessons.psychologicalBiases'), href: "/stock-market-course/the-investors-mind-managing-psychological-biases" }
       ]
     },
     {
       id: 'advanced-technical',
-      title: 'Advanced Technical Analysis',
-      description: 'Master advanced technical analysis techniques.',
+      title: t('courseModules.advancedTechnicalAnalysis.title'),
+      description: t('courseModules.advancedTechnicalAnalysis.description'),
       category: 'advanced',
       lessons: [
-        { title: 'Advanced Candlestick Patterns', href: "/stock-market-course/advanced-candlestick-patterns" },
-        { title: 'Elliott Wave Theory', href: "/stock-market-course/elliott-wave-theory" },
-        { title: 'Fibonacci Retracements', href: "/stock-market-course/fibonacci-retracements" },
-        { title: 'Volume Profile Analysis', href: "/stock-market-course/volume-profile-analysis" }
+        { title: t('courseModules.advancedTechnicalAnalysis.lessons.advancedCandlestickPatterns'), href: "/stock-market-course/advanced-candlestick-patterns" },
+        { title: t('courseModules.advancedTechnicalAnalysis.lessons.elliottWaveTheory'), href: "/stock-market-course/elliott-wave-theory" },
+        { title: t('courseModules.advancedTechnicalAnalysis.lessons.fibonacciRetracements'), href: "/stock-market-course/fibonacci-retracements" },
+        { title: t('courseModules.advancedTechnicalAnalysis.lessons.volumeProfileAnalysis'), href: "/stock-market-course/volume-profile-analysis" }
       ]
     },
     {
       id: 'advanced-derivatives',
-      title: 'Advanced Derivatives Strategies',
-      description: 'Learn advanced derivatives strategies and risk management.',
+      title: t('courseModules.advancedDerivativesStrategies.title'),
+      description: t('courseModules.advancedDerivativesStrategies.description'),
       category: 'advanced',
       lessons: [
         { title: 'Option Greeks', href: "/stock-market-course/option-greeks" },
@@ -214,9 +214,9 @@ export default function StockMarketCoursePage() {
 
   // Filter modules based on search and category
   const filteredModules = allModules.filter(module => {
-    const matchesSearch = module.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         module.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         module.lessons.some(lesson => lesson.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesSearch = (module.title as string).toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (module.description as string).toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         module.lessons.some(lesson => (lesson.title as string).toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || module.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -330,10 +330,10 @@ export default function StockMarketCoursePage() {
                       <span className="text-sm text-gray-500">{module.lessons.length} lessons</span>
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-3">
-                      {module.title}
+                      {module.title as string}
                     </h2>
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      {module.description}
+                      {module.description as string}
                     </p>
                   </div>
                   <Link
@@ -354,7 +354,7 @@ export default function StockMarketCoursePage() {
                     >
                       <div className="flex items-center justify-between">
                         <h3 className="font-semibold text-gray-800">
-                          {lesson.title}
+                          {lesson.title as string}
                         </h3>
                         <span className="text-green-600 text-sm">→</span>
                       </div>

@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function OptionGreeksPage() {
-  const { t } = useTranslation('stock-market-course/option-greeks');
+  const { t } = useTranslation('stock-market-course.option-greeks');
 
   return (
     <LessonLayout

@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function ElliottWaveTheoryPage() {
-  const { t } = useTranslation('stock-market-course/elliott-wave-theory');
+  const { t } = useTranslation('stock-market-course.elliott-wave-theory');
 
   return (
     <LessonLayout

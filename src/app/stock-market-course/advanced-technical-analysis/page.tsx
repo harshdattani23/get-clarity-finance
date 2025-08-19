@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function AdvancedTechnicalAnalysisPage() {
-  const { t } = useTranslation('stock-market-course/advanced-technical-analysis');
+  const { t } = useTranslation('stock-market-course.advanced-technical-analysis');
 
   return (
     <LessonLayout

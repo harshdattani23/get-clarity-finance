@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import LessonLayout from '../LessonLayout';
 
 export default function AdvancedCandlestickPatternsPage() {
-  const { t } = useTranslation('stock-market-course/advanced-candlestick-patterns');
+  const { t } = useTranslation('stock-market-course.advanced-candlestick-patterns');
 
   return (
     <LessonLayout

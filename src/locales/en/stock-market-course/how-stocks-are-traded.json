@@ -1,32 +1,398 @@
 {
     "title": "How Stocks Are Traded",
     "description": "Go behind the scenes to understand the difference between the primary and secondary markets, and the key players involved in every transaction.",
+    "hero": {
+        "title": "The Mechanics of Stock Trading",
+        "subtitle": "From IPO to Daily Trading",
+        "description": "Understanding how stocks are traded is essential for any investor. This lesson will take you through the entire process, from when a company first goes public to how millions of shares change hands every day."
+    },
     "primarySecondary": {
         "title": "Primary vs. Secondary Markets",
-        "p1": "Stock trading happens in two distinct markets:",
+        "p1": "Stock trading happens in two distinct markets, each serving a different purpose in the financial ecosystem:",
         "primary": {
             "title": "The Primary Market",
-            "p": "This is where stocks are born. When a company holds an Initial Public Offering (IPO), it sells its shares directly to investors for the first time. The money goes directly to the company."
+            "p": "This is where stocks are born. When a company holds an Initial Public Offering (IPO), it sells its shares directly to investors for the first time. The money goes directly to the company.",
+            "features": [
+                "Company raises capital directly",
+                "Shares are sold for the first time",
+                "Money goes to the company",
+                "Regulated by SEBI and exchanges",
+                "Limited to IPO participants"
+            ]
         },
         "secondary": {
             "title": "The Secondary Market",
-            "p": "This is what we typically call 'the stock market.' It's where investors trade stocks among themselves without the company's involvement. The price is determined by supply and demand."
+            "p": "This is what we typically call 'the stock market.' It's where investors trade stocks among themselves without the company's involvement. The price is determined by supply and demand.",
+            "features": [
+                "Investors trade with each other",
+                "Company doesn't receive money",
+                "Price determined by market forces",
+                "High liquidity and volume",
+                "Available to all investors"
+            ]
+        }
+    },
+    "tradingProcess": {
+        "title": "The Complete Trading Process",
+        "p1": "Understanding the step-by-step process helps demystify how your buy and sell orders are executed:",
+        "steps": {
+            "step1": {
+                "title": "Place Your Order",
+                "description": "You place a buy or sell order through your broker's platform",
+                "details": [
+                    "Choose stock and quantity",
+                    "Set price (market or limit)",
+                    "Select order type",
+                    "Review and confirm"
+                ]
+            },
+            "step2": {
+                "title": "Order Routing",
+                "description": "Your broker routes the order to the appropriate exchange",
+                "details": [
+                    "Broker validates order",
+                    "Routes to NSE or BSE",
+                    "Checks for best prices",
+                    "Matches with counterparty"
+                ]
+            },
+            "step3": {
+                "title": "Order Matching",
+                "description": "The exchange matches your order with a willing seller/buyer",
+                "details": [
+                    "Price-time priority",
+                    "Best bid/ask matching",
+                    "Partial fills possible",
+                    "Real-time execution"
+                ]
+            },
+            "step4": {
+                "title": "Trade Execution",
+                "description": "Your order is executed and shares are transferred",
+                "details": [
+                    "Trade confirmation",
+                    "Settlement process",
+                    "Demat account update",
+                    "Brokerage charges"
+                ]
+            }
         }
     },
     "keyPlayers": {
-        "title": "The Key Players",
-        "exchanges": {
-            "title": "Stock Exchanges",
-            "p": "These are the organized marketplaces where trading occurs. In India, the two main exchanges are the <strong>National Stock Exchange (NSE)</strong> and the <strong>Bombay Stock Exchange (BSE)</strong>."
+        "title": "The Key Players in Stock Trading",
+        "p1": "Several entities work together to make stock trading possible:",
+        "players": {
+            "exchanges": {
+                "title": "Stock Exchanges",
+                "p": "These are the organized marketplaces where trading occurs. In India, the two main exchanges are the <strong>National Stock Exchange (NSE)</strong> and the <strong>Bombay Stock Exchange (BSE)</strong>.",
+                "responsibilities": [
+                    "Provide trading platform",
+                    "Ensure market integrity",
+                    "Set trading rules",
+                    "Maintain order books",
+                    "Handle settlements"
+                ]
+            },
+            "brokers": {
+                "title": "Stock Brokers",
+                "p": "Retail investors can't trade directly on an exchange. They need a licensed intermediary called a stockbroker (like Zerodha, Upstox, etc.) to execute trades on their behalf.",
+                "services": [
+                    "Order execution",
+                    "Research and analysis",
+                    "Portfolio management",
+                    "Educational resources",
+                    "Customer support"
+                ]
+            },
+            "depositories": {
+                "title": "Depositories",
+                "p": "These institutions hold your shares electronically in demat accounts. In India, we have <strong>NSDL</strong> and <strong>CDSL</strong>.",
+                "functions": [
+                    "Electronic share storage",
+                    "Transfer facilitation",
+                    "Corporate action processing",
+                    "Account maintenance",
+                    "Security assurance"
+                ]
+            },
+            "clearingCorporations": {
+                "title": "Clearing Corporations",
+                "p": "These ensure that all trades are settled properly and on time. They act as a central counterparty.",
+                "duties": [
+                    "Trade verification",
+                    "Settlement guarantee",
+                    "Risk management",
+                    "Default handling",
+                    "Margin collection"
+                ]
+            }
+        }
+    },
+    "orderTypes": {
+        "title": "Understanding Order Types",
+        "p1": "Different order types give you control over how and when your trades are executed:",
+        "types": {
+            "marketOrder": {
+                "title": "Market Orders",
+                "description": "Execute immediately at the best available price",
+                "pros": [
+                    "Guaranteed execution",
+                    "Immediate fill",
+                    "Simple to use"
+                ],
+                "cons": [
+                    "Price uncertainty",
+                    "May get poor fills",
+                    "No price protection"
+                ],
+                "bestFor": "When you need immediate execution and price is less important"
+            },
+            "limitOrder": {
+                "title": "Limit Orders",
+                "description": "Execute only at your specified price or better",
+                "pros": [
+                    "Price protection",
+                    "Better control",
+                    "No surprise fills"
+                ],
+                "cons": [
+                    "May not execute",
+                    "Can miss opportunities",
+                    "More complex"
+                ],
+                "bestFor": "When you want to control the price and can wait for execution"
+            },
+            "stopLoss": {
+                "title": "Stop Loss Orders",
+                "description": "Automatically sell when price falls below a certain level",
+                "pros": [
+                    "Risk management",
+                    "Emotion-free selling",
+                    "Protects profits"
+                ],
+                "cons": [
+                    "May trigger on volatility",
+                    "No guarantee of execution price",
+                    "Can increase losses"
+                ],
+                "bestFor": "Protecting against significant losses"
+            }
+        }
+    },
+    "tradingSessions": {
+        "title": "Trading Sessions and Timings",
+        "p1": "Stock markets operate during specific hours with different phases:",
+        "sessions": {
+            "preMarket": {
+                "title": "Pre-Market Session",
+                "timing": "9:00 AM - 9:08 AM",
+                "description": "Preparation time for market participants",
+                "activities": [
+                    "System checks",
+                    "Order entry preparation",
+                    "Market data setup"
+                ]
+            },
+            "marketOpen": {
+                "title": "Market Opening",
+                "timing": "9:08 AM - 9:12 AM",
+                "description": "Opening auction to determine opening prices",
+                "activities": [
+                    "Order collection",
+                    "Price discovery",
+                    "Opening price calculation"
+                ]
+            },
+            "normalTrading": {
+                "title": "Normal Trading",
+                "timing": "9:12 AM - 3:30 PM",
+                "description": "Regular continuous trading session",
+                "activities": [
+                    "Continuous order matching",
+                    "Real-time price updates",
+                    "High liquidity trading"
+                ]
+            },
+            "marketClose": {
+                "title": "Market Closing",
+                "timing": "3:30 PM - 3:40 PM",
+                "description": "Closing auction for final price discovery",
+                "activities": [
+                    "Final order matching",
+                    "Closing price calculation",
+                    "Settlement preparation"
+                ]
+            }
+        }
+    },
+    "settlementProcess": {
+        "title": "The Settlement Process",
+        "p1": "After a trade is executed, several steps happen to complete the transaction:",
+        "process": {
+            "tPlus1": {
+                "title": "T+1 Day (Trade Day + 1)",
+                "description": "Shares and money are transferred between accounts",
+                "activities": [
+                    "Broker confirms trade",
+                    "Shares debited/credited",
+                    "Money transferred",
+                    "Demat account updated"
+                ]
+            },
+            "tPlus2": {
+                "title": "T+2 Day (Trade Day + 2)",
+                "description": "Final settlement and reconciliation",
+                "activities": [
+                    "Final verification",
+                    "Dispute resolution",
+                    "Regulatory reporting",
+                    "Settlement complete"
+                ]
+            }
         },
-        "brokers": {
-            "title": "Brokers",
-            "p": "Retail investors can't trade directly on an exchange. They need a licensed intermediary called a stockbroker (like Zerodha, Upstox, etc.) to execute trades on their behalf."
+        "importantNotes": [
+            "Settlement is now T+1 in India (faster than global T+2)",
+            "Shares are held in electronic form (demat)",
+            "No physical certificates involved",
+            "Automatic corporate action processing"
+        ]
+    },
+    "tradingCosts": {
+        "title": "Understanding Trading Costs",
+        "p1": "Several costs are involved in stock trading that affect your returns:",
+        "costs": {
+            "brokerage": {
+                "title": "Brokerage Charges",
+                "description": "Fees charged by your broker for executing trades",
+                "types": [
+                    "Flat fee per trade",
+                    "Percentage of trade value",
+                    "Subscription-based plans",
+                    "Zero brokerage offers"
+                ]
+            },
+            "taxes": {
+                "title": "Taxes and Levies",
+                "description": "Government charges on trading activities",
+                "charges": [
+                    "Securities Transaction Tax (STT)",
+                    "SEBI Turnover Fees",
+                    "Exchange Transaction Charges",
+                    "GST on brokerage"
+                ]
+            },
+            "otherCharges": {
+                "title": "Other Charges",
+                "description": "Additional fees that may apply",
+                "fees": [
+                    "Demat account charges",
+                    "Annual maintenance fees",
+                    "Transaction charges",
+                    "Penalty charges"
+                ]
+            }
+        },
+        "costOptimization": {
+            "title": "Cost Optimization Tips",
+            "strategies": [
+                "Choose the right broker plan",
+                "Consolidate trades when possible",
+                "Use limit orders to avoid slippage",
+                "Monitor and review charges regularly"
+            ]
+        }
+    },
+    "riskManagement": {
+        "title": "Risk Management in Trading",
+        "p1": "Trading involves risks that can be managed with proper strategies:",
+        "risks": {
+            "marketRisk": {
+                "title": "Market Risk",
+                "description": "Overall market movements affecting your stocks",
+                "mitigation": [
+                    "Diversification across sectors",
+                    "Long-term investment horizon",
+                    "Regular portfolio review",
+                    "Asset allocation strategy"
+                ]
+            },
+            "liquidityRisk": {
+                "title": "Liquidity Risk",
+                "description": "Difficulty in buying or selling stocks quickly",
+                "mitigation": [
+                    "Focus on liquid stocks",
+                    "Avoid very small-cap stocks",
+                    "Use limit orders",
+                    "Monitor trading volumes"
+                ]
+            },
+            "executionRisk": {
+                "title": "Execution Risk",
+                "description": "Orders not executing at expected prices",
+                "mitigation": [
+                    "Use limit orders",
+                    "Avoid market orders for large quantities",
+                    "Trade during market hours",
+                    "Monitor bid-ask spreads"
+                ]
+            }
+        }
+    },
+    "bestPractices": {
+        "title": "Best Practices for Stock Trading",
+        "p1": "Follow these guidelines to become a better trader:",
+        "practices": {
+            "planning": {
+                "title": "Plan Your Trades",
+                "description": "Always have a clear plan before entering a trade",
+                "steps": [
+                    "Set entry and exit points",
+                    "Define position size",
+                    "Establish stop losses",
+                    "Document your reasoning"
+                ]
+            },
+            "discipline": {
+                "title": "Maintain Discipline",
+                "description": "Stick to your trading plan regardless of emotions",
+                "principles": [
+                    "Follow your strategy",
+                    "Don't chase losses",
+                    "Keep position sizes consistent",
+                    "Review performance regularly"
+                ]
+            },
+            "education": {
+                "title": "Continuous Learning",
+                "description": "Never stop learning about markets and trading",
+                "activities": [
+                    "Read financial news",
+                    "Study market analysis",
+                    "Learn from mistakes",
+                    "Follow market experts"
+                ]
+            }
         }
     },
     "takeaways": {
-        "item1": "The <strong>Primary Market</strong> is for new stocks (IPOs), where money goes to the company.",
-        "item2": "The <strong>Secondary Market</strong> is where investors trade existing stocks with each other.",
-        "item3": "You need a <strong>broker</strong> to trade on the major <strong>stock exchanges</strong> like NSE and BSE."
+        "title": "Key Takeaways",
+        "items": [
+            "The <strong>Primary Market</strong> is for new stocks (IPOs), where money goes to the company.",
+            "The <strong>Secondary Market</strong> is where investors trade existing stocks with each other.",
+            "You need a <strong>broker</strong> to trade on the major <strong>stock exchanges</strong> like NSE and BSE.",
+            "Understanding <strong>order types</strong> helps you control how and when your trades execute.",
+            "The <strong>settlement process</strong> ensures safe and secure transfer of shares and money.",
+            "Proper <strong>risk management</strong> is essential for long-term trading success."
+        ]
+    },
+    "nextSteps": {
+        "title": "What's Next?",
+        "description": "Now that you understand how stocks are traded, continue your learning journey:",
+        "recommendations": [
+            "Learn to read stock quotes and understand market data",
+            "Master fundamental analysis for stock selection",
+            "Explore technical analysis for timing your trades",
+            "Understand portfolio management and diversification"
+        ]
     }
 }
