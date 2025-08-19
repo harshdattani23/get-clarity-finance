@@ -7,7 +7,7 @@ import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { useTranslation } from "@/hooks/useTranslation";
-import { TrendingUp, Activity, BarChart3, Target, CheckCircle, Calculator, Gauge, Waveform } from 'lucide-react';
+import { TrendingUp, Activity, BarChart3, Target, CheckCircle, Calculator, Gauge } from 'lucide-react';
 
 export default function UsingEssentialTechnicalIndicatorsPage() {
   const { t } = useTranslation('stock-market-course.using-essential-technical-indicators-moving-averages-rsi-macd');
@@ -61,7 +61,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
           <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               What are Technical Indicators?
-            </h3>
+                </h3>
             <p className="text-gray-700 leading-relaxed mb-4">
               While price charts and trends give you the lay of the land, technical indicators are like your GPS, providing specific signals about market momentum, potential reversals, and trend strength.
             </p>
@@ -87,7 +87,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
               <p className="text-green-700 text-sm">Momentum and overbought/oversold</p>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
-              <Waveform className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+              <Activity className="w-8 h-8 text-purple-600 mx-auto mb-2" />
               <h4 className="font-semibold text-purple-800">MACD</h4>
               <p className="text-purple-700 text-sm">Trend momentum and signals</p>
             </div>
@@ -150,7 +150,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
           <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-green-800 mb-3">
               Smoothing the Path
-            </h3>
+                </h3>
             <p className="text-green-700">
               A Moving Average is one of the most basic but powerful technical indicators. It smooths out price data to highlight the underlying trend direction.
             </p>
@@ -724,7 +724,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
               Next Lesson
             </a>
           </div>
-        </div>
+      </div>
       </LessonLayout>
     );
   }

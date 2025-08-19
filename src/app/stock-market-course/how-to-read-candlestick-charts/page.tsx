@@ -7,7 +7,7 @@ import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Candle, TrendingUp, TrendingDown, Target, CheckCircle, BarChart3, Activity, Eye } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, CheckCircle, BarChart3, Activity } from 'lucide-react';
 import Image from 'next/image';
 
 export default function HowToReadCandlestickChartsPage() {
@@ -164,7 +164,7 @@ export default function HowToReadCandlestickChartsPage() {
             <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Candle className="w-6 h-6 text-blue-600" />
+                  <BarChart3 className="w-6 h-6 text-blue-600" />
                 </div>
                 <h4 className="text-lg font-semibold text-gray-800">The Body</h4>
               </div>
@@ -684,7 +684,7 @@ export default function HowToReadCandlestickChartsPage() {
             transition={{ duration: 0.5 }}
             className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
           >
-            <Candle className="w-12 h-12 text-green-600" />
+            <BarChart3 className="w-12 h-12 text-green-600" />
           </motion.div>
           
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
