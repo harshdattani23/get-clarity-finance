@@ -14,12 +14,12 @@ export default function AdvancedCandlestickPatternsPage() {
     >
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="prose prose-lg max-w-none">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">
-            {t('title')}
+                    <h1 className="text-3xl font-bold text-gray-900 mb-6">
+            {t('title') as string}
           </h1>
-          
+
           <p className="text-xl text-gray-600 mb-8">
-            {t('description')}
+            {t('description') as string}
           </p>
 
           <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">

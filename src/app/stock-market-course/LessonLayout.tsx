@@ -34,7 +34,7 @@ export default function LessonLayout({ children, title, description, lessonSlug 
           {/* Back to Hub button */}
           <Link href="/stock-market-course" className="inline-flex items-center gap-2 text-green-600 font-semibold hover:underline mb-6">
             <ChevronLeft className="w-5 h-5" />
-            {t('navigation.backToModules')}
+            {t('navigation.backToModules') as string}
           </Link>
           
           {/* Lesson Header */}
@@ -55,14 +55,14 @@ export default function LessonLayout({ children, title, description, lessonSlug 
             {prevLesson ? (
               <Link href={prevLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
                 <ChevronLeft className="w-5 h-5" />
-                {t('navigation.previous')}: {getLessonTitle(prevLesson.slug)}
+                {t('navigation.previous') as string}: {getLessonTitle(prevLesson.slug)}
               </Link>
             ) : (
               <div /> // Empty div to maintain spacing
             )}
             {nextLesson ? (
               <Link href={nextLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
-                {t('navigation.next')}: {getLessonTitle(nextLesson.slug)} <ChevronRight className="w-5 h-5" />
+                {t('navigation.next') as string}: {getLessonTitle(nextLesson.slug)} <ChevronRight className="w-5 h-5" />
               </Link>
             ) : (
               <div /> // Empty div to maintain spacing
