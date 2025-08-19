@@ -3,11 +3,15 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
+import CourseHubSkeleton from '@/components/stock-market-course/CourseHubSkeleton';
 
 export default function StockMarketCoursePage() {
-  const { t } = useTranslation('stock-market-course.course-modules');
+  const { t, translations } = useTranslation('stock-market-course.course-modules');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Check if translations are still loading
+  const isLoading = Object.keys(translations).length === 0;
 
   // Define all course modules with proper titles and descriptions
   const allModules = [
@@ -238,8 +242,12 @@ export default function StockMarketCoursePage() {
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          {/* Header Section */}
-          <header className="text-center mb-12">
+          {isLoading ? (
+            <CourseHubSkeleton />
+          ) : (
+            <>
+              {/* Header Section */}
+              <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               The Complete Indian Stock Market Course
             </h1>
@@ -374,6 +382,8 @@ export default function StockMarketCoursePage() {
                 No modules found matching your search criteria.
               </p>
             </div>
+          )}
+            </>
           )}
         </div>
       </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getStockMarketLessonNavigation } from '@/lib/stockMarketCourse';
 import { useTranslation } from '@/hooks/useTranslation';
+import LessonSkeleton from '@/components/stock-market-course/LessonSkeleton';
 
 // Reusable layout for a single lesson page
 interface LessonLayoutProps {
@@ -14,7 +15,10 @@ interface LessonLayoutProps {
 
 export default function LessonLayout({ children, title, description, lessonSlug }: LessonLayoutProps) {
   const { prevLesson, nextLesson } = getStockMarketLessonNavigation(lessonSlug);
-  const { t } = useTranslation('stock-market-course.course-modules');
+  const { t, translations } = useTranslation('stock-market-course.course-modules');
+  
+  // Check if translations are still loading
+  const isLoading = Object.keys(translations).length === 0;
   
   // Helper function to get lesson title from translation
   const getLessonTitle = (lessonSlug: string) => {
@@ -32,40 +36,62 @@ export default function LessonLayout({ children, title, description, lessonSlug 
         <div className="max-w-3xl mx-auto">
           
           {/* Back to Hub button */}
-          <Link href="/stock-market-course" className="inline-flex items-center gap-2 text-green-600 font-semibold hover:underline mb-6">
-            <ChevronLeft className="w-5 h-5" />
-            {t('navigation.backToModules') as string}
-          </Link>
+          {isLoading ? (
+            <div className="h-6 w-32 bg-gray-200 rounded animate-pulse mb-6"></div>
+          ) : (
+            <Link href="/stock-market-course" className="inline-flex items-center gap-2 text-green-600 font-semibold hover:underline mb-6">
+              <ChevronLeft className="w-5 h-5" />
+              {t('navigation.backToModules') as string}
+            </Link>
+          )}
           
           {/* Lesson Header */}
           <header className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
-              {title}
-            </h1>
-            <p className="text-xl text-gray-600 mt-2">{description}</p>
+            {isLoading ? (
+              <>
+                <div className="h-16 bg-gray-200 rounded-lg w-3/4 mb-4 animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+              </>
+            ) : (
+              <>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+                  {title}
+                </h1>
+                <p className="text-xl text-gray-600 mt-2">{description}</p>
+              </>
+            )}
           </header>
           
           {/* Main lesson content */}
           <article className="prose lg:prose-xl max-w-none bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-            {children}
+            {isLoading ? <LessonSkeleton /> : children}
           </article>
           
           {/* Navigation */}
           <div className="mt-8 flex justify-between">
-            {prevLesson ? (
-              <Link href={prevLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
-                <ChevronLeft className="w-5 h-5" />
-                {t('navigation.previous') as string}: {getLessonTitle(prevLesson.slug)}
-              </Link>
+            {isLoading ? (
+              <>
+                <div className="h-12 w-32 bg-gray-200 rounded-lg animate-pulse"></div>
+                <div className="h-12 w-32 bg-gray-200 rounded-lg animate-pulse"></div>
+              </>
             ) : (
-              <div /> // Empty div to maintain spacing
-            )}
-            {nextLesson ? (
-              <Link href={nextLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
-                {t('navigation.next') as string}: {getLessonTitle(nextLesson.slug)} <ChevronRight className="w-5 h-5" />
-              </Link>
-            ) : (
-              <div /> // Empty div to maintain spacing
+              <>
+                {prevLesson ? (
+                  <Link href={prevLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
+                    <ChevronLeft className="w-5 h-5" />
+                    {t('navigation.previous') as string}: {getLessonTitle(prevLesson.slug)}
+                  </Link>
+                ) : (
+                  <div /> // Empty div to maintain spacing
+                )}
+                {nextLesson ? (
+                  <Link href={nextLesson.href} className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
+                    {t('navigation.next') as string}: {getLessonTitle(nextLesson.slug)} <ChevronRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <div /> // Empty div to maintain spacing
+                )}
+              </>
             )}
           </div>
 
