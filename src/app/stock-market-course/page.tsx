@@ -2,10 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useTranslation } from '@/hooks/useTranslation';
 
 export default function StockMarketCoursePage() {
-  const { t } = useTranslation('stock-market-course');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -74,56 +72,56 @@ export default function StockMarketCoursePage() {
     },
     {
       id: 'ipos-and-new-listings',
-      title: t('course-modules.iposAndNewListings.title'),
-      description: t('course-modules.iposAndNewListings.description'),
+      title: 'IPOs and New Listings',
+      description: 'Learn how to evaluate and invest in Initial Public Offerings and new market listings.',
       category: 'practical',
       lessons: [
-        { title: t('course-modules.iposAndNewListings.lessons.understandingIpos'), href: "/stock-market-course/understanding-ipos" },
-        { title: t('course-modules.iposAndNewListings.lessons.howToApplyForIpos'), href: "/stock-market-course/how-to-apply-for-ipos" },
-        { title: t('course-modules.iposAndNewListings.lessons.evaluatingIpoValuations'), href: "/stock-market-course/evaluating-ipo-valuations" },
-        { title: t('course-modules.iposAndNewListings.lessons.ipoRisksAndRewards'), href: "/stock-market-course/ipo-risks-and-rewards" },
-        { title: t('course-modules.iposAndNewListings.lessons.smeIposAndNseEmerge'), href: "/stock-market-course/sme-ipos-and-nse-emerge" }
+        { title: 'Understanding IPOs', href: "/stock-market-course/understanding-ipos" },
+        { title: 'How to Apply for IPOs', href: "/stock-market-course/how-to-apply-for-ipos" },
+        { title: 'Evaluating IPO Valuations', href: "/stock-market-course/evaluating-ipo-valuations" },
+        { title: 'IPO Risks and Rewards', href: "/stock-market-course/ipo-risks-and-rewards" },
+        { title: 'SME IPOs and NSE Emerge', href: "/stock-market-course/sme-ipos-and-nse-emerge" }
       ]
     },
     {
       id: 'mutual-funds',
-      title: t('course-modules.mutualFunds.title'),
-      description: t('course-modules.mutualFunds.description'),
+      title: 'Mutual Funds and ETFs',
+      description: 'Master mutual fund investing and understand Exchange Traded Funds.',
       category: 'investment',
       lessons: [
-        { title: t('course-modules.mutualFunds.lessons.introductionToMutualFunds'), href: "/stock-market-course/introduction-to-mutual-funds" },
-        { title: t('course-modules.mutualFunds.lessons.typesOfMutualFunds'), href: "/stock-market-course/types-of-mutual-funds" },
-        { title: t('course-modules.mutualFunds.lessons.howToChooseTheRightFund'), href: "/stock-market-course/how-to-choose-the-right-fund" },
-        { title: t('course-modules.mutualFunds.lessons.systematicInvestmentPlans'), href: "/stock-market-course/systematic-investment-plans-sips" },
-        { title: t('course-modules.mutualFunds.lessons.exchangeTradedFunds'), href: "/stock-market-course/exchange-traded-funds-etfs" },
-        { title: t('course-modules.mutualFunds.lessons.indexFundsAndPassiveInvesting'), href: "/stock-market-course/index-funds-and-passive-investing" }
+        { title: 'Introduction to Mutual Funds', href: "/stock-market-course/introduction-to-mutual-funds" },
+        { title: 'Types of Mutual Funds', href: "/stock-market-course/types-of-mutual-funds" },
+        { title: 'How to Choose the Right Fund', href: "/stock-market-course/how-to-choose-the-right-fund" },
+        { title: 'Systematic Investment Plans (SIPs)', href: "/stock-market-course/systematic-investment-plans-sips" },
+        { title: 'Exchange Traded Funds (ETFs)', href: "/stock-market-course/exchange-traded-funds-etfs" },
+        { title: 'Index Funds and Passive Investing', href: "/stock-market-course/index-funds-and-passive-investing" }
       ]
     },
     {
       id: 'gold-and-commodities',
-      title: t('course-modules.goldAndCommodities.title'),
-      description: t('course-modules.goldAndCommodities.description'),
+      title: 'Gold and Commodities Investing',
+      description: 'Learn to invest in gold, silver, and other commodities as part of your portfolio.',
       category: 'investment',
       lessons: [
-        { title: t('course-modules.goldAndCommodities.lessons.investingInGold'), href: "/stock-market-course/investing-in-gold" },
-        { title: t('course-modules.goldAndCommodities.lessons.goldEtfsAndSovereignGoldBonds'), href: "/stock-market-course/gold-etfs-and-sovereign-gold-bonds" },
-        { title: t('course-modules.goldAndCommodities.lessons.silverAndPreciousMetals'), href: "/stock-market-course/silver-and-precious-metals" },
-        { title: t('course-modules.goldAndCommodities.lessons.agriculturalCommodities'), href: "/stock-market-course/agricultural-commodities" },
-        { title: t('course-modules.goldAndCommodities.lessons.energyCommodities'), href: "/stock-market-course/energy-commodities-oil-gas" },
-        { title: t('course-modules.goldAndCommodities.lessons.commodityTradingStrategies'), href: "/stock-market-course/commodity-trading-strategies" }
+        { title: 'Investing in Gold', href: "/stock-market-course/investing-in-gold" },
+        { title: 'Gold ETFs and Sovereign Gold Bonds', href: "/stock-market-course/gold-etfs-and-sovereign-gold-bonds" },
+        { title: 'Silver and Precious Metals', href: "/stock-market-course/silver-and-precious-metals" },
+        { title: 'Agricultural Commodities', href: "/stock-market-course/agricultural-commodities" },
+        { title: 'Energy Commodities (Oil, Gas)', href: "/stock-market-course/energy-commodities-oil-gas" },
+        { title: 'Commodity Trading Strategies', href: "/stock-market-course/commodity-trading-strategies" }
       ]
     },
     {
       id: 'currency-trading',
-      title: t('course-modules.currencyTrading.title'),
-      description: t('course-modules.currencyTrading.description'),
+      title: 'Currency Trading and Forex',
+      description: 'Understand currency markets and foreign exchange trading.',
       category: 'advanced',
       lessons: [
-        { title: t('course-modules.currencyTrading.lessons.introductionToCurrencyMarkets'), href: "/stock-market-course/introduction-to-currency-markets" },
-        { title: t('course-modules.currencyTrading.lessons.majorCurrencyPairs'), href: "/stock-market-course/major-currency-pairs" },
-        { title: t('course-modules.currencyTrading.lessons.forexTradingStrategies'), href: "/stock-market-course/forex-trading-strategies" },
-        { title: t('course-modules.currencyTrading.lessons.currencyDerivatives'), href: "/stock-market-course/currency-derivatives" },
-        { title: t('course-modules.currencyTrading.lessons.riskManagementInForex'), href: "/stock-market-course/risk-management-in-forex" }
+        { title: 'Introduction to Currency Markets', href: "/stock-market-course/introduction-to-currency-markets" },
+        { title: 'Major Currency Pairs', href: "/stock-market-course/major-currency-pairs" },
+        { title: 'Forex Trading Strategies', href: "/stock-market-course/forex-trading-strategies" },
+        { title: 'Currency Derivatives', href: "/stock-market-course/currency-derivatives" },
+        { title: 'Risk Management in Forex', href: "/stock-market-course/risk-management-in-forex" }
       ]
     },
     {
