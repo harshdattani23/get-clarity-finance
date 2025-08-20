@@ -9,7 +9,7 @@ import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { motion } from "framer-motion";
-import { Trophy, TrendingUp, TrendingDown, AlertTriangle, CheckCircle, ArrowRight, BarChart3, DollarSign, BookOpen, UserCheck, MapPin, Calendar, ChartBar, Handshake, Rocket, ShieldCheck, Clock, PieChart, Layers, Target as TargetIcon, TrendingUp as TrendingUpIcon, TrendingDown as TrendingDownIcon, Minus, Plus } from 'lucide-react';
+import { Trophy, ShieldCheck, TrendingUp, UserCheck } from 'lucide-react';
 
 export default function RoleOfSebi() {
   const [lessonCompleted, setLessonCompleted] = useState(false);

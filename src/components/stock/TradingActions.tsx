@@ -6,7 +6,7 @@ import BuyModal from '@/components/virtual-trading/BuyModal';
 import SellModal from '@/components/virtual-trading/SellModal';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { useWatchlist } from '@/contexts/virtual-trading/WatchlistContext';
-import { Check, Plus } from 'lucide-react';
+import { Check, Plus, Zap } from 'lucide-react';
 
 // This should align with the Stock type defined in the parent page
 interface StockData {
@@ -48,19 +48,28 @@ export default function TradingActions({ stock }: { stock: StockData }) {
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg">
+      {/* Virtual Trading Notice */}
+      <div className="mb-4 bg-gray-700 border border-gray-500 p-3 rounded-md">
+        <div className="flex items-center space-x-2">
+          <Zap className="h-4 w-4 text-green-400" />
+          <span className="text-green-300 font-medium text-sm">Virtual Trading</span>
+        </div>
+        <p className="text-gray-300 text-xs mt-1">Practice with virtual money - Learn risk-free!</p>
+      </div>
+      
       <div className="flex items-center space-x-4">
         <button
           onClick={() => setBuyModalOpen(true)}
-          className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded"
+          className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded transition-colors"
         >
-          Buy
+          Virtual Buy
         </button>
         <button
           onClick={() => setSellModalOpen(true)}
           disabled={maxSellQuantity === 0}
-          className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded disabled:opacity-50"
+          className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded disabled:opacity-50 transition-colors"
         >
-          Sell
+          Virtual Sell
         </button>
         <button
           onClick={handleWatchlistToggle}

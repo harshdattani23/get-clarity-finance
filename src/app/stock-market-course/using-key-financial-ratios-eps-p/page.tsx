@@ -7,7 +7,7 @@ import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Calculator, TrendingUp, Target, BarChart3, CheckCircle, DollarSign, Activity, BookOpen } from 'lucide-react';
+import { Calculator, Target, CheckCircle } from 'lucide-react';
 
 export default function KeyFinancialRatiosPage() {
   const { t } = useTranslation('stock-market-course.using-key-financial-ratios-eps-p.e-p.b-roe');

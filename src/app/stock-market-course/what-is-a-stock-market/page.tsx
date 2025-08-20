@@ -9,7 +9,7 @@ import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { motion } from "framer-motion";
-import { Trophy, Building, Store, Users, TrendingUp, Shield, Target, Zap, CheckCircle, ArrowRight, BarChart3, DollarSign, BookOpen, UserCheck, AlertTriangle, MapPin, Calendar, ChartBar, Handshake, Rocket, ShieldCheck, Clock, TrendingDown } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 
 export default function WhatIsAStockMarket() {
   const [lessonCompleted, setLessonCompleted] = useState(false);

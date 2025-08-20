@@ -9,7 +9,7 @@ import ShortQuestions from "@/components/stock-market-course/ShortQuestions";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { motion } from "framer-motion";
-import { Trophy, Building, TrendingUp, Shield, Target, Zap, CheckCircle, ArrowRight, BarChart3, DollarSign, BookOpen, UserCheck, AlertTriangle, MapPin, Calendar, ChartBar, Handshake, Rocket, ShieldCheck, Clock, TrendingDown, PieChart, Layers, Target as TargetIcon, TrendingUp as TrendingUpIcon, TrendingDown as TrendingDownIcon, Minus, Plus } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 
 export default function ReadingAStockQuote() {
   const [lessonCompleted, setLessonCompleted] = useState(false);

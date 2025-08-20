@@ -161,7 +161,7 @@ function extractSourcesFromResponse(data: {
     const allSources = new Map<string, NewsSource>();
     
     // Add search results first
-    searchResults.forEach((result, index) => {
+    searchResults.forEach((result) => {
       if (result.url && result.title) {
         allSources.set(result.url, {
           title: result.title,
@@ -173,10 +173,10 @@ function extractSourcesFromResponse(data: {
     });
     
     // Add citations if not already present
-    citations.forEach((citation, index) => {
+    citations.forEach((citation) => {
       if (!allSources.has(citation)) {
         allSources.set(citation, {
-          title: `Source ${index + 1}`,
+          title: `Source ${allSources.size + 1}`,
           url: citation,
           date: 'Unknown',
           last_updated: 'Unknown'

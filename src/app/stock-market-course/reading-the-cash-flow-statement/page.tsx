@@ -7,7 +7,7 @@ import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { useTranslation } from "@/hooks/useTranslation";
-import { TrendingUp, TrendingDown, DollarSign, Target, Calculator, BarChart3, CheckCircle, Activity, ArrowUpDown } from 'lucide-react';
+import { TrendingUp, Target, CheckCircle, Activity, ArrowUpDown } from 'lucide-react';
 
 export default function ReadingCashFlowStatementPage() {
     const { t } = useTranslation('stock-market-course.reading-the-cash-flow-statement');

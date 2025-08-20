@@ -7,7 +7,7 @@ import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
 import AudioSummary from "@/components/stock-market-course/AudioSummary";
 import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Landmark, HandCoins, ShieldCheck, Target, Calculator, TrendingUp, CheckCircle, DollarSign } from 'lucide-react';
+import { Landmark, HandCoins, ShieldCheck, Target, CheckCircle } from 'lucide-react';
 
 export default function ReadingBalanceSheetPage() {
     const { t } = useTranslation('stock-market-course.reading-the-balance-sheet');

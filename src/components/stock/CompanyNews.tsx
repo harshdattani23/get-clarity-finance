@@ -71,7 +71,7 @@ export default function CompanyNews({ ticker }: CompanyNewsProps) {
 
   useEffect(() => {
     fetchNews();
-  }, [ticker, newsType, timeframe]);
+  }, [fetchNews]);
 
   const formatTimeAgo = (timestamp: string) => {
     const now = new Date();
