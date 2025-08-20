@@ -28,6 +28,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "introduction",
         title: "Introduction",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
@@ -66,6 +68,9 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "quiz",
         title: "Quick Knowledge Check",
+        isRequired: true,
+        type: 'quiz' as const,
+        minScore: 70,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
@@ -497,16 +502,27 @@ export default function CurrencyAndCommodityMarketsPage() {
           </p>
           
           <AudioSummary 
-            audioFiles={lessonData.audioFiles}
-            transcript={lessonData.transcript}
-            lessonSlug={lessonData.lessonSlug}
+            title={lessonData.title}
+            description={lessonData.description}
+            hindiAudioUrl={lessonData.audioFiles.hi}
+            englishAudioUrl={lessonData.audioFiles.en}
+            bengaliAudioUrl={lessonData.audioFiles.bn}
+            marathiAudioUrl={lessonData.audioFiles.mr}
+            gujaratiAudioUrl={lessonData.audioFiles.gu}
+            tamilAudioUrl={lessonData.audioFiles.ta}
+            hindiTranscript={lessonData.transcript.hi}
+            englishTranscript={lessonData.transcript.en}
+            bengaliTranscript={lessonData.transcript.bn}
+            marathiTranscript={lessonData.transcript.mr}
+            gujaratiTranscript={lessonData.transcript.gu}
+            tamilTranscript={lessonData.transcript.ta}
           />
         </div>
         
         <MultiPartLesson 
-          title={lessonData.title}
-          lessonSlug={lessonData.lessonSlug}
           parts={lessonData.parts}
+          onComplete={(totalScore: number) => console.log('Lesson completed with score:', totalScore)}
+          onPartComplete={(partId: string, score: number) => console.log('Part completed:', partId, 'Score:', score)}
         />
       </div>
     </div>
