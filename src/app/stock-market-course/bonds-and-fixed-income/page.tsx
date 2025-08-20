@@ -198,6 +198,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "types-of-bonds",
         title: "Types of Bonds",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
@@ -288,6 +290,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "bond-pricing",
         title: "How Bond Prices Work",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
@@ -347,6 +351,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "risks-benefits",
         title: "Risks and Benefits",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
@@ -409,6 +415,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "interactive-selection",
         title: "Interactive Selection",
+        isRequired: true,
+        type: 'selection' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
