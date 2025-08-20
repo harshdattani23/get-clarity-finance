@@ -28,6 +28,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "introduction",
         title: "Introduction",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
@@ -66,6 +68,9 @@ export default function RealEstateInvestingPage() {
       {
         id: "quiz",
         title: "Quick Knowledge Check",
+        isRequired: true,
+        type: 'quiz' as const,
+        minScore: 70,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
@@ -128,6 +133,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "what-are-reits",
         title: "What are REITs?",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
@@ -191,6 +198,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "types-of-reits",
         title: "Types of REITs",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
@@ -268,6 +277,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "advantages-disadvantages",
         title: "Advantages and Disadvantages",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
@@ -338,6 +349,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "interactive-selection",
         title: "Interactive Selection",
+        isRequired: true,
+        type: 'selection' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
@@ -392,6 +405,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "how-to-invest",
         title: "How to Invest in REITs",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
@@ -458,6 +473,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "short-questions",
         title: "Deep Understanding Check",
+        isRequired: true,
+        type: 'short-answer' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
@@ -473,7 +490,7 @@ export default function RealEstateInvestingPage() {
                   <p className="font-medium mb-3">1. Why might REITs be sensitive to interest rate changes?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -482,7 +499,7 @@ export default function RealEstateInvestingPage() {
                   <p className="font-medium mb-3">2. What are the main differences between equity REITs and mortgage REITs?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -491,7 +508,7 @@ export default function RealEstateInvestingPage() {
                   <p className="font-medium mb-3">3. How can REITs help diversify an investment portfolio?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -503,6 +520,8 @@ export default function RealEstateInvestingPage() {
       {
         id: "key-takeaways",
         title: "Key Takeaways",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
@@ -578,17 +597,28 @@ export default function RealEstateInvestingPage() {
             {lessonData.description}
           </p>
           
-          <AudioSummary 
-            audioFiles={lessonData.audioFiles}
-            transcript={lessonData.transcript}
-            lessonSlug={lessonData.lessonSlug}
+                    <AudioSummary
+            title={lessonData.title}
+            description={lessonData.description}
+            hindiAudioUrl={lessonData.audioFiles.hi}
+            englishAudioUrl={lessonData.audioFiles.en}
+            bengaliAudioUrl={lessonData.audioFiles.bn}
+            marathiAudioUrl={lessonData.audioFiles.mr}
+            gujaratiAudioUrl={lessonData.audioFiles.gu}
+            tamilAudioUrl={lessonData.audioFiles.ta}
+            hindiTranscript={lessonData.transcript.hi}
+            englishTranscript={lessonData.transcript.en}
+            bengaliTranscript={lessonData.transcript.bn}
+            marathiTranscript={lessonData.transcript.mr}
+            gujaratiTranscript={lessonData.transcript.gu}
+            tamilTranscript={lessonData.transcript.ta}
           />
         </div>
         
         <MultiPartLesson 
-          title={lessonData.title}
-          lessonSlug={lessonData.lessonSlug}
           parts={lessonData.parts}
+          onComplete={(totalScore: number) => console.log('Lesson completed with score:', totalScore)}
+          onPartComplete={(partId: string, score: number) => console.log('Part completed:', partId, 'Score:', score)}
         />
       </div>
     </div>

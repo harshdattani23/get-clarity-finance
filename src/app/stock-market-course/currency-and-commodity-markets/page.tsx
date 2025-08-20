@@ -269,6 +269,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "interactive-selection",
         title: "Interactive Selection",
+        isRequired: true,
+        type: 'selection' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
@@ -323,6 +325,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "risks-benefits",
         title: "Risks and Benefits",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
@@ -385,6 +389,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "short-questions",
         title: "Deep Understanding Check",
+        isRequired: true,
+        type: 'short-answer' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
@@ -430,6 +436,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "key-takeaways",
         title: "Key Takeaways",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
