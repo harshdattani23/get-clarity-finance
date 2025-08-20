@@ -400,7 +400,7 @@ export default function CurrencyAndCommodityMarketsPage() {
                   <p className="font-medium mb-3">2. How can commodities help protect against inflation?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -409,7 +409,7 @@ export default function CurrencyAndCommodityMarketsPage() {
                   <p className="font-medium mb-3">3. What are the main differences between forex and commodity trading?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>

@@ -471,6 +471,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "short-questions",
         title: "Deep Understanding Check",
+        isRequired: true,
+        type: 'short-answer' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
@@ -516,6 +518,8 @@ export default function BondsAndFixedIncomePage() {
       {
         id: "key-takeaways",
         title: "Key Takeaways",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
