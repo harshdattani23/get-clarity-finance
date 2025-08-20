@@ -10,6 +10,7 @@ const isPublicRoute = createRouteMatcher([
   '/investment-quiz',
   '/awareness(.*)',
   '/api/webhooks/clerk',
+  '/api/news',
   '/stock-market-course(.*)',
   '/virtual-trading(.*)',
 ]);

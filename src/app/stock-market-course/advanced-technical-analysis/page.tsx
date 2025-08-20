@@ -642,8 +642,8 @@ export default function AdvancedTechnicalAnalysisPage() {
               <li>• Draw Fibonacci retracements on trending stocks</li>
               <li>• Analyze Volume Profile for support/resistance</li>
               <li>• Combine multiple tools for stronger signals</li>
-            </ul>
-          </div>
+                </ul>
+              </div>
 
           <div className="bg-red-50 p-6 rounded-lg border border-red-200">
             <h3 className="text-lg font-semibold text-red-800 mb-3">
@@ -693,7 +693,7 @@ export default function AdvancedTechnicalAnalysisPage() {
           
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             🎉 Lesson Completed Successfully!
-          </h2>
+              </h2>
           
           <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
@@ -707,9 +707,9 @@ export default function AdvancedTechnicalAnalysisPage() {
                   {Math.round((finalScore / (lessonParts.length * 100)) * 100)}%
                 </div>
                 <div className="text-gray-600">Overall Performance</div>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
           
           <p className="text-gray-600 mb-6">
             You've successfully learned advanced technical analysis concepts and demonstrated 

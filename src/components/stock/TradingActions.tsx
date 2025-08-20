@@ -25,7 +25,7 @@ export default function TradingActions({ stock }: { stock: StockData }) {
   if (!isSignedIn) {
     return (
       <div className="bg-gray-800 p-4 rounded-lg text-center">
-        <p>Please sign in to trade.</p>
+        <p>Please sign in to virtual trade and learn</p>
       </div>
     );
   }

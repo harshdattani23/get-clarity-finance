@@ -559,7 +559,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
             <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
               <Target className="w-8 h-8 text-green-600 mr-3" />
               Key Takeaways
-            </h3>
+                </h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -594,12 +594,12 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
 
           <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               🚀 What's Next?
-            </h3>
+                </h3>
             <p className="text-gray-700 mb-6">
               You've now mastered the essential technical indicators! In the upcoming lessons, you'll learn about:
             </p>
@@ -621,12 +621,12 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
                 <p className="text-orange-700 text-sm">Combine all tools into complete trading systems.</p>
               </div>
             </div>
-          </div>
+            </div>
 
           <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
             <h3 className="text-lg font-semibold text-yellow-800 mb-3">
               💡 Practice Makes Perfect
-            </h3>
+                </h3>
             <p className="text-yellow-700">
               Start applying what you've learned by practicing with real charts. Try to:
             </p>
@@ -635,7 +635,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
               <li>• Look for RSI overbought/oversold conditions</li>
               <li>• Practice spotting MACD crossovers</li>
               <li>• Combine multiple indicators for confirmation</li>
-            </ul>
+                </ul>
           </div>
 
           <div className="bg-red-50 p-6 rounded-lg border border-red-200">
@@ -702,7 +702,7 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
                 <div className="text-gray-600">Overall Performance</div>
               </div>
             </div>
-          </div>
+            </div>
           
           <p className="text-gray-600 mb-6">
             You've successfully learned about essential technical indicators and demonstrated 
@@ -725,8 +725,8 @@ export default function UsingEssentialTechnicalIndicatorsPage() {
             </a>
           </div>
       </div>
-      </LessonLayout>
-    );
+    </LessonLayout>
+  );
   }
 
   return (

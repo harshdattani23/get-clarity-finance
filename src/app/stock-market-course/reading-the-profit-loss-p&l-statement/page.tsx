@@ -10,7 +10,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { TrendingUp, TrendingDown, DollarSign, Target, Calculator, BarChart3, CheckCircle, Activity } from 'lucide-react';
 
 export default function ReadingPandLStatementPage() {
-  const { t } = useTranslation('stock-market-course.reading-the-profit-loss-p&l-statement');
+    const { t } = useTranslation('stock-market-course.reading-the-profit-loss-p&l-statement');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -205,7 +205,7 @@ export default function ReadingPandLStatementPage() {
             <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <div className="flex items-start">
                 <Calculator className="w-8 h-8 text-blue-500 mr-4 flex-shrink-0 mt-1" />
-                <div>
+      <div>
                   <h3 className="font-bold text-xl text-gray-800 mb-3">Gross Profit</h3>
  <p className="text-gray-700 mb-4">
                     Revenue minus COGS. This shows how efficiently the company produces goods or delivers services.
@@ -234,7 +234,7 @@ export default function ReadingPandLStatementPage() {
                       <li>• Interest expenses</li>
                       <li>• Tax expenses</li>
                       <li>• Other income/expenses</li>
-                    </ul>
+          </ul>
                   </div>
                 </div>
               </div>
@@ -290,54 +290,54 @@ export default function ReadingPandLStatementPage() {
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Sample P&L Statement
             </h3>
-            <div className="overflow-x-auto">
+          <div className="overflow-x-auto">
               <table className="min-w-full bg-white border border-gray-300">
-                <thead>
+              <thead>
                   <tr className="bg-gray-200">
                     <th className="py-3 px-4 border-b text-left font-semibold text-gray-800">Particulars</th>
                     <th className="py-3 px-4 border-b text-right font-semibold text-gray-800">Amount (in ₹)</th>
                     <th className="py-3 px-4 border-b text-center font-semibold text-gray-800">Analysis</th>
-                  </tr>
-                </thead>
-                <tbody>
+                </tr>
+              </thead>
+              <tbody>
                   <tr className="border-b">
                     <td className="py-3 px-4 font-semibold text-green-700">Revenue</td>
                     <td className="py-3 px-4 text-right font-mono">1,000,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Top line - total sales</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 text-red-700">Cost of Goods Sold (COGS)</td>
                     <td className="py-3 px-4 text-right font-mono text-red-700">(600,000)</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Direct production costs</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-green-50">
                     <td className="py-3 px-4 font-bold text-green-800">Gross Profit</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-green-800">400,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Revenue - COGS</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 text-red-700">Operating Expenses</td>
                     <td className="py-3 px-4 text-right font-mono text-red-700">(150,000)</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Admin, marketing, etc.</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-blue-50">
                     <td className="py-3 px-4 font-bold text-blue-800">Profit Before Tax (PBT)</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-blue-800">250,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Gross Profit - Expenses</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 text-red-700">Tax</td>
                     <td className="py-3 px-4 text-right font-mono text-red-700">(50,000)</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Income tax</td>
-                  </tr>
+                </tr>
                   <tr className="bg-green-100">
                     <td className="py-3 px-4 font-bold text-green-800 text-lg">Net Income</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-green-800 text-lg">200,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Bottom line - final profit</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -655,7 +655,7 @@ export default function ReadingPandLStatementPage() {
               <li>• Calculate gross profit and net profit margins</li>
               <li>• Compare margins with competitors in the same industry</li>
               <li>• Look for trends over the past few years</li>
-            </ul>
+          </ul>
           </div>
 
           <ConfirmationCheck
@@ -733,7 +733,7 @@ export default function ReadingPandLStatementPage() {
               Next Lesson
             </a>
           </div>
-        </div>
+      </div>
       </LessonLayout>
     );
   }

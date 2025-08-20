@@ -10,7 +10,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { BookOpen, BarChart, FileText, Activity, Target, TrendingUp, CheckCircle } from 'lucide-react';
 
 export default function IntroFundamentalAnalysisPage() {
-  const { t } = useTranslation('stock-market-course.introduction-to-fundamental-analysis');
+    const { t } = useTranslation('stock-market-course.introduction-to-fundamental-analysis');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -155,7 +155,7 @@ export default function IntroFundamentalAnalysisPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
               <h3 className="font-bold text-lg text-yellow-800 flex items-center mb-2">
                 <BookOpen className="w-5 h-5 mr-2" />
                 Qualitative Factors (The 'Art')
@@ -181,9 +181,9 @@ export default function IntroFundamentalAnalysisPage() {
                   <span className="text-sm text-gray-700">Brand Value</span>
                 </div>
               </div>
-            </div>
+          </div>
             
-            <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
               <h3 className="font-bold text-lg text-green-800 flex items-center mb-2">
                 <BarChart className="w-5 h-5 mr-2" />
                 Quantitative Factors (The 'Science')
@@ -485,8 +485,8 @@ export default function IntroFundamentalAnalysisPage() {
                 />
                 <span className="text-gray-700">C) Company's assets, liabilities, and equity at a point in time</span>
               </label>
-            </div>
           </div>
+        </div>
 
           <div className="bg-green-50 p-6 rounded-lg border border-green-200">
             <h3 className="text-lg font-semibold text-green-800 mb-3">
@@ -563,14 +563,14 @@ export default function IntroFundamentalAnalysisPage() {
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
+                <div>
                     <h4 className="font-semibold text-gray-800">Undervalued Opportunities</h4>
                     <p className="text-gray-600 text-sm">The goal is to find stocks that are undervalued by the market.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
+                <div>
                     <h4 className="font-semibold text-gray-800">Long-term Perspective</h4>
                     <p className="text-gray-600 text-sm">Fundamental analysis is best suited for long-term investment strategies.</p>
                   </div>
@@ -604,7 +604,7 @@ export default function IntroFundamentalAnalysisPage() {
                 <p className="text-orange-700 text-sm">Learn essential ratios for company evaluation.</p>
               </div>
             </div>
-          </div>
+                </div>
 
           <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
             <h3 className="text-lg font-semibold text-yellow-800 mb-3">
@@ -619,7 +619,7 @@ export default function IntroFundamentalAnalysisPage() {
               <li>• Look for both qualitative and quantitative factors</li>
               <li>• Compare with competitors in the same industry</li>
             </ul>
-          </div>
+        </div>
 
           <ConfirmationCheck
             title="Final Understanding Check"

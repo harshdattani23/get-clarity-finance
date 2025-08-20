@@ -11,7 +11,7 @@ import { TrendingUp, TrendingDown, Target, CheckCircle, BarChart3, Activity } fr
 import Image from 'next/image';
 
 export default function HowToReadCandlestickChartsPage() {
-  const { t } = useTranslation('stock-market-course.how-to-read-candlestick-charts');
+    const { t } = useTranslation('stock-market-course.how-to-read-candlestick-charts');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -353,7 +353,7 @@ export default function HowToReadCandlestickChartsPage() {
                   <li>• Previous trend exhausted</li>
                   <li>• New trend beginning</li>
                   <li>• High probability setup</li>
-                </ul>
+          </ul>
               </div>
               <div className="flex justify-center">
                 <div className="bg-gray-100 p-4 rounded-lg">
@@ -727,7 +727,7 @@ export default function HowToReadCandlestickChartsPage() {
               Next Lesson
             </a>
           </div>
-        </div>
+      </div>
       </LessonLayout>
     );
   }

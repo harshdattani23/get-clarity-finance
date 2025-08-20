@@ -10,7 +10,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { TrendingUp, TrendingDown, DollarSign, Target, Calculator, BarChart3, CheckCircle, Activity, ArrowUpDown } from 'lucide-react';
 
 export default function ReadingCashFlowStatementPage() {
-  const { t } = useTranslation('stock-market-course.reading-the-cash-flow-statement');
+    const { t } = useTranslation('stock-market-course.reading-the-cash-flow-statement');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -189,7 +189,7 @@ export default function ReadingCashFlowStatementPage() {
             <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <div className="flex items-start">
                 <TrendingUp className="w-8 h-8 text-blue-500 mr-4 flex-shrink-0 mt-1" />
-                <div>
+      <div>
                   <h3 className="font-bold text-xl text-gray-800 mb-3">Cash Flow from Investing Activities (CFI)</h3>
                   <p className="text-gray-700 mb-4">
                     Cash used for or generated from a company's investments, such as the purchase or sale of assets.
@@ -228,7 +228,7 @@ export default function ReadingCashFlowStatementPage() {
                       <li>• Borrowing money (debt)</li>
                       <li>• Repaying debt</li>
                       <li>• Paying dividends</li>
-                    </ul>
+          </ul>
                   </div>
                   <div className="mt-3 bg-orange-50 p-3 rounded-lg">
                     <p className="text-orange-700 text-sm">
@@ -290,71 +290,71 @@ export default function ReadingCashFlowStatementPage() {
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Sample Cash Flow Statement
             </h3>
-            <div className="overflow-x-auto">
+          <div className="overflow-x-auto">
               <table className="min-w-full bg-white border border-gray-300">
-                <thead>
+              <thead>
                   <tr className="bg-gray-200">
                     <th className="py-3 px-4 border-b text-left font-semibold text-gray-800">Particulars</th>
                     <th className="py-3 px-4 border-b text-right font-semibold text-gray-800">Amount (in ₹)</th>
                     <th className="py-3 px-4 border-b text-center font-semibold text-gray-800">Analysis</th>
-                  </tr>
-                </thead>
-                <tbody>
+                </tr>
+              </thead>
+              <tbody>
                   <tr className="border-b bg-green-50">
                     <td className="py-3 px-4 font-bold text-green-800" colSpan={2}>Cash Flow from Operating Activities</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Core business cash generation</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 pl-8">Net Income</td>
                     <td className="py-3 px-4 text-right font-mono">200,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Starting point from P&L</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 pl-8">Depreciation</td>
                     <td className="py-3 px-4 text-right font-mono">25,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Non-cash expense added back</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-green-100">
                     <td className="py-3 px-4 font-bold text-green-800">Net Cash from Operating Activities</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-green-800">225,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Positive - good sign!</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-blue-50">
                     <td className="py-3 px-4 font-bold text-blue-800" colSpan={2}>Cash Flow from Investing Activities</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Asset investments</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 pl-8">Purchase of Equipment</td>
                     <td className="py-3 px-4 text-right font-mono text-red-700">(150,000)</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Cash outflow for growth</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-blue-100">
                     <td className="py-3 px-4 font-bold text-blue-800">Net Cash from Investing Activities</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-blue-800">(150,000)</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Negative - investing in future</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-purple-50">
                     <td className="py-3 px-4 font-bold text-purple-800" colSpan={2}>Cash Flow from Financing Activities</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Funding sources</td>
-                  </tr>
+                </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 pl-8">Issuance of Debt</td>
                     <td className="py-3 px-4 text-right font-mono text-green-700">50,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Borrowing money</td>
-                  </tr>
+                </tr>
                   <tr className="border-b bg-purple-100">
                     <td className="py-3 px-4 font-bold text-purple-800">Net Cash from Financing Activities</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-purple-800">50,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Positive - external funding</td>
-                  </tr>
+                </tr>
                   <tr className="bg-blue-100">
                     <td className="py-3 px-4 font-bold text-blue-800 text-lg">Net Increase in Cash</td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-blue-800 text-lg">125,000</td>
                     <td className="py-3 px-4 text-center text-sm text-gray-600">Overall cash position improved</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -678,7 +678,7 @@ export default function ReadingCashFlowStatementPage() {
               <li>• Analyze the three sections separately</li>
               <li>• Compare operating cash flow with net income</li>
               <li>• Look for trends over the past few years</li>
-            </ul>
+          </ul>
           </div>
 
           <ConfirmationCheck
@@ -756,7 +756,7 @@ export default function ReadingCashFlowStatementPage() {
               Next Lesson
             </a>
           </div>
-        </div>
+      </div>
       </LessonLayout>
     );
   }

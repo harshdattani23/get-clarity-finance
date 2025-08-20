@@ -10,7 +10,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { Landmark, HandCoins, ShieldCheck, Target, Calculator, TrendingUp, CheckCircle, DollarSign } from 'lucide-react';
 
 export default function ReadingBalanceSheetPage() {
-  const { t } = useTranslation('stock-market-course.reading-the-balance-sheet');
+    const { t } = useTranslation('stock-market-course.reading-the-balance-sheet');
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -65,7 +65,7 @@ export default function ReadingBalanceSheetPage() {
             <p className="text-gray-700 leading-relaxed mb-4">
               The Balance Sheet provides a snapshot of a company's financial position at a single point in time. It's based on the fundamental accounting equation, which must always balance.
             </p>
-            <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200 text-center">
+        <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200 text-center">
               <p className="text-2xl font-bold text-yellow-800">
                 Assets = Liabilities + Shareholder Equity
               </p>
@@ -157,10 +157,10 @@ export default function ReadingBalanceSheetPage() {
             <p className="text-purple-700">
               Every balance sheet is built on these three fundamental components. Understanding each one is crucial for financial analysis.
             </p>
-          </div>
+        </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
               <h3 className="font-bold text-lg text-blue-800 flex items-center mb-2">
                 <Landmark className="w-5 h-5 mr-2" />
                 Assets: What the Company Owns
@@ -186,9 +186,9 @@ export default function ReadingBalanceSheetPage() {
                   <span className="text-sm text-gray-700">Property & Equipment</span>
                 </div>
               </div>
-            </div>
+          </div>
             
-            <div className="bg-red-50 p-6 rounded-lg border border-red-200">
+          <div className="bg-red-50 p-6 rounded-lg border border-red-200">
               <h3 className="font-bold text-lg text-red-800 flex items-center mb-2">
                 <HandCoins className="w-5 h-5 mr-2" />
                 Liabilities: What the Company Owes
@@ -635,8 +635,8 @@ export default function ReadingBalanceSheetPage() {
                 <h4 className="font-semibold text-orange-800 mb-2">Advanced Analysis</h4>
                 <p className="text-orange-700 text-sm">Combine all statements for complete company evaluation.</p>
               </div>
-            </div>
           </div>
+        </div>
 
           <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
             <h3 className="text-lg font-semibold text-yellow-800 mb-3">
@@ -651,7 +651,7 @@ export default function ReadingBalanceSheetPage() {
               <li>• Compare with competitors in the same industry</li>
               <li>• Look for trends over the past few years</li>
             </ul>
-          </div>
+        </div>
 
           <ConfirmationCheck
             title="Final Understanding Check"
