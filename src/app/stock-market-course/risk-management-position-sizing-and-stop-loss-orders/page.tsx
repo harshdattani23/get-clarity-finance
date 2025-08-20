@@ -166,8 +166,8 @@ export default function RiskManagementPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('position-sizing-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('position-sizing-quiz', percentage);
             }
           }}
         />
@@ -269,8 +269,8 @@ export default function RiskManagementPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('stop-loss-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('stop-loss-quiz', percentage);
             }
           }}
         />
@@ -365,8 +365,8 @@ export default function RiskManagementPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('risk-concepts', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('risk-concepts', percentage);
             }
           }}
         />
@@ -408,8 +408,8 @@ export default function RiskManagementPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('short-questions', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('short-questions', percentage);
             }
           }}
         />
@@ -458,11 +458,11 @@ export default function RiskManagementPage() {
               "I prioritize capital preservation over maximizing profits"
             ]}
             partId="conclusion"
-            onPartComplete={(partId, score) => {
-              if ((window as any).__multiPartLessonComplete) {
-                (window as any).__multiPartLessonComplete(partId, score);
-              }
-            }}
+                    onPartComplete={(partId, score) => {
+          if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+            (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, score);
+          }
+        }}
           />
         </div>
       ),

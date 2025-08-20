@@ -179,8 +179,8 @@ export default function SpreadStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('bull-spread-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('bull-spread-quiz', percentage);
             }
           }}
         />
@@ -295,8 +295,8 @@ export default function SpreadStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('bear-spread-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('bear-spread-quiz', percentage);
             }
           }}
         />
@@ -400,8 +400,8 @@ export default function SpreadStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('strategy-comparison', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('strategy-comparison', percentage);
             }
           }}
         />
@@ -443,8 +443,8 @@ export default function SpreadStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('short-questions', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('short-questions', percentage);
             }
           }}
         />
@@ -488,11 +488,11 @@ export default function SpreadStrategiesPage() {
               "I will practice thoroughly before using real money"
             ]}
             partId="conclusion"
-            onPartComplete={(partId, score) => {
-              if ((window as any).__multiPartLessonComplete) {
-                (window as any).__multiPartLessonComplete(partId, score);
-              }
-            }}
+                    onPartComplete={(partId, score) => {
+          if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+            (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, score);
+          }
+        }}
           />
         </div>
       ),

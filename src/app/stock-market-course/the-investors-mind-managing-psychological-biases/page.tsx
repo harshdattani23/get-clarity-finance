@@ -174,8 +174,8 @@ export default function PsychologicalBiasesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('biases-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('biases-quiz', percentage);
             }
           }}
         />
@@ -297,8 +297,8 @@ export default function PsychologicalBiasesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('scenarios-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('scenarios-quiz', percentage);
             }
           }}
         />
@@ -409,8 +409,8 @@ export default function PsychologicalBiasesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('bias-matching', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('bias-matching', percentage);
             }
           }}
         />
@@ -452,8 +452,8 @@ export default function PsychologicalBiasesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('short-questions', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('short-questions', percentage);
             }
           }}
         />
@@ -502,11 +502,11 @@ export default function PsychologicalBiasesPage() {
               "I will focus on building emotional discipline in my investing"
             ]}
             partId="conclusion"
-            onPartComplete={(partId, score) => {
-              if ((window as any).__multiPartLessonComplete) {
-                (window as any).__multiPartLessonComplete(partId, score);
-              }
-            }}
+                    onPartComplete={(partId, score) => {
+          if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+            (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, score);
+          }
+        }}
           />
         </div>
       ),

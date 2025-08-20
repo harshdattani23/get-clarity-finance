@@ -157,8 +157,8 @@ export default function AdvancedOptionStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('iron-condor-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('iron-condor-quiz', percentage);
             }
           }}
         />
@@ -251,8 +251,8 @@ export default function AdvancedOptionStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('butterfly-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('butterfly-quiz', percentage);
             }
           }}
         />
@@ -291,8 +291,8 @@ export default function AdvancedOptionStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('strategy-comparison', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('strategy-comparison', percentage);
             }
           }}
         />
@@ -371,8 +371,8 @@ export default function AdvancedOptionStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('short-questions', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('short-questions', percentage);
             }
           }}
         />
@@ -416,11 +416,11 @@ export default function AdvancedOptionStrategiesPage() {
               "I understand the importance of proper risk management"
             ]}
             partId="key-takeaways"
-            onPartComplete={(partId, score) => {
-              if ((window as any).__multiPartLessonComplete) {
-                (window as any).__multiPartLessonComplete(partId, score);
-              }
-            }}
+                    onPartComplete={(partId, score) => {
+          if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+            (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, score);
+          }
+        }}
           />
         </div>
       ),

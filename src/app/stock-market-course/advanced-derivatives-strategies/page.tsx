@@ -186,8 +186,8 @@ export default function AdvancedDerivativesStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('greeks-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('greeks-quiz', percentage);
             }
           }}
         />
@@ -314,8 +314,8 @@ export default function AdvancedDerivativesStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('strategies-quiz', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('strategies-quiz', percentage);
             }
           }}
         />
@@ -431,8 +431,8 @@ export default function AdvancedDerivativesStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('strategy-matching', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('strategy-matching', percentage);
             }
           }}
         />
@@ -474,8 +474,8 @@ export default function AdvancedDerivativesStrategiesPage() {
           ]}
           onComplete={(score, total) => {
             const percentage = Math.round((score / total) * 100);
-            if ((window as any).__multiPartLessonComplete) {
-              (window as any).__multiPartLessonComplete('short-questions', percentage);
+            if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+              (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete('short-questions', percentage);
             }
           }}
         />
@@ -519,11 +519,11 @@ export default function AdvancedDerivativesStrategiesPage() {
               "I will practice thoroughly before using real money"
             ]}
             partId="conclusion"
-            onPartComplete={(partId, score) => {
-              if ((window as any).__multiPartLessonComplete) {
-                (window as any).__multiPartLessonComplete(partId, score);
-              }
-            }}
+                    onPartComplete={(partId, score) => {
+          if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
+            (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partId, score);
+          }
+        }}
           />
         </div>
       ),
