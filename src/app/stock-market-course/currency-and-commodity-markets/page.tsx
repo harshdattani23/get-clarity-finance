@@ -133,6 +133,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "forex-market",
         title: "Forex (Foreign Exchange) Market",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
@@ -203,6 +205,8 @@ export default function CurrencyAndCommodityMarketsPage() {
       {
         id: "commodity-market",
         title: "Commodity Markets",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
