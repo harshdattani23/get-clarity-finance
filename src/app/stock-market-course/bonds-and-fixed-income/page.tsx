@@ -478,7 +478,7 @@ export default function BondsAndFixedIncomePage() {
                   <p className="font-medium mb-3">1. Why do bond prices fall when interest rates rise?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -487,7 +487,7 @@ export default function BondsAndFixedIncomePage() {
                   <p className="font-medium mb-3">2. What are the main differences between government and corporate bonds?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>
@@ -496,7 +496,7 @@ export default function BondsAndFixedIncomePage() {
                   <p className="font-medium mb-3">3. How can bonds help diversify an investment portfolio?</p>
                   <textarea 
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    rows="3"
+                    rows={3}
                     placeholder="Type your answer here..."
                   ></textarea>
                 </div>

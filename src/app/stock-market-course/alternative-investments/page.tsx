@@ -27,7 +27,7 @@ export default function AlternativeInvestmentsPage() {
     parts: [
       {
         id: "introduction",
-        title: "Introduction",
+        title: "Introduction to Alternative Investments",
         isRequired: true,
         type: 'content' as const,
         content: (
@@ -133,6 +133,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "precious-metals",
         title: "Precious Metals",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
@@ -195,6 +197,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "art-collectibles",
         title: "Art and Collectibles",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
@@ -275,6 +279,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "cryptocurrencies",
         title: "Cryptocurrencies",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
@@ -353,6 +359,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "interactive-selection",
         title: "Interactive Selection",
+        isRequired: true,
+        type: 'selection' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
@@ -407,6 +415,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "private-equity-hedge-funds",
         title: "Private Equity & Hedge Funds",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-r-lg">
@@ -465,6 +475,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "short-questions",
         title: "Deep Understanding Check",
+        isRequired: true,
+        type: 'short-answer' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
@@ -510,6 +522,8 @@ export default function AlternativeInvestmentsPage() {
       {
         id: "key-takeaways",
         title: "Key Takeaways",
+        isRequired: true,
+        type: 'content' as const,
         content: (
           <div className="space-y-6">
             <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
