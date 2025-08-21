@@ -19,7 +19,6 @@ interface InteractiveQuestionsProps {
 
 export default function InteractiveQuestions({ 
   questions, 
-  language, 
   onComplete 
 }: InteractiveQuestionsProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);

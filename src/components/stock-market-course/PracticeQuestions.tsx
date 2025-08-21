@@ -8,7 +8,7 @@ interface PracticeQuestionsProps {
   lessonId: string;
 }
 
-export default function PracticeQuestions({ language, lessonId }: PracticeQuestionsProps) {
+export default function PracticeQuestions({ language }: PracticeQuestionsProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
   const [showResults, setShowResults] = useState(false);
 

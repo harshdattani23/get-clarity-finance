@@ -11,7 +11,6 @@ interface TranscriptPanelProps {
 
 export default function TranscriptPanel({ 
   language, 
-  lessonId,
   isVisible, 
   onToggle 
 }: TranscriptPanelProps) {

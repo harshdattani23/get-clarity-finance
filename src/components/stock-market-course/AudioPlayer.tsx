@@ -12,7 +12,6 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ 
   language, 
-  lessonId,
   isPlaying, 
   onPlayPause 
 }: AudioPlayerProps) {

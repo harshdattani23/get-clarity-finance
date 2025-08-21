@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { Play, Pause, RotateCcw, Download, Volume2, VolumeX, Globe } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
 import AudioPlayer from './AudioPlayer';
 import TranscriptPanel from './TranscriptPanel';

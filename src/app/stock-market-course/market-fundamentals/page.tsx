@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
-import { Home, Play, Pause } from 'lucide-react';
-import Link from 'next/link';
+import { Play, Pause } from 'lucide-react';
 
 export default function MarketFundamentalsPage() {
   const [currentSection, setCurrentSection] = useState(0);

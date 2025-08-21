@@ -63,78 +63,59 @@ export default function MultiPartLesson({
     const currentPartScore = partScores[currentPart.id];
     const isCurrentPartCompleted = completedParts.has(currentPart.id);
     
-    console.log(`Checking if can proceed from part ${currentPart.id}:`, {
-      type: currentPart.type,
-      isRequired: currentPart.isRequired,
-      minScore: currentPart.minScore,
-      currentPartScore,
-      isCurrentPartCompleted,
-      allCompletedParts: Array.from(completedParts),
-      allPartScores: partScores
-    });
+    // Check progression logic
     
     // For quiz parts with minimum score requirement
     if (currentPart.type === 'quiz' && currentPart.isRequired && currentPart.minScore !== undefined) {
       const canProceed = currentPartScore !== undefined && currentPartScore >= currentPart.minScore;
-      console.log(`Quiz part can proceed: ${canProceed} (score: ${currentPartScore}, min: ${currentPart.minScore})`);
       return canProceed;
     }
     
     // For selection parts with minimum score requirement
     if (currentPart.type === 'selection' && currentPart.isRequired && currentPart.minScore !== undefined) {
       const canProceed = currentPartScore !== undefined && currentPartScore >= currentPart.minScore;
-      console.log(`Selection part can proceed: ${canProceed} (score: ${currentPartScore}, min: ${currentPart.minScore})`);
       return canProceed;
     }
     
     // For short-answer parts, check if they're completed (no strict score requirement)
     if (currentPart.type === 'short-answer' && currentPart.isRequired) {
       const canProceed = isCurrentPartCompleted;
-      console.log(`Short-answer part can proceed: ${canProceed} (completed: ${isCurrentPartCompleted})`);
       return canProceed;
     }
     
     // For interactive parts, check if they're completed
     if (currentPart.type === 'interactive') {
       const canProceed = isCurrentPartCompleted;
-      console.log(`Interactive part can proceed: ${canProceed}`);
       return canProceed;
     }
     
     // For content parts, check if they're completed
     if (currentPart.type === 'content') {
       const canProceed = isCurrentPartCompleted || !currentPart.isRequired;
-      console.log(`Content part can proceed: ${canProceed} (completed: ${isCurrentPartCompleted}, required: ${currentPart.isRequired})`);
       return canProceed;
     }
     
     // For audio parts, check if they're completed
     if (currentPart.type === 'audio') {
       const canProceed = isCurrentPartCompleted || !currentPart.isRequired;
-      console.log(`Audio part can proceed: ${canProceed} (completed: ${isCurrentPartCompleted}, required: ${currentPart.isRequired})`);
       return canProceed;
     }
     
     // Default: check if part is completed or not required
     const canProceed = isCurrentPartCompleted || !currentPart.isRequired;
-    console.log(`Default case can proceed: ${canProceed}`);
     return canProceed;
   };
 
   // Handle part completion
   const handlePartComplete = useCallback((partId: string, score: number) => {
-    console.log(`Part ${partId} completed with score: ${score}`);
-    console.log(`Before completion - completedParts:`, Array.from(completedParts), `partScores:`, partScores);
     
     setCompletedParts(prev => {
       const newSet = new Set([...prev, partId]);
-      console.log(`Updated completedParts:`, Array.from(newSet));
       return newSet;
     });
     
     setPartScores(prev => {
       const newScores = { ...prev, [partId]: score };
-      console.log(`Updated partScores:`, newScores);
       return newScores;
     });
     
@@ -146,7 +127,7 @@ export default function MultiPartLesson({
     if (isLastPart) {
       onComplete(totalScore + score);
     }
-  }, [completedParts, partScores, totalScore, isLastPart, onPartComplete, onComplete]);
+  }, [totalScore, isLastPart, onPartComplete, onComplete]);
 
   // Expose the completion handler to child components
   useEffect(() => {

@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Play, Pause, Volume2, BookOpen, Target, CheckCircle, ArrowRight, Home, BarChart3 } from 'lucide-react';
-import LessonLayout from '../LessonLayout';
+import { ChevronLeft, Volume2, BookOpen, CheckCircle, ArrowRight, Home, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function WhatIsAStockPage() {
   const [currentPart, setCurrentPart] = useState(0);
   const [completedParts, setCompletedParts] = useState<Set<number>>(new Set());
   const [showAudio, setShowAudio] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const lessonData = {
     title: "What is a Stock?",

@@ -7,7 +7,7 @@ interface LessonContentProps {
   lessonId: string;
 }
 
-export default function LessonContent({ language, lessonId }: LessonContentProps) {
+export default function LessonContent({ language }: LessonContentProps) {
   // Mock content data - replace with actual content from JSON files
   const getContent = () => {
     const content = {

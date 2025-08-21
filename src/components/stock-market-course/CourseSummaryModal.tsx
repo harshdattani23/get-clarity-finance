@@ -32,7 +32,6 @@ export default function CourseSummaryModal({
   isOpen, 
   onClose, 
   courseTitle, 
-  courseDescription, 
   audioFiles, 
   transcripts 
 }: CourseSummaryModalProps) {

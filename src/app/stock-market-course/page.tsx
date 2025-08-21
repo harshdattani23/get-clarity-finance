@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import CourseHubSkeleton from '@/components/stock-market-course/CourseHubSkeleton';
-import { Play, BookOpen, Target, Star, ArrowRight, Search, Volume2, CheckCircle, Clock } from 'lucide-react';
+import { Play, Search } from 'lucide-react';
 
 export default function StockMarketCoursePage() {
   const { translations } = useTranslation('stock-market-course.course-modules');
