@@ -1,750 +1,409 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import LessonLayout from "../LessonLayout";
-import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
-import AudioSummary from "@/components/stock-market-course/AudioSummary";
-import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
-import { useTranslation } from "@/hooks/useTranslation";
-import { Landmark, HandCoins, ShieldCheck, Target, CheckCircle } from 'lucide-react';
+import MultiPartLesson from '@/components/stock-market-course/MultiPartLesson';
+import AudioSummary from '@/components/stock-market-course/AudioSummary';
 
 export default function ReadingBalanceSheetPage() {
-    const { t } = useTranslation('stock-market-course.reading-the-balance-sheet');
-  const [lessonCompleted, setLessonCompleted] = useState(false);
-  const [finalScore, setFinalScore] = useState(0);
+  const lessonData = {
+    title: "Reading the Balance Sheet",
+    description: "Master the art of reading balance sheets to understand a company's financial position, assets, liabilities, and equity at a specific point in time.",
+    lessonSlug: "reading-the-balance-sheet",
+    audioFiles: {
+      en: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/advanced-topics/balance-sheet-en.m4a",
+      hi: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/advanced-topics/balance-sheet-hi.m4a",
+      bn: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/advanced-topics/balance-sheet-bn.m4a",
+      ta: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/advanced-topics/balance-sheet-ta.m4a",
+      mr: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/advanced-topics/balance-sheet-mr.m4a"
+    },
+    transcript: {
+      en: "Reading the Balance Sheet: Master the art of reading balance sheets to understand a company's financial position, assets, liabilities, and equity at a specific point in time.",
+      hi: "बैलेंस शीट पढ़ना: कंपनी की वित्तीय स्थिति, संपत्ति, देनदारियों और इक्विटी को समझने के लिए बैलेंस शीट पढ़ने की कला में महारत हासिल करें।",
+      bn: "ব্যালেন্স শীট পড়া: একটি নির্দিষ্ট সময়ে কোম্পানির আর্থিক অবস্থান, সম্পদ, দায় এবং ইক্যুইটি বোঝার জন্য ব্যালেন্স শীট পড়ার শিল্পে দক্ষতা অর্জন করুন।",
+      ta: "இருப்புநிலைக் கணக்கு படித்தல்: ஒரு குறிப்பிட்ட நேரத்தில் நிறுவனத்தின் நிதி நிலை, சொத்துக்கள், பொறுப்புகள் மற்றும் ஈக்விட்டியைப் புரிந்துகொள்ள இருப்புநிலைக் கணக்கு படிக்கும் கலையில் தேர்ச்சி பெறுங்கள்.",
+      mr: "ताळेबंद वाचणे: एका विशिष्ट वेळी कंपनीची आर्थिक स्थिती, मालमत्ता, दायित्वे आणि इक्विटी समजून घेण्यासाठी ताळेबंद वाचण्याच्या कलेत प्राविण्य मिळवा."
+    },
+    parts: [
+      {
+        id: 'introduction',
+        title: 'Understanding the Balance Sheet',
+        isRequired: true,
+        type: 'content' as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-blue-800 mb-3">
+                What You'll Learn
+              </h3>
+              <p className="text-blue-700">
+                Master the art of reading balance sheets to understand a company's financial position, assets, liabilities, and equity at a specific point in time.
+              </p>
+            </div>
 
-  // Handle lesson completion
-  const handleLessonComplete = (totalScore: number) => {
-    setFinalScore(totalScore);
-    setLessonCompleted(true);
-  };
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                What is a Balance Sheet?
+              </h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                A balance sheet is like a financial "snapshot" of a company at a specific moment in time. It shows what the company owns (assets), what it owes (liabilities), and what belongs to shareholders (equity).
+              </p>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Unlike the P&L statement which shows performance over time, the balance sheet shows the financial position on a specific date.
+              </p>
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
+                <p className="text-lg font-semibold text-green-800">
+                  Assets = Liabilities + Shareholders' Equity
+                </p>
+                <p className="text-green-700 text-sm mt-1">This equation must always balance!</p>
+              </div>
+            </div>
 
-  // Handle part completion
-  const handlePartComplete = (partId: string, score: number) => {
-    console.log(`Part ${partId} completed with score: ${score}`);
-  };
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                <h4 className="font-semibold text-green-800 mb-2">What Balance Sheet Shows</h4>
+                <ul className="text-green-700 space-y-1 text-sm">
+                  <li>• Company's financial strength</li>
+                  <li>• Liquidity position</li>
+                  <li>• Debt levels</li>
+                  <li>• Asset quality</li>
+                </ul>
+              </div>
+              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                <h4 className="font-semibold text-orange-800 mb-2">Key Differences</h4>
+                <ul className="text-orange-700 space-y-1 text-sm">
+                  <li>• P&L: Performance over time</li>
+                  <li>• Balance Sheet: Position at a point</li>
+                  <li>• P&L: Revenue and expenses</li>
+                  <li>• Balance Sheet: Assets and liabilities</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'assets',
+        title: 'Understanding Assets',
+        isRequired: true,
+        type: 'content' as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                What are Assets?
+              </h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Assets are everything the company owns that has value. They're divided into two main categories based on how quickly they can be converted to cash.
+              </p>
+            </div>
 
-  // Create confirmation handler for interactive parts
-  const createConfirmationHandler = (partId: string) => {
-    return (partIdParam: string, score: number) => {
-      console.log(`Part ${partIdParam} completed with score: ${score}`);
-      
-      // Call the MultiPartLesson's completion handler directly
-      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
-        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partIdParam, score);
+            <div className="space-y-6">
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <h4 className="text-xl font-semibold text-blue-800 mb-3">Current Assets</h4>
+                <p className="text-blue-700 mb-3">
+                  Assets that can be converted to cash within one year.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Cash & Cash Equivalents</p>
+                    <p className="text-blue-700 text-sm">Money in bank, short-term investments</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Accounts Receivable</p>
+                    <p className="text-blue-700 text-sm">Money customers owe to company</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Inventory</p>
+                    <p className="text-blue-700 text-sm">Products ready for sale</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Prepaid Expenses</p>
+                    <p className="text-blue-700 text-sm">Payments made in advance</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                <h4 className="text-xl font-semibold text-green-800 mb-3">Non-Current Assets (Fixed Assets)</h4>
+                <p className="text-green-700 mb-3">
+                  Assets that provide value for more than one year.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="bg-white p-3 rounded border border-green-200">
+                    <p className="text-green-800 font-medium">Property, Plant & Equipment</p>
+                    <p className="text-green-700 text-sm">Buildings, machinery, vehicles</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-green-200">
+                    <p className="text-green-800 font-medium">Intangible Assets</p>
+                    <p className="text-green-700 text-sm">Patents, trademarks, goodwill</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-green-200">
+                    <p className="text-green-800 font-medium">Investments</p>
+                    <p className="text-green-700 text-sm">Long-term securities, subsidiaries</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-green-200">
+                    <p className="text-green-800 font-medium">Goodwill</p>
+                    <p className="text-green-700 text-sm">Value from acquisitions</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                <h4 className="text-xl font-semibold text-yellow-800 mb-3">Key Asset Quality Indicators</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-yellow-800 font-medium">Good Signs:</p>
+                    <ul className="text-yellow-700 text-sm space-y-1">
+                      <li>• High cash levels</li>
+                      <li>• Growing receivables with sales</li>
+                      <li>• Reasonable inventory levels</li>
+                      <li>• Modern equipment</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-yellow-800 font-medium">Warning Signs:</p>
+                    <ul className="text-yellow-700 text-sm space-y-1">
+                      <li>• Very low cash</li>
+                      <li>• Rapidly growing receivables</li>
+                      <li>• Excessive inventory</li>
+                      <li>• Old, depreciated assets</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'liabilities-equity',
+        title: 'Liabilities and Equity',
+        isRequired: true,
+        type: 'content' as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                Understanding Liabilities and Equity
+              </h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Liabilities are what the company owes to others, while equity represents the shareholders' stake in the company.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-red-50 p-6 rounded-lg border border-red-200">
+                <h4 className="text-xl font-semibold text-red-800 mb-3">Current Liabilities</h4>
+                <p className="text-red-700 mb-3">
+                  Debts that must be paid within one year.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="bg-white p-3 rounded border border-red-200">
+                    <p className="text-red-800 font-medium">Accounts Payable</p>
+                    <p className="text-red-700 text-sm">Money owed to suppliers</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-red-200">
+                    <p className="text-red-800 font-medium">Short-term Debt</p>
+                    <p className="text-red-700 text-sm">Loans due within a year</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-red-200">
+                    <p className="text-red-800 font-medium">Accrued Expenses</p>
+                    <p className="text-red-700 text-sm">Wages, taxes owed</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-red-200">
+                    <p className="text-red-800 font-medium">Deferred Revenue</p>
+                    <p className="text-red-700 text-sm">Prepayments from customers</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-orange-50 p-6 rounded-lg border border-orange-200">
+                <h4 className="text-xl font-semibold text-orange-800 mb-3">Non-Current Liabilities</h4>
+                <p className="text-orange-700 mb-3">
+                  Long-term debts and obligations.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="bg-white p-3 rounded border border-orange-200">
+                    <p className="text-orange-800 font-medium">Long-term Debt</p>
+                    <p className="text-orange-700 text-sm">Bank loans, bonds</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-orange-200">
+                    <p className="text-orange-800 font-medium">Pension Obligations</p>
+                    <p className="text-orange-700 text-sm">Employee retirement benefits</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-orange-200">
+                    <p className="text-orange-800 font-medium">Deferred Tax</p>
+                    <p className="text-orange-700 text-sm">Future tax obligations</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-orange-200">
+                    <p className="text-orange-800 font-medium">Lease Obligations</p>
+                    <p className="text-orange-700 text-sm">Long-term rental commitments</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <h4 className="text-xl font-semibold text-blue-800 mb-3">Shareholders' Equity</h4>
+                <p className="text-blue-700 mb-3">
+                  The residual value that belongs to shareholders.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Share Capital</p>
+                    <p className="text-blue-700 text-sm">Money raised from issuing shares</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Retained Earnings</p>
+                    <p className="text-blue-700 text-sm">Accumulated profits not distributed</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Reserves</p>
+                    <p className="text-blue-700 text-sm">Other accumulated funds</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200">
+                    <p className="text-blue-800 font-medium">Treasury Stock</p>
+                    <p className="text-blue-700 text-sm">Company's own shares bought back</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                <h4 className="text-xl font-semibold text-purple-800 mb-3">Key Balance Sheet Ratios</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white p-3 rounded border border-purple-200">
+                    <p className="text-purple-800 font-medium">Current Ratio</p>
+                    <p className="text-purple-700 text-sm">Current Assets ÷ Current Liabilities</p>
+                    <p className="text-purple-700 text-sm">Should be &gt; 1 (preferably &gt; 1.5)</p>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-purple-200">
+                    <p className="text-purple-800 font-medium">Debt-to-Equity</p>
+                    <p className="text-purple-700 text-sm">Total Debt ÷ Shareholders' Equity</p>
+                    <p className="text-purple-700 text-sm">Lower is generally better</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'quiz',
+        title: 'Test Your Knowledge',
+        isRequired: true,
+        type: 'quiz' as const,
+        minScore: 70,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+              <h3 className="text-xl font-semibold text-purple-800 mb-4">
+                Balance Sheet Quiz
+              </h3>
+              <p className="text-purple-700 mb-4">
+                Let's test your understanding of balance sheets!
+              </p>
+              
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border">
+                  <p className="font-medium mb-3">1. What is the fundamental balance sheet equation?</p>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input type="radio" name="q1" value="a" className="mr-2" />
+                      <span>Revenue - Expenses = Net Income</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q1" value="b" className="mr-2" />
+                      <span>Assets = Liabilities + Shareholders' Equity</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q1" value="c" className="mr-2" />
+                      <span>Cash In - Cash Out = Net Cash Flow</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border">
+                  <p className="font-medium mb-3">2. Which of these is a current asset?</p>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input type="radio" name="q2" value="a" className="mr-2" />
+                      <span>Building</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q2" value="b" className="mr-2" />
+                      <span>Accounts Receivable</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q2" value="c" className="mr-2" />
+                      <span>Long-term Investment</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border">
+                  <p className="font-medium mb-3">3. What does the current ratio measure?</p>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input type="radio" name="q3" value="a" className="mr-2" />
+                      <span>Company's ability to pay short-term debts</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q3" value="b" className="mr-2" />
+                      <span>Company's profitability</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="radio" name="q3" value="c" className="mr-2" />
+                      <span>Company's stock price</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
       }
-    };
+    ]
   };
 
-  // Define lesson parts
-  const lessonParts = [
-    {
-      id: "introduction-with-audio",
-      title: "Reading the Balance Sheet",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
-              What You'll Learn
-            </h3>
-            <p className="text-blue-700">
-              In this lesson, you'll learn to read and understand a company's balance sheet, a critical financial statement that provides a snapshot of its financial health.
-            </p>
-          </div>
+  const handleComplete = () => {
+    console.log('Lesson completed!');
+  };
 
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              What is the Balance Sheet?
-            </h3>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              The Balance Sheet provides a snapshot of a company's financial position at a single point in time. It's based on the fundamental accounting equation, which must always balance.
-            </p>
-        <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200 text-center">
-              <p className="text-2xl font-bold text-yellow-800">
-                Assets = Liabilities + Shareholder Equity
-              </p>
-            </div>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              Think of it like a company's financial "photograph" - it shows exactly what the company owns, what it owes, and what's left over for shareholders at a specific moment.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Key Benefits</h4>
-              <ul className="text-green-700 space-y-1 text-sm">
-                <li>• Understand financial health</li>
-                <li>• Assess company stability</li>
-                <li>• Compare with competitors</li>
-                <li>• Make informed decisions</li>
-              </ul>
-            </div>
-            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-              <h4 className="font-semibold text-orange-800 mb-2">Important Notes</h4>
-              <ul className="text-orange-700 space-y-1 text-sm">
-                <li>• Shows point-in-time data</li>
-                <li>• Must always balance</li>
-                <li>• Compare with industry</li>
-                <li>• Look for trends over time</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Audio Summary Section */}
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
-            <h3 className="text-xl font-semibold text-purple-800 mb-4">
-              🎧 Listen to the Multi-Language Audio Summary
-            </h3>
-            <p className="text-purple-700 mb-6">
-              Take a moment to listen to this comprehensive audio summary available in multiple languages including Hindi, English, Bengali, Marathi, Gujarati, and Tamil. 
-              Perfect for auditory learners and those who prefer listening over reading.
-            </p>
-            
-            <AudioSummary
-              title="Reading the Balance Sheet - Audio Summary"
-              description="Listen to a comprehensive audio summary of how to read balance sheets, available in multiple languages. Perfect for auditory learners and those who prefer listening over reading."
-              hindiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-hi.m4a"
-              englishAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-en.m4a"
-              bengaliAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-bn.m4a"
-              marathiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-mr.m4a"
-              gujaratiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-gu.m4a"
-              tamilAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/fundamental-analysis/reading-the-balance-sheet-ta.m4a"
-              hindiTranscript="बैलेंस शीट पढ़ने की कला - कंपनी की वित्तीय सेहत का स्नैपशॉट। संपत्ति, देनदारी और शेयरहोल्डर इक्विटी को समझें।"
-              englishTranscript="Master the Balance Sheet: Your Guide to Company Financial Health. Learn to read and understand assets, liabilities, and shareholder equity. Discover how to assess a company's financial stability!"
-              bengaliTranscript="ব্যালেন্স শীট পড়ার শিল্প - কোম্পানির আর্থিক স্বাস্থ্যের স্ন্যাপশট। সম্পদ, দায় এবং শেয়ারহোল্ডার ইক্যুইটি বুঝুন।"
-              marathiTranscript="बॅलन्स शीट वाचण्याची कला - कंपनीच्या आर्थिक आरोग्याचा स्न౅पशॉट। मालमत्ता, दायित्वे आणि शेअरहोल्डर इक्विटी समजून घ्या।"
-              gujaratiTranscript="બેલેન્સ શીટ વાંચવાની કલા - કંપનીની નાણાકીય સ્વાસ્થ્યનો સ્નેપશોટ. માલિકી, દેવું અને શેરહોલ્ડર ઇક્વિટી સમજો."
-              tamilTranscript="பலன்ஸ் ஷீட் படிக்கும் கலை - நிறுவனத்தின் நிதி நிலையின் ஸ்னாப்ஷாட். சொத்துக்கள், பொறுப்புகள் மற்றும் பங்குதாரர் பங்கு மூலதனத்தை புரிந்துகொள்ளுங்கள்."
-            />
-          </div>
-
-          <ConfirmationCheck
-            title="Ready to Continue?"
-            description="Before moving to the next part, please confirm that you understand the basic concept:"
-            checkboxes={[
-              "I understand what a balance sheet shows",
-              "I recognize the fundamental equation: Assets = Liabilities + Equity"
-            ]}
-            partId="introduction-with-audio"
-            onPartComplete={createConfirmationHandler("introduction-with-audio")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    },
-    {
-      id: "core-components",
-      title: "Core Components of the Balance Sheet",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-purple-800 mb-3">
-              The Three Pillars of Financial Position
-            </h3>
-            <p className="text-purple-700">
-              Every balance sheet is built on these three fundamental components. Understanding each one is crucial for financial analysis.
-            </p>
-        </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
-              <h3 className="font-bold text-lg text-blue-800 flex items-center mb-2">
-                <Landmark className="w-5 h-5 mr-2" />
-                Assets: What the Company Owns
-              </h3>
-              <p className="text-gray-700 mb-4">
-                Economic resources owned by the company that have future economic value, such as cash, inventory, and property.
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Cash & Cash Equivalents</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Accounts Receivable</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Inventory</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Property & Equipment</span>
-                </div>
-              </div>
-          </div>
-            
-          <div className="bg-red-50 p-6 rounded-lg border border-red-200">
-              <h3 className="font-bold text-lg text-red-800 flex items-center mb-2">
-                <HandCoins className="w-5 h-5 mr-2" />
-                Liabilities: What the Company Owes
-              </h3>
-              <p className="text-gray-700 mb-4">
-                A company's financial obligations to other parties, such as loans and accounts payable.
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Accounts Payable</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Short-term Debt</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Long-term Debt</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Accrued Expenses</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-green-50 p-6 rounded-lg border border-green-200">
-              <h3 className="font-bold text-lg text-green-800 flex items-center mb-2">
-                <ShieldCheck className="w-5 h-5 mr-2" />
-                Shareholder Equity: The Net Worth
-              </h3>
-              <p className="text-gray-700 mb-4">
-                The net worth of a company, representing the amount that would be returned to shareholders if all assets were liquidated and all debts paid off.
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Common Stock</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Retained Earnings</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Additional Paid-in Capital</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-gray-700">Treasury Stock</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              💡 Key Insight
-            </h3>
-            <p className="text-yellow-700">
-              The balance sheet equation must always balance. If you add up all assets and they don't equal liabilities plus equity, 
-              there's an error in the financial statements. This is why it's called a "balance" sheet!
-            </p>
-          </div>
-
-          <ConfirmationCheck
-            title="Understanding Check"
-            description="Please confirm your understanding of the core components:"
-            checkboxes={[
-              "I understand what assets, liabilities, and equity represent",
-              "I recognize that the equation must always balance"
-            ]}
-            partId="core-components"
-            onPartComplete={createConfirmationHandler("core-components")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    },
-    {
-      id: "practical-examples",
-      title: "Practical Examples & Analysis",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-green-800 mb-3">
-              Real-World Application
-            </h3>
-            <p className="text-green-700">
-              Let's look at practical examples to understand how to analyze balance sheets in real companies.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Example: Tech Startup vs. Established Company
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-3">Tech Startup</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Cash:</span>
-                    <span className="font-semibold text-green-600">High</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Debt:</span>
-                    <span className="font-semibold text-green-600">Low</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Assets:</span>
-                    <span className="font-semibold text-orange-600">Limited</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Equity:</span>
-                    <span className="font-semibold text-blue-600">High</span>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-3">Established Company</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Cash:</span>
-                    <span className="font-semibold text-green-600">Moderate</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Debt:</span>
-                    <span className="font-semibold text-orange-600">Moderate</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Assets:</span>
-                    <span className="font-semibold text-green-600">High</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Equity:</span>
-                    <span className="font-semibold text-green-600">High</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Key Ratios to Calculate
-            </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-purple-800 mb-2">Current Ratio</h4>
-                <p className="text-sm text-gray-700 mb-2">Current Assets ÷ Current Liabilities</p>
-                <p className="text-xs text-gray-600">Measures ability to pay short-term obligations</p>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-orange-800 mb-2">Debt-to-Equity</h4>
-                <p className="text-sm text-gray-700 mb-2">Total Debt ÷ Shareholder Equity</p>
-                <p className="text-xs text-gray-600">Shows financial leverage and risk</p>
-              </div>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-2">Working Capital</h4>
-                <p className="text-sm text-gray-700 mb-2">Current Assets - Current Liabilities</p>
-                <p className="text-xs text-gray-600">Indicates operational efficiency</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-2">Asset Turnover</h4>
-                <p className="text-sm text-gray-700 mb-2">Revenue ÷ Total Assets</p>
-                <p className="text-xs text-gray-600">Shows how efficiently assets generate revenue</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              🚨 Red Flags to Watch For
-            </h3>
-            <ul className="text-yellow-700 space-y-2">
-              <li>• <strong>High debt-to-equity ratio:</strong> Company may be over-leveraged</li>
-              <li>• <strong>Low current ratio:</strong> May struggle to pay short-term bills</li>
-              <li>• <strong>Declining cash reserves:</strong> Could indicate cash flow problems</li>
-              <li>• <strong>High accounts receivable:</strong> Customers may not be paying on time</li>
-            </ul>
-          </div>
-
-          <ConfirmationCheck
-            title="Analysis Understanding Check"
-            description="Please confirm your understanding of balance sheet analysis:"
-            checkboxes={[
-              "I can identify different company types from balance sheets",
-              "I understand key ratios and what they indicate"
-            ]}
-            partId="practical-examples"
-            onPartComplete={createConfirmationHandler("practical-examples")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    },
-    {
-      id: "interactive-quiz",
-      title: "Test Your Knowledge",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
-              Quiz: Balance Sheet Mastery
-            </h3>
-            <p className="text-blue-700">
-              Test your understanding of balance sheet concepts and analysis. Answer correctly to proceed to the next part!
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 1: What is the fundamental equation of the balance sheet?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) Revenue - Expenses = Profit</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) Assets = Liabilities + Shareholder Equity</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) Cash In - Cash Out = Net Cash Flow</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 2: Which of the following is NOT an asset?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) Cash in the bank</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) Money owed to suppliers</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) Company buildings</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 3: What does a high debt-to-equity ratio typically indicate?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) The company is very profitable</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) The company has high financial risk</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) The company has no debt</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
-            <h3 className="text-lg font-semibold text-green-800 mb-3">
-              Submit Your Answers
-            </h3>
-            <p className="text-green-700 mb-4">
-              Select your answers for all three questions above, then click the button below to check your understanding.
-            </p>
-            <button
-              onClick={() => {
-                // Simple quiz validation - in a real app, this would be more sophisticated
-                const q1 = document.querySelector('input[name="q1"]:checked') as HTMLInputElement;
-                const q2 = document.querySelector('input[name="q2"]:checked') as HTMLInputElement;
-                const q3 = document.querySelector('input[name="q3"]:checked') as HTMLInputElement;
-                
-                if (q1 && q2 && q3) {
-                  let score = 0;
-                  if (q1.value === 'b') score += 33.33;
-                  if (q2.value === 'b') score += 33.33;
-                  if (q3.value === 'b') score += 33.33;
-                  
-                  // Call completion handler
-                  if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
-                    (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete("interactive-quiz", score);
-                  }
-                } else {
-                  alert("Please answer all questions before submitting!");
-                }
-              }}
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
-            >
-              Submit Quiz Answers
-            </button>
-          </div>
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'quiz' as const,
-      minScore: 60,
-      skipAllowed: false
-    },
-    {
-      id: "key-takeaways",
-      title: "Key Takeaways & Next Steps",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-              <Target className="w-8 h-8 text-green-600 mr-3" />
-              Key Takeaways
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Financial Health Snapshot</h4>
-                    <p className="text-gray-600 text-sm">The Balance Sheet is a snapshot of financial health at a specific point in time.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Fundamental Equation</h4>
-                    <p className="text-gray-600 text-sm">It's based on the equation: Assets = Liabilities + Shareholder Equity.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Three Components</h4>
-                    <p className="text-gray-600 text-sm">It shows what a company owns (Assets), what it owes (Liabilities), and its net worth (Equity).</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Stability Indicator</h4>
-                    <p className="text-gray-600 text-sm">A strong balance sheet is a sign of a financially stable company.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              🚀 What's Next?
-            </h3>
-            <p className="text-gray-700 mb-6">
-              You've now mastered reading balance sheets! In the upcoming lessons, you'll learn about:
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-2">Lesson 13: Reading the P&L Statement</h4>
-                <p className="text-blue-700 text-sm">Learn to analyze revenue, costs, and profitability over time.</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-2">Lesson 14: Reading the Cash Flow Statement</h4>
-                <p className="text-green-700 text-sm">Understand how cash moves through the business.</p>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-purple-800 mb-2">Lesson 15: Key Financial Ratios</h4>
-                <p className="text-purple-700 text-sm">Master essential ratios for comprehensive analysis.</p>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-orange-800 mb-2">Advanced Analysis</h4>
-                <p className="text-orange-700 text-sm">Combine all statements for complete company evaluation.</p>
-              </div>
-          </div>
-        </div>
-
-          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              💡 Practice Makes Perfect
-            </h3>
-            <p className="text-yellow-700">
-              Start applying what you've learned by analyzing real companies. Pick a company you're interested in and try to:
-            </p>
-            <ul className="text-yellow-700 mt-3 space-y-1">
-              <li>• Download their latest balance sheet from their website</li>
-              <li>• Calculate the key ratios we discussed</li>
-              <li>• Compare with competitors in the same industry</li>
-              <li>• Look for trends over the past few years</li>
-            </ul>
-        </div>
-
-          <ConfirmationCheck
-            title="Final Understanding Check"
-            description="Please confirm that you're ready to move forward:"
-            checkboxes={[
-              "I understand how to read and analyze balance sheets",
-              "I'm ready to learn about income statements and cash flow"
-            ]}
-            partId="key-takeaways"
-            onPartComplete={createConfirmationHandler("key-takeaways")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    }
-  ];
-
-  if (lessonCompleted) {
-    return (
-      <LessonLayout
-        title="Lesson Completed!"
-        description="Congratulations on completing the 'Reading the Balance Sheet' lesson"
-        lessonSlug="reading-the-balance-sheet"
-      >
-        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
-          >
-            <Landmark className="w-12 h-12 text-green-600" />
-          </motion.div>
-          
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            🎉 Lesson Completed Successfully!
-          </h2>
-          
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}/{lessonParts.length * 100}</div>
-                <div className="text-gray-600">Total Score</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                  {Math.round((finalScore / (lessonParts.length * 100)) * 100)}%
-                </div>
-                <div className="text-gray-600">Overall Performance</div>
-              </div>
-            </div>
-          </div>
-          
-          <p className="text-gray-600 mb-6">
-            You've successfully learned how to read and analyze balance sheets and demonstrated 
-            your understanding through various interactive exercises. You're now ready to dive deeper 
-            into income statements and cash flow analysis!
-          </p>
-          
-          <div className="flex gap-4 justify-center">
-            <button
-              onClick={() => setLessonCompleted(false)}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Review Lesson
-            </button>
-            <a
-              href="/stock-market-course/reading-the-profit-loss-p&l-statement"
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Next Lesson
-            </a>
-          </div>
-        </div>
-      </LessonLayout>
-    );
-  }
+  const handlePartComplete = (partId: string) => {
+    console.log(`Part ${partId} completed!`);
+  };
 
   return (
-    <LessonLayout
-      title="Reading the Balance Sheet"
-      description="Learn to read and understand a company's balance sheet, a critical financial statement that provides a snapshot of its financial health."
-      lessonSlug="reading-the-balance-sheet"
-    >
-      <MultiPartLesson
-        parts={lessonParts}
-        onComplete={handleLessonComplete}
-        onPartComplete={handlePartComplete}
-        onPartCompleteDirect={handlePartComplete}
-      />
-    </LessonLayout>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {lessonData.title}
+          </h1>
+          <p className="text-xl text-gray-600 mb-6">
+            {lessonData.description}
+          </p>
+          
+          <AudioSummary
+            title={lessonData.title}
+            description={lessonData.description}
+            hindiAudioUrl={lessonData.audioFiles.hi}
+            englishAudioUrl={lessonData.audioFiles.en}
+            bengaliAudioUrl={lessonData.audioFiles.bn}
+            tamilAudioUrl={lessonData.audioFiles.ta}
+            marathiAudioUrl={lessonData.audioFiles.mr}
+            hindiTranscript={lessonData.transcript.hi}
+            englishTranscript={lessonData.transcript.en}
+            bengaliTranscript={lessonData.transcript.bn}
+            tamilTranscript={lessonData.transcript.ta}
+            marathiTranscript={lessonData.transcript.mr}
+          />
+        </div>
+        
+        <MultiPartLesson
+          parts={lessonData.parts}
+          onComplete={handleComplete}
+          onPartComplete={handlePartComplete}
+        />
+      </div>
+    </div>
   );
 }

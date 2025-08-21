@@ -1,749 +1,562 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import LessonLayout from "../LessonLayout";
-import MultiPartLesson from "@/components/stock-market-course/MultiPartLesson";
-import AudioSummary from "@/components/stock-market-course/AudioSummary";
-import ConfirmationCheck from "@/components/stock-market-course/ConfirmationCheck";
-import { useTranslation } from "@/hooks/useTranslation";
-import { TrendingUp, TrendingDown, Target, CheckCircle, BarChart3, Activity } from 'lucide-react';
-import Image from 'next/image';
+import MultiPartLesson from '@/components/stock-market-course/MultiPartLesson';
+import AudioSummary from '@/components/stock-market-course/AudioSummary';
 
 export default function HowToReadCandlestickChartsPage() {
-    const { t } = useTranslation('stock-market-course.how-to-read-candlestick-charts');
-  const [lessonCompleted, setLessonCompleted] = useState(false);
-  const [finalScore, setFinalScore] = useState(0);
-
-  // Handle lesson completion
-  const handleLessonComplete = (totalScore: number) => {
-    setFinalScore(totalScore);
-    setLessonCompleted(true);
-  };
-
-  // Handle part completion
-  const handlePartComplete = (partId: string, score: number) => {
-    console.log(`Part ${partId} completed with score: ${score}`);
-  };
-
-  // Create confirmation handler for interactive parts
-  const createConfirmationHandler = (partId: string) => {
-    return (partIdParam: string, score: number) => {
-      console.log(`Part ${partIdParam} completed with score: ${score}`);
-      
-      // Call the MultiPartLesson's completion handler directly
-      if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
-        (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete(partIdParam, score);
-      }
-    };
-  };
-
-  // Define lesson parts
-  const lessonParts = [
-    {
-      id: "introduction-with-audio",
-      title: "How to Read Candlestick Charts",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
-              What You'll Learn
-            </h3>
-            <p className="text-blue-700">
-              Learn to interpret the most popular type of financial chart and understand the story each candlestick tells about the battle between buyers and sellers.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              What are Candlestick Charts?
-            </h3>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Candlestick charts are the most popular way to visualize stock price movements. Each 'candlestick' provides a wealth of information about the price action within a specific time period.
-            </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Think of each candlestick as a "footprint" that shows you exactly what happened during that time period - who was in control (buyers or sellers), how much they pushed the price, and what the final outcome was.
-            </p>
-            <div className="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
-              <p className="text-lg font-semibold text-green-800">
-                Candlesticks tell the story of the battle between bulls and bears!
-              </p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Key Benefits</h4>
-              <ul className="text-green-700 space-y-1 text-sm">
-                <li>• Visual price action representation</li>
-                <li>• Quick pattern recognition</li>
-                <li>• Market psychology insights</li>
-                <li>• Entry/exit timing signals</li>
-              </ul>
-            </div>
-            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-              <h4 className="font-semibold text-orange-800 mb-2">Important Notes</h4>
-              <ul className="text-orange-800 space-y-1 text-sm">
-                <li>• Use with volume confirmation</li>
-                <li>• Patterns work best in trends</li>
-                <li>• Multiple timeframes matter</li>
-                <li>• Practice pattern recognition</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Audio Summary Section */}
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
-            <h3 className="text-xl font-semibold text-purple-800 mb-4">
-              🎧 Listen to the Multi-Language Audio Summary
-            </h3>
-            <p className="text-purple-700 mb-6">
-              Take a moment to listen to this comprehensive audio summary available in multiple languages including Hindi, English, Bengali, Marathi, Gujarati, and Tamil. 
-              Perfect for auditory learners and those who prefer listening over reading.
-            </p>
-            
-            <AudioSummary
-              title="Candlestick Charts - Audio Summary"
-              description="Listen to a comprehensive audio summary of how to read candlestick charts, available in multiple languages. Perfect for auditory learners and those who prefer listening over reading."
-              hindiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-hi.m4a"
-              englishAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-en.m4a"
-              bengaliAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-bn.m4a"
-              marathiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-mr.m4a"
-              gujaratiAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-gu.m4a"
-              tamilAudioUrl="https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/candlestick-charts-ta.m4a"
-              hindiTranscript="कैंडलस्टिक चार्ट पढ़ना सीखें - प्रत्येक कैंडलस्टिक खरीदारों और विक्रेताओं के बीच की लड़ाई की कहानी बताता है।"
-              englishTranscript="Learn to Read Candlestick Charts: Understand the story each candlestick tells about the battle between buyers and sellers. Master the anatomy and patterns for better trading decisions."
-              bengaliTranscript="ক্যান্ডেলস্টিক চার্ট পড়া শিখুন - প্রতিটি ক্যান্ডেলস্টিক ক্রেতা এবং বিক্রেতাদের মধ্যে যুদ্ধের গল্প বলে।"
-              marathiTranscript="कॅंडलस्टिक चार्ट वाचणे शिका - प्रत्येक कॅंडलस्टिक खरेदीदार आणि विक्रेत्यांमधील लढाईची कहाणी सांगतो."
-              gujaratiTranscript="કેન્ડલસ્ટિક ચાર્ટ વાંચવાનું શીખો - દરેક કેન્ડલસ્ટિક ખરીદદારો અને વેચાણકારો વચ્ચેની લડાઈની વાર્તા કહે છે."
-              tamilTranscript="மெழுகுவர்த்தி வரைபடங்களைப் படிக்கக் கற்றுக்கொள்ளுங்கள் - ஒவ்வொரு மெழுகுவர்த்தியும் வாங்குபவர்கள் மற்றும் விற்பனையாளர்களுக்கு இடையேயான போரின் கதையை சொல்கிறது."
-            />
-          </div>
-
-          <ConfirmationCheck
-            title="Ready to Continue?"
-            description="Before moving to the next part, please confirm that you understand the basic concept:"
-            checkboxes={[
-              "I understand what candlestick charts represent",
-              "I recognize that each candlestick tells a story"
-            ]}
-            partId="introduction-with-audio"
-            onPartComplete={createConfirmationHandler("introduction-with-audio")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
+  const lessonData = {
+    title: "How to Read Candlestick Charts",
+    description: "Learn to interpret the most popular type of financial chart and understand the story each candlestick tells about the battle between buyers and sellers.",
+    lessonSlug: "how-to-read-candlestick-charts",
+    audioFiles: {
+      en: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/how-to-read-candlestick-charts-en.m4a",
+      hi: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/how-to-read-candlestick-charts-hi.m4a",
+      bn: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/how-to-read-candlestick-charts-bn.m4a",
+      ta: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/how-to-read-candlestick-charts-ta.m4a",
+      mr: "https://storage.googleapis.com/getclarity-audio-bucket/lessons/technical-analysis/how-to-read-candlestick-charts-mr.m4a"
     },
-    {
-      id: "candlestick-anatomy",
-      title: "The Anatomy of a Candlestick",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-green-800 mb-3">
-              Understanding the Structure
-            </h3>
-            <p className="text-green-700">
-              Each candlestick represents a period and has four key data points: Open, High, Low, and Close. These create two main parts.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-blue-600" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800">The Body</h4>
-              </div>
-              <p className="text-gray-700 mb-4">
-                The wide part, representing the range between the open and close prices.
-              </p>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h5 className="font-semibold text-blue-800 mb-2">Body Characteristics:</h5>
-                <ul className="text-blue-700 text-sm space-y-1">
-                  <li>• Shows open to close range</li>
-                  <li>• Indicates buying/selling pressure</li>
-                  <li>• Larger body = stronger move</li>
-                  <li>• Small body = indecision</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Activity className="w-6 h-6 text-green-600" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800">The Wicks (Shadows)</h4>
-              </div>
-              <p className="text-gray-700 mb-4">
-                The thin lines above and below the body, representing the highest and lowest prices.
-              </p>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h5 className="font-semibold text-green-800 mb-2">Wick Information:</h5>
-                <ul className="text-green-700 text-sm space-y-1">
-                  <li>• Upper wick = highest price</li>
-                  <li>• Lower wick = lowest price</li>
-                  <li>• Long wicks = price rejection</li>
-                  <li>• Short wicks = controlled move</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Color Coding: Bullish vs Bearish
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-green-50 p-6 rounded-lg border border-green-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
-                  <h4 className="text-lg font-semibold text-green-800">Green (Bullish)</h4>
-                </div>
-                <p className="text-green-700 mb-3">
-                  A green (or hollow) candle is bullish, meaning the close price is higher than the open price.
-                </p>
-                <ul className="text-green-700 text-sm space-y-1">
-                  <li>• Close &gt; Open</li>
-                  <li>• Buyers in control</li>
-                  <li>• Upward price movement</li>
-                  <li>• Positive sentiment</li>
-                </ul>
-              </div>
-
-              <div className="bg-red-50 p-6 rounded-lg border border-red-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <TrendingDown className="w-6 h-6 text-red-600" />
-                  <h4 className="text-lg font-semibold text-red-800">Red (Bearish)</h4>
-                </div>
-                <p className="text-red-700 mb-3">
-                  A red (or filled) candle is bearish, meaning the close price is lower than the open price.
-                </p>
-                <ul className="text-red-700 text-sm space-y-1">
-                  <li>• Close &lt; Open</li>
-                  <li>• Sellers in control</li>
-                  <li>• Downward price movement</li>
-                  <li>• Negative sentiment</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              💡 Key Insight
-            </h3>
-            <p className="text-yellow-700">
-              The body size relative to the wicks tells you about market conviction. A large body with small wicks means strong conviction in that direction. 
-              Small bodies with long wicks suggest indecision and potential reversals.
-            </p>
-          </div>
-
-          <ConfirmationCheck
-            title="Anatomy Understanding Check"
-            description="Please confirm your understanding of candlestick anatomy:"
-            checkboxes={[
-              "I understand what the body represents",
-              "I understand what the wicks show",
-              "I can identify bullish vs bearish candles"
-            ]}
-            partId="candlestick-anatomy"
-            onPartComplete={createConfirmationHandler("candlestick-anatomy")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
+    transcript: {
+      en: "How to Read Candlestick Charts: Learn to interpret the most popular type of financial chart and understand the story each candlestick tells about the battle between buyers and sellers. Master the anatomy of candlesticks and learn to read market sentiment.",
+      hi: "कैंडलस्टिक चार्ट कैसे पढ़ें: सबसे लोकप्रिय प्रकार के वित्तीय चार्ट की व्याख्या करना सीखें और समझें कि प्रत्येक कैंडलस्टिक खरीदारों और विक्रेताओं के बीच की लड़ाई के बारे में क्या कहता है।",
+      bn: "ক্যান্ডেলস্টিক চার্ট কীভাবে পড়তে হয়: সবচেয়ে জনপ্রিয় ধরনের আর্থিক চার্টের ব্যাখ্যা করা শিখুন এবং বুঝুন যে প্রতিটি ক্যান্ডেলস্টিক ক্রেতা এবং বিক্রেতাদের মধ্যে লড়াই সম্পর্কে কী বলে।",
+      ta: "மெழுகுவர்த்தி விளக்கப்படங்களை எப்படி படிப்பது: மிகவும் பிரபலமான வகை நிதி விளக்கப்படங்களை விளக்குவதற்கான வழிகளைக் கற்றுக்கொள்ளுங்கள் மற்றும் ஒவ்வொரு மெழுகுவர்த்தியும் வாங்குபவர்கள் மற்றும் விற்பவர்களுக்கு இடையேயான போராட்டத்தைப் பற்றி என்ன சொல்கிறது என்பதைப் புரிந்துகொள்ளுங்கள்.",
+      mr: "कॅंडलस्टिक चार्ट कसे वाचावे: सर्वात लोकप्रिय प्रकारचा आर्थिक चार्टचा अर्थ लावणे शिका आणि प्रत्येक कॅंडलस्टिक खरेदीदार आणि विक्रेत्यांमधील लढाईबद्दल काय सांगतो ते समजून घ्या."
     },
-    {
-      id: "common-patterns",
-      title: "Common Candlestick Patterns",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-purple-800 mb-3">
-              Pattern Recognition
-            </h3>
-            <p className="text-purple-700">
-              Certain candlestick formations have specific meanings and can signal potential reversals or continuations in price trends.
-            </p>
-          </div>
-
+    parts: [
+      {
+        id: "introduction",
+        title: "Introduction to Candlestick Charts",
+        isRequired: true,
+        type: "content" as const,
+        content: (
           <div className="space-y-6">
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Doji Pattern - The Indecision Signal
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-blue-800 mb-3">
+                What You'll Learn
               </h3>
-              <p className="text-gray-700 mb-4">
-                A Doji occurs when the open and close prices are virtually equal, creating a very small body. This pattern indicates indecision in the market.
+              <p className="text-blue-700">
+                Learn to interpret the most popular type of financial chart and understand the story each candlestick tells about the battle between buyers and sellers.
               </p>
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
-                <h4 className="font-semibold text-blue-800 mb-2">What it means:</h4>
-                <ul className="text-blue-700 space-y-1 text-sm">
-                  <li>• Market indecision</li>
-                  <li>• Potential trend reversal</li>
-                  <li>• Buyers and sellers in balance</li>
-                  <li>• Wait for confirmation</li>
-                </ul>
-              </div>
-              <div className="flex justify-center">
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="text-gray-600 text-sm text-center">Doji Pattern Visualization</p>
-                  <div className="w-16 h-8 bg-gray-300 rounded mx-auto mt-2"></div>
-                </div>
-              </div>
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Hammer Pattern - The Reversal Signal
+                Why Candlestick Charts Matter
               </h3>
-              <p className="text-gray-700 mb-4">
-                A Hammer has a small body at the top with a long lower wick. It often appears at the bottom of downtrends and signals potential bullish reversal.
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Candlestick charts are the most popular way to visualize stock price movements. Each 'candlestick' provides a wealth of information about the price action within a specific time period.
               </p>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200 mb-4">
-                <h4 className="font-semibold text-green-800 mb-2">What it means:</h4>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Unlike simple line charts, candlesticks show you the open, high, low, and close prices for each period, giving you a complete picture of market sentiment and price action.
+              </p>
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
+                <p className="text-lg font-semibold text-green-800">
+                  Master candlestick reading to become a better market analyst!
+                </p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                <h4 className="font-semibold text-green-800 mb-2">Key Benefits</h4>
                 <ul className="text-green-700 space-y-1 text-sm">
-                  <li>• Potential bullish reversal</li>
-                  <li>• Sellers exhausted</li>
-                  <li>• Buyers stepping in</li>
-                  <li>• Look for confirmation</li>
+                  <li>• Visual price action representation</li>
+                  <li>• Market sentiment indicators</li>
+                  <li>• Entry and exit point identification</li>
+                  <li>• Pattern recognition skills</li>
                 </ul>
               </div>
-              <div className="flex justify-center">
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="text-gray-600 text-sm text-center">Hammer Pattern Visualization</p>
-                  <div className="w-4 h-8 bg-green-300 rounded mx-auto mt-2"></div>
-                  <div className="w-1 h-6 bg-gray-400 mx-auto mt-1"></div>
-                </div>
+              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                <h4 className="font-semibold text-orange-800 mb-2">Important Notes</h4>
+                <ul className="text-orange-800 space-y-1 text-sm">
+                  <li>• Each candlestick tells a story</li>
+                  <li>• Color coding is crucial</li>
+                  <li>• Body and wicks have meaning</li>
+                  <li>• Timeframe matters</li>
+                </ul>
               </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Engulfing Pattern - The Trend Change Signal
+          </div>
+        )
+      },
+      {
+        id: "anatomy",
+        title: "The Anatomy of a Candlestick",
+        isRequired: true,
+        type: "content" as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6">
+              <h3 className="text-2xl font-semibold text-purple-800 mb-4">
+                The Anatomy of a Candlestick
               </h3>
-              <p className="text-gray-700 mb-4">
-                An Engulfing pattern occurs when one candle completely engulfs the previous candle's body. This is a strong reversal signal.
+              <p className="text-purple-700 text-lg mb-4">
+                Each candlestick represents a period and has four key data points: Open, High, Low, and Close. These create two main parts that tell the complete story.
               </p>
-              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200 mb-4">
-                <h4 className="font-semibold text-orange-800 mb-2">What it means:</h4>
-                <ul className="text-orange-700 space-y-1 text-sm">
-                  <li>• Strong reversal signal</li>
-                  <li>• Previous trend exhausted</li>
-                  <li>• New trend beginning</li>
-                  <li>• High probability setup</li>
-          </ul>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h4 className="text-xl font-semibold text-gray-800 mb-3">The Body</h4>
+                <p className="text-gray-700 mb-3">
+                  The wide part, representing the range between the open and close prices.
+                </p>
+                <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                  <p className="text-sm text-blue-700">
+                    <strong>Key Insight:</strong> The body shows the battle between buyers and sellers during that period.
+                  </p>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-green-500 rounded"></div>
+                    <span className="text-sm text-gray-700">Green body = Close &gt; Open (Bullish)</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-red-500 rounded"></div>
+                    <span className="text-sm text-gray-700">Red body = Close &lt; Open (Bearish)</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-center">
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="text-gray-600 text-sm text-center">Engulfing Pattern Visualization</p>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h4 className="text-xl font-semibold text-gray-800 mb-3">The Wicks (Shadows)</h4>
+                <p className="text-gray-700 mb-3">
+                  The thin lines above and below the body, representing the highest and lowest prices.
+                </p>
+                <div className="bg-green-50 p-3 rounded border border-green-200">
+                  <p className="text-sm text-green-700">
+                    <strong>Key Insight:</strong> Wicks show the extreme price movements and rejection levels.
+                  </p>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-1 h-6 bg-gray-400 rounded"></div>
+                    <span className="text-sm text-gray-700">Upper wick = Highest price reached</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-1 h-6 bg-gray-400 rounded"></div>
+                    <span className="text-sm text-gray-700">Lower wick = Lowest price reached</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <h4 className="font-medium text-yellow-800 mb-3">💡 Understanding the Story</h4>
+              <ul className="space-y-2 text-yellow-700 text-sm">
+                <li>• Large body = Strong buying/selling pressure</li>
+                <li>• Small body = Indecision or low volatility</li>
+                <li>• Long wicks = Price rejection at those levels</li>
+                <li>• Short wicks = Price stayed within a tight range</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: "color-coding",
+        title: "Color Coding and Market Sentiment",
+        isRequired: true,
+        type: "content" as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-green-50 to-red-50 border border-green-200 rounded-lg p-6">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                Color Coding and Market Sentiment
+              </h3>
+              <p className="text-gray-700 text-lg mb-4">
+                Color coding helps identify bullish vs bearish periods and provides immediate visual cues about market sentiment.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                <h4 className="text-xl font-semibold text-green-800 mb-3">Green Candles (Bullish)</h4>
+                <p className="text-green-700 mb-3">
+                  A green (or hollow) candle indicates that the closing price is higher than the opening price.
+                </p>
+                <div className="bg-white p-3 rounded border border-green-200">
+                  <p className="text-sm text-green-700">
+                    <strong>Market Sentiment:</strong> Buyers are in control, pushing prices higher.
+                  </p>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-sm text-green-700">Close &gt; Open</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-sm text-green-700">Positive momentum</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-sm text-green-700">Good for long positions</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+                <h4 className="text-xl font-semibold text-red-800 mb-3">Red Candles (Bearish)</h4>
+                <p className="text-red-700 mb-3">
+                  A red (or filled) candle indicates that the closing price is lower than the opening price.
+                </p>
+                <div className="bg-white p-3 rounded border border-red-200">
+                  <p className="text-sm text-red-700">
+                    <strong>Market Sentiment:</strong> Sellers are in control, pushing prices lower.
+                  </p>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-sm text-red-700">Close &lt; Open</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-sm text-red-700">Negative momentum</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-sm text-red-700">Good for short positions</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="font-medium text-blue-800 mb-3">🎨 Color Variations</h4>
+              <ul className="space-y-2 text-blue-700 text-sm">
+                <li>• Some platforms use hollow/filled instead of green/red</li>
+                                    <li>• Hollow = Bullish (close &gt; open)</li>
+                                  <li>• Filled = Bearish (close &lt; open)</li>
+                <li>• Always check your platform's color scheme</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: "quiz",
+        title: "Candlestick Chart Quiz",
+        isRequired: true,
+        type: "quiz" as const,
+        minScore: 4,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-blue-800 mb-4">
+                Test Your Knowledge
+              </h3>
+              <p className="text-blue-700 mb-4">
+                Answer these questions to check your understanding of candlestick charts.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="font-medium text-gray-800 mb-3">
+                    1. What does the body of a candlestick represent?
+                  </p>
                   <div className="space-y-2">
-                    <div className="w-8 h-4 bg-red-300 rounded mx-auto"></div>
-                    <div className="w-12 h-6 bg-green-300 rounded mx-auto"></div>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q1" value="a" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The highest and lowest prices</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q1" value="b" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The range between open and close prices</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q1" value="c" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The total volume traded</span>
+                    </label>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <ConfirmationCheck
-            title="Pattern Recognition Check"
-            description="Please confirm your understanding of these patterns:"
-            checkboxes={[
-              "I understand what a Doji pattern indicates",
-              "I recognize the Hammer pattern",
-              "I can identify Engulfing patterns"
-            ]}
-            partId="common-patterns"
-            onPartComplete={createConfirmationHandler("common-patterns")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    },
-    {
-      id: "interactive-quiz",
-      title: "Test Your Knowledge",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
-              Quiz: Candlestick Chart Mastery
-            </h3>
-            <p className="text-blue-700">
-              Test your understanding of candlestick charts and patterns. Answer correctly to proceed to the next part!
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 1: What does a green candlestick indicate?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) The stock price went down</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) The stock price went up (close &gt; open)</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q1" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) The stock price stayed the same</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 2: What does a Doji pattern typically indicate?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) Strong upward trend</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) Market indecision</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q2" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) Strong downward trend</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
-              Question 3: What do the wicks (shadows) of a candlestick show?
-            </h3>
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="a"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">A) Only the open and close prices</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="b"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">B) The highest and lowest prices reached</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
-                <input 
-                  type="radio" 
-                  name="q3" 
-                  value="c"
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700">C) The trading volume</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
-            <h3 className="text-lg font-semibold text-green-800 mb-3">
-              Submit Your Answers
-            </h3>
-            <p className="text-green-700 mb-4">
-              Select your answers for all three questions above, then click the button below to check your understanding.
-            </p>
-            <button
-              onClick={() => {
-                // Simple quiz validation - in a real app, this would be more sophisticated
-                const q1 = document.querySelector('input[name="q1"]:checked') as HTMLInputElement;
-                const q2 = document.querySelector('input[name="q2"]:checked') as HTMLInputElement;
-                const q3 = document.querySelector('input[name="q3"]:checked') as HTMLInputElement;
                 
-                if (q1 && q2 && q3) {
-                  let score = 0;
-                  if (q1.value === 'b') score += 33.33;
-                  if (q2.value === 'b') score += 33.33;
-                  if (q3.value === 'b') score += 33.33;
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="font-medium text-gray-800 mb-3">
+                    2. What do the wicks (shadows) show?
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q2" value="a" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The open and close prices</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q2" value="b" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The highest and lowest prices reached</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q2" value="c" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The trading volume</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="font-medium text-gray-800 mb-3">
+                    3. What does a green candlestick indicate?
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q3" value="a" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The price went down</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q3" value="b" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The price went up</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q3" value="c" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">The price stayed the same</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="font-medium text-gray-800 mb-3">
+                    4. What does a long upper wick suggest?
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q4" value="a" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">Strong buying pressure</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q4" value="b" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">Price rejection at that level</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q4" value="c" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">Low trading volume</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="font-medium text-gray-800 mb-3">
+                    5. What does a small body indicate?
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q5" value="a" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">Strong trend</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q5" value="b" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">Indecision or low volatility</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="radio" name="q5" value="c" className="text-blue-600" />
+                      <span className="text-sm text-gray-700">High trading volume</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: "interactive-selection",
+        title: "Chart Analysis Practice",
+        isRequired: true,
+        type: "selection" as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-green-800 mb-4">
+                Practice Your Chart Reading Skills
+              </h3>
+              <p className="text-green-700 mb-6">
+                Select the skills you want to focus on when analyzing candlestick charts.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-gray-800 mb-3">Basic Analysis Skills</h4>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Identify bullish vs bearish candles</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Read open, high, low, close prices</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Understand body and wick relationships</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Recognize color coding patterns</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-gray-800 mb-3">Advanced Analysis Skills</h4>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Identify support and resistance levels</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Spot trend reversals</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Analyze volume confirmation</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Recognize candlestick patterns</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-gray-800 mb-3">Trading Applications</h4>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Entry and exit timing</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Stop loss placement</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Position sizing decisions</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input type="checkbox" className="text-green-600" />
+                      <span className="text-sm text-gray-700">Risk management strategies</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: "key-takeaways",
+        title: "Key Takeaways",
+        isRequired: true,
+        type: "content" as const,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-green-50 border-l-4 border-green-400 p-6">
+              <h2 className="text-2xl font-semibold text-green-800 mb-4">
+                Key Takeaways
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white text-sm font-bold">1</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-green-800">Price Data Points</h4>
+                      <p className="text-green-700 text-sm">Candlestick charts show <strong>open, high, low, and close</strong> prices for each period.</p>
+                    </div>
+                  </div>
                   
-                  // Call completion handler
-                  if ((window as unknown as { __multiPartLessonComplete?: (id: string, score: number) => void }).__multiPartLessonComplete) {
-                    (window as unknown as { __multiPartLessonComplete: (id: string, score: number) => void }).__multiPartLessonComplete("interactive-quiz", score);
-                  }
-                } else {
-                  alert("Please answer all questions before submitting!");
-                }
-              }}
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
-            >
-              Submit Quiz Answers
-            </button>
-          </div>
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'quiz' as const,
-      minScore: 60,
-      skipAllowed: false
-    },
-    {
-      id: "key-takeaways",
-      title: "Key Takeaways & Next Steps",
-      content: (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-              <Target className="w-8 h-8 text-green-600 mr-3" />
-              Key Takeaways
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Candlestick Structure</h4>
-                    <p className="text-gray-600 text-sm">Each candlestick shows open, high, low, and close prices.</p>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white text-sm font-bold">2</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-green-800">Body Significance</h4>
+                      <p className="text-green-700 text-sm">The <strong>body</strong> shows the range between open and close prices.</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Body and Wicks</h4>
-                    <p className="text-gray-600 text-sm">Body shows open-close range, wicks show high-low range.</p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white text-sm font-bold">3</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-green-800">Wick Information</h4>
+                      <p className="text-green-700 text-sm">The <strong>wicks</strong> show the highest and lowest prices reached.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white text-sm font-bold">4</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-green-800">Color Coding</h4>
+                      <p className="text-green-700 text-sm">Color coding helps identify <strong>bullish</strong> (green) vs <strong>bearish</strong> (red) periods.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Color Coding</h4>
-                    <p className="text-gray-600 text-sm">Green = bullish (up), Red = bearish (down).</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Pattern Recognition</h4>
-                    <p className="text-gray-600 text-sm">Doji, Hammer, and Engulfing patterns signal reversals.</p>
-                  </div>
-                </div>
+              
+              <div className="mt-6 p-4 bg-white rounded-lg border border-green-200">
+                <h4 className="font-medium text-green-800 mb-3">🚀 Next Steps</h4>
+                <ul className="space-y-2 text-green-700 text-sm">
+                  <li>• Practice reading candlestick charts on real stocks</li>
+                  <li>• Learn to identify common candlestick patterns</li>
+                  <li>• Combine with volume analysis for confirmation</li>
+                  <li>• Study different timeframes (1min, 5min, daily, weekly)</li>
+                  <li>• Practice drawing trend lines and support/resistance</li>
+                </ul>
               </div>
             </div>
           </div>
+        )
+      }
+    ]
+  };
 
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              🚀 What's Next?
-            </h3>
-            <p className="text-gray-700 mb-6">
-              You've now mastered candlestick charts! In the upcoming lessons, you'll learn about:
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-2">Trend Analysis</h4>
-                <p className="text-blue-700 text-sm">Identify support, resistance, and trend changes.</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-2">Technical Indicators</h4>
-                <p className="text-green-700 text-sm">Master RSI, MACD, moving averages, and more.</p>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-purple-800 mb-2">Advanced Patterns</h4>
-                <p className="text-purple-700 text-sm">Learn complex reversal and continuation patterns.</p>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-orange-800 mb-2">Volume Analysis</h4>
-                <p className="text-orange-700 text-sm">Combine price action with volume confirmation.</p>
-              </div>
-            </div>
-          </div>
+  const handleComplete = () => {
+    console.log('Lesson completed!');
+  };
 
-          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-3">
-              💡 Practice Makes Perfect
-            </h3>
-            <p className="text-yellow-700">
-              Start applying what you've learned by practicing with real charts. Try to:
-            </p>
-            <ul className="text-yellow-700 mt-3 space-y-1">
-              <li>• Identify different candlestick types</li>
-              <li>• Look for Doji, Hammer, and Engulfing patterns</li>
-              <li>• Practice reading body vs wick relationships</li>
-              <li>• Compare patterns across different timeframes</li>
-            </ul>
-          </div>
-
-          <div className="bg-red-50 p-6 rounded-lg border border-red-200">
-            <h3 className="text-lg font-semibold text-red-800 mb-3">
-              ⚠️ Important Reminder
-            </h3>
-            <p className="text-red-700">
-              Candlestick patterns are not 100% reliable. Always use them in conjunction with other technical analysis tools, 
-              consider the overall market context, and practice proper risk management. Patterns work best when confirmed by volume and trend analysis.
-            </p>
-          </div>
-
-          <ConfirmationCheck
-            title="Final Understanding Check"
-            description="Please confirm that you're ready to move forward:"
-            checkboxes={[
-              "I understand candlestick anatomy and structure",
-              "I can identify bullish vs bearish candles",
-              "I recognize common candlestick patterns"
-            ]}
-            partId="key-takeaways"
-            onPartComplete={createConfirmationHandler("key-takeaways")}
-          />
-        </motion.div>
-      ),
-      isRequired: true,
-      type: 'content' as const,
-      skipAllowed: false
-    }
-  ];
-
-  if (lessonCompleted) {
-    return (
-      <LessonLayout
-        title="Lesson Completed!"
-        description="Congratulations on completing the 'How to Read Candlestick Charts' lesson"
-        lessonSlug="how-to-read-candlestick-charts"
-      >
-        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
-          >
-            <BarChart3 className="w-12 h-12 text-green-600" />
-          </motion.div>
-          
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            🎉 Lesson Completed Successfully!
-          </h2>
-          
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Performance</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{finalScore}/{lessonParts.length * 100}</div>
-                <div className="text-gray-600">Total Score</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                  {Math.round((finalScore / (lessonParts.length * 100)) * 100)}%
-                </div>
-                <div className="text-gray-600">Overall Performance</div>
-              </div>
-            </div>
-          </div>
-          
-          <p className="text-gray-600 mb-6">
-            You've successfully learned how to read candlestick charts and demonstrated 
-            your understanding through various interactive exercises. You're now ready to 
-            learn about trend analysis and support/resistance levels!
-          </p>
-          
-          <div className="flex gap-4 justify-center">
-            <button
-              onClick={() => setLessonCompleted(false)}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Review Lesson
-            </button>
-            <a
-              href="/stock-market-course/identifying-trends-support-and-resistance"
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Next Lesson
-            </a>
-          </div>
-      </div>
-      </LessonLayout>
-    );
-  }
+  const handlePartComplete = (partId: string) => {
+    console.log(`Part ${partId} completed!`);
+  };
 
   return (
-    <LessonLayout
-      title="How to Read Candlestick Charts"
-      description="Learn to interpret the most popular type of financial chart and understand the story each candlestick tells about the battle between buyers and sellers."
-      lessonSlug="how-to-read-candlestick-charts"
-    >
-      <MultiPartLesson
-        parts={lessonParts}
-        onComplete={handleLessonComplete}
-        onPartComplete={handlePartComplete}
-        onPartCompleteDirect={handlePartComplete}
-      />
-    </LessonLayout>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {lessonData.title}
+          </h1>
+          <p className="text-xl text-gray-600 mb-6">
+            {lessonData.description}
+          </p>
+          
+          <AudioSummary
+            title={lessonData.title}
+            description={lessonData.description}
+            hindiAudioUrl={lessonData.audioFiles.hi}
+            englishAudioUrl={lessonData.audioFiles.en}
+            bengaliAudioUrl={lessonData.audioFiles.bn}
+            tamilAudioUrl={lessonData.audioFiles.ta}
+            marathiAudioUrl={lessonData.audioFiles.mr}
+            hindiTranscript={lessonData.transcript.hi}
+            englishTranscript={lessonData.transcript.en}
+            bengaliTranscript={lessonData.transcript.bn}
+            tamilTranscript={lessonData.transcript.ta}
+            marathiTranscript={lessonData.transcript.mr}
+          />
+        </div>
+        
+        <MultiPartLesson
+          parts={lessonData.parts}
+          onComplete={handleComplete}
+          onPartComplete={handlePartComplete}
+        />
+      </div>
+    </div>
   );
 }
