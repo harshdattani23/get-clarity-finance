@@ -63,8 +63,12 @@ export async function POST(req: NextRequest) {
 
         if (holding) {
           const newQuantity = holding.quantity + quantity;
-          const newAveragePrice =
-            (holding.averagePrice.toNumber() * holding.quantity + cost) / newQuantity;
+          // Use proper decimal arithmetic to avoid precision issues
+          const existingCost = holding.averagePrice.toNumber() * holding.quantity;
+          const newCost = price * quantity;
+          const totalCost = existingCost + newCost;
+          const newAveragePrice = totalCost / newQuantity;
+          
           await tx.portfolioHolding.update({
             where: { id: holding.id },
             data: {
@@ -73,6 +77,9 @@ export async function POST(req: NextRequest) {
             },
           });
           console.log(`Updated existing holding: ${newQuantity} shares at ₹${newAveragePrice.toFixed(2)} average`);
+          console.log(`  Previous: ${holding.quantity} shares at ₹${holding.averagePrice.toNumber().toFixed(2)}`);
+          console.log(`  Added: ${quantity} shares at ₹${price.toFixed(2)}`);
+          console.log(`  Total cost: ₹${totalCost.toFixed(2)} for ${newQuantity} shares`);
         } else {
           await tx.portfolioHolding.create({
             data: {

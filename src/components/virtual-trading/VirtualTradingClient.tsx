@@ -19,11 +19,13 @@ import WatchlistManager from './WatchlistManager';
 import { useUser } from '@clerk/nextjs';
 import LoginPrompt from './LoginPrompt';
 import PortfolioView from './PortfolioView'; // Import the new component
+import Leaderboard from './Leaderboard';
+import Achievements from './Achievements';
 import { Stock } from '@/lib/trading-data';
 
 const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[], totalCount: number } }) => {
-  const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists'>('markets');
-  const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio'>('summary');
+  const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists' | 'leaderboard'>('markets');
+  const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'achievements'>('summary');
   const searchParams = useSearchParams();
   const pathname = usePathname(); // Get pathname
   const { isSignedIn } = useUser();
@@ -94,18 +96,24 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                 <div className="flex space-x-2 mb-4">
                   <button
                     onClick={() => setLeftColumnView('markets')}
-                    className={`px-4 py-2 rounded-md font-semibold w-full ${leftColumnView === 'markets' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                    className={`px-3 py-2 rounded-md font-semibold flex-1 ${leftColumnView === 'markets' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
                   >
                     Markets
                   </button>
                   {isSignedIn && (
                     <button
                       onClick={() => setLeftColumnView('watchlists')}
-                      className={`px-4 py-2 rounded-md font-semibold w-full ${leftColumnView === 'watchlists' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                      className={`px-3 py-2 rounded-md font-semibold flex-1 ${leftColumnView === 'watchlists' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
                     >
                       Watchlists
                     </button>
                   )}
+                  <button
+                    onClick={() => setLeftColumnView('leaderboard')}
+                    className={`px-3 py-2 rounded-md font-semibold flex-1 ${leftColumnView === 'leaderboard' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                  >
+                    Leaderboard
+                  </button>
                 </div>
 
                 {leftColumnView === 'markets' && (
@@ -125,6 +133,7 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                 )}
 
                 {leftColumnView === 'watchlists' && <WatchlistManager />}
+                {leftColumnView === 'leaderboard' && <Leaderboard />}
               </div>
 
               {/* Right Column */}
@@ -132,17 +141,25 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                 <div className="flex space-x-2 mb-4">
                   <button
                     onClick={() => setRightColumnView('summary')}
-                    className={`px-4 py-2 rounded-md font-semibold w-full ${rightColumnView === 'summary' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                    className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'summary' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
                   >
                     Summary
                   </button>
                   {isSignedIn && (
-                    <button
-                      onClick={() => setRightColumnView('portfolio')}
-                      className={`px-4 py-2 rounded-md font-semibold w-full ${rightColumnView === 'portfolio' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
-                    >
-                      Portfolio
-                    </button>
+                    <>
+                      <button
+                        onClick={() => setRightColumnView('portfolio')}
+                        className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'portfolio' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                      >
+                        Portfolio
+                      </button>
+                      <button
+                        onClick={() => setRightColumnView('achievements')}
+                        className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'achievements' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                      >
+                        Achievements
+                      </button>
+                    </>
                   )}
                 </div>
                 {isSignedIn ? (
@@ -154,6 +171,7 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                       </>
                     )}
                     {rightColumnView === 'portfolio' && <PortfolioView allStocks={initialData.stocks} />}
+                    {rightColumnView === 'achievements' && <Achievements />}
                   </>
                 ) : (
                   <LoginPrompt />

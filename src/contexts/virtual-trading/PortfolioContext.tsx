@@ -36,16 +36,29 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
         if (response.ok) {
           const data = await response.json();
           console.log('Portfolio data fetched:', data);
+          const cashValue = parseFloat(data.virtualCash);
+          console.log('Cash value parsed:', cashValue);
+          
+          if (isNaN(cashValue)) {
+            console.error('Invalid cash value received:', data.virtualCash);
+            toast.error('Failed to load portfolio balance');
+            return;
+          }
+          
           setPortfolio({
-            cash: parseFloat(data.virtualCash),
+            cash: cashValue,
             holdings: data.holdings.map((h: { ticker: string; quantity: number; averagePrice: string | number }) => ({
               ...h,
               averagePrice: parseFloat(h.averagePrice.toString()),
             })),
           });
+        } else {
+          console.error('Portfolio API response not ok:', response.status);
+          toast.error('Failed to load portfolio');
         }
       } catch (error) {
         console.error('Failed to fetch portfolio', error);
+        toast.error('Failed to connect to portfolio service');
       }
     }
   }, [isSignedIn]);
@@ -53,6 +66,51 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   const refreshPortfolio = async () => {
     console.log('Refreshing portfolio...');
     await fetchPortfolio();
+  };
+
+  interface TradeAchievementData {
+    ticker: string;
+    quantity: number;
+    price: number;
+    volume: number;
+    profit?: number;
+    tradeType?: 'BUY' | 'SELL';
+  }
+  
+  const checkAchievements = async (tradeType: 'BUY' | 'SELL', data: TradeAchievementData) => {
+    try {
+      const response = await fetch('/api/achievements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'TRADE_COMPLETED',
+          data: {
+            ...data,
+            tradeType,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.newAchievements && result.newAchievements.length > 0) {
+          result.newAchievements.forEach((achievement: { name: string; points: number }) => {
+            toast.success(
+              <div>
+                <strong>🏆 Achievement Unlocked!</strong>
+                <p>{achievement.name}</p>
+                <p className="text-sm">+{achievement.points} points</p>
+              </div>,
+              { duration: 5000 }
+            );
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to check achievements:', error);
+    }
   };
 
   useEffect(() => {
@@ -93,12 +151,19 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       console.log('Trade successful, refreshing portfolio...');
       // Refresh portfolio data from server to get accurate cash balance
       await refreshPortfolio();
+      
+      // Check for achievements after successful trade
+      await checkAchievements('BUY', { ticker, quantity, price, volume: cost });
     } else {
       console.error('Trade failed:', response.status, response.statusText);
     }
   };
 
   const sellStock = async (ticker: string, quantity: number, price: number) => {
+    // Calculate profit/loss for achievement tracking
+    const holding = portfolio?.holdings.find(h => h.ticker === ticker);
+    const profit = holding ? (price - holding.averagePrice) * quantity : 0;
+    
     const promise = fetch('/api/trade', {
       method: 'POST',
       headers: {
@@ -117,6 +182,15 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     if (response.ok) {
       // Refresh portfolio data from server to get accurate cash balance
       await refreshPortfolio();
+      
+      // Check for achievements after successful trade
+      await checkAchievements('SELL', { 
+        ticker, 
+        quantity, 
+        price, 
+        volume: quantity * price,
+        profit 
+      });
     }
   };
 

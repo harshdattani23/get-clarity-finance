@@ -163,7 +163,7 @@ export const bseMidcapStocks = [
   { ticker: 'MAZDOCK', name: 'Mazagon Dock Shipbuilders Ltd.', price: 2722.05, change: -0.97, marketCap: '1.10T', industry: 'Capital Goods', indices: ['BSE MIDCAP'] },
   { ticker: 'CUMMINSIND', name: 'Cummins India Ltd.', price: 3780.30, change: -0.31, marketCap: '1.05T', industry: 'Capital Goods', indices: ['BSE MIDCAP'] },
   { ticker: 'CGPOWER', name: 'CG Power & Industrial Solutions Ltd.', price: 665.55, change: -0.70, marketCap: '1.02T', industry: 'Capital Goods', indices: ['BSE MIDCAP'] },
-  { ticker: 'DIXON', name: 'Dixon Technologies India Ltd.', price: 16200.00, change: 1.58, marketCap: '979B', industry: 'Consumer Durables', indices: ['BSE MIDCAP'] },
+  { ticker: 'DIXON', name: 'Dixon Technologies India Ltd.', price: 16725.00, change: 1.58, marketCap: '979B', industry: 'Consumer Durables', indices: ['BSE MIDCAP'] },
   { ticker: 'GMRINFRA', name: 'GMR Airports Infrastructure Ltd.', price: 90.78, change: 2.36, marketCap: '958B', industry: 'Infrastructure', indices: ['BSE MIDCAP'] },
   { ticker: 'INDIANB', name: 'Indian Bank', price: 668.05, change: -0.34, marketCap: '900B', industry: 'Banking', indices: ['BSE MIDCAP'] },
   { ticker: 'LUPIN', name: 'Lupin Ltd.', price: 1962.00, change: -1.37, marketCap: '896B', industry: 'Healthcare', indices: ['BSE MIDCAP'] },

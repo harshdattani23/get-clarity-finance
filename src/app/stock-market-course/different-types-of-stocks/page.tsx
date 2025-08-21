@@ -335,11 +335,11 @@ export default function DifferentTypesOfStocksPage() {
   };
 
   const handleComplete = () => {
-    console.log('Lesson completed!');
+    // Lesson completion handled
   };
 
-  const handlePartComplete = (partId: string) => {
-    console.log(`Part ${partId} completed!`);
+  const handlePartComplete = () => {
+    // Part completion handled
   };
 
   return (

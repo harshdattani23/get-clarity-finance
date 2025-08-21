@@ -1,12 +1,31 @@
 "use client";
 
 import { useState, useRef } from 'react';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Globe } from 'lucide-react';
 
 export default function MarketFundamentalsPage() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const SUPPORTED_LANGUAGES = [
+    { code: 'en', name: 'English', native: 'English' },
+    { code: 'hi', name: 'Hindi', native: 'हिंदी' },
+    { code: 'bn', name: 'Bengali', native: 'বাংলা' },
+    { code: 'mr', name: 'Marathi', native: 'मराठी' },
+    { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
+    { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી' }
+  ];
+
+  // Language handling
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    setShowLanguageDropdown(false);
+    // Here you would typically update the content based on the selected language
+    // Language change will be handled by translation system
+  };
 
   const sections = [
     {
@@ -193,23 +212,51 @@ export default function MarketFundamentalsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top Bar */}
-      <div className="bg-white border-b border-gray-200 p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            {/* Back to Course Hub link removed */}
-          </div>
-        </div>
-      </div>
-
-      {/* Content Area */}
+      {/* Content Area - No top bar */}
       <div className="p-8">
         <div className="max-w-4xl mx-auto">
-          {/* Section Header */}
+          {/* Section Header with Language Dropdown */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              {sections[currentSection].title}
-            </h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-3xl font-bold text-gray-800">
+                {sections[currentSection].title}
+              </h2>
+              
+              {/* Language Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                >
+                  <Globe className="w-4 h-4 text-gray-600" />
+                  <span className="font-medium text-gray-700">
+                    {SUPPORTED_LANGUAGES.find(lang => lang.code === selectedLanguage)?.native || 'English'}
+                  </span>
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showLanguageDropdown ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                  </svg>
+                </button>
+                
+                {showLanguageDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    {SUPPORTED_LANGUAGES.map(lang => (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                          selectedLanguage === lang.code ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                        }`}
+                      >
+                        <div>
+                          <div className="font-medium">{lang.native}</div>
+                          <div className="text-xs text-gray-500">{lang.name}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
             <p className="text-gray-600">
               {sections[currentSection].content}
             </p>

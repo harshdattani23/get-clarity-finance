@@ -3,7 +3,7 @@
 import React from 'react';
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
 import { Stock } from '@/lib/trading-data';
-import StockTable from './StockTable';
+import HoldingsTable from './HoldingsTable';
 import PortfolioSummary from './PortfolioSummary'; // Import PortfolioSummary
 
 interface PortfolioViewProps {
@@ -28,7 +28,7 @@ const PortfolioView: React.FC<PortfolioViewProps> = ({ allStocks }) => {
   return (
     <div className="space-y-6">
       <PortfolioSummary />
-      <StockTable stocks={portfolioStocks} title="Your Holdings" showQuantity={true} />
+      <HoldingsTable stocks={portfolioStocks} />
     </div>
   );
 };

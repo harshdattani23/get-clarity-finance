@@ -2,7 +2,7 @@
 'use client';
 
 import { usePortfolio } from '@/contexts/virtual-trading/PortfolioContext';
-import { allStocks } from '@/lib/trading-data';
+import { useStockDataFromDB } from '@/hooks/useRealTimeStockData';
 import { Eye, EyeOff } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
@@ -10,28 +10,47 @@ const PortfolioSummary = () => {
   const { portfolio } = usePortfolio();
   const [isCensored, setIsCensored] = useState(false);
   const censor = (value: string) => (isCensored ? '₹ ******' : value);
+  
+  // Get tickers from portfolio holdings
+  const tickers = useMemo(() => {
+    return portfolio?.holdings.map(h => h.ticker) || [];
+  }, [portfolio]);
+  
+  // Fetch real-time stock data from database
+  const { stockData } = useStockDataFromDB(tickers);
 
   const { investmentValue, currentValue, overallPnl, todayPnl } = useMemo(() => {
     if (!portfolio || !portfolio.holdings) {
       return { investmentValue: 0, currentValue: 0, overallPnl: { value: 0, percent: 0 }, todayPnl: { value: 0, percent: 0 } };
     }
 
-    let investmentValue = 0;
-    let currentValue = 0;
-    let todayPnlValue = 0;
+    let investmentValue = 0;  // Total cost basis (what you paid)
+    let currentValue = 0;      // Current market value
+    let todayPnlValue = 0;     // Today's change in value
 
     portfolio.holdings.forEach(holding => {
-      const stockData = allStocks.find(s => s.ticker === holding.ticker);
-      if (stockData) {
+      // First try to get data from database
+      const dbStockData = stockData.get(holding.ticker);
+      
+      if (dbStockData) {
+        // Investment value is what you actually paid (purchase price × quantity)
         investmentValue += holding.averagePrice * holding.quantity;
-        currentValue += stockData.price * holding.quantity;
-        todayPnlValue += stockData.change * holding.quantity;
+        // Current value is the current market price from database × quantity
+        currentValue += dbStockData.price * holding.quantity;
+        // Today's P&L is today's price change × quantity
+        todayPnlValue += dbStockData.change * holding.quantity;
+      } else {
+        // If stock data not found in database, use purchase price as current price (failsafe)
+        investmentValue += holding.averagePrice * holding.quantity;
+        currentValue += holding.averagePrice * holding.quantity;
       }
     });
     
+    // Overall P&L is the difference between current market value and what you paid
     const overallPnlValue = currentValue - investmentValue;
     const overallPnlPercent = investmentValue !== 0 ? (overallPnlValue / investmentValue) * 100 : 0;
-    const todayPnlPercent = investmentValue !== 0 ? (todayPnlValue / investmentValue) * 100 : 0;
+    // Today's P&L percentage relative to investment
+    const todayPnlPercent = currentValue !== 0 ? (todayPnlValue / currentValue) * 100 : 0;
 
     return { 
       investmentValue, 
@@ -40,7 +59,7 @@ const PortfolioSummary = () => {
       todayPnl: { value: todayPnlValue, percent: todayPnlPercent }
     };
 
-  }, [portfolio]);
+  }, [portfolio, stockData]);
 
   if (!portfolio) {
     return (

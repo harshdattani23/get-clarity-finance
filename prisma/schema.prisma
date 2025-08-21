@@ -20,6 +20,9 @@ model User {
   holdings             PortfolioHolding[]
   virtualTrades        VirtualTrade[]
   watchlists           Watchlist[]
+  leaderboardEntries   LeaderboardEntry[]
+  achievements         UserAchievement[]
+  tradingStats         TradingStats?
 }
 
 model CourseProgress {
@@ -125,4 +128,90 @@ enum CourseStatus {
 enum TradeType {
   BUY
   SELL
+}
+
+// Leaderboard and Achievement Models
+model LeaderboardEntry {
+  id              Int                @id @default(autoincrement())
+  userClerkId     String
+  period          LeaderboardPeriod
+  rank            Int
+  totalReturn     Decimal
+  winRate         Decimal
+  totalTrades     Int
+  profitableTrades Int
+  portfolioValue  Decimal
+  calculatedAt    DateTime           @default(now())
+  user            User              @relation(fields: [userClerkId], references: [clerkId])
+
+  @@unique([userClerkId, period, calculatedAt])
+  @@index([period, rank])
+}
+
+model TradingStats {
+  id                Int      @id @default(autoincrement())
+  userClerkId       String   @unique
+  totalTrades       Int      @default(0)
+  profitableTrades  Int      @default(0)
+  totalProfit       Decimal  @default(0)
+  totalLoss         Decimal  @default(0)
+  bestTrade         Decimal  @default(0)
+  worstTrade        Decimal  @default(0)
+  currentStreak     Int      @default(0)
+  longestWinStreak  Int      @default(0)
+  longestLossStreak Int      @default(0)
+  totalVolume       Decimal  @default(0)
+  averageHoldTime   Int      @default(0) // in hours
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userClerkId], references: [clerkId])
+}
+
+model Achievement {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  description String
+  category    AchievementCategory
+  tier        AchievementTier
+  icon        String            // emoji or icon name
+  requirement Json              // JSON object with requirements
+  points      Int               @default(10)
+  users       UserAchievement[]
+  createdAt   DateTime          @default(now())
+}
+
+model UserAchievement {
+  id            Int         @id @default(autoincrement())
+  userClerkId   String
+  achievementId String
+  unlockedAt    DateTime    @default(now())
+  progress      Int         @default(0) // Progress percentage (0-100)
+  user          User        @relation(fields: [userClerkId], references: [clerkId])
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userClerkId, achievementId])
+}
+
+enum LeaderboardPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  ALL_TIME
+}
+
+enum AchievementCategory {
+  TRADING
+  PROFIT
+  LEARNING
+  STREAK
+  PORTFOLIO
+  SOCIAL
+  SPECIAL
+}
+
+enum AchievementTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+  DIAMOND
 }
