@@ -236,7 +236,9 @@ export default function StockMarketCoursePage() {
     planning: allModules.filter(m => m.category === 'planning').length
   };
 
-  const totalLessons = allModules.reduce((sum, module) => sum + module.lessons.length, 0);
+  // Count only the lessons that are actually implemented (have page.tsx files)
+  const implementedLessons = 56; // Based on actual file count
+  const totalLessons = implementedLessons;
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -266,7 +268,7 @@ export default function StockMarketCoursePage() {
                 <div className="text-sm text-gray-600">Total Lessons</div>
               </div>
               <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                <div className="text-2xl font-bold text-purple-600">50+</div>
+                <div className="text-2xl font-bold text-purple-600">40+</div>
                 <div className="text-sm text-gray-600">Hours of Content</div>
               </div>
             </div>
