@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import CourseHubSkeleton from '@/components/stock-market-course/CourseHubSkeleton';
+import CourseAudioPlaylist from '@/components/stock-market-course/CourseAudioPlaylist';
 
 export default function StockMarketCoursePage() {
   const { t, translations } = useTranslation('stock-market-course.course-modules');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedModule, setExpandedModule] = useState<string | null>(null);
   
   // Check if translations are still loading
   const isLoading = Object.keys(translations).length === 0;
@@ -20,11 +22,38 @@ export default function StockMarketCoursePage() {
       title: 'Market Fundamentals',
       description: 'Start with the absolute basics - understanding what stocks are and how the market works.',
       category: 'basics',
+      hasAudio: true,
       lessons: [
         { title: 'What is a Stock?', href: "/stock-market-course/what-is-a-stock" },
         { title: 'Different Types of Stocks', href: "/stock-market-course/different-types-of-stocks" },
         { title: 'What is a Stock Market?', href: "/stock-market-course/what-is-a-stock-market" },
         { title: 'How Stocks Are Traded', href: "/stock-market-course/how-stocks-are-traded" }
+      ],
+      audioLessons: [
+        {
+          id: 'what-is-stock',
+          title: 'What is a Stock?',
+          audioUrl: '/audio/stock-market-course/basics/what-is-stock.mp3',
+          duration: 180
+        },
+        {
+          id: 'types-of-stocks',
+          title: 'Different Types of Stocks',
+          audioUrl: '/audio/stock-market-course/basics/types-of-stocks.mp3',
+          duration: 240
+        },
+        {
+          id: 'what-is-stock-market',
+          title: 'What is a Stock Market?',
+          audioUrl: '/audio/stock-market-course/basics/what-is-stock-market.mp3',
+          duration: 200
+        },
+        {
+          id: 'how-stocks-traded',
+          title: 'How Stocks Are Traded',
+          audioUrl: '/audio/stock-market-course/basics/how-stocks-traded.mp3',
+          duration: 220
+        }
       ]
     },
     {
@@ -338,6 +367,11 @@ export default function StockMarketCoursePage() {
                          module.category === 'planning' ? 'Planning' : module.category}
                       </span>
                       <span className="text-sm text-gray-500">{module.lessons.length} lessons</span>
+                      {module.hasAudio && (
+                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
+                          🎧 Audio Available
+                        </span>
+                      )}
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-3">
                       {module.title as string}
@@ -346,13 +380,37 @@ export default function StockMarketCoursePage() {
                       {module.description as string}
                     </p>
                   </div>
-                  <Link
-                    href={module.lessons[0]?.href || '#'}
-                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium whitespace-nowrap"
-                  >
-                    Start Module
-                  </Link>
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href={module.lessons[0]?.href || '#'}
+                      className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium whitespace-nowrap"
+                    >
+                      Start Module
+                    </Link>
+                    {module.hasAudio && (
+                      <button
+                        onClick={() => setExpandedModule(expandedModule === module.id ? null : module.id)}
+                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium whitespace-nowrap"
+                      >
+                        {expandedModule === module.id ? 'Hide Audio' : 'Listen to Module'}
+                      </button>
+                    )}
+                  </div>
                 </div>
+                
+                {/* Audio Player */}
+                {module.hasAudio && expandedModule === module.id && (
+                  <div className="mb-6">
+                    <CourseAudioPlaylist
+                      courseTitle={module.title as string}
+                      courseDescription={module.description as string}
+                      lessons={module.audioLessons || []}
+                      onLessonComplete={(lessonId) => {
+                        console.log(`Completed lesson: ${lessonId}`);
+                      }}
+                    />
+                  </div>
+                )}
                 
                 {/* Lessons Grid */}
                 <div className="grid md:grid-cols-2 gap-4">

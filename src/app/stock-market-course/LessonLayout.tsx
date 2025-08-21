@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getStockMarketLessonNavigation } from '@/lib/stockMarketCourse';
 import { useTranslation } from '@/hooks/useTranslation';
 import LessonSkeleton from '@/components/stock-market-course/LessonSkeleton';
+import MultipartLessonAudio from '@/components/stock-market-course/MultipartLessonAudio';
 
 // Reusable layout for a single lesson page
 interface LessonLayoutProps {
@@ -11,9 +12,17 @@ interface LessonLayoutProps {
     title: string;
     description: string;
     lessonSlug: string;
+    hasAudio?: boolean;
+    audioParts?: Array<{
+        id: string;
+        title: string;
+        audioUrl: string;
+        duration: number;
+        transcript?: string;
+    }>;
 }
 
-export default function LessonLayout({ children, title, description, lessonSlug }: LessonLayoutProps) {
+export default function LessonLayout({ children, title, description, lessonSlug, hasAudio = false, audioParts = [] }: LessonLayoutProps) {
   const { prevLesson, nextLesson } = getStockMarketLessonNavigation(lessonSlug);
   const { t, translations } = useTranslation('stock-market-course.course-modules');
   
@@ -62,6 +71,20 @@ export default function LessonLayout({ children, title, description, lessonSlug 
             )}
           </header>
           
+          {/* Audio Player */}
+          {hasAudio && audioParts.length > 0 && (
+            <div className="mb-8">
+              <MultipartLessonAudio
+                lessonTitle={title}
+                lessonDescription={description}
+                parts={audioParts}
+                onPartComplete={(partId) => {
+                  console.log(`Completed audio part: ${partId}`);
+                }}
+              />
+            </div>
+          )}
+
           {/* Main lesson content */}
           <article className="prose lg:prose-xl max-w-none bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
             {isLoading ? <LessonSkeleton /> : children}
