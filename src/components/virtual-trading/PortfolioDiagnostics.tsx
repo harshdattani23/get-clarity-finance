@@ -177,7 +177,7 @@ export function PortfolioDiagnostics() {
                 <tr className="border-b">
                   <th className="text-left py-1">Ticker</th>
                   <th className="text-right py-1">Qty</th>
-                  <th className="text-right py-1">Avg Price</th>
+                  <th className="text-right py-1">Avg Buy Price</th>
                   <th className="text-right py-1">Total Value</th>
                 </tr>
               </thead>

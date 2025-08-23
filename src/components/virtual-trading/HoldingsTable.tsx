@@ -37,7 +37,7 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
             <tr className="border-b border-slate-700 text-xs text-gray-400">
               <th className="p-2">Symbol</th>
               <th className="p-2 text-right">Qty</th>
-              <th className="p-2 text-right">Avg Price</th>
+              <th className="p-2 text-right">Avg Buy Price</th>
               <th className="p-2 text-right">Current Price</th>
               <th className="p-2 text-right">Investment</th>
               <th className="p-2 text-right">Current Value</th>
