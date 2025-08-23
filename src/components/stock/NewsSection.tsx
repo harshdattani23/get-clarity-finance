@@ -23,17 +23,20 @@ interface NewsSectionProps {
 }
 
 export default function NewsSection({ ticker }: NewsSectionProps) {
-  const [newsCache, setNewsCache] = useState({
+  const [newsCache, setNewsCache] = useState<{ 
     '24h': {
-      company: null,
-      financial: null,
-      market: null,
-    },
+      company: NewsData | null;
+      financial: NewsData | null;
+      market: NewsData | null;
+    };
     '30d': {
-      company: null,
-      financial: null,
-      market: null,
-    }
+      company: NewsData | null;
+      financial: NewsData | null;
+      market: NewsData | null;
+    };
+  }>({
+    '24h': { company: null, financial: null, market: null },
+    '30d': { company: null, financial: null, market: null }
   });
   const [newsLoading, setNewsLoading] = useState(false);
   const [newsLoaded, setNewsLoaded] = useState(false);
@@ -152,11 +155,11 @@ export default function NewsSection({ ticker }: NewsSectionProps) {
   };
 
   const formatNewsLine = (line: string, index: number, type: 'company' | 'financial' | 'market'): React.ReactNode => {
-    const linkMatch = line.match(/\`\[([^\]]+)\]\(([^)]+)\)\`/);
+    const linkMatch = line.match(/`\[([^\]]+)\]\(([^)]+)\)`/);
 
     if (linkMatch) {
       const [, linkText, linkUrl] = linkMatch;
-      const textBeforeLink = line.replace(/\`\[([^\]]+)\]\(([^)]+)\)\`/, '');
+      const textBeforeLink = line.replace(/`\[([^\]]+)\]\(([^)]+)\)`/, '');
 
       return (
         <div key={index} className="mb-2">
