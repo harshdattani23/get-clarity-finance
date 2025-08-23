@@ -33,10 +33,21 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
     if (isSignedIn) {
       try {
         setLoading(true);
+        const cachedWatchlist = localStorage.getItem('watchlistCache');
+        if (cachedWatchlist) {
+          const { data, timestamp } = JSON.parse(cachedWatchlist);
+          const isCacheValid = new Date().toDateString() === new Date(timestamp).toDateString();
+          if (isCacheValid) {
+            setWatchlist(data);
+            return;
+          }
+        }
+
         const response = await fetch('/api/watchlist');
         if (response.ok) {
           const data = await response.json();
           setWatchlist(data);
+          localStorage.setItem('watchlistCache', JSON.stringify({ data, timestamp: new Date() }));
         }
       } catch (error) {
         console.error('Failed to fetch watchlist', error);
@@ -65,12 +76,14 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
 
     toast.promise(promise, {
       loading: 'Adding stock to watchlist...',
-      success: 'Stock added!',
+      success: (res) => {
+        fetchWatchlist();
+        return 'Stock added!';
+      },
       error: 'Failed to add stock',
     });
 
     await promise;
-    await fetchWatchlist();
   };
 
   const removeStockFromWatchlist = async (ticker: string) => {
@@ -83,12 +96,14 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
 
     toast.promise(promise, {
         loading: 'Removing stock from watchlist...',
-        success: 'Stock removed!',
+        success: () => {
+          fetchWatchlist();
+          return 'Stock removed!';
+        },
         error: 'Failed to remove stock',
     });
     
     await promise;
-    await fetchWatchlist();
   };
 
   return (

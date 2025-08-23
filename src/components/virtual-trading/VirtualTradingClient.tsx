@@ -1,29 +1,8 @@
-'use client';
-
-import { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
-import MarketFilters from './MarketFilters';
-import ScreenerView from './ScreenerView';
-import WarningBanner from './WarningBanner';
-import AcknowledgementModal from './AcknowledgementModal';
-import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
-import { WatchlistProvider } from '@/contexts/virtual-trading/WatchlistContext';
-import ClientOnly from '../ClientOnly';
-import IndexTicker from './IndexTicker';
-import ScrollingTicker from './ScrollingTicker';
-import PortfolioSummary from './PortfolioSummary';
-import TradingActions from './TradingActions';
-import Pagination from './Pagination'; // Import Pagination
-import { usePathname } from 'next/navigation'; // Get pathname
-import WatchlistManager from './WatchlistManager';
-import { useUser } from '@clerk/nextjs';
-import LoginPrompt from './LoginPrompt';
-import PortfolioView from './PortfolioView'; // Import the new component
-import Leaderboard from './Leaderboard';
-import Achievements from './Achievements';
-import { Stock } from '@/lib/trading-data';
-
-const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[], totalCount: number } }) => {
+const VirtualTradingClient = () => {
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [allStocks, setAllStocks] = useState<Stock[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists' | 'leaderboard'>('markets');
   const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'achievements'>('summary');
   const searchParams = useSearchParams();
@@ -37,47 +16,38 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
     }
   }, [isSignedIn]);
 
-  const filteredAndSortedStocks = useMemo(() => {
-    const searchTerm = searchParams?.get('search') || '';
-    const index = searchParams?.get('index') || 'all';
-    const industry = searchParams?.get('industry') || 'all';
-    const sort = searchParams?.get('sort') || 'name-asc';
+  useEffect(() => {
+    const fetchStocks = async () => {
+      setLoading(true);
+      const params = new URLSearchParams(searchParams?.toString());
+      const response = await fetch('/api/stock-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(params.entries())),
+      });
+      const data = await response.json();
+      setStocks(data.stocks);
+      setTotalCount(data.totalCount);
+      setLoading(false);
+    };
+    fetchStocks();
+  }, [searchParams]);
 
-    let filteredStocks = [...initialData.stocks];
-
-    if (searchTerm) {
-      filteredStocks = filteredStocks.filter(
-        (stock) =>
-          stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          stock.ticker.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    if (index !== 'all') {
-      filteredStocks = filteredStocks.filter((stock) => stock.indices.includes(index));
-    }
-    if (industry !== 'all') {
-      filteredStocks = filteredStocks.filter((stock) => stock.industry === industry);
-    }
-
-    const [sortKey, sortOrder] = sort.split('-');
-    filteredStocks.sort((a: Stock, b: Stock) => {
-      if (sortKey === 'name') {
-        return sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-      }
-      if (['price', 'change', 'marketCapValue', 'percentChange'].includes(sortKey)) {
-        const aValue = (a as Stock & { [key: string]: number })[sortKey] || 0;
-        const bValue = (b as Stock & { [key: string]: number })[sortKey] || 0;
-        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-      }
-      return 0;
-    });
-
-    return filteredStocks;
-  }, [searchParams, initialData.stocks]);
+  useEffect(() => {
+    const fetchAllStocks = async () => {
+      const response = await fetch('/api/stock-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      setAllStocks(data.stocks);
+    };
+    fetchAllStocks();
+  }, []);
 
   const currentPage = Number(searchParams?.get('page')) || 1;
   const itemsPerPage = 15;
-  const paginatedStocks = filteredAndSortedStocks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <PortfolioProvider>
@@ -120,10 +90,11 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                   <>
                     <MarketFilters />
                     <ScreenerView
-                      paginatedStocks={paginatedStocks}
+                      stocks={stocks}
+                      loading={loading}
                     />
                     <Pagination
-                      totalItems={filteredAndSortedStocks.length}
+                      totalCount={totalCount}
                       itemsPerPage={itemsPerPage}
                       currentPage={currentPage}
                       pathname={pathname || ''}
@@ -170,7 +141,7 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
                         <TradingActions />
                       </>
                     )}
-                    {rightColumnView === 'portfolio' && <PortfolioView allStocks={initialData.stocks} />}
+                    {rightColumnView === 'portfolio' && <PortfolioView allStocks={allStocks} />}
                     {rightColumnView === 'achievements' && <Achievements />}
                   </>
                 ) : (
@@ -184,5 +155,3 @@ const VirtualTradingClient = ({ initialData }: { initialData: { stocks: Stock[],
     </PortfolioProvider>
   );
 };
-
-export default VirtualTradingClient;

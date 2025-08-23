@@ -5,16 +5,16 @@ import React from 'react';
 import { useRouter, ReadonlyURLSearchParams } from 'next/navigation';
 
 interface PaginationProps {
-  totalItems: number;
+  totalCount: number;
   itemsPerPage: number;
   currentPage: number;
   pathname: string;
   searchParams: URLSearchParams | ReadonlyURLSearchParams;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ totalItems, itemsPerPage, currentPage, pathname, searchParams }) => {
+const Pagination: React.FC<PaginationProps> = ({ totalCount, itemsPerPage, currentPage, pathname, searchParams }) => {
   const router = useRouter();
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   if (totalPages <= 1) {
     return null;

@@ -35,65 +35,70 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { tickers } = await request.json();
+    const { tickers, page = 1, limit = 15, sort = 'name-asc', search = '', index = 'all', industry = 'all' } = await request.json();
 
-    if (!tickers || !Array.isArray(tickers) || tickers.length === 0) {
-      return NextResponse.json(
-        { error: 'Tickers array is required' },
-        { status: 400 }
-      );
-    }
-
-    console.log(`[STOCK-DATA] Fetching data for tickers:`, tickers);
-
-    // First, let's check if the stock table exists and has data
-    try {
-      const totalStocks = await db.stock.count();
-      console.log(`[STOCK-DATA] Total stocks in database: ${totalStocks}`);
-    } catch (countError) {
-      console.error('[STOCK-DATA] Error counting stocks:', countError);
-      throw new Error(`Database table access error: ${countError instanceof Error ? countError.message : 'Unknown'}`);
-    }
-
-    // Fetch stock data from database
-    const stocks = await db.stock.findMany({
-      where: {
-        ticker: {
-          in: tickers
+    if (tickers && Array.isArray(tickers) && tickers.length > 0) {
+      // Fetch specific tickers
+      const stocks = await db.stock.findMany({
+        where: {
+          ticker: {
+            in: tickers
+          }
+        },
+        select: {
+          ticker: true,
+          price: true,
+          change: true,
+          percentChange: true,
+          volume: true,
+          lastUpdatedAt: true,
         }
-      },
-      select: {
-        ticker: true,
-        price: true,
-        change: true,
-        percentChange: true,
-        volume: true,
-        lastUpdatedAt: true,
+      });
+      const stockData = stocks.map((stock: {
+        ticker: string;
+        price: Decimal | null;
+        change: Decimal | null;
+        percentChange: Decimal | null;
+        volume: Decimal | null;
+        lastUpdatedAt: Date | null;
+      }) => ({
+        ticker: stock.ticker,
+        price: stock.price ? Number(stock.price) : 0,
+        change: stock.change ? Number(stock.change) : 0,
+        percentChange: stock.percentChange ? Number(stock.percentChange) : 0,
+        volume: stock.volume ? Number(stock.volume) : 0,
+        lastUpdatedAt: stock.lastUpdatedAt?.toISOString() || new Date().toISOString(),
+      }));
+      return NextResponse.json(stockData);
+    } else {
+      // Fetch paginated and filtered stocks
+      const where: any = {};
+      if (search) {
+        where.OR = [
+          { name: { contains: search, mode: 'insensitive' } },
+          { ticker: { contains: search, mode: 'insensitive' } },
+        ];
       }
-    });
+      if (index !== 'all') {
+        where.indices = { has: index };
+      }
+      if (industry !== 'all') {
+        where.industry = industry;
+      }
 
-    console.log(`[STOCK-DATA] Found ${stocks.length} stocks in database`);
+      const [sortKey, sortOrder] = sort.split('-');
+      const orderBy = { [sortKey]: sortOrder };
 
-    // Convert Decimal types to numbers for JSON serialization
-    const stockData = stocks.map((stock: {
-      ticker: string;
-      price: Decimal | null;
-      change: Decimal | null;
-      percentChange: Decimal | null;
-      volume: Decimal | null;
-      lastUpdatedAt: Date | null;
-    }) => ({
-      ticker: stock.ticker,
-      price: stock.price ? Number(stock.price) : 0,
-      change: stock.change ? Number(stock.change) : 0,
-      percentChange: stock.percentChange ? Number(stock.percentChange) : 0,
-      volume: stock.volume ? Number(stock.volume) : 0,
-      lastUpdatedAt: stock.lastUpdatedAt?.toISOString() || new Date().toISOString(),
-    }));
+      const totalCount = await db.stock.count({ where });
+      const stocks = await db.stock.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * limit,
+        take: limit,
+      });
 
-    console.log(`[STOCK-DATA] Returning ${stockData.length} stock records`);
-    return NextResponse.json(stockData);
-
+      return NextResponse.json({ stocks, totalCount });
+    }
   } catch (error) {
     console.error('[STOCK-DATA] Error details:', error);
     
