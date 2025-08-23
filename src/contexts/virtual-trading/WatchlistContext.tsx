@@ -76,7 +76,7 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
 
     toast.promise(promise, {
       loading: 'Adding stock to watchlist...',
-      success: (res) => {
+      success: () => {
         fetchWatchlist();
         return 'Stock added!';
       },

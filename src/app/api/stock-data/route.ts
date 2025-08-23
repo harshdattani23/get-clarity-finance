@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { Decimal } from '@prisma/client/runtime/library';
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(stockData);
     } else {
       // Fetch paginated and filtered stocks
-      const where: any = {};
+      const where: Prisma.StockWhereInput = {};
       if (search) {
         where.OR = [
           { name: { contains: search, mode: 'insensitive' } },
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
       }
 
       const [sortKey, sortOrder] = sort.split('-');
-      const orderBy = { [sortKey]: sortOrder };
+      const orderBy: { [key: string]: string } = { [sortKey]: sortOrder };
 
       const totalCount = await db.stock.count({ where });
       const stocks = await db.stock.findMany({

@@ -1,3 +1,28 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import MarketFilters from './MarketFilters';
+import ScreenerView from './ScreenerView';
+import WarningBanner from './WarningBanner';
+import AcknowledgementModal from './AcknowledgementModal';
+import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
+import { WatchlistProvider } from '@/contexts/virtual-trading/WatchlistContext';
+import ClientOnly from '../ClientOnly';
+import IndexTicker from './IndexTicker';
+import ScrollingTicker from './ScrollingTicker';
+import PortfolioSummary from './PortfolioSummary';
+import TradingActions from './TradingActions';
+import Pagination from './Pagination'; // Import Pagination
+import { usePathname } from 'next/navigation'; // Get pathname
+import WatchlistManager from './WatchlistManager';
+import { useUser } from '@clerk/nextjs';
+import LoginPrompt from './LoginPrompt';
+import PortfolioView from './PortfolioView'; // Import the new component
+import Leaderboard from './Leaderboard';
+import Achievements from './Achievements';
+import { Stock } from '@/lib/trading-data';
+
 const VirtualTradingClient = () => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [allStocks, setAllStocks] = useState<Stock[]>([]);
@@ -155,3 +180,6 @@ const VirtualTradingClient = () => {
     </PortfolioProvider>
   );
 };
+
+export default VirtualTradingClient;
+
