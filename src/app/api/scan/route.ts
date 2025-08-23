@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { isUrlSafe } from '@/lib/security';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
@@ -32,6 +33,14 @@ export async function POST(request: NextRequest) {
 
   if (typeof url !== 'string') {
     return NextResponse.json({ error: 'URL must be a string' }, { status: 400 });
+  }
+
+  const safe = await isUrlSafe(url);
+  if (!safe) {
+    return NextResponse.json(
+      { error: 'The provided URL is invalid or points to a disallowed resource.' },
+      { status: 400 }
+    );
   }
 
   try {

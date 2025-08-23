@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parseNewsContent, categorizeNews, extractCompanyMetrics } from '@/lib/news-formatter';
 
 interface NewsRequest {
   ticker?: string;
@@ -23,56 +22,6 @@ interface NewsResponse {
   sources: NewsSource[];
   summary?: string;
   formattedNews?: string;
-  structuredData?: FormattedNews;
-  category?: string;
-  tags?: string[];
-  priority?: 'high' | 'medium' | 'low';
-  metrics?: CompanyMetrics;
-}
-
-interface ParsedNewsSection {
-  type: 'heading' | 'metric' | 'bullet' | 'paragraph' | 'highlight' | 'date';
-  content: string;
-  metadata?: {
-    label?: string;
-    value?: string;
-    sentiment?: 'positive' | 'negative' | 'neutral';
-    isImportant?: boolean;
-  };
-}
-
-interface FormattedNews {
-  headline?: string;
-  keyMetrics: Array<{
-    label: string;
-    value: string;
-    change?: string;
-    sentiment?: 'positive' | 'negative' | 'neutral';
-  }>;
-  highlights: string[];
-  details: ParsedNewsSection[];
-  summary: string;
-  lastUpdated?: string;
-}
-
-interface CompanyMetrics {
-  quarterlyResults?: {
-    quarter: string;
-    profit?: string;
-    revenue?: string;
-    yoy?: string;
-  };
-  stockMetrics?: {
-    currentPrice?: string;
-    targetPrice?: string;
-    weekRange?: string;
-    volume?: string;
-  };
-  dates?: {
-    announcementDate?: string;
-    meetingDate?: string;
-    resultDate?: string;
-  };
 }
 
 export async function POST(request: NextRequest) {
@@ -174,27 +123,13 @@ export async function POST(request: NextRequest) {
 
     // Format news with proper links and structure
     const formattedNews = formatNewsWithLinks(newsContent, sources);
-    
-    // Parse and structure the news content
-    const structuredData = parseNewsContent(newsContent);
-    
-    // Categorize the news
-    const { category, tags, priority } = categorizeNews(newsContent);
-    
-    // Extract company-specific metrics if ticker is provided
-    const metrics = ticker ? extractCompanyMetrics(newsContent) : undefined;
 
     const responseData: NewsResponse = {
       news: newsContent,
       timestamp: new Date().toISOString(),
       sources,
       summary,
-      formattedNews,
-      structuredData,
-      category,
-      tags,
-      priority,
-      metrics
+      formattedNews
     };
 
     return NextResponse.json(responseData);
