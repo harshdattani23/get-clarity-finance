@@ -1,4 +1,59 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { TrendingUp, TrendingDown, AlertCircle, BookOpen, Target } from 'lucide-react';
+import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
+import { WatchlistProvider } from '@/contexts/virtual-trading/WatchlistContext';
+import TradingViewWidget from '@/components/tradingview/AdvancedChart';
+import TradingActions from '@/components/stock/TradingActions';
+import UserHoldings from '@/components/stock/UserHoldings';
+import StockInfo from '@/components/stock/StockInfo';
+import { useParams } from 'next/navigation';
 import NewsSection from '@/components/stock/NewsSection';
+
+// Define the types for the stock and index data
+interface Stock {
+  ticker: string;
+  name: string;
+  price: number;
+  change: number;
+  percentChange: number;
+  marketCap: number;
+  volume: number;
+  avgVolume: number;
+  peRatio: number | null;
+  eps: number | null;
+  dividendYield: number | null;
+  beta: number;
+  high: number;
+  low: number;
+  open: number;
+  close: number;
+  description: string;
+  industry: string;
+  sector: string;
+  website: string;
+  ceo: string;
+  headquarters: string;
+  employees: number;
+  week52High: number | null;
+  week52Low: number | null;
+}
+
+interface Index {
+  name: string;
+  ticker: string;
+  price: number;
+  change: number;
+  percentChange: number;
+}
+
+interface ApiIndexData {
+  ticker: string;
+  price: number;
+  change: number;
+  percentChange: number;
+}
 
 export default function StockDetailPage() {
   const params = useParams();
