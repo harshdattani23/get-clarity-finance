@@ -21,6 +21,10 @@ export default function TradingActions({ stock }: { stock: StockData }) {
   const { watchlist, addStockToWatchlist, removeStockFromWatchlist } = useWatchlist();
   const [isBuyModalOpen, setBuyModalOpen] = useState(false);
   const [isSellModalOpen, setSellModalOpen] = useState(false);
+  
+  // Check if this is an index
+  const indexTickers = ['NIFTY', 'SENSEX', 'BANKNIFTY', 'FINNIFTY'];
+  const isIndex = indexTickers.includes(stock.ticker.toUpperCase());
 
   if (!isSignedIn) {
     return (
@@ -45,6 +49,31 @@ export default function TradingActions({ stock }: { stock: StockData }) {
       addStockToWatchlist(stock.ticker);
     }
   };
+
+  // Show special message for indices
+  if (isIndex) {
+    return (
+      <div className="bg-gray-800 p-4 rounded-lg">
+        <div className="bg-yellow-900 border border-yellow-600 p-4 rounded-md">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-2xl">📊</span>
+            <span className="text-yellow-200 font-semibold">Index - View Only</span>
+          </div>
+          <p className="text-yellow-100 text-sm">
+            {stock.ticker} is a market index and cannot be traded directly.
+          </p>
+          <p className="text-yellow-100 text-xs mt-2">
+            Indices are used for market reference and tracking overall market performance.
+          </p>
+        </div>
+        <div className="mt-4 bg-gray-700 p-3 rounded-md">
+          <p className="text-gray-300 text-sm">
+            💡 <strong>Tip:</strong> To gain exposure to this index, consider trading individual stocks that are part of the {stock.ticker} index.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg">

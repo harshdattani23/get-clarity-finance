@@ -13,6 +13,10 @@ const TradeModal: React.FC<TradeModalProps> = ({ stock }) => {
   const [tradeType, setTradeType] = useState<'BUY' | 'SELL'>('BUY');
   const [quantity, setQuantity] = useState(1);
   const { portfolio, buyStock, sellStock } = usePortfolio();
+  
+  // Check if this is an index
+  const indexTickers = ['NIFTY', 'SENSEX', 'BANKNIFTY', 'FINNIFTY'];
+  const isIndex = indexTickers.includes(stock.ticker.toUpperCase());
 
   const userHolding = portfolio?.holdings.find(h => h.ticker === stock.ticker);
   const maxSellQuantity = userHolding ? userHolding.quantity : 0;
@@ -39,6 +43,11 @@ const TradeModal: React.FC<TradeModalProps> = ({ stock }) => {
   };
   
   const totalCost = (quantity * stock.price).toFixed(2);
+
+  // Don't render trade buttons for indices
+  if (isIndex) {
+    return null;
+  }
 
   return (
     <>

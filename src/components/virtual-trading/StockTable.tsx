@@ -50,12 +50,20 @@ const StockTable: React.FC<StockTableProps> = ({ stocks, title, showQuantity = f
 					</thead>
 					<tbody>
 						{stocks.length > 0 ? (
-							stocks.map((stock) => {
+							stocks
+								.filter((stock) => {
+									// Filter out indices from the stock table
+									const indexTickers = ['NIFTY', 'SENSEX', 'BANKNIFTY', 'FINNIFTY'];
+									return !indexTickers.includes(stock.ticker.toUpperCase());
+								})
+								.map((stock) => {
 								const isInWatchlist = watchlist?.items?.some(item => item.ticker === stock.ticker) ?? false;
 								const holding = portfolio?.holdings.find(h => h.ticker === stock.ticker);
 								const db = getStockData(stock.ticker);
-								const currentPrice = (db?.price ?? stock.price);
-								const currentChange = (db?.change ?? stock.change);
+								// Ensure values are numbers with proper fallbacks
+								const currentPrice = Number(db?.price ?? stock.price) || 0;
+								const currentChange = Number(db?.change ?? stock.change) || 0;
+								console.log(`Stock: ${stock.ticker}, db:`, db, `stock.price: ${stock.price}, db.price: ${db?.price}, currentPrice: ${currentPrice}`);
 								const derivedStock: Stock = { ...stock, price: currentPrice, change: currentChange };
 								return(
 									<tr 
@@ -64,8 +72,12 @@ const StockTable: React.FC<StockTableProps> = ({ stocks, title, showQuantity = f
 										onClick={() => router.push(`/virtual-trading/stock/${stock.ticker}`)}
 									>
 										<td className="p-2">
-											<div className="font-bold">{stock.ticker}</div>
-											<div className="text-xs text-gray-400">{stock.name}</div>
+											<div className="flex items-center space-x-2">
+												<div>
+													<div className="font-bold">{stock.ticker}</div>
+													<div className="text-xs text-gray-400">{stock.name}</div>
+												</div>
+											</div>
 										</td>
 										{showQuantity && (
 											<td className="p-2 text-right font-mono">
@@ -73,8 +85,8 @@ const StockTable: React.FC<StockTableProps> = ({ stocks, title, showQuantity = f
 											</td>
 										)}
 										<td className="p-2 text-right font-mono">₹{currentPrice.toFixed(2)}</td>
-										<td className={`p-2 text-right font-mono ${currentChange > 0 ? 'text-green-500' : 'text-red-500'}`}>
-											{currentChange.toFixed(2)}
+										<td className={`p-2 text-right font-mono ${currentChange > 0 ? 'text-green-500' : currentChange < 0 ? 'text-red-500' : 'text-gray-400'}`}>
+											{currentChange >= 0 ? '+' : ''}{currentChange.toFixed(2)}%
 										</td>
 										<td className="p-2">
 											<div className="flex items-center justify-center space-x-2">
