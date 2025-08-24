@@ -13,20 +13,20 @@ export default function Home() {
   const services = [
     {
       icon: <BookOpen className="w-8 h-8 text-blue-500" />,
-      title: t('feature1Title') as string,
-      description: t('feature1Description') as string,
+      title: "Comprehensive Stock Market Courses",
+      description: "From the basics of Nifty and Sensex to advanced technical analysis, our courses are tailored for the Indian market.",
       link: '/stock-market-course',
     },
     {
       icon: <ShieldCheck className="w-8 h-8 text-green-500" />,
-      title: t('feature2Title') as string,
-      description: t('feature2Description') as string,
+      title: "Investor Awareness Hub",
+      description: "Stay informed about the latest regulations from SEBI, understand common investment scams, and learn to protect your portfolio.",
       link: '/fraud-protection',
     },
     {
       icon: <TrendingUp className="w-8 h-8 text-indigo-500" />,
-      title: t('feature3Title') as string,
-      description: t('feature3Description') as string,
+            title: "Virtual Trading Simulator",
+      description: "Practice your trading strategies in a real-time simulated environment without risking any capital. Master the art of trading, risk-free.",
       link: '/virtual-trading',
     },
   ];
@@ -38,17 +38,17 @@ export default function Home() {
         <div className="container mx-auto px-6 py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
           <div className="flex flex-col items-start">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              {t('hero.title') as string}
+              {"Invest with Confidence. Trade with Clarity."}
             </h1>
             <p className="mt-6 text-lg text-white/80">
-              {t('hero.subtitle') as string}
+              {"Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor."}
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link href="#analyzer" className="bg-lime-400 text-black font-semibold px-8 py-3 rounded-full hover:bg-lime-500 transition-colors">
-                {t('hero.cta') as string}
+                {"Analyze a message"}
               </Link>
               <Link href="/investment-quiz" className="bg-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/30 transition-colors">
-                {t('hero.cta2') as string}
+                {"Take the Quiz"}
               </Link>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
       <section id="services" className="py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            {t('services.title') as string}
+            {"Let us handle the numbers, so you can handle your success."}
           </h2>
 
           <div className="mt-16 grid md:grid-cols-3 gap-8 text-left">
@@ -72,7 +72,7 @@ export default function Home() {
                 <h3 className="mt-6 text-xl font-bold text-gray-900">{service.title}</h3>
                 <p className="mt-2 text-gray-600">{service.description}</p>
                  <Link href={service.link} className="text-blue-600 font-semibold mt-4 inline-block hover:underline">
-                    {t('learnMore') as string} <ArrowRight className="inline w-4 h-4" />
+                    {"Learn More"} <ArrowRight className="inline w-4 h-4" />
                 </Link>
               </div>
             ))}
@@ -87,8 +87,8 @@ export default function Home() {
       <section id="analyzer" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
             <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{t('analyzerTitle') as string}</h2>
-                <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">{t('heroSubtitle') as string}</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{"Get Instant Clarity on Any Financial Message"}</h2>
+                <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">{"Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor."}</p>
             </div>
             <div className="mt-12">
                 <ContentAnalyzer />
