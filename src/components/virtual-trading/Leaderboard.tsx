@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { FaTrophy, FaMedal, FaCrown, FaFire } from 'react-icons/fa';
+import { FaTrophy, FaMedal, FaCrown, FaFire, FaChartLine, FaStar } from 'react-icons/fa';
+import { getUserBadges, getRankBadge, RANK_EFFECTS, calculateLevel, getNextMilestone, type UserStats } from '@/lib/leaderboard-badges';
 
 interface LeaderboardEntry {
   id: number;
@@ -60,16 +61,11 @@ const Leaderboard: React.FC = () => {
   };
 
   const getRankClass = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return 'bg-gradient-to-r from-yellow-900/20 to-yellow-700/20 border-yellow-500/30';
-      case 2:
-        return 'bg-gradient-to-r from-gray-700/20 to-gray-600/20 border-gray-400/30';
-      case 3:
-        return 'bg-gradient-to-r from-orange-900/20 to-orange-700/20 border-orange-500/30';
-      default:
-        return 'bg-slate-800/50 hover:bg-slate-700/50';
+    const effect = RANK_EFFECTS[rank as keyof typeof RANK_EFFECTS];
+    if (effect) {
+      return `${effect.background} ${effect.border} ${effect.glow}`;
     }
+    return 'bg-slate-800/50 hover:bg-slate-700/50';
   };
 
   const formatReturn = (value: number) => {
@@ -119,15 +115,56 @@ const Leaderboard: React.FC = () => {
               <div className="text-2xl font-bold text-blue-400">#{userRank.rank}</div>
               <div>
                 <p className="text-white font-semibold">Your Ranking</p>
-                <p className="text-gray-400 text-sm">Keep trading to climb higher!</p>
+                <p className="text-gray-400 text-sm">
+                  {getNextMilestone({
+                    rank: userRank.rank,
+                    totalReturn: userRank.totalReturn,
+                    winRate: userRank.winRate,
+                    totalTrades: userRank.totalTrades,
+                    portfolioValue: userRank.portfolioValue,
+                  })}
+                </p>
               </div>
             </div>
-            <div className="text-right">
-              <p className={`text-lg font-bold ${userRank.totalReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                {formatReturn(userRank.totalReturn)}
-              </p>
-              <p className="text-gray-400 text-sm">Total Return</p>
+            <div className="flex gap-4">
+              <div className="text-center">
+                <p className={`text-lg font-bold ${userRank.totalReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  {formatReturn(userRank.totalReturn)}
+                </p>
+                <p className="text-gray-400 text-xs">Return</p>
+              </div>
+              <div className="text-center">
+                <p className="text-lg font-bold text-yellow-400">
+                  {userRank.winRate.toFixed(1)}%
+                </p>
+                <p className="text-gray-400 text-xs">Win Rate</p>
+              </div>
+              <div className="text-center">
+                <p className="text-lg font-bold text-purple-400">
+                  {userRank.totalTrades}
+                </p>
+                <p className="text-gray-400 text-xs">Trades</p>
+              </div>
             </div>
+          </div>
+          {/* User's Badges */}
+          <div className="mt-3 flex gap-2 flex-wrap">
+            {getUserBadges({
+              rank: userRank.rank,
+              totalReturn: userRank.totalReturn,
+              winRate: userRank.winRate,
+              totalTrades: userRank.totalTrades,
+              portfolioValue: userRank.portfolioValue,
+            }).map(badge => (
+              <span
+                key={badge.id}
+                className={`px-2 py-1 rounded-full text-xs bg-gradient-to-r ${badge.color} text-white font-semibold flex items-center gap-1`}
+                title={badge.description}
+              >
+                <span>{badge.icon}</span>
+                <span>{badge.name}</span>
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -154,6 +191,17 @@ const Leaderboard: React.FC = () => {
           {/* Table Rows */}
           {leaderboard.map((entry) => {
             const isCurrentUser = user?.id === entry.user.clerkId;
+            const stats: UserStats = {
+              rank: entry.rank,
+              totalReturn: entry.totalReturn,
+              winRate: entry.winRate,
+              totalTrades: entry.totalTrades,
+              portfolioValue: entry.portfolioValue,
+            };
+            const badges = getUserBadges(stats);
+            const rankBadge = getRankBadge(entry.rank);
+            const level = calculateLevel(entry.totalTrades, entry.winRate);
+            
             return (
               <div
                 key={entry.id}
@@ -161,38 +209,61 @@ const Leaderboard: React.FC = () => {
                   isCurrentUser 
                     ? 'bg-blue-900/20 border-blue-500/30' 
                     : getRankClass(entry.rank)
-                } ${entry.rank <= 3 ? 'border' : ''}`}
+                } ${entry.rank <= 3 ? 'border transform hover:scale-[1.02]' : ''}`}
               >
                 <div className="col-span-1 flex items-center">
                   {getRankIcon(entry.rank)}
                 </div>
                 <div className="col-span-3">
-                  <p className="text-white font-semibold truncate">
-                    {entry.user.username || entry.user.email.split('@')[0]}
-                    {isCurrentUser && <span className="ml-2 text-blue-400 text-xs">(You)</span>}
-                  </p>
-                  {entry.rank <= 3 && (
-                    <p className="text-xs text-gray-400">
-                      {entry.rank === 1 ? 'Champion' : entry.rank === 2 ? 'Runner-up' : 'Third Place'}
-                    </p>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <p className="text-white font-semibold truncate">
+                        {entry.user.username || entry.user.email.split('@')[0]}
+                        {isCurrentUser && <span className="ml-2 text-blue-400 text-xs">(You)</span>}
+                      </p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <span className="text-xs text-gray-400">Lvl {level}</span>
+                        {rankBadge && (
+                          <span className={`text-xs px-2 py-0.5 rounded-full bg-gradient-to-r ${rankBadge.color} text-white font-semibold`}>
+                            {rankBadge.name}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="col-span-2 text-right">
-                  <span className={`font-bold ${entry.totalReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                    {formatReturn(entry.totalReturn)}
-                  </span>
+                  <div className="flex flex-col items-end">
+                    <span className={`font-bold ${entry.totalReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {formatReturn(entry.totalReturn)}
+                    </span>
+                    {Math.abs(entry.totalReturn) >= 30 && (
+                      <span className="text-xs text-yellow-400">🔥 Hot</span>
+                    )}
+                  </div>
                 </div>
                 <div className="col-span-2 text-right">
                   <div className="flex items-center justify-end gap-1">
                     <span className="text-white font-semibold">{entry.winRate.toFixed(1)}%</span>
-                    {entry.winRate >= 60 && <FaFire className="text-orange-400 text-sm" />}
+                    {entry.winRate >= 70 && <span title="Consistent Winner">🎯</span>}
+                    {entry.winRate >= 60 && entry.winRate < 70 && <FaFire className="text-orange-400 text-sm" />}
                   </div>
                 </div>
-                <div className="col-span-2 text-right text-gray-300">
-                  {entry.totalTrades}
+                <div className="col-span-2 text-right">
+                  <div className="flex flex-col items-end">
+                    <span className="text-gray-300">{entry.totalTrades}</span>
+                    {entry.totalTrades >= 100 && (
+                      <span className="text-xs text-purple-400">⚡ Active</span>
+                    )}
+                  </div>
                 </div>
-                <div className="col-span-2 text-right text-gray-300">
-                  {formatCurrency(entry.portfolioValue)}
+                <div className="col-span-2 text-right">
+                  <div className="flex flex-col items-end">
+                    <span className="text-gray-300">{formatCurrency(entry.portfolioValue)}</span>
+                    {entry.portfolioValue >= 200000 && (
+                      <span className="text-xs text-indigo-400">💎 High</span>
+                    )}
+                  </div>
                 </div>
               </div>
             );
