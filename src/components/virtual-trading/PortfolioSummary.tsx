@@ -147,29 +147,41 @@ const PortfolioSummary = () => {
           {isCensored ? <EyeOff size={20} /> : <Eye size={20} />}
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {summaryData.map((item, index) => (
-          <div 
-            key={index} 
-            className={`p-4 rounded-lg min-w-0 ${
-              item.highlight 
-                ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-blue-500/30' 
-                : 'bg-slate-800'
-            }`}
-          >
-            <p className={`text-sm mb-1 truncate ${
-              item.highlight ? 'text-blue-300' : 'text-gray-400'
-            }`}>
-              {item.label}
-              {item.highlight && <span className="text-xs ml-1 block sm:inline">(Stocks + Cash)</span>}
-            </p>
-            <div className={`font-semibold break-words ${
-              item.highlight ? 'text-xl' : 'text-lg'
-            }`}>
-              {typeof item.value === 'string' ? censor(item.value) : item.value}
+      
+      {/* Highlight Net Worth as main card */}
+      <div className="mb-4">
+        <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-blue-500/30 p-6 rounded-lg">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-blue-300 text-sm mb-1">
+                Net Worth <span className="text-xs opacity-75">(Stocks + Cash)</span>
+              </p>
+              <div className="text-3xl font-bold">
+                {censor(formatCurrency(netWorth))}
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm text-gray-400 mb-1">Today's P&L</div>
+              <div className="text-lg font-semibold">{formatPnl(todayPnl)}</div>
             </div>
           </div>
-        ))}
+        </div>
+      </div>
+      
+      {/* Other metrics in a grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="bg-slate-800 p-4 rounded-lg">
+          <p className="text-gray-400 text-sm mb-1">Holdings Value</p>
+          <div className="text-lg font-semibold">{censor(formatCurrency(currentValue))}</div>
+        </div>
+        <div className="bg-slate-800 p-4 rounded-lg">
+          <p className="text-gray-400 text-sm mb-1">Available Cash</p>
+          <div className="text-lg font-semibold">{censor(formatCurrency(portfolio.cash))}</div>
+        </div>
+        <div className="bg-slate-800 p-4 rounded-lg">
+          <p className="text-gray-400 text-sm mb-1">Overall P&L</p>
+          <div className="text-lg font-semibold">{formatPnl(overallPnl)}</div>
+        </div>
       </div>
     </div>
   );
