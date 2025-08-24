@@ -11,10 +11,24 @@ export async function GET(request: NextRequest) {
     const period = searchParams.get('period') || 'WEEKLY';
     const limit = parseInt(searchParams.get('limit') || '100');
 
+    // First, get the latest calculation date for this period
+    const latestEntry = await prisma.leaderboardEntry.findFirst({
+      where: {
+        period: period as 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ALL_TIME',
+      },
+      orderBy: {
+        calculatedAt: 'desc',
+      },
+      select: {
+        calculatedAt: true,
+      },
+    });
+
     // Get the latest leaderboard entries for the specified period
     const leaderboard = await prisma.leaderboardEntry.findMany({
       where: {
         period: period as 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ALL_TIME',
+        ...(latestEntry && { calculatedAt: latestEntry.calculatedAt }),
       },
       orderBy: {
         rank: 'asc',
@@ -38,9 +52,16 @@ export async function GET(request: NextRequest) {
         where: {
           userClerkId: userId,
           period: period as 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ALL_TIME',
+          ...(latestEntry && { calculatedAt: latestEntry.calculatedAt }),
         },
-        orderBy: {
-          calculatedAt: 'desc',
+        include: {
+          user: {
+            select: {
+              username: true,
+              email: true,
+              clerkId: true,
+            },
+          },
         },
       });
     }
@@ -118,6 +139,17 @@ async function calculateLeaderboard(period: string) {
     },
   });
 
+  // Get all stock prices
+  const stocks = await prisma.stock.findMany({
+    select: {
+      ticker: true,
+      price: true,
+    },
+  });
+  
+  // Create a map for quick price lookup
+  const stockPrices = new Map(stocks.map(s => [s.ticker, s.price]));
+
   // Calculate metrics for each user
   const userMetrics = users.map(user => {
     const trades = user.virtualTrades;
@@ -143,9 +175,12 @@ async function calculateLeaderboard(period: string) {
       }
     });
 
-    // Calculate Net Worth = Stock Holdings Value + Available Cash
+    // Calculate Net Worth = Stock Holdings Value (at current price) + Available Cash
     const stocksValue = user.holdings.reduce((sum, holding) => {
-      return sum + (Number(holding.averagePrice) * holding.quantity);
+      // Use current price from stock data, fallback to average price if not available
+      const stockPrice = stockPrices.get(holding.ticker);
+      const currentPrice = stockPrice ? Number(stockPrice) : Number(holding.averagePrice);
+      return sum + (currentPrice * holding.quantity);
     }, 0);
     const portfolioValue = stocksValue + Number(user.virtualCash);
 
@@ -175,7 +210,17 @@ async function calculateLeaderboard(period: string) {
     calculatedAt: now,
   }));
 
-  // Batch insert leaderboard entries
+  // Delete old entries for this period before inserting new ones
+  await prisma.leaderboardEntry.deleteMany({
+    where: {
+      period: period as 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ALL_TIME',
+      calculatedAt: {
+        lt: now,
+      },
+    },
+  });
+
+  // Batch insert new leaderboard entries
   await prisma.leaderboardEntry.createMany({
     data: leaderboardEntries,
     skipDuplicates: true,
