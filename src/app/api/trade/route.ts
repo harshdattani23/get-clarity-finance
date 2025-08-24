@@ -157,9 +157,106 @@ export async function POST(req: NextRequest) {
     }
 
     console.log(`Trade completed successfully`);
+    
+    // Trigger leaderboard update in the background (non-blocking)
+    updateLeaderboardForUser(userId).catch(error => {
+      console.error('[TRADE] Error updating leaderboard:', error);
+    });
+    
     return NextResponse.json({ message: "Trade executed successfully" }, { status: 200 });
   } catch (error) {
     console.error("[TRADE_POST]", error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+// Function to update leaderboard for a specific user after trade
+async function updateLeaderboardForUser(userClerkId: string) {
+  try {
+    const user = await db.user.findUnique({
+      where: { clerkId: userClerkId },
+      include: {
+        holdings: true,
+        virtualTrades: {
+          orderBy: { tradedAt: 'desc' },
+          take: 100, // Last 100 trades for calculation
+        },
+      },
+    });
+
+    if (!user) return;
+
+    // Calculate metrics
+    const trades = user.virtualTrades;
+    const totalTrades = trades.length;
+    let profitableTrades = 0;
+    let totalProfit = 0;
+    let totalLoss = 0;
+
+    // Group trades by ticker for P&L calculation
+    const tradesByTicker = trades.reduce((acc, trade) => {
+      if (!acc[trade.ticker]) {
+        acc[trade.ticker] = { buys: [], sells: [] };
+      }
+      if (trade.tradeType === 'BUY') {
+        acc[trade.ticker].buys.push(trade);
+      } else {
+        acc[trade.ticker].sells.push(trade);
+      }
+      return acc;
+    }, {} as Record<string, { buys: typeof trades, sells: typeof trades }>);
+
+    // Calculate P&L
+    for (const ticker in tradesByTicker) {
+      const { buys, sells } = tradesByTicker[ticker];
+      if (sells.length > 0 && buys.length > 0) {
+        const totalBuyQuantity = buys.reduce((sum, t) => sum + t.quantity, 0);
+        const totalBuyCost = buys.reduce((sum, t) => sum + (Number(t.price) * t.quantity), 0);
+        const avgBuyPrice = totalBuyCost / totalBuyQuantity;
+        
+        for (const sell of sells) {
+          const profit = (Number(sell.price) - avgBuyPrice) * sell.quantity;
+          if (profit > 0) {
+            profitableTrades++;
+            totalProfit += profit;
+          } else {
+            totalLoss += Math.abs(profit);
+          }
+        }
+      }
+    }
+
+    // Calculate portfolio value
+    const currentHoldingsValue = user.holdings.reduce((sum, holding) => {
+      return sum + (Number(holding.averagePrice) * holding.quantity);
+    }, 0);
+    
+    const portfolioValue = currentHoldingsValue + Number(user.virtualCash);
+    const initialCapital = 100000;
+    const percentReturn = ((portfolioValue - initialCapital) / initialCapital) * 100;
+    const winRate = totalTrades > 0 ? (profitableTrades / totalTrades) * 100 : 0;
+
+    // Update trading stats
+    await db.tradingStats.upsert({
+      where: { userClerkId },
+      update: {
+        totalTrades,
+        profitableTrades,
+        totalProfit,
+        totalLoss,
+        updatedAt: new Date(),
+      },
+      create: {
+        userClerkId,
+        totalTrades,
+        profitableTrades,
+        totalProfit,
+        totalLoss,
+      },
+    });
+
+    console.log(`[TRADE] Updated leaderboard stats for user ${userClerkId}`);
+  } catch (error) {
+    console.error('[TRADE] Error in updateLeaderboardForUser:', error);
   }
 }
