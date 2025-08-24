@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { FaTrophy, FaMedal, FaCrown, FaFire, FaChartLine, FaStar } from 'react-icons/fa';
+import { FaTrophy, FaMedal, FaCrown, FaFire } from 'react-icons/fa';
 import { getUserBadges, getRankBadge, RANK_EFFECTS, calculateLevel, getNextMilestone, type UserStats } from '@/lib/leaderboard-badges';
 
 interface LeaderboardEntry {
@@ -68,13 +68,13 @@ const Leaderboard: React.FC = () => {
     return 'bg-slate-800/50 hover:bg-slate-700/50';
   };
 
-  const formatReturn = (value: number | any) => {
+  const formatReturn = (value: number | unknown) => {
     const numValue = typeof value === 'number' ? value : Number(value);
     const formatted = numValue.toFixed(2);
     return numValue >= 0 ? `+${formatted}%` : `${formatted}%`;
   };
 
-  const formatCurrency = (value: number | any) => {
+  const formatCurrency = (value: number | unknown) => {
     const numValue = typeof value === 'number' ? value : Number(value);
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
@@ -202,13 +202,6 @@ const Leaderboard: React.FC = () => {
             <tbody className="divide-y divide-slate-700/50">
               {leaderboard.map((entry) => {
                 const isCurrentUser = user?.id === entry.user.clerkId;
-                const stats: UserStats = {
-                  rank: entry.rank,
-                  totalReturn: Number(entry.totalReturn),
-                  winRate: Number(entry.winRate),
-                  totalTrades: entry.totalTrades,
-                  portfolioValue: Number(entry.portfolioValue),
-                };
                 const rankBadge = getRankBadge(entry.rank);
                 const level = calculateLevel(entry.totalTrades, Number(entry.winRate));
                 

@@ -21,11 +21,11 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
   // Fetch real-time stock data from database
   const { stockData } = useStockDataFromDB(tickers);
 
-  const formatCurrency = (value: number | any) => {
+  const formatCurrency = (value: number | unknown) => {
     const numValue = typeof value === 'number' ? value : Number(value);
     return `₹${numValue.toFixed(2)}`;
   };
-  const formatPercent = (value: number | any) => {
+  const formatPercent = (value: number | unknown) => {
     const numValue = typeof value === 'number' ? value : Number(value);
     const color = numValue >= 0 ? 'text-green-500' : 'text-red-500';
     const sign = numValue >= 0 ? '+' : '';
