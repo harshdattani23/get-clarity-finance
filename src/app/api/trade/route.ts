@@ -30,6 +30,14 @@ export async function POST(req: NextRequest) {
 
     const { ticker, quantity, price, tradeType } = validation.data;
 
+    // Block trading of indices
+    const indexTickers = ['NIFTY', 'SENSEX', 'BANKNIFTY', 'FINNIFTY'];
+    if (indexTickers.includes(ticker.toUpperCase())) {
+      return NextResponse.json({ 
+        message: "Index trading is not available. Indices are for reference only." 
+      }, { status: 400 });
+    }
+
     const user = await db.user.findUnique({
       where: { clerkId: userId },
     });
