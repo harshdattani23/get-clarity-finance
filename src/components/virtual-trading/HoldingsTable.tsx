@@ -21,11 +21,15 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
   // Fetch real-time stock data from database
   const { stockData } = useStockDataFromDB(tickers);
 
-  const formatCurrency = (value: number) => `₹${value.toFixed(2)}`;
-  const formatPercent = (value: number) => {
-    const color = value >= 0 ? 'text-green-500' : 'text-red-500';
-    const sign = value >= 0 ? '+' : '';
-    return <span className={color}>{`${sign}${value.toFixed(2)}%`}</span>;
+  const formatCurrency = (value: number | any) => {
+    const numValue = typeof value === 'number' ? value : Number(value);
+    return `₹${numValue.toFixed(2)}`;
+  };
+  const formatPercent = (value: number | any) => {
+    const numValue = typeof value === 'number' ? value : Number(value);
+    const color = numValue >= 0 ? 'text-green-500' : 'text-red-500';
+    const sign = numValue >= 0 ? '+' : '';
+    return <span className={color}>{`${sign}${numValue.toFixed(2)}%`}</span>;
   };
 
   return (
@@ -54,10 +58,10 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
 
                 // Get current price from database, fallback to static data if not available
                 const dbStock = stockData.get(stock.ticker);
-                const currentPrice = dbStock?.price ?? stock.price;
-                const currentChange = dbStock?.change ?? stock.change;
+                const currentPrice = Number(dbStock?.price ?? stock.price);
+                const currentChange = Number(dbStock?.change ?? stock.change);
                 
-                const investmentValue = holding.quantity * holding.averagePrice;
+                const investmentValue = holding.quantity * Number(holding.averagePrice);
                 const currentValue = holding.quantity * currentPrice;
                 const pnl = currentValue - investmentValue;
                 const pnlPercent = (pnl / investmentValue) * 100;
@@ -123,7 +127,7 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
                 <span className="text-gray-400">Total Investment:</span>
                 <span className="ml-2 font-semibold">
                   {formatCurrency(
-                    portfolio.holdings.reduce((sum, h) => sum + (h.quantity * h.averagePrice), 0)
+                    portfolio.holdings.reduce((sum, h) => sum + (h.quantity * Number(h.averagePrice)), 0)
                   )}
                 </span>
               </div>
@@ -134,7 +138,7 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
                     stocks.reduce((sum, stock) => {
                       const holding = portfolio.holdings.find(h => h.ticker === stock.ticker);
                       const dbStock = stockData.get(stock.ticker);
-                      const currentPrice = dbStock?.price ?? stock.price;
+                      const currentPrice = Number(dbStock?.price ?? stock.price);
                       return sum + (holding ? holding.quantity * currentPrice : 0);
                     }, 0)
                   )}
@@ -148,8 +152,8 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
                       const holding = portfolio.holdings.find(h => h.ticker === stock.ticker);
                       if (holding) {
                         const dbStock = stockData.get(stock.ticker);
-                        const currentPrice = dbStock?.price ?? stock.price;
-                        const pnl = (currentPrice - holding.averagePrice) * holding.quantity;
+                        const currentPrice = Number(dbStock?.price ?? stock.price);
+                        const pnl = (currentPrice - Number(holding.averagePrice)) * holding.quantity;
                         return sum + pnl;
                       }
                       return sum;
@@ -167,11 +171,11 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ stocks }) => {
                 <span className="text-gray-400">Total P&L %:</span>
                 <span className="ml-2 font-semibold">
                   {(() => {
-                    const totalInvestment = portfolio.holdings.reduce((sum, h) => sum + (h.quantity * h.averagePrice), 0);
+                    const totalInvestment = portfolio.holdings.reduce((sum, h) => sum + (h.quantity * Number(h.averagePrice)), 0);
                     const totalCurrent = stocks.reduce((sum, stock) => {
                       const holding = portfolio.holdings.find(h => h.ticker === stock.ticker);
                       const dbStock = stockData.get(stock.ticker);
-                      const currentPrice = dbStock?.price ?? stock.price;
+                      const currentPrice = Number(dbStock?.price ?? stock.price);
                       return sum + (holding ? holding.quantity * currentPrice : 0);
                     }, 0);
                     const pnlPercent = totalInvestment > 0 ? ((totalCurrent - totalInvestment) / totalInvestment) * 100 : 0;
