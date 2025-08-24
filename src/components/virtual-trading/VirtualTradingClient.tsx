@@ -28,8 +28,8 @@ const VirtualTradingClient = () => {
   const [allStocks, setAllStocks] = useState<Stock[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists' | 'leaderboard'>('markets');
-  const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'achievements'>('summary');
+  const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists'>('markets');
+  const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'leaderboard' | 'achievements'>('summary');
   const searchParams = useSearchParams();
   const pathname = usePathname(); // Get pathname
   const { isSignedIn } = useUser();
@@ -103,12 +103,6 @@ const VirtualTradingClient = () => {
                       Watchlists
                     </button>
                   )}
-                  <button
-                    onClick={() => setLeftColumnView('leaderboard')}
-                    className={`px-3 py-2 rounded-md font-semibold flex-1 ${leftColumnView === 'leaderboard' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
-                  >
-                    Leaderboard
-                  </button>
                 </div>
 
                 {leftColumnView === 'markets' && (
@@ -129,7 +123,6 @@ const VirtualTradingClient = () => {
                 )}
 
                 {leftColumnView === 'watchlists' && <WatchlistManager />}
-                {leftColumnView === 'leaderboard' && <Leaderboard />}
               </div>
 
               {/* Right Column */}
@@ -149,16 +142,26 @@ const VirtualTradingClient = () => {
                       >
                         Portfolio
                       </button>
-                      <button
-                        onClick={() => setRightColumnView('achievements')}
-                        className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'achievements' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
-                      >
-                        Achievements
-                      </button>
                     </>
                   )}
+                  <button
+                    onClick={() => setRightColumnView('leaderboard')}
+                    className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'leaderboard' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                  >
+                    Leaderboard
+                  </button>
+                  {isSignedIn && (
+                    <button
+                      onClick={() => setRightColumnView('achievements')}
+                      className={`px-3 py-2 rounded-md font-semibold flex-1 ${rightColumnView === 'achievements' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-gray-300 hover:bg-slate-700'}`}
+                    >
+                      Achievements
+                    </button>
+                  )}
                 </div>
-                {isSignedIn ? (
+                {rightColumnView === 'leaderboard' ? (
+                  <Leaderboard />
+                ) : isSignedIn ? (
                   <>
                     {rightColumnView === 'summary' && (
                       <>
