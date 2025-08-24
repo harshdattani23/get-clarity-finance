@@ -147,23 +147,23 @@ const PortfolioSummary = () => {
           {isCensored ? <EyeOff size={20} /> : <Eye size={20} />}
         </button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {summaryData.map((item, index) => (
           <div 
             key={index} 
-            className={`p-4 rounded-lg ${
+            className={`p-4 rounded-lg min-w-0 ${
               item.highlight 
                 ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-blue-500/30' 
                 : 'bg-slate-800'
             }`}
           >
-            <p className={`text-sm mb-1 ${
+            <p className={`text-sm mb-1 truncate ${
               item.highlight ? 'text-blue-300' : 'text-gray-400'
             }`}>
               {item.label}
-              {item.highlight && <span className="text-xs ml-1">(Stocks + Cash)</span>}
+              {item.highlight && <span className="text-xs ml-1 block sm:inline">(Stocks + Cash)</span>}
             </p>
-            <div className={`font-semibold ${
+            <div className={`font-semibold break-words ${
               item.highlight ? 'text-xl' : 'text-lg'
             }`}>
               {typeof item.value === 'string' ? censor(item.value) : item.value}
