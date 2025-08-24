@@ -102,6 +102,7 @@ model Stock {
   low           Decimal?
   open          Decimal?
   close         Decimal?
+  previousClose Decimal?
   description   String?
   sector        String?
   website       String?

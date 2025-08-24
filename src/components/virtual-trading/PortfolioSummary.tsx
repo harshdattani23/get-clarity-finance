@@ -27,6 +27,7 @@ const PortfolioSummary = () => {
     let investmentValue = 0;  // Total cost basis (what you paid)
     let currentValue = 0;      // Current market value
     let todayPnlValue = 0;     // Today's change in value
+    let yesterdayValue = 0;   // Yesterday's value (for today's P&L calculation)
 
     portfolio.holdings.forEach(holding => {
       // First try to get data from database
@@ -34,23 +35,71 @@ const PortfolioSummary = () => {
       
       if (dbStockData) {
         // Investment value is what you actually paid (purchase price × quantity)
-        investmentValue += holding.averagePrice * holding.quantity;
+        const holdingInvestment = holding.averagePrice * holding.quantity;
+        investmentValue += holdingInvestment;
+        
         // Current value is the current market price from database × quantity
-        currentValue += dbStockData.price * holding.quantity;
-        // Today's P&L is today's price change × quantity
-        todayPnlValue += dbStockData.change * holding.quantity;
+        const holdingCurrentValue = dbStockData.price * holding.quantity;
+        currentValue += holdingCurrentValue;
+        
+        // Today's P&L calculation
+        // If we have previousClose from database, use it for accurate calculation
+        // Otherwise fall back to using change value
+        let holdingTodayPnl: number;
+        let yesterdayPrice: number;
+        
+        if (dbStockData.previousClose !== null && dbStockData.previousClose !== undefined) {
+          // Use actual previous close for accurate calculation
+          yesterdayPrice = dbStockData.previousClose;
+          holdingTodayPnl = (dbStockData.price - dbStockData.previousClose) * holding.quantity;
+        } else {
+          // Fallback: calculate yesterday's price from today's change
+          yesterdayPrice = dbStockData.price - dbStockData.change;
+          holdingTodayPnl = dbStockData.change * holding.quantity;
+        }
+        
+        todayPnlValue += holdingTodayPnl;
+        yesterdayValue += yesterdayPrice * holding.quantity;
+        
+        console.log(`Stock ${holding.ticker}:`, {
+          purchasePrice: holding.averagePrice,
+          currentPrice: dbStockData.price,
+          previousClose: dbStockData.previousClose,
+          todayChange: dbStockData.change,
+          calculatedYesterdayPrice: yesterdayPrice,
+          quantity: holding.quantity,
+          todayPnl: holdingTodayPnl
+        });
       } else {
         // If stock data not found in database, use purchase price as current price (failsafe)
-        investmentValue += holding.averagePrice * holding.quantity;
-        currentValue += holding.averagePrice * holding.quantity;
+        const holdingValue = holding.averagePrice * holding.quantity;
+        investmentValue += holdingValue;
+        currentValue += holdingValue;
+        yesterdayValue += holdingValue; // Assume no change if no data
+        // Today's P&L is 0 if we don't have real-time data
+        // todayPnlValue += 0;
       }
     });
     
     // Overall P&L is the difference between current market value and what you paid
     const overallPnlValue = currentValue - investmentValue;
     const overallPnlPercent = investmentValue !== 0 ? (overallPnlValue / investmentValue) * 100 : 0;
-    // Today's P&L percentage relative to investment
-    const todayPnlPercent = currentValue !== 0 ? (todayPnlValue / currentValue) * 100 : 0;
+    
+    // Today's P&L percentage should be relative to yesterday's value, not current value
+    const todayPnlPercent = yesterdayValue !== 0 ? (todayPnlValue / yesterdayValue) * 100 : 0;
+
+    // Debug logging to understand the values
+    console.log('Portfolio P&L Calculation:', {
+      investmentValue,
+      currentValue,
+      yesterdayValue,
+      overallPnlValue,
+      overallPnlPercent,
+      todayPnlValue,
+      todayPnlPercent,
+      holdings: portfolio.holdings.length,
+      stockDataCount: stockData.size
+    });
 
     return { 
       investmentValue, 

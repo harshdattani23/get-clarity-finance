@@ -6,6 +6,7 @@ export interface StockData {
   change: number;
   percentChange: number;
   volume: number;
+  previousClose: number | null;
   lastUpdatedAt: string;
 }
 

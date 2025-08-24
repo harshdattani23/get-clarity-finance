@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
           change: true,
           percentChange: true,
           volume: true,
+          previousClose: true,
           lastUpdatedAt: true,
         }
       });
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
         change: Decimal | null;
         percentChange: Decimal | null;
         volume: Decimal | null;
+        previousClose: Decimal | null;
         lastUpdatedAt: Date | null;
       }) => ({
         ticker: stock.ticker,
@@ -68,6 +70,7 @@ export async function POST(request: NextRequest) {
         change: stock.change ? Number(stock.change) : 0,
         percentChange: stock.percentChange ? Number(stock.percentChange) : 0,
         volume: stock.volume ? Number(stock.volume) : 0,
+        previousClose: stock.previousClose ? Number(stock.previousClose) : null,
         lastUpdatedAt: stock.lastUpdatedAt?.toISOString() || new Date().toISOString(),
       }));
       return NextResponse.json(stockData);
