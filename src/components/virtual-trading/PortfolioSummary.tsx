@@ -79,12 +79,15 @@ const PortfolioSummary = () => {
     return <span className={color}>{`${sign}${formatCurrency(Math.abs(pnl.value))} (${pnl.percent.toFixed(2)}%)`}</span>;
   };
 
-  const summaryData = [
-    { label: 'Investment', value: formatCurrency(investmentValue) },
-    { label: 'Current Value', value: formatCurrency(currentValue) },
-    { label: 'Overall Profits', value: formatPnl(overallPnl) },
-    { label: "Today's Profit", value: formatPnl(todayPnl) },
-    { label: 'Available Cash', value: formatCurrency(portfolio.cash) }
+  // Calculate Net Worth = Holdings Current Value + Available Cash
+  const netWorth = currentValue + (portfolio.cash || 0);
+  
+  const summaryData: Array<{ label: string; value: string | React.ReactElement; highlight?: boolean }> = [
+    { label: 'Net Worth', value: formatCurrency(netWorth), highlight: true },
+    { label: 'Holdings Value', value: formatCurrency(currentValue) },
+    { label: 'Available Cash', value: formatCurrency(portfolio.cash) },
+    { label: 'Overall P&L', value: formatPnl(overallPnl) },
+    { label: "Today's P&L", value: formatPnl(todayPnl) },
   ];
 
   return (
@@ -97,9 +100,25 @@ const PortfolioSummary = () => {
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {summaryData.map((item, index) => (
-          <div key={index} className="bg-slate-800 p-4 rounded-lg">
-            <p className="text-sm text-gray-400 mb-1">{item.label}</p>
-            <div className="text-lg font-semibold">{typeof item.value === 'string' ? censor(item.value) : item.value}</div>
+          <div 
+            key={index} 
+            className={`p-4 rounded-lg ${
+              item.highlight 
+                ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-blue-500/30' 
+                : 'bg-slate-800'
+            }`}
+          >
+            <p className={`text-sm mb-1 ${
+              item.highlight ? 'text-blue-300' : 'text-gray-400'
+            }`}>
+              {item.label}
+              {item.highlight && <span className="text-xs ml-1">(Stocks + Cash)</span>}
+            </p>
+            <div className={`font-semibold ${
+              item.highlight ? 'text-xl' : 'text-lg'
+            }`}>
+              {typeof item.value === 'string' ? censor(item.value) : item.value}
+            </div>
           </div>
         ))}
       </div>

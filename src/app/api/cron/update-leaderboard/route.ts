@@ -178,13 +178,13 @@ async function calculateLeaderboard(period: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'AL
       }
     }
 
-    // Calculate current portfolio value
+    // Calculate current portfolio value (stocks at current market value + cash)
     const currentHoldingsValue = user.holdings.reduce((sum, holding) => {
-      // In production, you'd fetch current market price
-      // For now, using average price as approximation
+      // Using average price as current price (in production, fetch real-time price)
       return sum + (Number(holding.averagePrice) * holding.quantity);
     }, 0);
     
+    // Net Worth = Stock Holdings Value + Available Cash
     const portfolioValue = currentHoldingsValue + Number(user.virtualCash);
     const initialCapital = 100000; // Default starting amount
     const percentReturn = ((portfolioValue - initialCapital) / initialCapital) * 100;

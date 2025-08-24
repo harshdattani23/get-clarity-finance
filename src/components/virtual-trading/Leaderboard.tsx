@@ -133,19 +133,22 @@ const Leaderboard: React.FC = () => {
                 <p className={`text-xl font-bold ${Number(userRank.totalReturn) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {formatReturn(userRank.totalReturn)}
                 </p>
-                <p className="text-gray-400 text-xs">Return</p>
+                <p className="text-gray-400 text-xs">Return %</p>
+              </div>
+              <div>
+                <div className="flex flex-col">
+                  <p className="text-xl font-bold text-blue-400">
+                    {formatCurrency(userRank.portfolioValue)}
+                  </p>
+                  <p className="text-gray-400 text-xs">Net Worth</p>
+                  <p className="text-gray-500 text-xs">(Stocks + Cash)</p>
+                </div>
               </div>
               <div>
                 <p className="text-xl font-bold text-yellow-400">
                   {Number(userRank.winRate).toFixed(1)}%
                 </p>
                 <p className="text-gray-400 text-xs">Win Rate</p>
-              </div>
-              <div>
-                <p className="text-xl font-bold text-purple-400">
-                  {userRank.totalTrades}
-                </p>
-                <p className="text-gray-400 text-xs">Trades</p>
               </div>
             </div>
           </div>
@@ -193,10 +196,15 @@ const Leaderboard: React.FC = () => {
               <tr className="text-gray-400 text-sm border-b border-slate-700">
                 <th className="text-left py-3 px-2 font-semibold">Rank</th>
                 <th className="text-left py-3 px-2 font-semibold">Trader</th>
-                <th className="text-right py-3 px-2 font-semibold hidden sm:table-cell">Return</th>
-                <th className="text-right py-3 px-2 font-semibold">Win Rate</th>
-                <th className="text-right py-3 px-2 font-semibold hidden md:table-cell">Trades</th>
-                <th className="text-right py-3 px-2 font-semibold hidden lg:table-cell">Portfolio</th>
+                <th className="text-right py-3 px-2 font-semibold hidden sm:table-cell">Return %</th>
+                <th className="text-right py-3 px-2 font-semibold">
+                  <div className="flex flex-col">
+                    <span>Net Worth</span>
+                    <span className="text-xs font-normal text-gray-500">(Stocks + Cash)</span>
+                  </div>
+                </th>
+                <th className="text-right py-3 px-2 font-semibold hidden md:table-cell">Win Rate</th>
+                <th className="text-right py-3 px-2 font-semibold hidden lg:table-cell">Trades</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-700/50">
@@ -241,16 +249,29 @@ const Leaderboard: React.FC = () => {
                       </span>
                     </td>
                     <td className="py-3 px-2 text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <span className="text-white font-semibold">{Number(entry.winRate).toFixed(1)}%</span>
-                        {Number(entry.winRate) >= 70 && <span title="Consistent Winner">🎯</span>}
+                      <div className="flex flex-col items-end">
+                        <span className="text-white font-bold">
+                          {formatCurrency(entry.portfolioValue)}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {Number(entry.portfolioValue) > 100000 ? '▲' : '▼'} 
+                          {Math.abs(Number(entry.portfolioValue) - 100000).toLocaleString('en-IN', {
+                            style: 'currency',
+                            currency: 'INR',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })}
+                        </span>
                       </div>
                     </td>
                     <td className="py-3 px-2 text-right hidden md:table-cell">
-                      <span className="text-gray-300">{entry.totalTrades}</span>
+                      <div className="flex items-center justify-end gap-1">
+                        <span className="text-gray-300">{Number(entry.winRate).toFixed(1)}%</span>
+                        {Number(entry.winRate) >= 70 && <span title="Consistent Winner">🎯</span>}
+                      </div>
                     </td>
                     <td className="py-3 px-2 text-right hidden lg:table-cell">
-                      <span className="text-gray-300">{formatCurrency(entry.portfolioValue)}</span>
+                      <span className="text-gray-300">{entry.totalTrades}</span>
                     </td>
                   </tr>
                 );

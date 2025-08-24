@@ -143,10 +143,11 @@ async function calculateLeaderboard(period: string) {
       }
     });
 
-    // Calculate portfolio value
-    const portfolioValue = user.holdings.reduce((sum, holding) => {
+    // Calculate Net Worth = Stock Holdings Value + Available Cash
+    const stocksValue = user.holdings.reduce((sum, holding) => {
       return sum + (Number(holding.averagePrice) * holding.quantity);
-    }, Number(user.virtualCash));
+    }, 0);
+    const portfolioValue = stocksValue + Number(user.virtualCash);
 
     const winRate = totalTrades > 0 ? (profitableTrades / totalTrades) * 100 : 0;
     const totalReturn = ((portfolioValue - 100000) / 100000) * 100; // Assuming starting cash is 100000
