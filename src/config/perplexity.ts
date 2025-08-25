@@ -10,8 +10,8 @@ export const PERPLEXITY_CONFIG = {
   // Model configuration - using sonar for cost-effective web search
   model: 'sonar',
   
-  // Request timeout in milliseconds
-  timeout: 20000,
+  // Request timeout in milliseconds (increased to handle slow responses)
+  timeout: 45000, // 45 seconds
   
   // Feature flags for Perplexity-specific capabilities
   features: {

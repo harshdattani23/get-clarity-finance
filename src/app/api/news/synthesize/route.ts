@@ -11,7 +11,7 @@ import type { NewsApiResponse } from '@/types/news';
 
 // Runtime configuration
 export const runtime = 'nodejs';
-export const maxDuration = 30; // Maximum 30 seconds
+export const maxDuration = 60; // Maximum 60 seconds to handle slow API responses
 
 // Request validation schema
 const requestSchema = z.object({
@@ -88,27 +88,18 @@ export async function GET(request: NextRequest) {
 
     // Check if API key is configured
     if (!process.env.PERPLEXITY_API_KEY) {
-      // Return mock data if no API key
-      const mockResponse: NewsApiResponse = {
-        items: [
-          {
-            id: 'mock-1',
-            title: 'Sensex Hits New All-Time High',
-            summary: 'BSE Sensex crossed 75,000 mark for the first time.',
-            keyPoints: ['Banking stocks led the rally', 'IT stocks showed strong performance'],
-            tickers: ['SENSEX', 'NIFTY'],
-            sentiment: 'positive',
-            sources: [{ url: '#', domain: 'mock', title: 'Mock Source' }],
-          },
-        ],
-        lang: params.lang || 'en',
-        model: 'mock',
-        cached: false,
-        queriedAt: new Date().toISOString(),
-        warnings: ['API key not configured - showing mock data'],
-      };
-      
-      return NextResponse.json(mockResponse);
+      return NextResponse.json(
+        {
+          items: [],
+          lang: params.lang || 'en',
+          model: 'none',
+          cached: false,
+          queriedAt: new Date().toISOString(),
+          warnings: ['Perplexity API key not configured'],
+          error: 'News synthesis requires PERPLEXITY_API_KEY to be set',
+        },
+        { status: 503 }
+      );
     }
 
     // Synthesize news using Perplexity

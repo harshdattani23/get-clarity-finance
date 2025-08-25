@@ -52,6 +52,12 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
       const data: NewsApiResponse = await response.json();
       
       if (!response.ok) {
+        // Handle missing API key specifically
+        if (data.error && data.error.includes('PERPLEXITY_API_KEY')) {
+          setNews([]);
+          setError('News service configuration pending. Please check back later.');
+          return;
+        }
         throw new Error(data.warnings?.[0] || 'Failed to fetch news');
       }
       

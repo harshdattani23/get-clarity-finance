@@ -185,8 +185,10 @@ function parseSources(text: string, citations?: string[]): NewsSource[] {
  * Main function to get news synthesis from Perplexity
  */
 export async function getPerplexityNewsSynthesis(
-  params: NewsSynthesisParams
+  params: NewsSynthesisParams,
+  retryCount = 0
 ): Promise<NewsSynthesis> {
+  const MAX_RETRIES = 2;
   const {
     lang = 'en',
     allowDomains = TRUSTED_NEWS_DOMAINS,
@@ -284,9 +286,26 @@ export async function getPerplexityNewsSynthesis(
     clearTimeout(timeoutId);
     
     if (error instanceof Error) {
-      if (error.name === 'AbortError') {
-        throw new Error('Request timeout - Perplexity API took too long to respond');
+      // Handle timeout with retry
+      if (error.name === 'AbortError' && retryCount < MAX_RETRIES) {
+        console.log(`Perplexity API timeout, retrying... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
+        // Wait a bit before retrying
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        return getPerplexityNewsSynthesis(params, retryCount + 1);
       }
+      
+      if (error.name === 'AbortError') {
+        throw new Error(`Request timeout after ${MAX_RETRIES} retries - Perplexity API is not responding`);
+      }
+      
+      // Handle rate limits with retry
+      if (error.message.includes('429') && retryCount < MAX_RETRIES) {
+        console.log(`Rate limited, waiting before retry... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
+        // Wait longer for rate limits
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        return getPerplexityNewsSynthesis(params, retryCount + 1);
+      }
+      
       throw error;
     }
     
