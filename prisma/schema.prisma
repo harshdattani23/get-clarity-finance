@@ -216,3 +216,80 @@ enum AchievementTier {
   PLATINUM
   DIAMOND
 }
+
+// News Models
+model NewsItem {
+  id            String          @id @default(cuid())
+  title         String
+  summary       String          @db.Text
+  sector        String?         // banking, it, pharma, auto, regulatory, etc.
+  sentiment     NewsSentiment   @default(NEUTRAL)
+  language      String          @default("en")
+  publishedAt   DateTime        @default(now())
+  fetchedAt     DateTime        @default(now())
+  expiresAt     DateTime        // When this news item should be considered stale
+  keyPoints     NewsKeyPoint[]
+  tickers       NewsTicker[]
+  sources       NewsSource[]
+  
+  @@index([sector, publishedAt])
+  @@index([fetchedAt])
+  @@index([expiresAt])
+}
+
+model NewsKeyPoint {
+  id         String   @id @default(cuid())
+  newsItemId String
+  point      String   @db.Text
+  order      Int
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+  
+  @@index([newsItemId])
+}
+
+model NewsTicker {
+  id         String   @id @default(cuid())
+  newsItemId String
+  ticker     String
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+  
+  @@index([newsItemId])
+  @@index([ticker])
+}
+
+model NewsSource {
+  id         String   @id @default(cuid())
+  newsItemId String
+  url        String
+  domain     String
+  title      String?
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+  
+  @@index([newsItemId])
+}
+
+model NewsFetchLog {
+  id          String   @id @default(cuid())
+  sector      String?
+  topics      String[] // Array of topics fetched
+  status      FetchStatus
+  itemsCount  Int      @default(0)
+  error       String?  @db.Text
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  
+  @@index([status, startedAt])
+}
+
+enum NewsSentiment {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+enum FetchStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  TIMEOUT
+}

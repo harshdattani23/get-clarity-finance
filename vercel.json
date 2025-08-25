@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/sync-news",
+      "schedule": "0 2,10,18 * * *"
+    },
+    {
+      "path": "/api/cron/sync-stocks",
+      "schedule": "0 */4 * * *"
+    },
+    {
+      "path": "/api/cron/update-leaderboard",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
