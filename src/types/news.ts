@@ -48,10 +48,17 @@ export interface NewsApiResponse {
   model: string;
   cached: boolean;
   queriedAt: string;
+  citationsObserved?: boolean;
   warnings?: string[];
+  error?: string;
+  pagination?: {
+    page: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+    hasMore: boolean;
+  };
 }
-
-// Perplexity API message format
 export interface PerplexityMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;

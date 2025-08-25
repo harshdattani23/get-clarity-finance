@@ -101,12 +101,32 @@ function buildUserPrompt(params: NewsSynthesisParams): string {
  */
 function extractJSON(text: string): unknown {
   // Try to find JSON array in the response
-  const jsonMatch = text.match(/\[[\s\S]*\]/);
+  const jsonMatch = text.match(/\[[\s\S]*?\](?=\s*$|\s*\n|\s*\r|[^\]]*$)/);
   if (jsonMatch) {
     try {
-      return JSON.parse(jsonMatch[0]);
+      // Clean up the JSON string
+      let jsonStr = jsonMatch[0];
+      // Fix common issues: trailing commas, incomplete strings
+      jsonStr = jsonStr.replace(/,\s*([\]}])/g, '$1'); // Remove trailing commas
+      jsonStr = jsonStr.replace(/""\s*([,\]}])/g, '""$1'); // Fix empty strings
+      
+      return JSON.parse(jsonStr);
     } catch (e) {
       console.error('Failed to parse extracted JSON:', e);
+      // Try to extract individual JSON objects if array parsing fails
+      try {
+        const objects = [];
+        const objMatches = text.matchAll(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g);
+        for (const match of objMatches) {
+          try {
+            const obj = JSON.parse(match[0]);
+            if (obj.title && obj.summary) { // Validate it's a news item
+              objects.push(obj);
+            }
+          } catch {}
+        }
+        if (objects.length > 0) return objects;
+      } catch {}
     }
   }
   
@@ -115,7 +135,8 @@ function extractJSON(text: string): unknown {
     return JSON.parse(text);
   } catch (e) {
     console.error('Failed to parse response as JSON:', e);
-    return null;
+    // Return empty array to continue processing
+    return [];
   }
 }
 

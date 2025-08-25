@@ -24,8 +24,11 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | undefined>(sector);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  const fetchNews = async () => {
+  const fetchNews = async (page = 1, append = false) => {
     try {
       setError(null);
       
@@ -46,6 +49,7 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
       
       params.append('maxItems', maxItems.toString());
       params.append('lang', 'en'); // TODO: Get from i18n context
+      params.append('page', page.toString());
       
       // Fetch from API
       const response = await fetch(`/api/news/synthesize?${params}`);
@@ -61,7 +65,17 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
         throw new Error(data.warnings?.[0] || 'Failed to fetch news');
       }
       
-      setNews(data.items);
+      if (append) {
+        setNews(prev => [...prev, ...data.items]);
+      } else {
+        setNews(data.items);
+      }
+      
+      // Update pagination state
+      if (data.pagination) {
+        setHasMore(data.pagination.hasMore);
+        setCurrentPage(page);
+      }
       
       // Show warnings if any
       if (data.warnings && data.warnings.length > 0) {
@@ -74,6 +88,7 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
     } finally {
       setLoading(false);
       setIsRefreshing(false);
+      setLoadingMore(false);
     }
   };
 
@@ -89,7 +104,13 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
 
   const handleSectorChange = (sectorId: string | undefined) => {
     setSelectedSector(sectorId);
+    setCurrentPage(1); // Reset to first page
     setLoading(true);
+  };
+  
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+    fetchNews(currentPage + 1, true);
   };
 
   const getSentimentColor = (sentiment?: string) => {
@@ -253,10 +274,33 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
         ))
       )}
       
+      {/* Load More Button */}
+      {hasMore && news.length > 0 && (
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={handleLoadMore}
+            disabled={loadingMore}
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+          >
+            {loadingMore ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              'Load More News'
+            )}
+          </button>
+        </div>
+      )}
+      
       {/* Disclaimer */}
       <div className="text-xs text-gray-500 text-center mt-6 p-4 bg-gray-50 rounded">
         <p>This content is AI-synthesized from multiple sources for educational purposes only.</p>
         <p>Not investment advice. Please verify information independently.</p>
+        {news.length > 0 && (
+          <p className="mt-2 text-xs font-medium">Showing {news.length} news items</p>
+        )}
       </div>
     </div>
   );

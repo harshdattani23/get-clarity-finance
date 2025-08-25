@@ -18,8 +18,9 @@ const requestSchema = z.object({
   topics: z.array(z.string()).optional(),
   query: z.string().optional(),
   lang: z.enum(['en', 'hi', 'mr', 'gu', 'ta', 'te', 'bn']).optional(),
-  maxItems: z.number().min(1).max(6).optional(),
+  maxItems: z.number().min(1).max(20).optional(), // Increased max for pagination
   sector: z.string().optional(),
+  page: z.number().min(1).optional(), // Add pagination
 });
 
 // Simple in-memory cache (replace with Redis/proper cache in production)
@@ -49,7 +50,18 @@ function isCacheValid(timestamp: number): boolean {
 /**
  * Store news in database in background
  */
-async function storeNewsInBackground(items: any[], sector?: string) {
+async function storeNewsInBackground(items: Array<{
+  title: string;
+  summary: string;
+  sentiment?: string;
+  keyPoints?: string[];
+  tickers?: string[];
+  sources?: Array<{
+    url: string;
+    domain?: string;
+    title?: string;
+  }>;
+}>, sector?: string) {
   const { prisma } = await import('@/lib/prisma');
   const { NewsSentiment } = await import('@prisma/client');
   
@@ -95,10 +107,10 @@ async function storeNewsInBackground(items: any[], sector?: string) {
               })) || [],
             },
             sources: {
-              create: item.sources?.map((source: any) => ({
+              create: item.sources?.map((source) => ({
                 url: source.url,
-                domain: source.domain,
-                title: source.title,
+                domain: source.domain || '',
+                title: source.title || '',
               })) || [],
             },
           },
@@ -126,6 +138,7 @@ export async function GET(request: NextRequest) {
       lang: searchParams.get('lang') || 'en',
       maxItems: searchParams.get('maxItems') ? parseInt(searchParams.get('maxItems')!) : 5,
       sector: searchParams.get('sector') || undefined,
+      page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1,
     };
 
     // Validate parameters
@@ -140,7 +153,7 @@ export async function GET(request: NextRequest) {
     // First, try to get news from database
     let newsFromDb = null;
     try {
-      const whereClause: any = {
+      const whereClause: Record<string, unknown> = {
         expiresAt: {
           gt: new Date(), // Only get non-expired news
         },
@@ -157,6 +170,15 @@ export async function GET(request: NextRequest) {
         ];
       }
 
+      // Calculate pagination
+      const itemsPerPage = params.maxItems || 5;
+      const skip = (params.page - 1) * itemsPerPage;
+      
+      // Get total count for pagination metadata
+      const totalCount = await prisma.newsItem.count({
+        where: whereClause,
+      });
+      
       newsFromDb = await prisma.newsItem.findMany({
         where: whereClause,
         include: {
@@ -169,7 +191,8 @@ export async function GET(request: NextRequest) {
         orderBy: {
           publishedAt: 'desc',
         },
-        take: params.maxItems || 5,
+        take: itemsPerPage,
+        skip: skip,
       });
 
       // If we have news from database, format and return it
@@ -184,7 +207,7 @@ export async function GET(request: NextRequest) {
           sources: item.sources.map(s => ({
             url: s.url,
             domain: s.domain,
-            title: s.title,
+            title: s.title || undefined,
           })),
         }));
 
@@ -194,6 +217,13 @@ export async function GET(request: NextRequest) {
           model: 'database',
           cached: true,
           queriedAt: new Date().toISOString(),
+          pagination: {
+            page: params.page,
+            pageSize: itemsPerPage,
+            totalItems: totalCount,
+            totalPages: Math.ceil(totalCount / itemsPerPage),
+            hasMore: params.page < Math.ceil(totalCount / itemsPerPage),
+          },
         };
 
         return NextResponse.json(response, {

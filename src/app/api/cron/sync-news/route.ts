@@ -4,17 +4,17 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { getPerplexityNewsSynthesis } from '@/lib/ai/perplexity';
-import { MARKET_SECTORS, DEFAULT_TOPICS } from '@/config/news';
-import type { NewsItem as NewsItemType, NewsSentiment as SentimentType } from '@/types/news';
+import { DEFAULT_TOPICS } from '@/config/news';
 import { FetchStatus, NewsSentiment } from '@prisma/client';
+import type { NewsItem as NewsItemType } from '@/types/news';
+import { prisma } from '@/lib/prisma';
 
 // Protect the route with a secret
-const CRON_SECRET = process.env.CRON_SECRET || 'dev-secret';
+const CRON_SECRET = process.env.CRON_SECRET_TOKEN;
 
-// News expiry time (8 hours - so 3 fetches per day keeps news fresh)
-const NEWS_EXPIRY_HOURS = 8;
+// News retention time (30 days - keep historical news)
+const NEWS_RETENTION_DAYS = 30;
 
 /**
  * Map sentiment from API to database enum
@@ -32,7 +32,7 @@ function mapSentiment(sentiment?: string): NewsSentiment {
  */
 async function storeNewsItems(items: NewsItemType[], sector?: string) {
   const expiresAt = new Date();
-  expiresAt.setHours(expiresAt.getHours() + NEWS_EXPIRY_HOURS);
+  expiresAt.setDate(expiresAt.getDate() + NEWS_RETENTION_DAYS); // Keep for 30 days
 
   const stored = [];
   
@@ -80,8 +80,8 @@ async function storeNewsItems(items: NewsItemType[], sector?: string) {
           sources: {
             create: item.sources?.map(source => ({
               url: source.url,
-              domain: source.domain,
-              title: source.title,
+              domain: source.domain || '',
+              title: source.title || '',
             })) || [],
           },
         },
@@ -149,13 +149,17 @@ async function fetchNewsForSector(sector?: string, topics?: string[]) {
 }
 
 /**
- * Clean up expired news items
+ * Clean up very old news items (older than retention period)
  */
-async function cleanupExpiredNews() {
+async function cleanupOldNews() {
+  // Only delete news older than retention period
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - NEWS_RETENTION_DAYS);
+  
   const deleted = await prisma.newsItem.deleteMany({
     where: {
-      expiresAt: {
-        lt: new Date(),
+      fetchedAt: {
+        lt: cutoffDate,
       },
     },
   });
@@ -169,7 +173,7 @@ export async function GET(request: NextRequest) {
     const authHeader = request.headers.get('authorization');
     const secret = authHeader?.replace('Bearer ', '');
     
-    if (secret !== CRON_SECRET) {
+    if (!CRON_SECRET || secret !== CRON_SECRET) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -187,9 +191,9 @@ export async function GET(request: NextRequest) {
     console.log('Starting news sync cron job...');
     const startTime = Date.now();
 
-    // Clean up expired news first
-    const cleanedUp = await cleanupExpiredNews();
-    console.log(`Cleaned up ${cleanedUp} expired news items`);
+    // Clean up very old news (older than 30 days)
+    const cleanedUp = await cleanupOldNews();
+    console.log(`Cleaned up ${cleanedUp} old news items (>30 days)`);
 
     const results = [];
     const errors = [];
