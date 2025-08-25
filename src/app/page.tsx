@@ -6,6 +6,7 @@ import MarketIndices from '@/components/MarketIndices';
 import { useTranslation } from '@/hooks/useTranslation';
 import { BookOpen, ShieldCheck, TrendingUp, ArrowRight } from 'lucide-react';
 import FloatingElementsAnimation from '@/components/animations/FloatingElementsAnimation';
+import ExplainedNewsWidget from '@/components/shared/ExplainedNewsWidget';
 
 export default function Home() {
   const { t } = useTranslation('home');
@@ -82,6 +83,16 @@ export default function Home() {
       
       {/* Market Indices Section */}
       <MarketIndices />
+
+      {/* Explained News Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+            {"Latest Market News & Analysis"}
+          </h2>
+          <ExplainedNewsWidget />
+        </div>
+      </section>
       
       {/* Content Analyzer Section */}
       <section id="analyzer" className="py-20 bg-gray-50">
