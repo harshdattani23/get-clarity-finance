@@ -21,6 +21,7 @@ interface NewsSynthesisParams {
   maxItems?: number;
   allowDomains?: string[];
   model?: string;
+  sector?: string;
 }
 
 /**
@@ -52,17 +53,32 @@ Important: Base your synthesis on current, verified information only. Include di
  * Build the user prompt for news synthesis
  */
 function buildUserPrompt(params: NewsSynthesisParams): string {
-  const { topics, query, lang = 'en', maxItems = 5 } = params;
+  const { topics, query, lang = 'en', maxItems = 5, sector } = params;
   const langName = SUPPORTED_LANGUAGES[lang as keyof typeof SUPPORTED_LANGUAGES]?.nativeName || 'English';
   
   let prompt = `Provide the latest ${maxItems} important news items about `;
   
   if (query) {
     prompt += query;
+  } else if (sector) {
+    // Map sector IDs to specific search terms
+    const sectorMap: Record<string, string> = {
+      'banking': 'Indian banking sector, PSU banks, private banks, HDFC Bank, ICICI Bank, SBI, Axis Bank, RBI banking regulations',
+      'it': 'Indian IT sector, TCS, Infosys, Wipro, HCL Tech, Tech Mahindra, IT services exports',
+      'pharma': 'Indian pharmaceutical sector, Sun Pharma, Dr Reddy, Cipla, Lupin, drug approvals, FDA',
+      'auto': 'Indian automobile sector, Maruti Suzuki, Tata Motors, Mahindra, Bajaj Auto, EV market',
+      'energy': 'Indian energy sector, Reliance, ONGC, power companies, renewable energy, coal, oil prices',
+      'fmcg': 'Indian FMCG sector, HUL, ITC, Nestle India, Britannia, consumer goods',
+      'realty': 'Indian real estate sector, DLF, Godrej Properties, housing market, property prices',
+      'metals': 'Indian metals and mining sector, Tata Steel, JSW Steel, Hindalco, coal mining, iron ore',
+      'regulatory': 'SEBI regulations, RBI monetary policy, NSE BSE circulars, regulatory updates, compliance changes'
+    };
+    prompt += sectorMap[sector] || `Indian ${sector} sector`;
   } else if (topics && topics.length > 0) {
     prompt += topics.join(', ');
   } else {
-    prompt += 'Indian stock markets, focusing on major indices, regulatory updates, and significant corporate developments';
+    // Default: Mix of market and regulatory news
+    prompt += 'Indian stock markets including Nifty 50, Sensex, major corporate developments, AND important regulatory updates from SEBI, RBI policy decisions, NSE/BSE circulars';
   }
   
   prompt += `\n\nRequirements:
@@ -71,6 +87,11 @@ function buildUserPrompt(params: NewsSynthesisParams): string {
 - Provide analysis relevant to retail investors
 - Language: ${langName}
 - Format: JSON array as specified`;
+  
+  // Add sector-specific instruction if sector is specified
+  if (sector) {
+    prompt += `\n- IMPORTANT: Focus specifically on ${sector} sector news only`;
+  }
   
   return prompt;
 }
@@ -301,6 +322,11 @@ export function validateNewsParams(params: unknown): NewsSynthesisParams {
   // Validate maxItems
   if (input.maxItems && typeof input.maxItems === 'number') {
     validated.maxItems = Math.min(Math.max(1, input.maxItems), 6); // Between 1 and 6
+  }
+  
+  // Validate sector
+  if (input.sector && typeof input.sector === 'string') {
+    validated.sector = input.sector.substring(0, 50); // Max 50 chars for sector
   }
   
   return validated;

@@ -54,6 +54,7 @@ export const MARKET_SECTORS = [
   { id: 'fmcg', label: 'FMCG', icon: '🛒' },
   { id: 'realty', label: 'Real Estate', icon: '🏢' },
   { id: 'metals', label: 'Metals & Mining', icon: '⛏️' },
+  { id: 'regulatory', label: 'SEBI/RBI', icon: '📋' },
 ] as const;
 
 // Language configurations

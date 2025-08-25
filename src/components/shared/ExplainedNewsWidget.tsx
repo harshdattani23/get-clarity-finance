@@ -154,7 +154,10 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
           >
             All Sectors
           </button>
-          {MARKET_SECTORS.slice(0, 4).map((sector) => (
+          {['regulatory', 'banking', 'it', 'pharma', 'auto'].map((sectorId) => {
+            const sector = MARKET_SECTORS.find(s => s.id === sectorId);
+            if (!sector) return null;
+            return (
             <button
               key={sector.id}
               onClick={() => handleSectorChange(sector.id)}
@@ -166,7 +169,8 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
             >
               {sector.icon} {sector.label}
             </button>
-          ))}
+            );
+          })}
         </div>
         
         <button
