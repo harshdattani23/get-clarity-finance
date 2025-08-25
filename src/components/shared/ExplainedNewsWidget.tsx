@@ -11,13 +11,15 @@ interface ExplainedNewsWidgetProps {
   query?: string;
   sector?: string;
   maxItems?: number;
+  compact?: boolean;
 }
 
 const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({ 
   topics, 
   query, 
   sector,
-  maxItems = 5 
+  maxItems = 5,
+  compact = false
 }) => {
   const [news, setNews] = useState<NewsItemType[]>([]);
   const [loading, setLoading] = useState(true);
@@ -130,6 +132,21 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
   };
 
   if (loading && !isRefreshing) {
+    if (compact) {
+      return (
+        <div className="space-y-2">
+          {[1, 2].map((i) => (
+            <div key={i} className="bg-gray-50 rounded-lg p-3 animate-pulse">
+              <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="flex gap-2">
+                <div className="h-5 bg-gray-200 rounded-full w-16"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
     return (
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (
@@ -148,6 +165,16 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
   }
 
   if (error && !isRefreshing) {
+    if (compact) {
+      return (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+          <div className="flex items-center text-yellow-700 text-sm">
+            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+            <span className="line-clamp-2">Unable to load news</span>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
         <div className="flex items-center justify-between">
@@ -166,6 +193,66 @@ const ExplainedNewsWidget: React.FC<ExplainedNewsWidgetProps> = ({
     );
   }
 
+  // Compact mode for hero section
+  if (compact) {
+    return (
+      <div className="h-full flex flex-col">
+        {/* Compact News List */}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-2">
+          <div className="space-y-2">
+            {news.length === 0 ? (
+              <div className="text-center py-6 text-gray-500 text-sm">
+                <Newspaper className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+                <p>No news available</p>
+                <button
+                  onClick={handleRefresh}
+                  className="mt-2 text-xs text-blue-600 hover:underline"
+                >
+                  Refresh
+                </button>
+              </div>
+            ) : (
+              news.slice(0, 4).map((item) => (
+                <div key={item.id} className="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer group">
+                  <h4 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+                    {item.summary}
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-xs ${getSentimentColor(item.sentiment)}`}>
+                      {item.sentiment || 'neutral'}
+                    </span>
+                    {item.tickers && item.tickers.length > 0 && (
+                      <span className="text-xs text-gray-500 font-mono">
+                        {item.tickers.slice(0, 2).join(', ')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+        
+        {/* View More Link */}
+        {news.length > 0 && (
+          <div className="pt-2 mt-2 border-t border-gray-200">
+            <a 
+              href="#news" 
+              className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center justify-center gap-1"
+            >
+              View all updates
+              <span className="text-blue-400">→</span>
+            </a>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Full mode
   return (
     <div className="space-y-4">
       {/* Sector Filters */}

@@ -2,108 +2,130 @@
 
 import Link from 'next/link';
 import ContentAnalyzer from '@/components/ContentAnalyzer';
-import MarketIndices from '@/components/MarketIndices';
-import { useTranslation } from '@/hooks/useTranslation';
-import { BookOpen, ShieldCheck, TrendingUp, ArrowRight } from 'lucide-react';
-import FloatingElementsAnimation from '@/components/animations/FloatingElementsAnimation';
-import ExplainedNewsWidget from '@/components/shared/ExplainedNewsWidget';
+import HowItWorks from '@/components/home/HowItWorks';
+import { Shield, TrendingUp, BookOpen, AlertTriangle, Play } from 'lucide-react';
+import HeroNewsWidget from '@/components/home/HeroNewsWidget';
 
 export default function Home() {
-  const { t } = useTranslation('home');
-
-  const services = [
-    {
-      icon: <BookOpen className="w-8 h-8 text-blue-500" />,
-      title: "Comprehensive Stock Market Courses",
-      description: "From the basics of Nifty and Sensex to advanced technical analysis, our courses are tailored for the Indian market.",
-      link: '/stock-market-course',
-    },
-    {
-      icon: <ShieldCheck className="w-8 h-8 text-green-500" />,
-      title: "Investor Awareness Hub",
-      description: "Stay informed about the latest regulations from SEBI, understand common investment scams, and learn to protect your portfolio.",
-      link: '/fraud-protection',
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8 text-indigo-500" />,
-            title: "Virtual Trading Simulator",
-      description: "Practice your trading strategies in a real-time simulated environment without risking any capital. Master the art of trading, risk-free.",
-      link: '/virtual-trading',
-    },
-  ];
-
   return (
     <div className="bg-white text-gray-800">
-      {/* Hero Section */}
-      <section className="bg-[#163300] text-white">
-        <div className="container mx-auto px-6 py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col items-start">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              {"Invest with Confidence. Trade with Clarity."}
-            </h1>
-            <p className="mt-6 text-lg text-white/80">
-              {"Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor."}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="#analyzer" className="bg-lime-400 text-black font-semibold px-8 py-3 rounded-full hover:bg-lime-500 transition-colors">
-                {"Analyze a message"}
-              </Link>
-              <Link href="/investment-quiz" className="bg-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/30 transition-colors">
-                {"Take the Quiz"}
-              </Link>
-            </div>
-          </div>
-          <div className="hidden md:flex justify-center items-center">
-            <FloatingElementsAnimation />
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Hero Section with News Widget */}
+      <section className="bg-[#163300] text-white relative overflow-hidden">
+        <div className="container mx-auto px-6 py-20 md:py-24">
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Left Content - Main Hero */}
+            <div className="lg:col-span-7 flex flex-col items-start">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                AI-Powered Investment Safety Platform
+              </h1>
+              
+              <p className="text-lg md:text-xl text-white/90 mb-8">
+                Protect yourself from ₹50,000+ crore annual investment frauds. Learn stock market investing the right way with 50+ courses, practice risk-free with virtual trading, and verify every investment opportunity with AI.
+              </p>
 
-      {/* Services Section */}
-      <section id="services" className="py-20">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            {"Let us handle the numbers, so you can handle your success."}
-          </h2>
+              {/* Key Benefits */}
+              <div className="grid grid-cols-2 gap-3 mb-8 w-full">
+                <div className="flex items-center">
+                  <AlertTriangle className="w-5 h-5 text-lime-400 mr-2 flex-shrink-0" />
+                  <span className="text-sm">Instant Fraud Detection</span>
+                </div>
+                <div className="flex items-center">
+                  <BookOpen className="w-5 h-5 text-lime-400 mr-2 flex-shrink-0" />
+                  <span className="text-sm">50+ Expert Courses</span>
+                </div>
+                <div className="flex items-center">
+                  <TrendingUp className="w-5 h-5 text-lime-400 mr-2 flex-shrink-0" />
+                  <span className="text-sm">Learn by Virtual Trading</span>
+                </div>
+                <div className="flex items-center">
+                  <Shield className="w-5 h-5 text-lime-400 mr-2 flex-shrink-0" />
+                  <span className="text-sm">100% Safe & Secure</span>
+                </div>
+              </div>
 
-          <div className="mt-16 grid md:grid-cols-3 gap-8 text-left">
-            {services.map((service, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex-shrink-0">{service.icon}</div>
-                <h3 className="mt-6 text-xl font-bold text-gray-900">{service.title}</h3>
-                <p className="mt-2 text-gray-600">{service.description}</p>
-                 <Link href={service.link} className="text-blue-600 font-semibold mt-4 inline-block hover:underline">
-                    {"Learn More"} <ArrowRight className="inline w-4 h-4" />
+              {/* Clear CTAs */}
+              <div className="flex flex-wrap gap-3">
+                <Link 
+                  href="#demo" 
+                  className="bg-lime-400 text-black font-bold px-6 py-3 rounded-full hover:bg-lime-500 transition-all transform hover:scale-105 flex items-center"
+                >
+                  <Play className="w-5 h-5 mr-2" />
+                  See How It Works
+                </Link>
+                <Link 
+                  href="/sign-up" 
+                  className="bg-white text-[#163300] font-bold px-6 py-3 rounded-full hover:bg-gray-100 transition-all transform hover:scale-105"
+                >
+                  Learn About Investing
+                </Link>
+                <Link 
+                  href="/virtual-trading" 
+                  className="bg-white/20 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/30 transition-colors border border-white/30"
+                >
+                  Practice Virtual Trading
                 </Link>
               </div>
-            ))}
+
+            </div>
+            
+            {/* Right Content - News Widget Box */}
+            <div className="lg:col-span-5">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 lg:p-6 h-full max-h-[500px] flex flex-col">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-base lg:text-lg font-semibold text-white">Latest Market Updates</h3>
+                  <span className="text-xs text-lime-400 font-medium animate-pulse">LIVE</span>
+                </div>
+                <div className="bg-white rounded-xl overflow-hidden flex-1 min-h-0">
+                  <div className="h-full p-3">
+                    <HeroNewsWidget />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      
-      {/* Market Indices Section */}
-      <MarketIndices />
 
-      {/* Explained News Section */}
-      <section className="py-20">
+      {/* How It Works */}
+      <HowItWorks />
+
+      {/* Interactive Demo Section */}
+      <section id="demo" className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-            {"Latest Market News & Analysis"}
-          </h2>
-          <ExplainedNewsWidget />
-        </div>
-      </section>
-      
-      {/* Content Analyzer Section */}
-      <section id="analyzer" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-            <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{"Get Instant Clarity on Any Financial Message"}</h2>
-                <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">{"Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor."}</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              See Get Clarity in Action
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Try our AI-powered fraud detection tool right now. Paste any suspicious investment message below.
+            </p>
+          </div>
+          
+          {/* Content Analyzer Demo */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <ContentAnalyzer />
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <h3 className="font-semibold text-blue-900 mb-2">Try This Example:</h3>
+              <p className="text-sm text-blue-800">
+                "Guaranteed 200% returns in 30 days! Join our exclusive WhatsApp group for hot stock tips."
+              </p>
             </div>
-            <div className="mt-12">
-                <ContentAnalyzer />
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+              <h3 className="font-semibold text-green-900 mb-2">Instant Analysis</h3>
+              <p className="text-sm text-green-800">
+                Our AI instantly identifies red flags and explains why something might be a scam.
+              </p>
             </div>
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
+              <h3 className="font-semibold text-purple-900 mb-2">Educational Insights</h3>
+              <p className="text-sm text-purple-800">
+                Learn what makes an investment legitimate vs fraudulent with detailed explanations.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
