@@ -191,8 +191,6 @@ export async function getPerplexityNewsSynthesis(
     temperature: PERPLEXITY_CONFIG.temperature,
     max_tokens: PERPLEXITY_CONFIG.max_tokens,
     top_p: PERPLEXITY_CONFIG.top_p,
-    frequency_penalty: PERPLEXITY_CONFIG.frequency_penalty,
-    presence_penalty: PERPLEXITY_CONFIG.presence_penalty,
     search_domain_filter: allowDomains as string[],
     return_citations: true,
     search_recency_filter: 'week',

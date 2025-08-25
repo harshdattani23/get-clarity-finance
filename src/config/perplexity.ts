@@ -28,12 +28,6 @@ export const PERPLEXITY_CONFIG = {
   
   // Top-p sampling parameter
   top_p: 0.9,
-  
-  // Frequency penalty to reduce repetition
-  frequency_penalty: 0.1,
-  
-  // Presence penalty for topic diversity
-  presence_penalty: 0.1,
 } as const;
 
 // Type exports
