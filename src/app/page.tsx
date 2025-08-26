@@ -5,6 +5,7 @@ import ContentAnalyzer from '@/components/ContentAnalyzer';
 import HowItWorks from '@/components/home/HowItWorks';
 import { Shield, TrendingUp, BookOpen, AlertTriangle, Play } from 'lucide-react';
 import HeroNewsWidget from '@/components/home/HeroNewsWidget';
+import AIAgentsTabs from '@/components/agents/AIAgentsTabs';
 
 export default function Home() {
   return (
@@ -83,6 +84,22 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* AI Fraud Detection Agents Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              AI-Powered Fraud Detection Agents
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Test our advanced AI agents that protect investors from various types of financial fraud in real-time.
+            </p>
+          </div>
+          
+          <AIAgentsTabs />
         </div>
       </section>
 
