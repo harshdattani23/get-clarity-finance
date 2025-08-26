@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Newspaper, AlertCircle, RefreshCw, Loader2, ChevronLeft, ChevronRight, Sparkles, ExternalLink } from 'lucide-react';
-import { DEFAULT_TOPICS, MARKET_SECTORS } from '@/config/news';
+import { Newspaper, AlertCircle, RefreshCw, Loader2, ChevronLeft, ChevronRight, Sparkles, ExternalLink, Globe } from 'lucide-react';
+import { DEFAULT_TOPICS, MARKET_SECTORS, SUPPORTED_LANGUAGES } from '@/config/news';
 import type { NewsItem as NewsItemType, NewsApiResponse } from '@/types/news';
 
 const HeroNewsWidget: React.FC = () => {
@@ -13,6 +13,8 @@ const HeroNewsWidget: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showAllSectors, setShowAllSectors] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<keyof typeof SUPPORTED_LANGUAGES>('en');
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 
   const fetchNews = useCallback(async () => {
     try {
@@ -27,7 +29,7 @@ const HeroNewsWidget: React.FC = () => {
       }
       
       params.append('maxItems', '8');  // Fetch more to show View More button
-      params.append('lang', 'en');
+      params.append('lang', selectedLanguage);
       
       // Fetch from API
       const response = await fetch(`/api/news/synthesize?${params}`);
@@ -57,7 +59,7 @@ const HeroNewsWidget: React.FC = () => {
       setLoading(false);
       setIsRefreshing(false);
     }
-  }, [selectedSector]);
+  }, [selectedSector, selectedLanguage]);
 
   useEffect(() => {
     fetchNews();
@@ -70,6 +72,12 @@ const HeroNewsWidget: React.FC = () => {
 
   const handleSectorChange = (sectorId: string | undefined) => {
     setSelectedSector(sectorId);
+    setLoading(true);
+  };
+
+  const handleLanguageChange = (lang: keyof typeof SUPPORTED_LANGUAGES) => {
+    setSelectedLanguage(lang);
+    setShowLanguageMenu(false);
     setLoading(true);
   };
 
@@ -192,11 +200,42 @@ const HeroNewsWidget: React.FC = () => {
             </button>
           )}
           
+          {/* Language Selector */}
+          <div className="relative ml-auto">
+            <button
+              onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+              className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all flex items-center gap-1"
+              title="Select language"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span className="text-xs font-medium">{SUPPORTED_LANGUAGES[selectedLanguage].label}</span>
+              <ChevronRight className={`w-3 h-3 transition-transform ${showLanguageMenu ? 'rotate-90' : ''}`} />
+            </button>
+            
+            {/* Language Dropdown */}
+            {showLanguageMenu && (
+              <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                {Object.entries(SUPPORTED_LANGUAGES).map(([code, lang]) => (
+                  <button
+                    key={code}
+                    onClick={() => handleLanguageChange(code as keyof typeof SUPPORTED_LANGUAGES)}
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center justify-between ${
+                      selectedLanguage === code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                    }`}
+                  >
+                    <span>{lang.nativeName}</span>
+                    {selectedLanguage === code && <span className="text-blue-600">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          
           {/* Refresh Button */}
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="ml-auto p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all disabled:opacity-50"
+            className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all disabled:opacity-50"
             title="Refresh news"
           >
             {isRefreshing ? (

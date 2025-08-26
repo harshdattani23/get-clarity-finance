@@ -61,7 +61,7 @@ async function storeNewsInBackground(items: Array<{
     domain?: string;
     title?: string;
   }>;
-}>, sector?: string) {
+}>, sector?: string, language: string = 'en') {
   const { prisma } = await import('@/lib/prisma');
   const { NewsSentiment } = await import('@prisma/client');
   
@@ -91,7 +91,7 @@ async function storeNewsInBackground(items: Array<{
             sentiment: item.sentiment === 'positive' ? NewsSentiment.POSITIVE : 
                       item.sentiment === 'negative' ? NewsSentiment.NEGATIVE : 
                       NewsSentiment.NEUTRAL,
-            language: 'en',
+            language: language,
             publishedAt: new Date(),
             fetchedAt: new Date(),
             expiresAt,
@@ -150,13 +150,14 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // First, try to get news from database
+    // First, try to get news from database for the requested language
     let newsFromDb = null;
     try {
       const whereClause: Record<string, unknown> = {
         expiresAt: {
           gt: new Date(), // Only get non-expired news
         },
+        language: params.lang || 'en', // Filter by requested language
       };
 
       // Add sector filter if specified
@@ -257,6 +258,11 @@ export async function GET(request: NextRequest) {
     // Check if API key is configured for fallback to Perplexity
     if (!process.env.PERPLEXITY_API_KEY) {
       // If no API key and no database content, return empty with message
+      // For non-English languages, show appropriate message
+      const errorMessage = params.lang !== 'en' 
+        ? `News in ${params.lang} requires API connection` 
+        : 'News data is updated 3 times daily';
+      
       return NextResponse.json(
         {
           items: [],
@@ -265,7 +271,7 @@ export async function GET(request: NextRequest) {
           cached: false,
           queriedAt: new Date().toISOString(),
           warnings: ['No cached news available. Please wait for the next update cycle.'],
-          error: 'News data is updated 3 times daily',
+          error: errorMessage,
         },
         { status: 200 } // Return 200 with empty data instead of error
       );
@@ -283,7 +289,7 @@ export async function GET(request: NextRequest) {
     // Store the fresh news in database for future use
     if (synthesis.items.length > 0) {
       // Store in background, don't wait
-      storeNewsInBackground(synthesis.items, params.sector).catch(console.error);
+      storeNewsInBackground(synthesis.items, params.sector, params.lang || 'en').catch(console.error);
     }
 
     // Prepare response
