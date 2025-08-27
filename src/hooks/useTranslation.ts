@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 type TranslationValue = string | string[] | { [key: string]: TranslationValue };
 type TranslationData = Record<string, TranslationValue>;
 
 export const useTranslation = (namespace?: string) => {
-  const language = 'en'; // Always use English
+  const languageContext = useContext(LanguageContext);
+  const language = languageContext ? languageContext.language : 'en';
   const [translations, setTranslations] = useState<TranslationData>({});
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 
 import { ClerkProvider } from '@clerk/nextjs';
 import { ToastProvider } from '@/contexts/ToastContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+      <LanguageProvider>
         <html lang="en">
           <body className={`${inter.className} bg-gray-50 text-gray-800`}>
               <ToastProvider />
@@ -31,6 +33,7 @@ export default function RootLayout({
               <Footer />
           </body>
         </html>
+      </LanguageProvider>
     </ClerkProvider>
   );
 }

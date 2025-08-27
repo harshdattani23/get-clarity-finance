@@ -1,23 +1,22 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import LanguageSelector from './LanguageSelector';
 import AudioPlayer from './AudioPlayer';
 import TranscriptPanel from './TranscriptPanel';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 interface AudioLearningModeProps {
-  language: string;
-  onLanguageChange: (language: string) => void;
   lessonId: string;
 }
 
 export default function AudioLearningMode({ 
-  language, 
-  onLanguageChange,
   lessonId 
 }: AudioLearningModeProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
+  const languageContext = useContext(LanguageContext);
+  const language = languageContext ? languageContext.language : 'en';
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
@@ -28,10 +27,7 @@ export default function AudioLearningMode({
       </div>
 
       {/* Language Selector */}
-      <LanguageSelector 
-        currentLanguage={language}
-        onLanguageChange={onLanguageChange}
-      />
+      <LanguageSelector />
 
       {/* Audio Player */}
       <AudioPlayer 
