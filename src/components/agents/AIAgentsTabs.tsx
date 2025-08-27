@@ -67,7 +67,7 @@ interface AnalysisResult {
 const tabs: TabContent[] = [
   {
     id: 'deepfake',
-    label: 'Deepfake Detector',
+    label: 'Video Fraud Analyzer',
     icon: <Camera className="w-5 h-5" />,
     color: 'purple',
     bgGradient: 'from-purple-50 to-purple-100'
@@ -146,26 +146,26 @@ export default function AIAgentsTabs() {
     
     // Dynamic AI checking items with proper timing
     const aiCheckSequence = [
-      '🎥 Extracting video frames for analysis',
-      '👤 Detecting faces in video',
-      '🎭 Analyzing facial expressions and movements',
-      '👄 Checking lip-sync accuracy',
-      '👁️ Examining eye movement patterns',
-      '🎨 Detecting digital manipulation artifacts',
-      '🔊 Extracting audio for voice analysis',
-      '🎵 Analyzing voice frequency patterns',
-      '🗣️ Checking for voice cloning indicators',
-      '📝 Transcribing speech content',
-      '💰 Scanning for fraudulent claims',
-      '📊 Identifying unrealistic return promises',
-      '🏛️ Verifying against SEBI database',
-      '👔 Checking speaker identity claims',
-      '📜 Cross-referencing official records',
-      '🔗 Analyzing metadata consistency',
-      '📅 Verifying upload date authenticity',
-      '🌐 Checking channel legitimacy',
-      '⚖️ Applying fraud detection models',
-      '🧠 Running final AI validation'
+      '🎥 Downloading video for comprehensive analysis',
+      '📊 Extracting video metadata and information',
+      '🎬 Separating video into frames for inspection',
+      '🔊 Extracting audio track for voice analysis',
+      '📝 Transcribing speech to analyze claims',
+      '💰 Scanning for investment fraud indicators',
+      '📈 Checking for unrealistic return promises',
+      '⚠️ Detecting misleading financial advice',
+      '🏛️ Verifying speaker claims against SEBI database',
+      '👤 Analyzing if speaker is impersonating officials',
+      '🎭 Running deepfake detection algorithms',
+      '👄 Checking facial movements and lip-sync',
+      '👁️ Analyzing eye movement naturalness',
+      '🎵 Detecting voice synthesis or cloning',
+      '🎨 Scanning for video manipulation artifacts',
+      '📜 Cross-referencing with official records',
+      '🌐 Verifying channel authenticity and history',
+      '🔗 Checking consistency across metadata',
+      '⚖️ Applying comprehensive fraud models',
+      '✅ Generating detailed fraud analysis report'
     ];
     
     // Dynamic AI thoughts that appear randomly
@@ -185,13 +185,13 @@ export default function AIAgentsTabs() {
     ];
     
     const stages = isVideo ? [
-      '🎬 Extracting video information...',
-      '🌐 Connecting to video source...',
-      '🧠 AI analyzing video frames...',
-      '🔍 Detecting deepfake indicators...',
-      '⚡ Scanning for fraud patterns...',
-      '🏛️ Verifying with SEBI database...',
-      '📋 Generating detailed report...'
+      '📥 Downloading video content...',
+      '🎬 Processing video and audio...',
+      '🧠 AI analyzing for fraud indicators...',
+      '🔍 Checking multiple fraud patterns...',
+      '👤 Verifying speaker authenticity...',
+      '🏛️ Cross-referencing SEBI database...',
+      '📋 Compiling comprehensive report...'
     ] : activeTab === 'sebi-query' ? [
       '💭 Understanding your query...',
       '🔎 Searching 4,923+ SEBI entities...',
@@ -445,14 +445,14 @@ export default function AIAgentsTabs() {
           {/* Agent Description */}
           <div className={`bg-gradient-to-br ${tabs.find(t => t.id === activeTab)?.bgGradient} p-6 rounded-xl mb-6`}>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
-              {activeTab === 'deepfake' && '🎭 Deepfake Detection Agent'}
+              {activeTab === 'deepfake' && '🎥 Video Fraud Analysis System'}
               {activeTab === 'social' && '📱 Social Media Fraud Monitor'}
               {activeTab === 'announcement' && '📄 Corporate Announcement Verifier'}
               {activeTab === 'sebi-query' && '🏛️ SEBI Registry Intelligence'}
             </h3>
             <p className="text-gray-700">
               {activeTab === 'deepfake' && 
-                'Analyzes YouTube videos and other media directly for deepfakes. Detects fraudulent videos and audio impersonating SEBI officials, market leaders, or financial advisors. Simply paste a YouTube URL for instant analysis.'}
+                'Comprehensive video analysis for financial fraud detection. Analyzes YouTube videos and other media for multiple fraud indicators including deepfakes, impersonation, false claims, manipulated content, and unauthorized financial advice. Our AI examines video, audio, metadata, and content claims to protect investors.'}
               {activeTab === 'social' && 
                 'Monitors WhatsApp, Telegram, and social media for pump-and-dump schemes, fake investment tips, Ponzi schemes, and coordinated market manipulation attempts.'}
               {activeTab === 'announcement' && 
@@ -467,19 +467,19 @@ export default function AIAgentsTabs() {
                 <>
                   <div className="flex items-center gap-2">
                     <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Voice Analysis</span>
+                    <span className="text-sm">Fraud Detection</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Facial Recognition</span>
+                    <span className="text-sm">Deepfake Analysis</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Metadata Check</span>
+                    <span className="text-sm">Claims Verification</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">SEBI Database</span>
+                    <span className="text-sm">SEBI Compliance</span>
                   </div>
                 </>
               )}
@@ -619,7 +619,7 @@ export default function AIAgentsTabs() {
                     <Brain className="w-8 h-8 text-indigo-600" />
                   </motion.div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    AI Thinking Mode Active
+                    AI Video Analysis in Progress
                   </h3>
                   <motion.div
                     animate={{ rotate: -360 }}
@@ -713,7 +713,7 @@ export default function AIAgentsTabs() {
                 {/* AI Currently Checking */}
                 {currentChecks.length > 0 && (
                   <div className="mt-4 bg-white/80 rounded-lg p-4">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-3">🔍 AI Analysis in Progress</h4>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3">🔍 Currently Analyzing</h4>
                     <div className="space-y-2">
                       {currentChecks.map((check, idx) => (
                         <motion.div
@@ -739,7 +739,7 @@ export default function AIAgentsTabs() {
                 {/* Educational Tips */}
                 {educationalTips.length > 0 && (
                   <div className="mt-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200">
-                    <h4 className="text-sm font-semibold text-amber-900 mb-2">💡 While you wait, learn about fraud detection:</h4>
+                    <h4 className="text-sm font-semibold text-amber-900 mb-2">💡 Important: How to Spot Video Fraud</h4>
                     <div className="space-y-2">
                       {educationalTips.map((tip, idx) => (
                         <motion.div
