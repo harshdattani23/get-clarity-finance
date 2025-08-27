@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3 } from 'lucide-react';
+import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface TabContent {
@@ -100,12 +100,47 @@ export default function AIAgentsTabs() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [inputContent, setInputContent] = useState('');
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+  const [thinkingStage, setThinkingStage] = useState('');
+  const [thinkingProgress, setThinkingProgress] = useState(0);
 
   const analyzeContent = async () => {
     if (!inputContent.trim()) return;
     
     setIsAnalyzing(true);
     setAnalysisResult(null);
+    setThinkingProgress(0);
+    
+    // Simulate thinking stages for better UX
+    const isVideo = inputContent.includes('youtube.com') || inputContent.includes('youtu.be/');
+    const stages = isVideo ? [
+      'Extracting video URL...',
+      'Connecting to video source...',
+      'Analyzing video content...',
+      'Detecting deepfake indicators...',
+      'Checking for fraud patterns...',
+      'Verifying against SEBI database...',
+      'Generating comprehensive report...'
+    ] : activeTab === 'sebi-query' ? [
+      'Processing your query...',
+      'Searching SEBI database...',
+      'Analyzing 4,923+ entities...',
+      'Matching patterns...',
+      'Compiling results...'
+    ] : [
+      'Analyzing content...',
+      'Detecting fraud patterns...',
+      'Cross-referencing data...',
+      'Generating analysis...'
+    ];
+    
+    let stageIndex = 0;
+    const stageInterval = setInterval(() => {
+      if (stageIndex < stages.length) {
+        setThinkingStage(stages[stageIndex]);
+        setThinkingProgress((stageIndex + 1) / stages.length * 100);
+        stageIndex++;
+      }
+    }, 800);
 
     try {
       let endpoint = '';
@@ -155,12 +190,21 @@ export default function AIAgentsTabs() {
       });
 
       const data = await response.json();
+      clearInterval(stageInterval);
+      setThinkingProgress(100);
+      setThinkingStage('Analysis complete!');
+      
+      // Small delay to show completion
+      await new Promise(resolve => setTimeout(resolve, 500));
       setAnalysisResult(data);
     } catch (error) {
       console.error('Analysis error:', error);
+      clearInterval(stageInterval);
       setAnalysisResult({ error: 'Analysis failed. Please try again.' });
     } finally {
       setIsAnalyzing(false);
+      setThinkingStage('');
+      setThinkingProgress(0);
     }
   };
 
@@ -412,6 +456,129 @@ export default function AIAgentsTabs() {
               </button>
             </div>
           </div>
+
+          {/* Thinking Mode Overlay */}
+          {isAnalyzing && !analysisResult && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="mt-8 p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl border-2 border-indigo-200 shadow-xl"
+            >
+              <div className="max-w-2xl mx-auto">
+                {/* AI Thinking Header */}
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Brain className="w-8 h-8 text-indigo-600" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    AI Thinking Mode Active
+                  </h3>
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Cpu className="w-8 h-8 text-purple-600" />
+                  </motion.div>
+                </div>
+
+                {/* Current Stage */}
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <Eye className="w-5 h-5 text-indigo-600" />
+                    </motion.div>
+                    <span className="text-sm font-medium text-gray-600">Current Process:</span>
+                  </div>
+                  <motion.p 
+                    key={thinkingStage}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="text-lg font-semibold text-gray-800"
+                  >
+                    {thinkingStage || 'Initializing analysis...'}
+                  </motion.p>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-600">Analysis Progress</span>
+                    <span className="text-sm font-bold text-indigo-600">{Math.round(thinkingProgress)}%</span>
+                  </div>
+                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${thinkingProgress}%` }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    />
+                  </div>
+                </div>
+
+                {/* Animated Dots */}
+                <div className="flex justify-center gap-4">
+                  {[0, 1, 2, 3].map((index) => (
+                    <motion.div
+                      key={index}
+                      className="w-3 h-3 bg-indigo-500 rounded-full"
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.5, 1, 0.5]
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: index * 0.2
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* AI Capabilities Being Used */}
+                <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {activeTab === 'deepfake' && (
+                    <>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 25 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 25 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Video Extracted</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 50 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Content Analyzed</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 75 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 75 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Fraud Detected</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 90 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 90 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Report Ready</span>
+                      </motion.div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           {/* Results Section */}
           {analysisResult && (
