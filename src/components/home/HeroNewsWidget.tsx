@@ -15,6 +15,7 @@ const HeroNewsWidget: React.FC = () => {
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<keyof typeof SUPPORTED_LANGUAGES>('en');
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [showAllNews, setShowAllNews] = useState(false);
 
   const fetchNews = useCallback(async () => {
     try {
@@ -67,18 +68,21 @@ const HeroNewsWidget: React.FC = () => {
 
   const handleRefresh = () => {
     setIsRefreshing(true);
+    setShowAllNews(false);
     fetchNews();
   };
 
   const handleSectorChange = (sectorId: string | undefined) => {
     setSelectedSector(sectorId);
     setLoading(true);
+    setShowAllNews(false);
   };
 
   const handleLanguageChange = (lang: keyof typeof SUPPORTED_LANGUAGES) => {
     setSelectedLanguage(lang);
     setShowLanguageMenu(false);
     setLoading(true);
+    setShowAllNews(false);
   };
 
   const getSentimentColor = (sentiment?: string) => {
@@ -311,7 +315,7 @@ const HeroNewsWidget: React.FC = () => {
             </div>
           ) : (
             <>
-              {news.slice(0, 5).map((item, index) => (
+              {news.slice(0, showAllNews ? news.length : 5).map((item, index) => (
                 <div 
                   key={item.id} 
                   className={`bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-3 hover:from-blue-50 hover:to-blue-100 transition-all duration-300 cursor-pointer group transform hover:scale-[1.02] hover:shadow-md animate-fadeInUp`}
@@ -529,12 +533,24 @@ const HeroNewsWidget: React.FC = () => {
                 </div>
               ))}
               
-              {/* View More Button */}
+              {/* View More/Less Button */}
               {news.length > 5 && (
                 <div className="text-center pt-2 pb-1">
-                  <button className="group inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-blue-50 hover:to-blue-100 rounded-lg text-xs text-gray-600 hover:text-blue-600 transition-all duration-200">
-                    <span>View {news.length - 5} more updates</span>
-                    <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  <button 
+                    onClick={() => setShowAllNews(!showAllNews)}
+                    className="group inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-blue-50 hover:to-blue-100 rounded-lg text-xs text-gray-600 hover:text-blue-600 transition-all duration-200"
+                  >
+                    <span>
+                      {showAllNews 
+                        ? 'Show less' 
+                        : `View ${news.length - 5} more updates`
+                      }
+                    </span>
+                    <ChevronRight className={`w-3 h-3 transition-all duration-200 ${
+                      showAllNews 
+                        ? 'rotate-90 group-hover:rotate-[85deg]' 
+                        : 'group-hover:translate-x-0.5'
+                    }`} />
                   </button>
                 </div>
               )}
