@@ -6,6 +6,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import ClientOnly from './ClientOnly';
+import LanguageSelector from './stock-market-course/LanguageSelector';
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
@@ -13,7 +14,6 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/investment-quiz', key: 'investorAssessment' },
     { href: '/fraud-protection', key: 'fraudProtection' },
     { href: '/stock-market-course', key: 'stockMarketCourse' },
     { href: '/virtual-trading', key: 'virtualTrading' },
@@ -70,6 +70,7 @@ const Navbar = () => {
                   </Link>
                 </SignedOut>
               </ClientOnly>
+              <LanguageSelector />
             </div>
           </div>
 

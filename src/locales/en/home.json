@@ -1,37 +1,21 @@
 {
   "hero": {
-    "title": "Invest with Confidence. Trade with Clarity.",
-    "subtitle": "Your AI-powered shield against financial fraud. Learn, practice, and verify before you invest. Built for the modern Indian investor.",
-    "cta": "Analyze a message",
-    "cta2": "Take the Quiz"
+    "title": "AI-Powered Investment Safety Platform",
+    "subtitle": "Protect yourself from ₹50,000+ crore annual investment frauds. Learn stock market investing the right way with 50+ courses, practice risk-free with virtual trading, and verify every investment opportunity with AI.",
+    "benefit1": "Instant Fraud Detection",
+    "benefit2": "50+ Expert Courses",
+    "benefit3": "Learn by Virtual Trading",
+    "benefit4": "100% Safe & Secure",
+    "cta1": "See How It Works",
+    "cta2": "Learn About Investing",
+    "cta3": "Practice Virtual Trading"
   },
-  "services": {
-    "title": "Let us handle the numbers, so you can handle your success."
+  "news": {
+    "title": "Latest Market Updates",
+    "live": "LIVE"
   },
-  "feature1Title": "Comprehensive Stock Market Courses",
-  "feature1Description": "From the basics of Nifty and Sensex to advanced technical analysis, our courses are tailored for the Indian market.",
-  "feature2Title": "Investor Awareness Hub",
-  "feature2Description": "Stay informed about the latest regulations from SEBI, understand common investment scams, and learn to protect your portfolio.",
-  "feature3Title": "Virtual Trading Simulator",
-  "feature3Description": "Practice your trading strategies in a real-time simulated environment without risking any capital. Master the art of trading, risk-free.",
-  "learnMore": "Learn More",
-  "analyzerTitle": "Get Instant Clarity on Any Financial Message",
-  "heroSubtitle": "Your AI-powered guide for financial education, fraud detection, and virtual trading. Empowering Indian investors to make smarter, safer decisions.",
-  "analyzer": {
-    "placeholder": "Paste any message, email, or link here to check for potential fraud. For example: 'Congratulations! You've won a prize. Click http://suspicious-link.com to claim.' We'll analyze it for you.",
-    "button": {
-      "loading": "Thinking...",
-      "submit": "Analyze"
-    },
-    "error": {
-      "noContent": "Please provide some content to analyze.",
-      "analysisFailed": "An error occurred during the analysis.",
-      "connectionFailed": "Failed to connect to the analysis service."
-    },
-    "result": {
-      "scam": "Potential Scam Detected",
-      "safe": "Looks Safe",
-      "aiAssistant": "AI Assistant Answer"
-    }
+  "agents": {
+    "title": "AI-Powered Fraud Detection Agents",
+    "subtitle": "Test our advanced AI agents that protect investors from various types of financial fraud in real-time."
   }
 }

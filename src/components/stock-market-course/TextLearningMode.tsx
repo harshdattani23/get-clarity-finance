@@ -1,20 +1,21 @@
 "use client";
 
+import { useContext } from 'react';
 import LanguageSelector from './LanguageSelector';
 import LessonContent from './LessonContent';
 import PracticeQuestions from './PracticeQuestions';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
 interface TextLearningModeProps {
-  language: string;
-  onLanguageChange: (language: string) => void;
   lessonId: string;
 }
 
 export default function TextLearningMode({ 
-  language, 
-  onLanguageChange,
   lessonId 
 }: TextLearningModeProps) {
+  const languageContext = useContext(LanguageContext);
+  const language = languageContext ? languageContext.language : 'en';
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
       {/* Header */}
@@ -24,10 +25,7 @@ export default function TextLearningMode({
       </div>
 
       {/* Language Selector */}
-      <LanguageSelector 
-        currentLanguage={language}
-        onLanguageChange={onLanguageChange}
-      />
+      <LanguageSelector />
 
       {/* Lesson Content */}
       <LessonContent 
