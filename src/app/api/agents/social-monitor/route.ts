@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
       } else {
         threat = generateDefaultThreatAnalysis(content);
       }
-    } catch (e) {
+    } catch {
       threat = generateDefaultThreatAnalysis(content);
     }
 

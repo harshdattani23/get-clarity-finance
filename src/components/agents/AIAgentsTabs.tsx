@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight } from 'lucide-react';
+import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface TabContent {
@@ -55,6 +55,13 @@ interface AnalysisResult {
     timestamp?: string;
   };
   nextSteps?: string[];
+  // SEBI Query specific fields
+  answer?: string;
+  query_type?: string;
+  data_count?: number;
+  has_data?: boolean;
+  intent?: Record<string, unknown>;
+  raw_data?: unknown;
 }
 
 const tabs: TabContent[] = [
@@ -78,6 +85,13 @@ const tabs: TabContent[] = [
     icon: <FileText className="w-5 h-5" />,
     color: 'green',
     bgGradient: 'from-green-50 to-green-100'
+  },
+  {
+    id: 'sebi-query',
+    label: 'SEBI Registry Verification',
+    icon: <Database className="w-5 h-5" />,
+    color: 'indigo',
+    bgGradient: 'from-indigo-50 to-indigo-100'
   }
 ];
 
@@ -125,6 +139,13 @@ export default function AIAgentsTabs() {
             source: 'Social Media'
           };
           break;
+        case 'sebi-query':
+          endpoint = '/api/agents/sebi-query';
+          payload = { 
+            question: inputContent,
+            context: { source: 'web_ui' }
+          };
+          break;
       }
 
       const response = await fetch(endpoint, {
@@ -151,6 +172,8 @@ export default function AIAgentsTabs() {
         return "🚀 BUY TOMORROW AT 9:15 AM SHARP! Stock: XYZ Ltd. Target: ₹500 (CMP ₹200). Guaranteed profit! Our group has insider information. Join premium group for ₹5000 only. Last 10 slots left! Message me privately.";
       case 'announcement':
         return "XYZ Corporation announces 500% dividend and bonus shares 10:1. Board has approved buyback at 200% premium. Company revenue jumped from ₹100 Cr to ₹10,000 Cr in one quarter. Invest now before stock splits!";
+      case 'sebi-query':
+        return "Is Zerodha registered with SEBI? What segments are they authorized for?";
       default:
         return "Enter suspicious content here...";
     }
@@ -208,7 +231,10 @@ export default function AIAgentsTabs() {
             `}
             style={{
               backgroundColor: activeTab === tab.id ? 
-                (tab.color === 'purple' ? '#9333ea' : tab.color === 'blue' ? '#2563eb' : '#16a34a') 
+                (tab.color === 'purple' ? '#9333ea' : 
+                 tab.color === 'blue' ? '#2563eb' : 
+                 tab.color === 'green' ? '#16a34a' :
+                 tab.color === 'indigo' ? '#4f46e5' : '#6b7280') 
                 : undefined
             }}
           >
@@ -234,6 +260,7 @@ export default function AIAgentsTabs() {
               {activeTab === 'deepfake' && '🎭 Deepfake Detection Agent'}
               {activeTab === 'social' && '📱 Social Media Fraud Monitor'}
               {activeTab === 'announcement' && '📄 Corporate Announcement Verifier'}
+              {activeTab === 'sebi-query' && '🏛️ SEBI Registry Intelligence'}
             </h3>
             <p className="text-gray-700">
               {activeTab === 'deepfake' && 
@@ -242,6 +269,8 @@ export default function AIAgentsTabs() {
                 'Monitors WhatsApp, Telegram, and social media for pump-and-dump schemes, fake investment tips, Ponzi schemes, and coordinated market manipulation attempts.'}
               {activeTab === 'announcement' && 
                 'Verifies authenticity of corporate announcements by cross-referencing with historical data, checking compliance requirements, and detecting suspicious patterns.'}
+              {activeTab === 'sebi-query' && 
+                'Access comprehensive SEBI registry intelligence. Instantly verify broker registrations, search Alternative Investment Funds, identify multi-segment operators, and analyze 4,923+ registered intermediaries with AI-powered natural language search.'}
             </p>
             
             {/* Features */}
@@ -306,6 +335,26 @@ export default function AIAgentsTabs() {
                   </div>
                 </>
               )}
+              {activeTab === 'sebi-query' && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm">4,923+ Entities</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm">Multi-Segment Search</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm">Real-time Verification</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm">AI-Powered Queries</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -313,7 +362,7 @@ export default function AIAgentsTabs() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Enter Suspicious Content for Analysis
+                {activeTab === 'sebi-query' ? 'Search SEBI Registry' : 'Enter Suspicious Content for Analysis'}
               </label>
               <textarea
                 className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
@@ -323,7 +372,9 @@ export default function AIAgentsTabs() {
                     "Paste YouTube URL, transcript, or description of suspicious video/audio..." :
                   activeTab === 'social' ? 
                     "Paste WhatsApp/Telegram message or social media post..." :
-                    "Paste corporate announcement or news..."
+                  activeTab === 'announcement' ?
+                    "Paste corporate announcement or news..." :
+                    "Search SEBI's official registry database...\n\nExample searches:\n• Verify if Zerodha is SEBI registered\n• List all Alternative Investment Funds\n• Find multi-segment financial operators\n• Search brokers with 'Capital' in name\n• Get database statistics and insights"
                 }
                 value={inputContent}
                 onChange={(e) => setInputContent(e.target.value)}
@@ -343,8 +394,11 @@ export default function AIAgentsTabs() {
                   </>
                 ) : (
                   <>
-                    <Shield className="w-5 h-5" />
-                    Analyze for Fraud
+                    {activeTab === 'sebi-query' ? (
+                      <><Search className="w-5 h-5" />Verify in SEBI Registry</>
+                    ) : (
+                      <><Shield className="w-5 h-5" />Analyze for Fraud</>
+                    )}
                   </>
                 )}
               </button>
@@ -367,8 +421,10 @@ export default function AIAgentsTabs() {
               className="mt-8 p-6 bg-gray-50 rounded-xl border-2 border-gray-200"
             >
               <div className="flex items-start justify-between mb-4">
-                <h4 className="text-lg font-bold text-gray-900">Analysis Result</h4>
-                {getRiskIndicator(analysisResult)}
+                <h4 className="text-lg font-bold text-gray-900">
+                  {activeTab === 'sebi-query' ? 'SEBI Registry Results' : 'Analysis Result'}
+                </h4>
+                {activeTab !== 'sebi-query' && getRiskIndicator(analysisResult)}
               </div>
 
               {analysisResult.error ? (
@@ -412,15 +468,70 @@ export default function AIAgentsTabs() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {/* Main Message */}
-                  <div className={`p-4 rounded-lg ${
-                    analysisResult.message?.includes('CRITICAL') ? 'bg-red-50 border-2 border-red-300 text-red-700' :
-                    analysisResult.message?.includes('HIGH RISK') ? 'bg-orange-50 border-2 border-orange-300 text-orange-700' :
-                    analysisResult.message?.includes('MEDIUM RISK') ? 'bg-yellow-50 border-2 border-yellow-300 text-yellow-700' :
-                    'bg-green-50 border-2 border-green-300 text-green-700'
-                  }`}>
-                    <p className="font-medium text-lg">{analysisResult.message}</p>
-                  </div>
+                  {/* SEBI Query Answer */}
+                  {activeTab === 'sebi-query' && analysisResult.answer && (
+                    <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-5 border border-indigo-200">
+                      <div className="prose prose-sm max-w-none">
+                        <div className="text-gray-800 whitespace-pre-wrap">
+                          {analysisResult.answer}
+                        </div>
+                      </div>
+                      
+                      {/* Registry Info */}
+                      {analysisResult.query_type ? (
+                        <div className="mt-4 pt-4 border-t border-indigo-200">
+                          <div className="flex flex-wrap gap-4 text-sm">
+                            <div>
+                              <span className="text-gray-600">Search Type:</span>
+                              <span className="ml-2 font-semibold text-indigo-700">
+                                {analysisResult.query_type.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())}
+                              </span>
+                            </div>
+                            {analysisResult.data_count !== undefined && (
+                              <div>
+                                <span className="text-gray-600">Entities Found:</span>
+                                <span className="ml-2 font-semibold text-indigo-700">
+                                  {analysisResult.data_count}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : null}
+                      
+                      {/* Registry Data Preview */}
+                      {analysisResult.raw_data && Array.isArray(analysisResult.raw_data) && analysisResult.raw_data.length > 0 ? (
+                        <div className="mt-4 pt-4 border-t border-indigo-200">
+                          <h5 className="text-sm font-semibold text-indigo-900 mb-2">Verified Entities:</h5>
+                          <div className="space-y-2">
+                            {(analysisResult.raw_data as Array<Record<string, unknown>>).slice(0, 3).map((item, idx) => (
+                              <div key={idx} className="bg-white/70 rounded-lg p-3 text-sm">
+                                <div className="font-semibold text-gray-900">{String(item.name || '')}</div>
+                                <div className="text-gray-600">Reg: {String(item.registrationNumber || '')}</div>
+                                {item.segments && Array.isArray(item.segments) ? (
+                                  <div className="text-xs mt-1">
+                                    <span className="text-indigo-600">Segments: {(item.segments as string[]).join(', ')}</span>
+                                  </div>
+                                ) : null}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+
+                  {/* Main Message for other agents */}
+                  {activeTab !== 'sebi-query' && analysisResult.message && (
+                    <div className={`p-4 rounded-lg ${
+                      analysisResult.message?.includes('CRITICAL') ? 'bg-red-50 border-2 border-red-300 text-red-700' :
+                      analysisResult.message?.includes('HIGH RISK') ? 'bg-orange-50 border-2 border-orange-300 text-orange-700' :
+                      analysisResult.message?.includes('MEDIUM RISK') ? 'bg-yellow-50 border-2 border-yellow-300 text-yellow-700' :
+                      'bg-green-50 border-2 border-green-300 text-green-700'
+                    }`}>
+                      <p className="font-medium text-lg">{analysisResult.message}</p>
+                    </div>
+                  )}
 
                   {/* Video Content Summary */}
                   {analysisResult.detailed?.contentSummary && (

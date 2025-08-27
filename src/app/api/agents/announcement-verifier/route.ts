@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
       } else {
         verification = performBasicVerification(announcement, company);
       }
-    } catch (e) {
+    } catch {
       verification = performBasicVerification(announcement, company);
     }
 
@@ -295,7 +295,7 @@ export async function PUT(request: NextRequest) {
       criticalAlerts: verifications
         .filter(v => v.alert?.level === 'CRITICAL')
         .map(v => ({
-          company: announcements[verifications.indexOf(v)]?.company,
+          company: (announcements[verifications.indexOf(v)] as Record<string, unknown>)?.company,
           alert: v.alert
         }))
     });

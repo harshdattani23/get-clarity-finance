@@ -289,7 +289,84 @@ enum NewsSentiment {
 
 enum FetchStatus {
   PENDING
+  IN_PROGRESS
   SUCCESS
   FAILED
-  TIMEOUT
+}
+
+// SEBI Registered Intermediaries
+model SEBIIntermediary {
+  id                 String   @id @default(cuid())
+  registrationNumber String   @unique
+  name              String
+  tradeName         String?
+  category          String   // broker, aif, investment_advisor, research_analyst, etc.
+  subcategory       String?  // equity, derivatives, currency, etc.
+  validity          String?
+  status            String   @default("Active")
+  
+  // Contact Information
+  email             String?
+  phone             String?
+  website           String?
+  address           String?  @db.Text
+  city              String?
+  state             String?
+  pincode           String?
+  
+  // Additional Details
+  exchanges         String[] // For brokers: NSE, BSE, etc.
+  segments          String[] // Equity, F&O, Currency, etc.
+  
+  // AIF Specific Fields
+  aifCategory       String?  // Category I, II, III
+  aifType           String?  // Venture Capital Fund, etc.
+  sponsor           String?
+  trustee           String?
+  fundManager       String?
+  
+  // Compliance
+  lastUpdated       DateTime @default(now())
+  dataSource        String   @default("SEBI")
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@index([category])
+  @@index([name])
+  @@index([registrationNumber])
+}
+
+// Track verification attempts for analytics
+model VerificationLog {
+  id                 String   @id @default(cuid())
+  searchQuery        String
+  searchType         String   // name, registration_number, etc.
+  found              Boolean
+  riskScore          Int?
+  legitimacyStatus   String?  // verified, suspicious, fraudulent, unregistered
+  intermediaryId     String?
+  userAgent          String?
+  ipAddress          String?
+  createdAt          DateTime @default(now())
+}
+
+// Store reported frauds
+model FraudReport {
+  id                 String   @id @default(cuid())
+  reportId           String   @unique
+  entityName         String
+  registrationClaim  String?
+  fraudType          String   // impersonation, unregistered, ponzi, etc.
+  riskScore          Int
+  evidence           Json?
+  reportedBy         String?  // User ID if logged in
+  status             String   @default("pending") // pending, verified, resolved
+  sebiReported       Boolean  @default(false)
+  notes              String?  @db.Text
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  
+  @@index([fraudType])
+  @@index([status])
 }

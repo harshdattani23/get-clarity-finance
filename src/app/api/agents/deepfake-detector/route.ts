@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
           technicalDetails: {}
         };
       }
-    } catch (e) {
+    } catch {
       analysis = generateFallbackAnalysis(analysisText);
     }
 
