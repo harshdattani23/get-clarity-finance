@@ -12,7 +12,7 @@ export default function Home() {
     <div className="bg-white text-gray-800">
       {/* Enhanced Hero Section with News Widget */}
       <section className="bg-[#163300] text-white relative overflow-hidden">
-        <div className="container mx-auto px-6 py-20 md:py-24">
+        <div className="container mx-auto px-6 pt-12 md:pt-14 pb-20 md:pb-24">
           <div className="grid lg:grid-cols-12 gap-8">
             {/* Left Content - Main Hero */}
             <div className="lg:col-span-7 flex flex-col items-start">
