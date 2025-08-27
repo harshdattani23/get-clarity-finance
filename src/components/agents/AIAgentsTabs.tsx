@@ -104,12 +104,8 @@ export default function AIAgentsTabs() {
   const [thinkingProgress, setThinkingProgress] = useState(0);
   const [aiThoughts, setAiThoughts] = useState<string[]>([]);
   const [detectedElements, setDetectedElements] = useState<string[]>([]);
-  const [confidenceMetrics, setConfidenceMetrics] = useState({ 
-    videoQuality: 0, 
-    audioAnalysis: 0, 
-    fraudPatterns: 0, 
-    sebiDatabase: 0 
-  });
+  const [currentChecks, setCurrentChecks] = useState<string[]>([]);
+  const [educationalTips, setEducationalTips] = useState<string[]>([]);
 
   const analyzeContent = async () => {
     if (!inputContent.trim()) return;
@@ -120,6 +116,57 @@ export default function AIAgentsTabs() {
     
     // Enhanced dynamic thinking stages
     const isVideo = inputContent.includes('youtube.com') || inputContent.includes('youtu.be/');
+    
+    // Extract potential title from URL or content for educational tips
+    let extractedTitle = '';
+    if (isVideo) {
+      // Try to extract video title from URL or content
+      if (inputContent.toLowerCase().includes('stock') || inputContent.toLowerCase().includes('investment')) {
+        extractedTitle = 'investment advice';
+      } else if (inputContent.toLowerCase().includes('trading') || inputContent.toLowerCase().includes('profit')) {
+        extractedTitle = 'trading tips';
+      } else if (inputContent.toLowerCase().includes('crypto') || inputContent.toLowerCase().includes('bitcoin')) {
+        extractedTitle = 'cryptocurrency';
+      } else {
+        extractedTitle = 'financial content';
+      }
+    }
+    
+    // Educational tips based on content type
+    const getEducationalTips = (title: string) => [
+      `💡 Remember: SEBI-registered advisors must display their registration number`,
+      `📚 Fact: Promises of guaranteed returns are illegal in Indian markets`,
+      `⚠️ Warning: Real SEBI officials never ask for money via YouTube videos`,
+      `🛡️ Tip: Always verify advisor credentials on SEBI's official website`,
+      `📖 Learn: Legitimate investment returns average 12-15% annually in equity`,
+      `🔍 Check: Deepfakes often have unnatural eye movements and lip-sync issues`,
+      `💰 Reality: "Get rich quick" schemes are almost always fraudulent`,
+      `📱 Alert: Report suspicious videos to SEBI's SCORES portal immediately`
+    ];
+    
+    // Dynamic AI checking items with proper timing
+    const aiCheckSequence = [
+      '🎥 Extracting video frames for analysis',
+      '👤 Detecting faces in video',
+      '🎭 Analyzing facial expressions and movements',
+      '👄 Checking lip-sync accuracy',
+      '👁️ Examining eye movement patterns',
+      '🎨 Detecting digital manipulation artifacts',
+      '🔊 Extracting audio for voice analysis',
+      '🎵 Analyzing voice frequency patterns',
+      '🗣️ Checking for voice cloning indicators',
+      '📝 Transcribing speech content',
+      '💰 Scanning for fraudulent claims',
+      '📊 Identifying unrealistic return promises',
+      '🏛️ Verifying against SEBI database',
+      '👔 Checking speaker identity claims',
+      '📜 Cross-referencing official records',
+      '🔗 Analyzing metadata consistency',
+      '📅 Verifying upload date authenticity',
+      '🌐 Checking channel legitimacy',
+      '⚖️ Applying fraud detection models',
+      '🧠 Running final AI validation'
+    ];
     
     // Dynamic AI thoughts that appear randomly
     const videoThoughts = [
@@ -161,51 +208,70 @@ export default function AIAgentsTabs() {
     // Start progress animation
     let stageIndex = 0;
     let thoughtIndex = 0;
+    let checkIndex = 0;
+    let tipIndex = 0;
     const thoughtsArray: string[] = [];
     const elementsArray: string[] = [];
+    const checksArray: string[] = [];
+    const tipsArray: string[] = [];
     
-    // Main stage progression
+    // Main stage progression (adjusted for 1-2 minute analysis)
+    const totalAnalysisTime = 90000; // 1.5 minutes in milliseconds
     const stageInterval = setInterval(() => {
       if (stageIndex < stages.length) {
         setThinkingStage(stages[stageIndex]);
         const progress = (stageIndex + 1) / stages.length * 100;
         setThinkingProgress(progress);
-        
-        // Update confidence metrics smoothly
-        setConfidenceMetrics({
-          videoQuality: Math.min(95, progress * 0.9 + Math.random() * 10),
-          audioAnalysis: Math.min(92, progress * 0.85 + Math.random() * 8),
-          fraudPatterns: Math.min(88, progress * 0.8 + Math.random() * 12),
-          sebiDatabase: Math.min(96, progress * 0.95 + Math.random() * 5)
-        });
-        
         stageIndex++;
       }
-    }, 1200);
+    }, totalAnalysisTime / stages.length);
     
-    // Dynamic thoughts that appear
+    // AI checking sequence (shows what AI is currently checking)
+    const checkInterval = isVideo ? setInterval(() => {
+      if (checkIndex < aiCheckSequence.length) {
+        // Keep only last 4 checks visible
+        checksArray.push(aiCheckSequence[checkIndex]);
+        setCurrentChecks([...checksArray].slice(-4));
+        checkIndex++;
+      }
+    }, totalAnalysisTime / aiCheckSequence.length) : null;
+    
+    // Educational tips (appear periodically)
+    const tips = getEducationalTips(extractedTitle);
+    const tipInterval = isVideo ? setInterval(() => {
+      if (tipIndex < tips.length && stageIndex > 1) {
+        tipsArray.push(tips[tipIndex]);
+        setEducationalTips([...tipsArray].slice(-2)); // Keep last 2 tips
+        tipIndex++;
+      }
+    }, totalAnalysisTime / tips.length) : null;
+    
+    // Dynamic thoughts that appear (adjusted timing)
     const thoughtInterval = isVideo ? setInterval(() => {
-      if (thoughtIndex < videoThoughts.length && stageIndex > 1) {
+      if (thoughtIndex < videoThoughts.length && stageIndex > 0) {
         thoughtsArray.push(videoThoughts[thoughtIndex]);
         setAiThoughts([...thoughtsArray].slice(-3)); // Keep last 3 thoughts
         thoughtIndex++;
       }
-    }, 600) : null;
+    }, totalAnalysisTime / videoThoughts.length) : null;
     
-    // Detected elements animation
+    // Detected elements animation (adjusted timing)
     const elementInterval = isVideo ? setInterval(() => {
       const elements = [
         'Voice pattern analyzed',
         'Facial landmarks mapped',
         'Background consistency checked',
         'Audio sync verified',
-        'Metadata examined'
+        'Metadata examined',
+        'Channel history reviewed',
+        'Claims documented',
+        'Risk patterns identified'
       ];
       if (elementsArray.length < elements.length) {
         elementsArray.push(elements[elementsArray.length]);
         setDetectedElements([...elementsArray]);
       }
-    }, 1000) : null;
+    }, totalAnalysisTime / 8) : null;
 
     try {
       let endpoint = '';
@@ -258,15 +324,11 @@ export default function AIAgentsTabs() {
       clearInterval(stageInterval);
       if (thoughtInterval) clearInterval(thoughtInterval);
       if (elementInterval) clearInterval(elementInterval);
+      if (checkInterval) clearInterval(checkInterval);
+      if (tipInterval) clearInterval(tipInterval);
       
       setThinkingProgress(100);
       setThinkingStage('✅ Analysis complete!');
-      setConfidenceMetrics({
-        videoQuality: 100,
-        audioAnalysis: 100,
-        fraudPatterns: 100,
-        sebiDatabase: 100
-      });
       
       // Small delay to show completion
       await new Promise(resolve => setTimeout(resolve, 800));
@@ -276,6 +338,8 @@ export default function AIAgentsTabs() {
       clearInterval(stageInterval);
       if (thoughtInterval) clearInterval(thoughtInterval);
       if (elementInterval) clearInterval(elementInterval);
+      if (checkInterval) clearInterval(checkInterval);
+      if (tipInterval) clearInterval(tipInterval);
       setAnalysisResult({ error: 'Analysis failed. Please try again.' });
     } finally {
       setIsAnalyzing(false);
@@ -283,7 +347,8 @@ export default function AIAgentsTabs() {
       setThinkingProgress(0);
       setAiThoughts([]);
       setDetectedElements([]);
-      setConfidenceMetrics({ videoQuality: 0, audioAnalysis: 0, fraudPatterns: 0, sebiDatabase: 0 });
+      setCurrentChecks([]);
+      setEducationalTips([]);
     }
   };
 
@@ -645,63 +710,47 @@ export default function AIAgentsTabs() {
                   </div>
                 )}
 
-                {/* Live Confidence Metrics */}
-                {activeTab === 'deepfake' && thinkingProgress > 20 && (
+                {/* AI Currently Checking */}
+                {currentChecks.length > 0 && (
                   <div className="mt-4 bg-white/80 rounded-lg p-4">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-3">AI Confidence Metrics</h4>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3">🔍 AI Analysis in Progress</h4>
                     <div className="space-y-2">
-                      <div>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>Video Quality Analysis</span>
-                          <span className="font-bold">{Math.round(confidenceMetrics.videoQuality)}%</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      {currentChecks.map((check, idx) => (
+                        <motion.div
+                          key={`${check}-${idx}`}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-2"
+                        >
                           <motion.div
-                            className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
-                            animate={{ width: `${confidenceMetrics.videoQuality}%` }}
-                            transition={{ duration: 0.5 }}
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 1, repeat: Infinity }}
+                            className="w-2 h-2 bg-indigo-500 rounded-full"
                           />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>Audio Pattern Detection</span>
-                          <span className="font-bold">{Math.round(confidenceMetrics.audioAnalysis)}%</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-green-400 to-green-600"
-                            animate={{ width: `${confidenceMetrics.audioAnalysis}%` }}
-                            transition={{ duration: 0.5 }}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>Fraud Pattern Matching</span>
-                          <span className="font-bold">{Math.round(confidenceMetrics.fraudPatterns)}%</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-orange-400 to-orange-600"
-                            animate={{ width: `${confidenceMetrics.fraudPatterns}%` }}
-                            transition={{ duration: 0.5 }}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>SEBI Database Check</span>
-                          <span className="font-bold">{Math.round(confidenceMetrics.sebiDatabase)}%</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-purple-400 to-purple-600"
-                            animate={{ width: `${confidenceMetrics.sebiDatabase}%` }}
-                            transition={{ duration: 0.5 }}
-                          />
-                        </div>
-                      </div>
+                          <span className="text-sm text-gray-700">{check}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Educational Tips */}
+                {educationalTips.length > 0 && (
+                  <div className="mt-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200">
+                    <h4 className="text-sm font-semibold text-amber-900 mb-2">💡 While you wait, learn about fraud detection:</h4>
+                    <div className="space-y-2">
+                      {educationalTips.map((tip, idx) => (
+                        <motion.div
+                          key={`${tip}-${idx}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="text-sm text-amber-800"
+                        >
+                          {tip}
+                        </motion.div>
+                      ))}
                     </div>
                   </div>
                 )}
