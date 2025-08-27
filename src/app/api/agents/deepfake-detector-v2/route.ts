@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Initialize Google GenAI
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+    });
 
     // Detect input type
     const inputContent = transcript || mediaUrl || '';
@@ -87,6 +89,7 @@ Provide analysis in JSON format with:
       ],
     };
 
+    const model = process.env.GEMINI_MODEL_NAME || 'gemini-1.5-flash';
     
     // Prepare content based on input type
     let contents;
@@ -125,19 +128,22 @@ Provide analysis in JSON format with:
     // Log for debugging
     console.log('Analyzing content:', isYouTubeVideo ? videoUrl : 'Text content');
     console.log('Session ID:', sessionId);
-    console.log('Using model:', process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash');
+    console.log('Using model:', model);
 
-    // Generate response using model
-    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME || "gemini-2.0-flash" });
-    
-    // Create prompt from content
-    const prompt = config.systemInstruction[0].text + "\n\n" + (isYouTubeVideo ? videoUrl : inputContent);
-    
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
+    // Generate response using streaming
+    const response = await ai.models.generateContentStream({
+      model,
+      config,
+      contents,
+    });
 
-    // Get the response text
-    const fullResponse = response.text();
+    // Collect the streamed response
+    let fullResponse = '';
+    for await (const chunk of response) {
+      if (chunk.text) {
+        fullResponse += chunk.text;
+      }
+    }
 
     console.log('Raw AI Response:', fullResponse);
 
