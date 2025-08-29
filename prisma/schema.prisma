@@ -16,13 +16,14 @@ model User {
   updatedAt            DateTime              @updatedAt
   onboarded            Boolean               @default(false)
   virtualCash          Decimal               @default(100000.00)
+  CourseEnrollment     CourseEnrollment[]
   courseProgress       CourseProgress[]
+  leaderboardEntries   LeaderboardEntry[]
   holdings             PortfolioHolding[]
+  tradingStats         TradingStats?
+  achievements         UserAchievement[]
   virtualTrades        VirtualTrade[]
   watchlists           Watchlist[]
-  leaderboardEntries   LeaderboardEntry[]
-  achievements         UserAchievement[]
-  tradingStats         TradingStats?
 }
 
 model CourseProgress {
@@ -87,63 +88,45 @@ model Stock {
   ticker        String    @unique
   name          String
   industry      String?
-  marketCap     Decimal?
   indices       String[]
   price         Decimal?
   change        Decimal?
   percentChange Decimal?
   volume        Decimal?
+  lastUpdatedAt DateTime?
   avgVolume     Decimal?
-  peRatio       Decimal?
-  eps           Decimal?
-  dividendYield Decimal?
   beta          Decimal?
+  ceo           String?
+  close         Decimal?
+  description   String?
+  dividendYield Decimal?
+  employees     Int?
+  eps           Decimal?
+  headquarters  String?
   high          Decimal?
   low           Decimal?
   open          Decimal?
-  close         Decimal?
-  previousClose Decimal?
-  description   String?
+  peRatio       Decimal?
   sector        String?
   website       String?
-  ceo           String?
-  headquarters  String?
-  employees     Int?
-  lastUpdatedAt DateTime?
+  marketCap     Decimal?
   week52High    Decimal?
   week52Low     Decimal?
+  previousClose Decimal?
 }
 
-enum InvestmentExperience {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum CourseStatus {
-  NOT_STARTED
-  IN_PROGRESS
-  COMPLETED
-}
-
-enum TradeType {
-  BUY
-  SELL
-}
-
-// Leaderboard and Achievement Models
 model LeaderboardEntry {
-  id              Int                @id @default(autoincrement())
-  userClerkId     String
-  period          LeaderboardPeriod
-  rank            Int
-  totalReturn     Decimal
-  winRate         Decimal
-  totalTrades     Int
+  id               Int               @id @default(autoincrement())
+  userClerkId      String
+  period           LeaderboardPeriod
+  rank             Int
+  totalReturn      Decimal
+  winRate          Decimal
+  totalTrades      Int
   profitableTrades Int
-  portfolioValue  Decimal
-  calculatedAt    DateTime           @default(now())
-  user            User              @relation(fields: [userClerkId], references: [clerkId])
+  portfolioValue   Decimal
+  calculatedAt     DateTime          @default(now())
+  user             User              @relation(fields: [userClerkId], references: [clerkId])
 
   @@unique([userClerkId, period, calculatedAt])
   @@index([period, rank])
@@ -162,22 +145,22 @@ model TradingStats {
   longestWinStreak  Int      @default(0)
   longestLossStreak Int      @default(0)
   totalVolume       Decimal  @default(0)
-  averageHoldTime   Int      @default(0) // in hours
+  averageHoldTime   Int      @default(0)
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userClerkId], references: [clerkId])
 }
 
 model Achievement {
-  id          String            @id @default(cuid())
-  name        String            @unique
+  id          String              @id @default(cuid())
+  name        String              @unique
   description String
   category    AchievementCategory
   tier        AchievementTier
-  icon        String            // emoji or icon name
-  requirement Json              // JSON object with requirements
-  points      Int               @default(10)
+  icon        String
+  requirement Json
+  points      Int                 @default(10)
+  createdAt   DateTime            @default(now())
   users       UserAchievement[]
-  createdAt   DateTime          @default(now())
 }
 
 model UserAchievement {
@@ -185,11 +168,354 @@ model UserAchievement {
   userClerkId   String
   achievementId String
   unlockedAt    DateTime    @default(now())
-  progress      Int         @default(0) // Progress percentage (0-100)
-  user          User        @relation(fields: [userClerkId], references: [clerkId])
+  progress      Int         @default(0)
   achievement   Achievement @relation(fields: [achievementId], references: [id])
+  user          User        @relation(fields: [userClerkId], references: [clerkId])
 
   @@unique([userClerkId, achievementId])
+}
+
+model NewsItem {
+  id          String         @id @default(cuid())
+  title       String
+  summary     String
+  sector      String?
+  sentiment   NewsSentiment  @default(NEUTRAL)
+  language    String         @default("en")
+  publishedAt DateTime       @default(now())
+  fetchedAt   DateTime       @default(now())
+  expiresAt   DateTime
+  keyPoints   NewsKeyPoint[]
+  sources     NewsSource[]
+  tickers     NewsTicker[]
+
+  @@index([sector, publishedAt])
+  @@index([fetchedAt])
+  @@index([expiresAt])
+}
+
+model NewsKeyPoint {
+  id         String   @id @default(cuid())
+  newsItemId String
+  point      String
+  order      Int
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+
+  @@index([newsItemId])
+}
+
+model NewsTicker {
+  id         String   @id @default(cuid())
+  newsItemId String
+  ticker     String
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+
+  @@index([newsItemId])
+  @@index([ticker])
+}
+
+model NewsSource {
+  id         String   @id @default(cuid())
+  newsItemId String
+  url        String
+  domain     String
+  title      String?
+  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
+
+  @@index([newsItemId])
+}
+
+model NewsFetchLog {
+  id          String      @id @default(cuid())
+  sector      String?
+  topics      String[]
+  status      FetchStatus
+  itemsCount  Int         @default(0)
+  error       String?
+  startedAt   DateTime    @default(now())
+  completedAt DateTime?
+
+  @@index([status, startedAt])
+}
+
+model SEBIIntermediary {
+  id                 String   @id @default(cuid())
+  registrationNumber String   @unique
+  name               String
+  tradeName          String?
+  category           String
+  subcategory        String?
+  validity           String?
+  status             String   @default("Active")
+  email              String?
+  phone              String?
+  website            String?
+  address            String?
+  city               String?
+  state              String?
+  pincode            String?
+  exchanges          String[]
+  segments           String[]
+  aifCategory        String?
+  aifType            String?
+  sponsor            String?
+  trustee            String?
+  fundManager        String?
+  lastUpdated        DateTime @default(now())
+  dataSource         String   @default("SEBI")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([category])
+  @@index([name])
+  @@index([registrationNumber])
+}
+
+model VerificationLog {
+  id               String   @id @default(cuid())
+  searchQuery      String
+  searchType       String
+  found            Boolean
+  riskScore        Int?
+  legitimacyStatus String?
+  intermediaryId   String?
+  userAgent        String?
+  ipAddress        String?
+  createdAt        DateTime @default(now())
+}
+
+model FraudReport {
+  id                String   @id @default(cuid())
+  reportId          String   @unique
+  entityName        String
+  registrationClaim String?
+  fraudType         String
+  riskScore         Int
+  evidence          Json?
+  reportedBy        String?
+  status            String   @default("pending")
+  sebiReported      Boolean  @default(false)
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([fraudType])
+  @@index([status])
+}
+
+model Course {
+  id               String             @id
+  slug             String             @unique
+  category         String
+  difficulty       CourseDifficulty   @default(BEGINNER)
+  estimatedHours   Int                @default(1)
+  xpReward         Int                @default(100)
+  isPublished      Boolean            @default(false)
+  order            Int                @default(0)
+  imageUrl         String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  CourseEnrollment CourseEnrollment[]
+  CourseModule     CourseModule[]
+
+  @@index([category])
+  @@index([isPublished])
+}
+
+model CourseBadge {
+  id               String             @id
+  slug             String             @unique
+  icon             String
+  criteria         Json
+  xpValue          Int                @default(100)
+  createdAt        DateTime           @default(now())
+  CourseEnrollment CourseEnrollment[]
+}
+
+model CourseEnrollment {
+  id             String           @id
+  userClerkId    String
+  courseId       String
+  status         EnrollmentStatus @default(ENROLLED)
+  startedAt      DateTime         @default(now())
+  completedAt    DateTime?
+  currentStreak  Int              @default(0)
+  totalXpEarned  Int              @default(0)
+  preferredLang  String           @default("en")
+  Course         Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  User           User             @relation(fields: [userClerkId], references: [clerkId], onDelete: Cascade)
+  LessonProgress LessonProgress[]
+  ModuleProgress ModuleProgress[]
+  QuizAttempt    QuizAttempt[]
+  CourseBadge    CourseBadge[]
+
+  @@unique([userClerkId, courseId])
+  @@index([courseId])
+  @@index([userClerkId])
+}
+
+model CourseLesson {
+  id                String              @id
+  moduleId          String
+  slug              String
+  lessonType        LessonType          @default(CONTENT)
+  order             Int                 @default(0)
+  xpReward          Int                 @default(25)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime
+  CourseModule      CourseModule        @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  CourseQuiz        CourseQuiz?
+  LessonInteraction LessonInteraction[]
+  LessonProgress    LessonProgress[]
+
+  @@unique([moduleId, order])
+  @@unique([moduleId, slug])
+  @@index([moduleId])
+}
+
+model CourseModule {
+  id           String         @id
+  courseId     String
+  title        String         @default("Untitled")
+  slug         String
+  order        Int            @default(0)
+  difficulty   CourseDifficulty @default(BEGINNER)
+  xpReward     Int            @default(50)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  CourseLesson CourseLesson[]
+  Course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, order])
+  @@unique([courseId, slug])
+  @@index([courseId])
+}
+
+model CourseQuiz {
+  id           String         @id
+  lessonId     String         @unique
+  passingScore Int            @default(70)
+  xpReward     Int            @default(50)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  CourseLesson CourseLesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  QuizAttempt  QuizAttempt[]
+  QuizQuestion QuizQuestion[]
+}
+
+model LessonInteraction {
+  id                      String                    @id
+  lessonId                String
+  slug                    String
+  interactionType         InteractionType
+  correctResponse         String?
+  xpReward                Int                       @default(10)
+  order                   Int                       @default(0)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime
+  CourseLesson            CourseLesson              @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  UserInteractionResponse UserInteractionResponse[]
+
+  @@unique([lessonId, slug])
+  @@index([lessonId])
+}
+
+model LessonProgress {
+  id                      String                    @id
+  enrollmentId            String
+  lessonId                String
+  status                  ProgressStatus            @default(NOT_STARTED)
+  startedAt               DateTime?
+  completedAt             DateTime?
+  xpEarned                Int                       @default(0)
+  timeSpent               Int                       @default(0)
+  CourseEnrollment        CourseEnrollment          @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  CourseLesson            CourseLesson              @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  UserInteractionResponse UserInteractionResponse[]
+
+  @@unique([enrollmentId, lessonId])
+  @@index([enrollmentId])
+  @@index([lessonId])
+}
+
+model ModuleProgress {
+  id               String           @id
+  enrollmentId     String
+  moduleId         String
+  status           ProgressStatus   @default(NOT_STARTED)
+  startedAt        DateTime?
+  completedAt      DateTime?
+  xpEarned         Int              @default(0)
+  CourseEnrollment CourseEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, moduleId])
+  @@index([enrollmentId])
+}
+
+model QuizAttempt {
+  id               String           @id
+  enrollmentId     String
+  quizId           String
+  score            Int
+  passed           Boolean
+  answers          Json
+  xpEarned         Int              @default(0)
+  attemptNumber    Int              @default(1)
+  startedAt        DateTime         @default(now())
+  completedAt      DateTime?
+  CourseEnrollment CourseEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  CourseQuiz       CourseQuiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@index([enrollmentId])
+  @@index([quizId])
+}
+
+model QuizQuestion {
+  id              String       @id
+  quizId          String
+  slug            String
+  questionType    QuestionType @default(MULTIPLE_CHOICE)
+  correctOptionId String?
+  order           Int          @default(0)
+  points          Int          @default(10)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime
+  CourseQuiz      CourseQuiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@unique([quizId, slug])
+  @@index([quizId])
+}
+
+model UserInteractionResponse {
+  id                String            @id
+  progressId        String
+  interactionId     String
+  response          String
+  isCorrect         Boolean?
+  xpEarned          Int               @default(0)
+  createdAt         DateTime          @default(now())
+  LessonInteraction LessonInteraction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+  LessonProgress    LessonProgress    @relation(fields: [progressId], references: [id], onDelete: Cascade)
+
+  @@index([interactionId])
+  @@index([progressId])
+}
+
+enum InvestmentExperience {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CourseStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TradeType {
+  BUY
+  SELL
 }
 
 enum LeaderboardPeriod {
@@ -217,70 +543,6 @@ enum AchievementTier {
   DIAMOND
 }
 
-// News Models
-model NewsItem {
-  id            String          @id @default(cuid())
-  title         String
-  summary       String          @db.Text
-  sector        String?         // banking, it, pharma, auto, regulatory, etc.
-  sentiment     NewsSentiment   @default(NEUTRAL)
-  language      String          @default("en")
-  publishedAt   DateTime        @default(now())
-  fetchedAt     DateTime        @default(now())
-  expiresAt     DateTime        // When this news item should be considered stale
-  keyPoints     NewsKeyPoint[]
-  tickers       NewsTicker[]
-  sources       NewsSource[]
-  
-  @@index([sector, publishedAt])
-  @@index([fetchedAt])
-  @@index([expiresAt])
-}
-
-model NewsKeyPoint {
-  id         String   @id @default(cuid())
-  newsItemId String
-  point      String   @db.Text
-  order      Int
-  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
-  
-  @@index([newsItemId])
-}
-
-model NewsTicker {
-  id         String   @id @default(cuid())
-  newsItemId String
-  ticker     String
-  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
-  
-  @@index([newsItemId])
-  @@index([ticker])
-}
-
-model NewsSource {
-  id         String   @id @default(cuid())
-  newsItemId String
-  url        String
-  domain     String
-  title      String?
-  newsItem   NewsItem @relation(fields: [newsItemId], references: [id], onDelete: Cascade)
-  
-  @@index([newsItemId])
-}
-
-model NewsFetchLog {
-  id          String   @id @default(cuid())
-  sector      String?
-  topics      String[] // Array of topics fetched
-  status      FetchStatus
-  itemsCount  Int      @default(0)
-  error       String?  @db.Text
-  startedAt   DateTime @default(now())
-  completedAt DateTime?
-  
-  @@index([status, startedAt])
-}
-
 enum NewsSentiment {
   POSITIVE
   NEUTRAL
@@ -294,79 +556,44 @@ enum FetchStatus {
   FAILED
 }
 
-// SEBI Registered Intermediaries
-model SEBIIntermediary {
-  id                 String   @id @default(cuid())
-  registrationNumber String   @unique
-  name              String
-  tradeName         String?
-  category          String   // broker, aif, investment_advisor, research_analyst, etc.
-  subcategory       String?  // equity, derivatives, currency, etc.
-  validity          String?
-  status            String   @default("Active")
-  
-  // Contact Information
-  email             String?
-  phone             String?
-  website           String?
-  address           String?  @db.Text
-  city              String?
-  state             String?
-  pincode           String?
-  
-  // Additional Details
-  exchanges         String[] // For brokers: NSE, BSE, etc.
-  segments          String[] // Equity, F&O, Currency, etc.
-  
-  // AIF Specific Fields
-  aifCategory       String?  // Category I, II, III
-  aifType           String?  // Venture Capital Fund, etc.
-  sponsor           String?
-  trustee           String?
-  fundManager       String?
-  
-  // Compliance
-  lastUpdated       DateTime @default(now())
-  dataSource        String   @default("SEBI")
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  
-  @@index([category])
-  @@index([name])
-  @@index([registrationNumber])
+enum CourseDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
 }
 
-// Track verification attempts for analytics
-model VerificationLog {
-  id                 String   @id @default(cuid())
-  searchQuery        String
-  searchType         String   // name, registration_number, etc.
-  found              Boolean
-  riskScore          Int?
-  legitimacyStatus   String?  // verified, suspicious, fraudulent, unregistered
-  intermediaryId     String?
-  userAgent          String?
-  ipAddress          String?
-  createdAt          DateTime @default(now())
+enum EnrollmentStatus {
+  ENROLLED
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
 }
 
-// Store reported frauds
-model FraudReport {
-  id                 String   @id @default(cuid())
-  reportId           String   @unique
-  entityName         String
-  registrationClaim  String?
-  fraudType          String   // impersonation, unregistered, ponzi, etc.
-  riskScore          Int
-  evidence           Json?
-  reportedBy         String?  // User ID if logged in
-  status             String   @default("pending") // pending, verified, resolved
-  sebiReported       Boolean  @default(false)
-  notes              String?  @db.Text
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  
-  @@index([fraudType])
-  @@index([status])
+enum InteractionType {
+  SCENARIO
+  DECISION
+  VERIFICATION
+  DRAG_DROP
+  SIMULATION
+}
+
+enum LessonType {
+  CONTENT
+  QUIZ
+  INTERACTIVE
+  VIDEO
+  SCENARIO
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  SCENARIO
+  VERIFICATION
 }

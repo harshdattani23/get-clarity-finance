@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: '/fraud-protection', key: 'fraudProtection' },
-    { href: '/stock-market-course', key: 'stockMarketCourse' },
+    { href: '/fraud-awareness-course', key: 'fraudAwarenessCourse' },
     { href: '/virtual-trading', key: 'virtualTrading' },
   ];
 

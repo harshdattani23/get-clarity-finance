@@ -19,8 +19,8 @@ export default function HowItWorks() {
     },
     {
       icon: <BookOpen className="w-8 h-8" />,
-      title: "Learn at Your Pace",
-      description: "Access 50+ courses from basics to advanced strategies.",
+      title: "Learn Market Basics",
+      description: "Understand stock market fundamentals and trading strategies.",
       color: "purple"
     },
     {
@@ -95,10 +95,10 @@ export default function HowItWorks() {
               Get Started Free
             </Link>
             <Link 
-              href="/stock-market-course" 
+              href="/virtual-trading" 
               className="bg-white text-[#163300] border-2 border-[#163300] px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors"
             >
-              Browse Courses
+              Start Trading
             </Link>
           </div>
         </div>

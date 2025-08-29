@@ -27,14 +27,6 @@ export default function FeatureShowcase() {
       color: "blue"
     },
     {
-      icon: <BookOpen className="w-6 h-6" />,
-      title: "Comprehensive Course Library",
-      description: "50+ structured courses from basics to advanced trading strategies, tailored for Indian markets",
-      benefits: ["Beginner to Pro levels", "Hindi & English", "Interactive quizzes"],
-      link: "/stock-market-course",
-      color: "green"
-    },
-    {
       icon: <TrendingUp className="w-6 h-6" />,
       title: "Risk-Free Virtual Trading",
       description: "Learn by doing virtual trades in real market conditions - not with real money, completely risk-free",
