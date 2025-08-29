@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = await auth();
+    const session = await auth();
+    const userId = session?.userId;
     const searchParams = request.nextUrl.searchParams;
     const period = searchParams.get('period') || 'WEEKLY';
     const limit = parseInt(searchParams.get('limit') || '100');
@@ -83,7 +84,8 @@ export async function GET(request: NextRequest) {
 // Update leaderboard (called by cron job or after trades)
 export async function POST() {
   try {
-    const { userId } = await auth();
+    const session = await auth();
+    const userId = session?.userId;
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

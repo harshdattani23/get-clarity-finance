@@ -3,6 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import type { NextPage } from 'next';
+import type { JSX } from 'react';
+
 import { 
   Shield, 
   AlertTriangle, 
@@ -43,6 +45,13 @@ interface Module {
     completed: boolean;
   }[];
   color: string;
+}
+
+interface FetchedModule {
+  id: string;
+  slug: string;
+  locked: boolean;
+  progress: string;
 }
 
 const FraudAwarenessCoursePage: NextPage = () => {
@@ -244,7 +253,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
         }
 
         if (modulesRes.ok) {
-          const fetchedModules = await modulesRes.json();
+          const fetchedModules: FetchedModule[] = await modulesRes.json();
           setModules(currentModules =>
             currentModules.map(module => {
               const fetchedModule = fetchedModules.find(fm => fm.slug === module.id);

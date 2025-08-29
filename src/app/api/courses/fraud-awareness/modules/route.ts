@@ -5,7 +5,8 @@ import { CourseDifficulty, ProgressStatus } from '@prisma/client';
 
 export async function GET() {
   try {
-    const { userId } = auth();
+    const session = await auth();
+    const userId = session?.userId;
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -29,7 +30,7 @@ export async function GET() {
     }
 
     const userEnrollment = await db.courseEnrollment.findUnique({
-        where: { userClerkId_courseId: { userId, courseId: course.id } },
+        where: { userClerkId_courseId: { userClerkId: userId, courseId: course.id } },
         include: { ModuleProgress: true },
     });
 
