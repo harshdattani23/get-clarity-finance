@@ -5,8 +5,7 @@ import { CourseDifficulty, ProgressStatus } from '@prisma/client';
 
 export async function GET() {
   try {
-    const session = await auth();
-    const userId = session?.userId;
+    const { userId } = await auth();
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -18,6 +17,11 @@ export async function GET() {
       where: { slug: courseSlug },
       include: {
         CourseModule: {
+          include: {
+            CourseLesson: {
+              select: { id: true },
+            },
+          },
           orderBy: {
             order: 'asc',
           },
@@ -30,33 +34,40 @@ export async function GET() {
     }
 
     const userEnrollment = await db.courseEnrollment.findUnique({
-        where: { userClerkId_courseId: { userClerkId: userId, courseId: course.id } },
-        include: { ModuleProgress: true },
+      where: { userClerkId_courseId: { userClerkId: userId, courseId: course.id } },
+      include: {
+        ModuleProgress: true,
+        LessonProgress: {
+          where: { status: ProgressStatus.COMPLETED },
+          select: { lessonId: true },
+        },
+      },
     });
 
     const moduleProgressMap = new Map(
-      userEnrollment?.ModuleProgress.map((p) => [p.moduleId, p.status])
+      userEnrollment?.ModuleProgress.map(p => [p.moduleId, p.status])
+    );
+
+    const completedLessonIds = new Set(
+      userEnrollment?.LessonProgress.map(lp => lp.lessonId) || []
     );
 
     const beginnerModules = course.CourseModule.filter(
-      (m) => m.difficulty === CourseDifficulty.BEGINNER
+      m => m.difficulty === CourseDifficulty.BEGINNER
     );
     const intermediateModules = course.CourseModule.filter(
-      (m) => m.difficulty === CourseDifficulty.INTERMEDIATE
-    );
-    const advancedModules = course.CourseModule.filter(
-      (m) => m.difficulty === CourseDifficulty.ADVANCED
+      m => m.difficulty === CourseDifficulty.INTERMEDIATE
     );
 
     const allBeginnerCompleted = beginnerModules.every(
-      (m) => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
+      m => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
     );
 
     const allIntermediateCompleted = intermediateModules.every(
-      (m) => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
+      m => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
     );
 
-    const processedModules = course.CourseModule.map((module) => {
+    const processedModules = course.CourseModule.map(module => {
       let locked = true;
       if (module.difficulty === CourseDifficulty.BEGINNER) {
         locked = false;
@@ -73,9 +84,19 @@ export async function GET() {
         locked = false;
       }
 
+      const totalLessons = module.CourseLesson.length;
+      const completedLessons = module.CourseLesson.filter(l =>
+        completedLessonIds.has(l.id)
+      ).length;
+      const progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
       return {
-        ...module,
-        progress: moduleProgressMap.get(module.id) || ProgressStatus.NOT_STARTED,
+        id: module.id,
+        slug: module.slug,
+        title: module.title,
+        difficulty: module.difficulty,
+        order: module.order,
+        progress,
         locked,
       };
     });

@@ -19,6 +19,23 @@ export default function IntroToFraudsPage() {
   const [currentSection, setCurrentSection] = useState<'overview' | 'simulator' | 'quiz'>('overview');
   const [lessonProgress, setLessonProgress] = useState(33);
 
+  const handleCompleteLesson = async () => {
+    try {
+      await fetch('/api/lessons/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          lessonId: 'intro-to-frauds', // Assuming the lesson slug is the ID
+          courseId: 'clx2no2g0000008l8g8r8g8r8', // The ID from the seed script
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to mark lesson as complete', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -98,6 +115,7 @@ export default function IntroToFraudsPage() {
               onClick={() => {
                 setCurrentSection('quiz');
                 setLessonProgress(100);
+                handleCompleteLesson();
               }}
               className={`py-3 px-4 border-b-2 transition-colors ${
                 currentSection === 'quiz'
@@ -234,6 +252,7 @@ export default function IntroToFraudsPage() {
                 onClick={() => {
                   setCurrentSection('quiz');
                   setLessonProgress(100);
+                  handleCompleteLesson();
                   window.scrollTo(0, 0);
                 }}
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"

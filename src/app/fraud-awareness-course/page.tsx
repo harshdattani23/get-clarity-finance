@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import type { NextPage } from 'next';
 import type { JSX } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 import { 
   Shield, 
@@ -25,7 +26,8 @@ import {
   MessageSquareWarning,
   DollarSign,
   Repeat,
-  Briefcase
+  Briefcase,
+  Search
 } from 'lucide-react';
 
 interface Module {
@@ -51,10 +53,11 @@ interface FetchedModule {
   id: string;
   slug: string;
   locked: boolean;
-  progress: string;
+  progress: number;
 }
 
 const FraudAwarenessCoursePage: NextPage = () => {
+  const { t } = useTranslation('fraud-awareness-course');
   const [modules, setModules] = useState<Module[]>([
     {
       id: 'intro-to-frauds',
@@ -229,6 +232,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
   const [courseStats, setCourseStats] = useState({ totalModules: 6, totalTime: 5 });
   const [showAnimation, setShowAnimation] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Simulate loading animation
@@ -261,7 +265,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
                 return {
                   ...module,
                   locked: fetchedModule.locked,
-                  // Note: progress calculation would also go here if the API provided it
+                  progress: fetchedModule.progress,
                 };
               }
               return module;
@@ -285,11 +289,18 @@ const FraudAwarenessCoursePage: NextPage = () => {
 
     return modules
       .filter(module => {
-        if (activeFilter === 'All') return true;
-        return module.difficulty === activeFilter;
+        const title = t(`modules.${module.id}.title`) as string;
+        const description = t(`modules.${module.id}.description`) as string;
+        const searchMatch =
+          title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          description.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const filterMatch = activeFilter === 'All' || module.difficulty === activeFilter;
+
+        return searchMatch && filterMatch;
       })
       .sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
-  }, [modules, activeFilter]);
+  }, [modules, activeFilter, searchTerm, t]);
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; border: string; text: string; light: string }> = {
@@ -383,15 +394,15 @@ const FraudAwarenessCoursePage: NextPage = () => {
           <div className="max-w-4xl">
             <div className="flex items-center gap-2 mb-6">
               <Shield className="w-10 h-10 text-lime-400" />
-              <span className="text-lime-400 font-semibold text-sm uppercase tracking-wide">Protect Your Investments</span>
+              <span className="text-lime-400 font-semibold text-sm uppercase tracking-wide">{t('hero.supertitle') as string}</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Fraud Awareness Course
+              {t('hero.title') as string}
             </h1>
             
             <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl">
-              Master the art of identifying and avoiding stock market frauds with real case studies from SEBI's database
+              {t('hero.subtitle') as string}
             </p>
 
           {/* Stats Bar */}
@@ -399,28 +410,28 @@ const FraudAwarenessCoursePage: NextPage = () => {
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Trophy className="w-5 h-5 text-lime-400" />
-                <span className="text-sm text-white/70">Your Level</span>
+                <span className="text-sm text-white/70">{t('hero.stats.level') as string}</span>
               </div>
               <p className="text-2xl font-bold">Level {userLevel}</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Zap className="w-5 h-5 text-lime-400" />
-                <span className="text-sm text-white/70">Total XP</span>
+                <span className="text-sm text-white/70">{t('hero.stats.xp') as string}</span>
               </div>
               <p className="text-2xl font-bold">{totalXP} XP</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Target className="w-5 h-5 text-lime-400" />
-                <span className="text-sm text-white/70">Modules</span>
+                <span className="text-sm text-white/70">{t('hero.stats.modules') as string}</span>
               </div>
               <p className="text-2xl font-bold">{courseStats.totalModules} Modules</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="w-5 h-5 text-lime-400" />
-                <span className="text-sm text-white/70">Total Time</span>
+                <span className="text-sm text-white/70">{t('hero.stats.time') as string}</span>
               </div>
               <p className="text-2xl font-bold">{courseStats.totalTime} Hours</p>
             </div>
@@ -430,16 +441,23 @@ const FraudAwarenessCoursePage: NextPage = () => {
           <div className="flex flex-wrap gap-3">
             <span className="px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-sm flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-lime-400" />
-              Interactive Simulations
+              {t('hero.previews.simulations') as string}
             </span>
             <span className="px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-sm flex items-center gap-2">
               <MessageSquareWarning className="w-4 h-4 text-lime-400" />
-              Case Studies
+              {t('hero.previews.cases') as string}
             </span>
             <span className="px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-sm flex items-center gap-2">
               <Award className="w-4 h-4 text-lime-400" />
-              Earn Certificates
+              {t('hero.previews.certificates') as string}
             </span>
+            <Link
+              href="/achievements"
+              className="px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-sm flex items-center gap-2 text-white hover:bg-white/30 transition-colors"
+            >
+              <Trophy className="w-4 h-4 text-lime-400" />
+              {t('hero.previews.achievements') as string}
+            </Link>
           </div>
         </div>
         </div>
@@ -448,21 +466,33 @@ const FraudAwarenessCoursePage: NextPage = () => {
       {/* Course Modules */}
       <div className="container mx-auto px-6 py-12">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Course Modules</h2>
-          <div className="flex justify-center gap-2">
-            {['All', 'Beginner', 'Intermediate', 'Advanced'].map(filter => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${ 
-                  activeFilter === filter
-                    ? 'bg-lime-500 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+          <h2 className="text-2xl font-bold text-gray-900">{t('modulesSection.title') as string}</h2>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder={t('filters.search') as string}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 pr-4 py-2 border rounded-full w-64"
+              />
+            </div>
+            <div className="flex justify-center gap-2">
+              {['All', 'Beginner', 'Intermediate', 'Advanced'].map(filter => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${ 
+                    activeFilter === filter
+                      ? 'bg-lime-500 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  {t(`filters.${filter.toLowerCase()}`) as string}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         
@@ -486,7 +516,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
                   onClick={() => isAccessible && setSelectedModule(module)}
                 >
                   {/* Module Header */}
-                  <div className={`p-6 ${colors.light}`}>
+                  <div className="p-6 bg-gray-50">
                     <div className="flex justify-between items-start mb-4">
                       <div className={`p-3 bg-gray-100 rounded-lg ${colors.text}`}>
                         {module.icon}
@@ -496,8 +526,8 @@ const FraudAwarenessCoursePage: NextPage = () => {
                       )}
                     </div>
                     
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{module.title}</h3>
-                    <p className="text-sm text-gray-600 mb-4">{module.description}</p>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{t(`modules.${module.id}.title`) as string}</h3>
+                    <p className="text-sm text-gray-600 mb-4">{t(`modules.${module.id}.description`) as string}</p>
                     
                     {/* Module Meta */}
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -510,14 +540,14 @@ const FraudAwarenessCoursePage: NextPage = () => {
                       </span>
                       <span className="text-xs px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full flex items-center gap-1">
                         <Zap className="w-3 h-3" />
-                        +{module.xpReward} XP
+                        {(t('module.meta.xp') as string).replace('{xpReward}', module.xpReward.toString())}
                       </span>
                     </div>
                     
                     {/* Progress Bar */}
                     <div className="mb-4">
                       <div className="flex justify-between text-xs text-gray-600 mb-1">
-                        <span>Progress</span>
+                        <span>{t('module.progress') as string}</span>
                         <span>{module.progress}%</span>
                       </div>
                       <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -540,7 +570,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
                         </div>
                       ))}
                       {module.lessons.length > 3 && (
-                        <p className="text-xs text-gray-500">+{module.lessons.length - 3} more lessons</p>
+                        <p className="text-xs text-gray-500">{(t('module.lessons_more') as string).replace('{count}', (module.lessons.length - 3).toString())}</p>
                       )}
                     </div>
                   </div>
@@ -556,11 +586,11 @@ const FraudAwarenessCoursePage: NextPage = () => {
                       disabled={!isAccessible}
                     >
                       {module.locked ? (
-                        <>Complete previous modules to unlock</>
+                        <>{t('module.button.unlock_prompt') as string}</>
                       ) : module.progress > 0 ? (
-                        <>Continue Learning <ChevronRight className="w-4 h-4" /></>
+                        <>{t('module.button.continue') as string} <ChevronRight className="w-4 h-4" /></>
                       ) : (
-                        <>Start Module <ChevronRight className="w-4 h-4" /></>
+                        <>{t('module.button.start') as string} <ChevronRight className="w-4 h-4" /></>
                       )}
                     </button>
                   </div>
@@ -580,23 +610,23 @@ const FraudAwarenessCoursePage: NextPage = () => {
               <div className="absolute bottom-10 left-10 w-40 h-40 bg-lime-400 rounded-full blur-3xl opacity-20"></div>
             </div>
             <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">Ready to Become Fraud-Proof?</h3>
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">{t('cta.title') as string}</h3>
               <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                Start with the basics and work your way up to advanced fraud detection techniques
+                {t('cta.subtitle') as string}
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link 
                   href="/fraud-awareness-course/intro-to-frauds"
                   className="inline-flex items-center gap-2 bg-lime-400 text-black px-6 py-3 rounded-full font-bold hover:bg-lime-500 transition-all transform hover:scale-105"
                 >
-                  Start First Lesson
+                  {t('cta.start_lesson') as string}
                   <ChevronRight className="w-5 h-5" />
                 </Link>
                 <Link 
                   href="/sign-up"
                   className="inline-flex items-center gap-2 bg-white text-[#163300] px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all transform hover:scale-105"
                 >
-                  Create Free Account
+                  {t('cta.create_account') as string}
                 </Link>
               </div>
             </div>

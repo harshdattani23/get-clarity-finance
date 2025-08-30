@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "supertitle": "Protect Your Investments",
+    "title": "Fraud Awareness Course",
+    "subtitle": "Master the art of identifying and avoiding stock market frauds with real case studies from SEBI's database",
+    "stats": {
+      "level": "Your Level",
+      "xp": "Total XP",
+      "modules": "Modules",
+      "time": "Total Time"
+    },
+    "previews": {
+      "simulations": "Interactive Simulations",
+      "cases": "Case Studies",
+      "certificates": "Earn Certificates",
+      "achievements": "View Achievements"
+    }
+  },
+  "modulesSection": {
+    "title": "Course Modules"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP"
+    },
+    "progress": "Progress",
+    "lessons_more": "+{count} more lessons",
+    "button": {
+      "unlock_prompt": "Complete previous modules to unlock",
+      "continue": "Continue Learning",
+      "start": "Start Module"
+    }
+  },
+  "cta": {
+    "title": "Ready to Become Fraud-Proof?",
+    "subtitle": "Start with the basics and work your way up to advanced fraud detection techniques",
+    "start_lesson": "Start First Lesson",
+    "create_account": "Create Free Account"
+  },
+  "filters": {
+    "all": "All",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "Introduction to Stock Market Frauds",
+      "description": "Learn about common fraud patterns and red flags in the Indian stock market"
+    },
+    "ponzi-schemes": {
+      "title": "Ponzi & Pyramid Schemes",
+      "description": "Understand how Ponzi schemes work and how to identify them"
+    },
+    "pump-dump": {
+      "title": "Pump & Dump Operations",
+      "description": "Learn how operators manipulate stock prices and how to avoid being trapped"
+    },
+    "insider-trading": {
+      "title": "Insider Trading & Market Manipulation",
+      "description": "Understand illegal insider trading and market manipulation tactics"
+    },
+    "fake-advisors": {
+      "title": "Fake Investment Advisors",
+      "description": "Identify unregistered advisors and tip providers"
+    },
+    "digital-frauds": {
+      "title": "Digital & Cyber Frauds",
+      "description": "Protect yourself from phishing, fake apps, and digital scams"
+    },
+    "advanced-fee-schemes": {
+      "title": "Advanced Fee & High-Yield Schemes",
+      "description": "Learn to identify schemes that promise high returns for a small upfront fee."
+    },
+    "spoofing-wash-trading": {
+      "title": "Spoofing & Wash Trading",
+      "description": "Understand complex manipulations like fake orders and artificial volume."
+    },
+    "broker-fraud": {
+      "title": "Broker-Related Fraud",
+      "description": "Learn about churning, embezzlement, and other broker-related risks."
+    }
+  }
+}
