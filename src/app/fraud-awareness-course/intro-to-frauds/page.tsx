@@ -4,12 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
+import Module1VideoPlayer from '@/components/fraud-awareness-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import { 
   ArrowLeft,
   ChevronRight,
-  PlayCircle,
   BookOpen,
   AlertTriangle,
   Shield,
@@ -144,15 +144,9 @@ export default function IntroToFraudsPage() {
         {currentSection === 'overview' && (
           <div className="max-w-4xl mx-auto">
             {/* Video Section */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-              <div className="aspect-video bg-gray-900 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <PlayCircle className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                  <p className="text-lg">{t('overview.video.title') as string}</p>
-                  <p className="text-sm text-gray-400 mt-2">{t('overview.video.duration') as string}</p>
-                </div>
-              </div>
-            </div>
+            <ClientOnly>
+              <Module1VideoPlayer className="mb-8" />
+            </ClientOnly>
 
             {/* Audio Content Section */}
             <ClientOnly>
