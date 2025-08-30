@@ -1,5 +1,5 @@
 import { db } from './db';
-import { Achievement, UserAchievement, ProgressStatus } from '@prisma/client';
+import { Achievement, UserAchievement, ProgressStatus, EnrollmentStatus } from '@prisma/client';
 
 // This is a placeholder for the achievement requirement structure.
 // In a real application, this would be more robust.
@@ -54,7 +54,37 @@ export async function checkAndAwardAchievements(userId: string) {
         }
         break;
       case 'COMPLETE_COURSE':
-        // TODO: Implement logic to check if a course is complete
+        if (requirement.courseId) {
+          const course = await db.course.findUnique({
+            where: { id: requirement.courseId },
+            include: { CourseModule: { select: { id: true } } },
+          });
+
+          if (course) {
+            const moduleIds = course.CourseModule.map(m => m.id);
+            const userModuleProgress = await db.moduleProgress.findMany({
+              where: {
+                moduleId: { in: moduleIds },
+                CourseEnrollment: { userClerkId: userId },
+                status: ProgressStatus.COMPLETED,
+              },
+            });
+
+            if (userModuleProgress.length === moduleIds.length) {
+              isAchieved = true;
+
+              const enrollment = await db.courseEnrollment.findUnique({
+                  where: { userClerkId_courseId: { userClerkId: userId, courseId: requirement.courseId } }
+              });
+              if (enrollment) {
+                  await db.courseEnrollment.update({
+                      where: { id: enrollment.id },
+                      data: { status: EnrollmentStatus.COMPLETED }
+                  });
+              }
+            }
+          }
+        }
         break;
       case 'MAKE_TRADES':
         // TODO: Implement logic to check the number of trades

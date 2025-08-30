@@ -32,8 +32,8 @@ import {
 
 interface Module {
   id: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   icon: JSX.Element;
   duration: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -61,8 +61,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
   const [modules, setModules] = useState<Module[]>([
     {
       id: 'intro-to-frauds',
-      title: 'Introduction to Stock Market Frauds',
-      description: 'Learn about common fraud patterns and red flags in the Indian stock market',
       icon: <AlertTriangle className="w-6 h-6" />,
       duration: '45 mins',
       difficulty: 'Beginner',
@@ -81,8 +79,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'ponzi-schemes',
-      title: 'Ponzi & Pyramid Schemes',
-      description: 'Understand how Ponzi schemes work and how to identify them',
       icon: <TrendingDown className="w-6 h-6" />,
       duration: '60 mins',
       difficulty: 'Intermediate',
@@ -99,8 +95,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'pump-dump',
-      title: 'Pump & Dump Operations',
-      description: 'Learn how operators manipulate stock prices and how to avoid being trapped',
       icon: <Zap className="w-6 h-6" />,
       duration: '55 mins',
       difficulty: 'Intermediate',
@@ -117,8 +111,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'insider-trading',
-      title: 'Insider Trading & Market Manipulation',
-      description: 'Understand illegal insider trading and market manipulation tactics',
       icon: <Lock className="w-6 h-6" />,
       duration: '50 mins',
       difficulty: 'Advanced',
@@ -136,8 +128,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'fake-advisors',
-      title: 'Fake Investment Advisors',
-      description: 'Identify unregistered advisors and tip providers',
       icon: <Users className="w-6 h-6" />,
       duration: '40 mins',
       difficulty: 'Beginner',
@@ -154,8 +144,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'digital-frauds',
-      title: 'Digital & Cyber Frauds',
-      description: 'Protect yourself from phishing, fake apps, and digital scams',
       icon: <Shield className="w-6 h-6" />,
       duration: '45 mins',
       difficulty: 'Intermediate',
@@ -172,8 +160,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'advanced-fee-schemes',
-      title: 'Advanced Fee & High-Yield Schemes',
-      description: 'Learn to identify schemes that promise high returns for a small upfront fee.',
       icon: <DollarSign className="w-6 h-6" />,
       duration: '45 mins',
       difficulty: 'Intermediate',
@@ -190,8 +176,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'spoofing-wash-trading',
-      title: 'Spoofing & Wash Trading',
-      description: 'Understand complex manipulations like fake orders and artificial volume.',
       icon: <Repeat className="w-6 h-6" />,
       duration: '60 mins',
       difficulty: 'Advanced',
@@ -208,8 +192,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
     },
     {
       id: 'broker-fraud',
-      title: 'Broker-Related Fraud',
-      description: 'Learn about churning, embezzlement, and other broker-related risks.',
       icon: <Briefcase className="w-6 h-6" />,
       duration: '50 mins',
       difficulty: 'Intermediate',
@@ -230,6 +212,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
   const [totalXP, setTotalXP] = useState(0);
   const [userLevel, setUserLevel] = useState(1);
   const [courseStats, setCourseStats] = useState({ totalModules: 6, totalTime: 5 });
+  const [courseStatus, setCourseStatus] = useState('NOT_ENROLLED');
   const [showAnimation, setShowAnimation] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
@@ -254,6 +237,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
             totalModules: data.totalModules,
             totalTime: data.totalTime,
           });
+          setCourseStatus(data.courseStatus);
         }
 
         if (modulesRes.ok) {
@@ -279,6 +263,12 @@ const FraudAwarenessCoursePage: NextPage = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (selectedModule) {
+      window.location.href = `/fraud-awareness-course/${selectedModule.id}`;
+    }
+  }, [selectedModule]);
 
   const filteredAndSortedModules = useMemo(() => {
     const difficultyOrder = {
@@ -406,7 +396,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
             </p>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Trophy className="w-5 h-5 text-lime-400" />
@@ -434,6 +424,13 @@ const FraudAwarenessCoursePage: NextPage = () => {
                 <span className="text-sm text-white/70">{t('hero.stats.time') as string}</span>
               </div>
               <p className="text-2xl font-bold">{courseStats.totalTime} Hours</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle className="w-5 h-5 text-lime-400" />
+                <span className="text-sm text-white/70">{t('hero.stats.status') as string}</span>
+              </div>
+              <p className="text-2xl font-bold capitalize">{courseStatus.replace('_', ' ').toLowerCase()}</p>
             </div>
           </div>
 
@@ -511,9 +508,8 @@ const FraudAwarenessCoursePage: NextPage = () => {
               >
                 <div 
                   className={`bg-white rounded-xl shadow-lg overflow-hidden border-2 ${ 
-                    isAccessible ? 'border-gray-200 hover:border-gray-300 cursor-pointer transform transition-all hover:scale-105' : 'border-gray-300'
+                    isAccessible ? 'border-gray-200 hover:border-gray-300' : 'border-gray-300'
                   }`}
-                  onClick={() => isAccessible && setSelectedModule(module)}
                 >
                   {/* Module Header */}
                   <div className="p-6 bg-gray-50">
@@ -578,6 +574,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
                   {/* Action Button */}
                   <div className="px-6 py-4 border-t border-gray-200">
                     <button
+                      onClick={() => isAccessible && setSelectedModule(module)}
                       className={`w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 transition-all transform ${ 
                         isAccessible
                           ? 'bg-lime-400 text-black hover:bg-lime-500 hover:scale-105'

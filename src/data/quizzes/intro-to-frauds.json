@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the primary role of SEBI in preventing fraud?",
+      "options": [
+        "Guaranteeing investment returns",
+        "Regulating and monitoring market participants",
+        "Providing stock tips"
+      ],
+      "correctAnswer": "Regulating and monitoring market participants"
+    },
+    {
+      "id": "q2",
+      "question": "Which of these is a major red flag for an investment scheme?",
+      "options": [
+        "Guaranteed high returns with no risk",
+        "SEBI registration number provided",
+        "Transparent fee structure"
+      ],
+      "correctAnswer": "Guaranteed high returns with no risk"
+    },
+    {
+      "id": "q3",
+      "question": "What is a pump-and-dump scheme?",
+      "options": [
+        "A scheme to get a lot of people to invest in a new company",
+        "Artificially inflating a stock's price to sell it at a profit",
+        "A type of mutual fund"
+      ],
+      "correctAnswer": "Artificially inflating a stock's price to sell it at a profit"
+    },
+    {
+      "id": "q4",
+      "question": "What is the main characteristic of a Ponzi scheme?",
+      "options": [
+        "It invests in a secret, high-performing asset.",
+        "It uses money from new investors to pay returns to earlier investors.",
+        "It is a government-approved savings scheme."
+      ],
+      "correctAnswer": "It uses money from new investors to pay returns to earlier investors."
+    },
+    {
+      "id": "q5",
+      "question": "What is insider trading?",
+      "options": [
+        "Trading stocks based on tips from friends.",
+        "Trading based on material, non-public information about a company.",
+        "Trading stocks of a company you work for."
+      ],
+      "correctAnswer": "Trading based on material, non-public information about a company."
+    },
+    {
+      "id": "q6",
+      "question": "Which of the following is a common channel for investment fraud in India?",
+      "options": [
+        "Official bank websites",
+        "SEBI's official website",
+        "WhatsApp and Telegram groups"
+      ],
+      "correctAnswer": "WhatsApp and Telegram groups"
+    },
+    {
+      "id": "q7",
+      "question": "What is the best way to verify an investment advisor?",
+      "options": [
+        "Trust their social media profile.",
+        "Check their registration status on the SEBI website.",
+        "Believe their claims of high returns."
+      ],
+      "correctAnswer": "Check their registration status on the SEBI website."
+    },
+    {
+      "id": "q8",
+      "question": "What is a common tactic used in phishing scams?",
+      "options": [
+        "Offering a free trial of a new product.",
+        "Creating a sense of urgency to get you to act quickly.",
+        "Providing detailed research reports."
+      ],
+      "correctAnswer": "Creating a sense of urgency to get you to act quickly."
+    },
+    {
+      "id": "q9",
+      "question": "What is circular trading?",
+      "options": [
+        "Trading stocks in a circular pattern on a chart.",
+        "A group of traders creating artificial trading volume among themselves.",
+        "A type of day trading strategy."
+      ],
+      "correctAnswer": "A group of traders creating artificial trading volume among themselves."
+    },
+    {
+      "id": "q10",
+      "question": "What is front running?",
+      "options": [
+        "Being the first to invest in a new IPO.",
+        "Brokers using advance knowledge of large client orders for personal gain.",
+        "A strategy for predicting market trends."
+      ],
+      "correctAnswer": "Brokers using advance knowledge of large client orders for personal gain."
+    },
+    {
+      "id": "q11",
+      "question": "What is a key feature of a legitimate investment?",
+      "options": [
+        "It is always risk-free.",
+        "It is always promoted by celebrities.",
+        "It has a clear and transparent business model."
+      ],
+      "correctAnswer": "It has a clear and transparent business model."
+    },
+    {
+      "id": "q12",
+      "question": "What should you do if you receive an unsolicited stock tip?",
+      "options": [
+        "Invest immediately to not miss out.",
+        "Be skeptical and do your own research.",
+        "Share the tip with your friends."
+      ],
+      "correctAnswer": "Be skeptical and do your own research."
+    },
+    {
+      "id": "q13",
+      "question": "What is a common characteristic of a fake trading app?",
+      "options": [
+        "It is available on the official app stores.",
+        "It promises unrealistically high and consistent returns.",
+        "It has a user-friendly interface."
+      ],
+      "correctAnswer": "It promises unrealistically high and consistent returns."
+    },
+    {
+      "id": "q14",
+      "question": "What is the purpose of SEBI's investor education initiatives?",
+      "options": [
+        "To provide stock recommendations.",
+        "To promote specific investment products.",
+        "To increase financial literacy and awareness among investors."
+      ],
+      "correctAnswer": "To increase financial literacy and awareness among investors."
+    },
+    {
+      "id": "q15",
+      "question": "What is a key difference between a Ponzi scheme and a pyramid scheme?",
+      "options": [
+        "Ponzi schemes are legal, while pyramid schemes are not.",
+        "Pyramid schemes rely on recruiting new members to generate returns.",
+        "Ponzi schemes only invest in real estate."
+      ],
+      "correctAnswer": "Pyramid schemes rely on recruiting new members to generate returns."
+    },
+    {
+      "id": "q16",
+      "question": "What is a common red flag of a fraudulent investment advisor?",
+      "options": [
+        "They are registered with SEBI.",
+        "They have a professional website.",
+        "They pressure you to make quick investment decisions."
+      ],
+      "correctAnswer": "They pressure you to make quick investment decisions."
+    },
+    {
+      "id": "q17",
+      "question": "What is the main risk of investing in a company involved in a pump-and-dump scheme?",
+      "options": [
+        "The company might go bankrupt.",
+        "The stock price will likely crash after the manipulators sell their shares.",
+        "The company might be delisted from the stock exchange."
+      ],
+      "correctAnswer": "The stock price will likely crash after the manipulators sell their shares."
+    },
+    {
+      "id": "q18",
+      "question": "What is the best way to protect yourself from phishing scams?",
+      "options": [
+        "Use the same password for all your accounts.",
+        "Never click on links in suspicious emails and always go directly to the official website.",
+        "Reply to the email to verify if it's legitimate."
+      ],
+      "correctAnswer": "Never click on links in suspicious emails and always go directly to the official website."
+    },
+    {
+      "id": "q19",
+      "question": "What is the main purpose of circular trading?",
+      "options": [
+        "To reduce the risk of an investment.",
+        "To create an artificial sense of high trading volume and liquidity.",
+        "To get a tax benefit."
+      ],
+      "correctAnswer": "To create an artificial sense of high trading volume and liquidity."
+    },
+    {
+      "id": "q20",
+      "question": "What is the most important thing to remember when you are offered an investment opportunity?",
+      "options": [
+        "If it sounds too good to be true, it probably is.",
+        "The higher the risk, the higher the return.",
+        "You should always trust your friends' investment advice."
+      ],
+      "correctAnswer": "If it sounds too good to be true, it probably is."
+    }
+  ]
+}

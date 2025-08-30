@@ -1,0 +1,10 @@
+{
+  "title": "Module 1: Introduction to Stock Market Frauds",
+  "subtitle": "Learn about common stock market frauds and how to protect yourself - available in multiple languages",
+  "tip": "💡 Tip: Language selection syncs with the top language selector",
+  "select_language": "Select Language:",
+  "error_play": "Failed to play audio. Please try again.",
+  "error_load": "Failed to load audio file. Please check your connection.",
+  "now_playing": "Now Playing: {languageName}",
+  "loading": "Loading..."
+}

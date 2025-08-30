@@ -1,0 +1,107 @@
+{
+  "header": {
+    "module": "Module 1",
+    "title": "Introduction to Stock Market Frauds",
+    "progress": "Lesson Progress",
+    "xp": "+100 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: What is Securities Fraud?",
+      "duration": "Duration: 8 minutes"
+    },
+    "section1": {
+      "title": "What is Securities Fraud?",
+      "p1": "Securities fraud, also known as stock fraud or investment fraud, is a deceptive practice in the stock or commodities markets that induces investors to make purchase or sale decisions based on false information. It's a serious crime that can have devastating consequences for investors and the integrity of the financial markets.",
+      "p2": "In recent years, with the rise of social media and digital platforms, fraudsters have found new and innovative ways to target unsuspecting investors in India. According to SEBI data, the number of complaints related to stock market fraud has been on the rise, with thousands of crores lost by retail investors each year.",
+      "p3": "Common channels used by fraudsters include:",
+      "list": [
+        "WhatsApp and Telegram groups offering \"guaranteed returns\".",
+        "Fake investment advisory websites and social media profiles.",
+        "Sophisticated Ponzi and pyramid schemes disguised as legitimate investments.",
+        "Pump and dump operations coordinated through online forums."
+      ]
+    },
+    "section2": {
+      "title": "Common Types of Stock Market Frauds",
+      "ponzi": {
+        "title": "Ponzi Schemes",
+        "description": "Fraudulent investing scams promising high rates of return with little risk to investors. They rely on a constant flow of new investment to pay returns to earlier investors."
+      },
+      "pump_dump": {
+        "title": "Pump & Dump",
+        "description": "Artificially inflating stock prices through false promotions, then selling at peak, leaving other investors with losses."
+      },
+      "insider_trading": {
+        "title": "Insider Trading",
+        "description": "Trading based on material, non-public information about a company, giving an unfair advantage."
+      },
+      "fake_advisors": {
+        "title": "Fake Advisors",
+        "description": "Unregistered individuals or firms offering \"guaranteed returns\" and stock tips, often disappearing after receiving payment."
+      },
+      "circular_trading": {
+        "title": "Circular Trading",
+        "description": "A group of traders creating artificial trading volume by buying and selling securities among themselves, luring other investors."
+      },
+      "front_running": {
+        "title": "Front Running",
+        "description": "Brokers using advance knowledge of large client orders to make personal gains."
+      }
+    },
+    "section3": {
+      "title": "SEBI's Role in Investor Protection",
+      "p1": "The Securities and Exchange Board of India (SEBI) is the primary regulatory body for the securities market in India. Its mission is to protect the interests of investors and to promote the development of, and to regulate, the securities market.",
+      "p2": "Key functions of SEBI include:",
+      "list": [
+        "Registering and regulating all market intermediaries, such as brokers, investment advisers, and mutual funds.",
+        "Prohibiting fraudulent and unfair trade practices.",
+        "Promoting investor education and awareness.",
+        "Investigating cases of market manipulation and insider trading.",
+        "Issuing guidelines and regulations to ensure market integrity."
+      ],
+      "link": "Verify a SEBI Registered Intermediary &rarr;"
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Test Your Knowledge",
+    "subtitle": "Answer these questions to complete the lesson and earn your XP rewards!",
+    "q1": {
+      "question": "1. What is the primary role of SEBI in preventing fraud?",
+      "options": [
+        "Guaranteeing investment returns",
+        "Regulating and monitoring market participants",
+        "Providing stock tips"
+      ]
+    },
+    "q2": {
+      "question": "2. Which of these is a red flag for fraud?",
+      "options": [
+        "Guaranteed high returns with no risk",
+        "SEBI registration number provided",
+        "Transparent fee structure"
+      ]
+    },
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Lesson Complete!",
+    "subtitle": "You've earned 100 XP",
+    "button": "Back to Course"
+  }
+}

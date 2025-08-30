@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "description": "You receive a WhatsApp message from an unknown number with a tip about a small-cap stock that is guaranteed to double in the next 3 days. The sender provides a link to a website with a professional-looking but unfamiliar logo.",
+    "isScam": true,
+    "explanation": "This is a classic pump-and-dump scheme. The guaranteed high returns, unsolicited tip, and unfamiliar website are all major red flags. The scammers are trying to artificially inflate the stock price to sell their own shares at a profit."
+  },
+  {
+    "id": 2,
+    "description": "Your SEBI-registered investment advisor recommends a diversified portfolio of blue-chip stocks and mutual funds based on your long-term financial goals and risk tolerance. They provide you with a detailed investment proposal and a clear fee structure.",
+    "isScam": false,
+    "explanation": "This is a legitimate investment advisory practice. The advisor is registered with SEBI, the recommendations are based on your personal financial situation, and the process is transparent."
+  },
+  {
+    "id": 3,
+    "description": "An advertisement on social media promotes a new trading app that promises 5% daily returns through algorithmic trading. To get started, you need to deposit a minimum of ₹25,000.",
+    "isScam": true,
+    "explanation": "Promises of guaranteed high daily returns are a huge red flag. Legitimate investments always carry risk. This is likely a fake trading app designed to steal your deposit."
+  },
+  {
+    "id": 4,
+    "description": "You read a news report from a reputable financial news outlet that a well-known company is expected to release strong quarterly earnings. You decide to buy some shares based on this publicly available information.",
+    "isScam": false,
+    "explanation": "Acting on publicly available information from reputable sources is a normal part of investing. There is no deception or manipulation involved."
+  },
+  {
+    "id": 5,
+    "description": "A friend tells you about a private investment group that has been generating amazing returns. To join, you need to pay a membership fee and recruit two new members.",
+    "isScam": true,
+    "explanation": "This has the characteristics of a pyramid scheme. The focus on recruiting new members to generate returns is a classic sign of an unsustainable and illegal operation."
+  },
+  {
+    "id": 6,
+    "description": "You receive an email that appears to be from your brokerage firm, asking you to click a link to update your password due to a security breach. The link leads to a website that looks identical to your broker's site.",
+    "isScam": true,
+    "explanation": "This is a phishing scam. The goal is to steal your login credentials. Always navigate directly to your broker's website instead of clicking on links in emails."
+  },
+  {
+    "id": 7,
+    "description": "Your broker recommends that you sell a stock that has performed poorly over the last year and re-invest the proceeds in a different sector to diversify your portfolio.",
+    "isScam": false,
+    "explanation": "This is a reasonable investment recommendation. Portfolio rebalancing and diversification are standard investment strategies."
+  },
+  {
+    "id": 8,
+    "description": "You see a lot of buzz on a stock market forum about a penny stock. Many users are posting enthusiastically about the company's future prospects, and the stock price has been rising rapidly.",
+    "isScam": true,
+    "explanation": "This could be a pump-and-dump scheme coordinated through online forums. The enthusiastic posts are likely from scammers trying to lure in unsuspecting investors."
+  },
+  {
+    "id": 9,
+    "description": "A SEBI-registered research analyst publishes a detailed report on a company, outlining both its strengths and weaknesses. The report is available to all of the analyst's clients.",
+    "isScam": false,
+    "explanation": "This is a legitimate research practice. The analyst is providing a balanced view based on their research, and the information is being distributed fairly."
+  },
+  {
+    "id": 10,
+    "description": "You get a call from someone claiming to be from the 'Stock Market Regulator of India' who says you've won a lottery of free stocks, but you need to pay a small transaction fee to claim them.",
+    "isScam": true,
+    "explanation": "There is no 'Stock Market Regulator of India' lottery. This is an advance fee scam designed to get you to pay the fee, after which the scammer will disappear."
+  },
+  {
+    "id": 11,
+    "description": "You notice that a stock you own has a sudden, unexplained surge in trading volume, but the price isn't changing much. You see many large buy and sell orders being placed and then quickly cancelled.",
+    "isScam": true,
+    "explanation": "This could be a sign of spoofing or wash trading, where manipulators are creating a false impression of activity to lure in other traders."
+  },
+  {
+    "id": 12,
+    "description": "Your financial advisor suggests you invest a portion of your portfolio in a government bond fund for stable, low-risk returns.",
+    "isScam": false,
+    "explanation": "This is a standard and conservative investment recommendation, suitable for many investors looking for stability."
+  }
+]

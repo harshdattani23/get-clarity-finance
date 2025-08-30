@@ -40,6 +40,10 @@ export async function GET() {
           courseId: courseData.id,
         },
       },
+      select: {
+        totalXpEarned: true,
+        status: true,
+      },
     });
 
     // 3. Prepare the data for the response
@@ -47,12 +51,14 @@ export async function GET() {
     const userLevel = calculateLevel(totalXP);
     const totalModules = courseData._count.CourseModule;
     const totalTime = courseData.estimatedHours;
+    const courseStatus = enrollmentData?.status ?? 'NOT_ENROLLED';
 
     return NextResponse.json({
       userLevel,
       totalXP,
       totalModules,
       totalTime,
+      courseStatus,
     });
   } catch (error) {
     console.error('[COURSE_STATS_GET]', error);

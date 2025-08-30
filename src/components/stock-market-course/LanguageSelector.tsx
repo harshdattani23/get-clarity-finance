@@ -10,7 +10,10 @@ const languages = [
   { code: 'bn', name: 'Bengali', native: 'বাংলা' },
   { code: 'mr', name: 'Marathi', native: 'मराठी' },
   { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
-  { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી' }
+  { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી' },
+  { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
+  { code: 'ml', name: 'Malayalam', native: 'മലയാളം' },
+  { code: 'te', name: 'Telugu', native: 'తెలుగు' }
 ];
 
 export default function LanguageSelector() {
