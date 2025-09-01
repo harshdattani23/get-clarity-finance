@@ -5,9 +5,11 @@ import { Play, Pause, RotateCcw, Volume2, VolumeX, Maximize, Minimize } from 'lu
 
 interface Module1VideoPlayerProps {
   className?: string;
+  onComplete?: () => void;
+  isCompleted?: boolean;
 }
 
-export default function Module1VideoPlayer({ className = '' }: Module1VideoPlayerProps) {
+export default function Module1VideoPlayer({ className = '', onComplete, isCompleted = false }: Module1VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -17,6 +19,7 @@ export default function Module1VideoPlayer({ className = '' }: Module1VideoPlaye
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [hasTriggeredComplete, setHasTriggeredComplete] = useState(isCompleted);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,6 +35,11 @@ export default function Module1VideoPlayer({ className = '' }: Module1VideoPlaye
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
+
+  // Sync completion state with prop
+  useEffect(() => {
+    setHasTriggeredComplete(isCompleted);
+  }, [isCompleted]);
 
   const handlePlayPause = async () => {
     if (!videoRef.current) return;
@@ -64,6 +72,13 @@ export default function Module1VideoPlayer({ className = '' }: Module1VideoPlaye
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       setCurrentTime(videoRef.current.currentTime);
+      
+      // Check if video is 90% complete and trigger completion
+      const progress = videoRef.current.currentTime / videoRef.current.duration;
+      if (progress >= 0.9 && !hasTriggeredComplete && onComplete) {
+        setHasTriggeredComplete(true);
+        onComplete();
+      }
     }
   };
 
@@ -190,7 +205,14 @@ export default function Module1VideoPlayer({ className = '' }: Module1VideoPlaye
         onLoadStart={handleLoadStart}
         onCanPlay={handleCanPlay}
         onError={handleError}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false);
+          // Also trigger completion on video end if not already triggered
+          if (!hasTriggeredComplete && onComplete) {
+            setHasTriggeredComplete(true);
+            onComplete();
+          }
+        }}
         className="w-full aspect-video object-contain"
         poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTExODI3Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkludHJvZHVjdGlvbiB0byBTdG9jayBNYXJrZXQgRnJhdWRzPC90ZXh0Pjwvc3ZnPg=="
         preload="metadata"

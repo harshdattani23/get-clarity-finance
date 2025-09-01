@@ -26,6 +26,7 @@
       "xp": "+{xpReward} XP"
     },
     "progress": "Progress",
+    "completed": "Completed",
     "lessons_more": "+{count} more lessons",
     "button": {
       "unlock_prompt": "Complete previous modules to unlock",

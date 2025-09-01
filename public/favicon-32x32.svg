@@ -1,0 +1,35 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient rounded square -->
+  <defs>
+    <linearGradient id="bgGradient32" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded background -->
+  <rect x="0" y="0" width="32" height="32" rx="6" ry="6" fill="url(#bgGradient32)"/>
+  
+  <!-- Shield shape with eye icon representing clarity and protection -->
+  <g transform="translate(4, 2.5)">
+    <!-- Shield background -->
+    <path
+      d="M12 2L3 7V12C3 16.55 6.84 20.74 12 22C17.16 20.74 21 16.55 21 12V7L12 2Z"
+      fill="white"
+      fill-opacity="0.95"
+      transform="scale(0.9) translate(1, 1)"
+    />
+    <!-- Eye outer circle -->
+    <path
+      d="M12 9C13.66 9 15 10.34 15 12C15 13.66 13.66 15 12 15C10.34 15 9 13.66 9 12C9 10.34 10.34 9 12 9Z"
+      fill="#059669"
+      transform="scale(0.9) translate(1, 1)"
+    />
+    <!-- Eye inner circle (pupil) -->
+    <path
+      d="M12 11C12.55 11 13 11.45 13 12C13 12.55 12.55 13 12 13C11.45 13 11 12.55 11 12C11 11.45 11.45 11 12 11Z"
+      fill="white"
+      transform="scale(0.9) translate(1, 1)"
+    />
+  </g>
+</svg>

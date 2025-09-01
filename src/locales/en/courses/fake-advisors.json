@@ -1,0 +1,75 @@
+{
+  "header": {
+    "module": "Module 5",
+    "title": "Fake Investment Advisors",
+    "progress": "Lesson Progress",
+    "xp": "+100 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: Identifying Fake Investment Advisors",
+      "duration": "Duration: 7 minutes"
+    },
+    "section1": {
+      "title": "The Rise of the Fake Advisor",
+      "p1": "A fake investment advisor is an individual or firm that provides investment advice without being registered with the Securities and Exchange Board of India (SEBI). These unregistered advisors often lure investors with the promise of guaranteed high returns and then disappear with their money.",
+      "p2": "The rise of social media has made it easier than ever for these fraudsters to reach a large audience. They often use platforms like Telegram, WhatsApp, and Instagram to create a sense of exclusivity and urgency, and to share fake testimonials and screenshots of profits.",
+      "p3": "Key characteristics of a fake investment advisor include:",
+      "list": [
+        "A lack of a SEBI registration number.",
+        "Promises of guaranteed or unrealistically high returns.",
+        "High-pressure tactics to get you to invest quickly.",
+        "A focus on penny stocks or obscure companies."
+      ]
+    },
+    "section2": {
+      "title": "How to Verify an Investment Advisor",
+      "p1": "The most important step you can take to protect yourself is to verify that any advisor you are considering is registered with SEBI. This is a simple process that can save you from significant financial loss.",
+      "steps": {
+        "title": "Steps to Verify an Advisor:",
+        "list": [
+          "Ask the advisor for their SEBI registration number.",
+          "Go to the official SEBI website.",
+          "Use the list of registered intermediaries to search for the advisor by name or registration number.",
+          "If you cannot find the advisor on the SEBI website, do not invest with them."
+        ]
+      }
+    },
+    "section3": {
+      "title": "Common Scams by Fake Advisors",
+      "telegram": {
+        "title": "Telegram & WhatsApp Scams",
+        "description": "Fraudsters create exclusive-looking groups where they share \"insider tips\" and fake screenshots of profits. They often use a few small, profitable tips to build trust before convincing members to make a large investment in a pump-and-dump scheme."
+      },
+      "dabba_trading": {
+        "title": "Dabba Trading",
+        "description": "This is an illegal form of trading that takes place outside of the official stock exchanges. It is often run by unregistered individuals who act as fake brokers, and there is no regulatory oversight to protect investors."
+      }
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Test Your Knowledge",
+    "subtitle": "Answer these questions to complete the lesson and earn your XP rewards!",
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Lesson Complete!",
+    "subtitle": "You've earned 100 XP",
+    "button": "Back to Course"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "header": {
+    "module": "Module 4 (Advanced)",
+    "title": "Insider Trading & Market Manipulation",
+    "progress": "Lesson Progress",
+    "xp": "+200 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: Insider Trading Explained",
+      "duration": "Duration: 12 minutes"
+    },
+    "audio": {
+      "title": "Audio: Famous Insider Trading Cases",
+      "duration": "Duration: 8 minutes"
+    },
+    "section1": {
+      "title": "Understanding Insider Trading",
+      "p1": "Insider trading is the buying or selling of securities by individuals who have access to material, non-public information about the company. Under SEBI regulations, this practice is strictly prohibited and carries severe penalties.",
+      "p2": "The practice undermines market integrity by giving unfair advantages to those with privileged information, creating an uneven playing field for retail investors.",
+      "p3": "SEBI defines material information as any information that would likely influence an investor's decision to buy or sell securities.",
+      "insiders": {
+        "title": "Who are 'Insiders'?",
+        "list": [
+          "Company directors and officers",
+          "Employees with access to material information",
+          "Investment bankers and consultants",
+          "Auditors and lawyers",
+          "Government officials"
+        ]
+      },
+      "materialInfo": {
+        "title": "Material Information Includes:",
+        "list": [
+          "Earnings reports before release",
+          "Merger and acquisition plans",
+          "Product launches or failures",
+          "Legal proceedings",
+          "Management changes"
+        ]
+      },
+      "penalties": {
+        "title": "SEBI Penalties",
+        "description": "Maximum penalty: ₹25 crores or 3 times the profit made, whichever is higher. Additional criminal prosecution possible with up to 10 years imprisonment."
+      }
+    },
+    "section2": {
+      "title": "Categories of Insiders",
+      "primaryInsiders": {
+        "title": "Primary Insiders",
+        "description": "Direct access to material non-public information through their role in the company.",
+        "examples": [
+          "Board of Directors",
+          "CEO, CFO, and C-suite executives",
+          "Company employees in key positions",
+          "Major shareholders (>10% ownership)"
+        ]
+      },
+      "secondaryInsiders": {
+        "title": "Secondary Insiders (Temporary)",
+        "description": "Gain temporary access to material information through professional relationships.",
+        "examples": [
+          "Investment bankers handling deals",
+          "Lawyers working on transactions",
+          "Auditors and accountants",
+          "Consultants and advisors"
+        ]
+      },
+      "tippees": {
+        "title": "Tippees",
+        "description": "Individuals who receive material information from insiders, directly or indirectly.",
+        "examples": [
+          "Friends and family of insiders",
+          "Business associates",
+          "Professional contacts",
+          "Anyone who receives tips"
+        ]
+      }
+    },
+    "section3": {
+      "title": "Market Manipulation Tactics",
+      "circularTrading": {
+        "title": "Circular Trading",
+        "description": "Trading between related parties to create artificial volume and mislead investors about market activity.",
+        "mechanism": "Entity A sells to Entity B, Entity B sells to Entity C, Entity C sells back to Entity A",
+        "penalties": "₹10 crores or 3 times profits + market ban"
+      },
+      "washTrading": {
+        "title": "Wash Trading",
+        "description": "Simultaneously or near-simultaneously buying and selling the same security to create misleading activity.",
+        "mechanism": "Trader places buy and sell orders for same quantity at similar prices",
+        "penalties": "₹15 crores or 3 times profits + criminal charges"
+      },
+      "spoofing": {
+        "title": "Spoofing",
+        "description": "Placing large orders with intent to cancel them before execution to manipulate market prices.",
+        "mechanism": "Place large buy order to drive price up, then cancel and sell at higher price",
+        "penalties": "₹25 crores + criminal prosecution possible"
+      },
+      "frontRunning": {
+        "title": "Front Running",
+        "description": "Trading securities based on advance knowledge of pending large orders from clients or institutions.",
+        "mechanism": "Broker learns of large client order, trades for own account first, then executes client order",
+        "penalties": "₹20 crores + license revocation + criminal charges"
+      }
+    },
+    "section4": {
+      "title": "Legal Framework & Case Studies",
+      "legalScenarios": {
+        "scenario1": {
+          "case": "A software engineer working for a company learns during a team meeting that their company will announce a major partnership next week. He immediately buys ₹50,000 worth of company stock.",
+          "question": "What are the potential legal consequences?",
+          "correctAnswer": "Serious insider trading violation with penalties up to ₹1.5 lakh or 3 times profit",
+          "explanation": "Any employee with material non-public information is considered an insider. SEBI penalties apply regardless of the trading amount."
+        },
+        "scenario2": {
+          "case": "A mutual fund manager receives a tip from his college friend (who works at a listed company) about poor quarterly results. The manager sells fund holdings worth ₹10 crores before the results are announced.",
+          "question": "What violations occurred and what are the penalties?",
+          "correctAnswer": "Both violated - friend as tipper (₹25 crores penalty) and manager as tippee (₹30 crores + fund penalties)",
+          "explanation": "Both tipper and tippee are equally liable. The fund manager faces additional institutional penalties and license risks."
+        }
+      },
+      "famousCases": {
+        "dlfCase": {
+          "title": "DLF Insider Trading Case (2007-2009)",
+          "description": "SEBI found DLF promoters and connected entities guilty of insider trading before the company's IPO.",
+          "penalty": "₹630 crores penalty imposed",
+          "lesson": "Promoter trading before material announcements is closely monitored"
+        },
+        "rajatGupta": {
+          "title": "Rajat Gupta McKinsey Case (2012)",
+          "description": "Former McKinsey CEO convicted of insider trading in US courts, also impacted Indian regulatory framework.",
+          "penalty": "2 years imprisonment + $5 million fine",
+          "lesson": "Cross-border insider trading has international consequences"
+        },
+        "bankNifty": {
+          "title": "Bank Nifty Options Manipulation (2020)",
+          "description": "Coordinated manipulation of Bank Nifty options expiry through circular trading.",
+          "penalty": "₹25 crores penalty + market ban for multiple entities",
+          "lesson": "Derivatives manipulation carries enhanced penalties"
+        }
+      }
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Advanced Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Advanced Insider Trading Quiz",
+    "subtitle": "Test your knowledge of insider trading laws and market manipulation tactics",
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Advanced Lesson Complete!",
+    "subtitle": "You've earned 200 XP",
+    "button": "Back to Course"
+  }
+}

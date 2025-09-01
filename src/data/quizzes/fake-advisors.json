@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the most important thing to check before taking investment advice from someone?",
+      "options": [
+        "Their social media following.",
+        "Whether they are registered with SEBI.",
+        "How much profit they claim to have made."
+      ],
+      "correctAnswer": "Whether they are registered with SEBI."
+    },
+    {
+      "id": "q2",
+      "question": "What is a common tactic used by fake investment advisors?",
+      "options": [
+        "Providing a detailed and transparent fee structure.",
+        "Promising guaranteed high returns with no risk.",
+        "Conducting a thorough risk assessment of their clients."
+      ],
+      "correctAnswer": "Promising guaranteed high returns with no risk."
+    },
+    {
+      "id": "q3",
+      "question": "Where can you verify if an investment advisor is registered with SEBI?",
+      "options": [
+        "On their own website.",
+        "On the official SEBI website.",
+        "In a newspaper advertisement."
+      ],
+      "correctAnswer": "On the official SEBI website."
+    },
+    {
+      "id": "q4",
+      "question": "What is a common red flag of a fraudulent investment scheme promoted on Telegram or WhatsApp?",
+      "options": [
+        "The group has a large number of members.",
+        "The administrator is the only one who can post messages.",
+        "The group provides detailed research reports."
+      ],
+      "correctAnswer": "The administrator is the only one who can post messages."
+    },
+    {
+      "id": "q5",
+      "question": "What is churning?",
+      "options": [
+        "A type of investment strategy.",
+        "Excessive trading by a broker to generate commissions.",
+        "A method for analyzing stocks."
+      ],
+      "correctAnswer": "Excessive trading by a broker to generate commissions."
+    },
+    {
+      "id": "q6",
+      "question": "What should you do if you suspect you are being targeted by a fake investment advisor?",
+      "options": [
+        "Invest a small amount to test them out.",
+        "Report them to SEBI and the police.",
+        "Share their tips with your friends to see if they work."
+      ],
+      "correctAnswer": "Report them to SEBI and the police."
+    },
+    {
+      "id": "q7",
+      "question": "What is a key difference between a registered investment advisor and a fake one?",
+      "options": [
+        "Registered advisors have a fancy office.",
+        "Registered advisors are legally bound to act in their clients' best interests.",
+        "Fake advisors always have a lot of positive online reviews."
+      ],
+      "correctAnswer": "Registered advisors are legally bound to act in their clients' best interests."
+    },
+    {
+      "id": "q8",
+      "question": "What is a common tactic used by fake advisors to build trust?",
+      "options": [
+        "Providing a few small, profitable tips to lure you into a larger investment.",
+        "Showing you their SEBI registration certificate.",
+        "Encouraging you to do your own research."
+      ],
+      "correctAnswer": "Providing a few small, profitable tips to lure you into a larger investment."
+    },
+    {
+      "id": "q9",
+      "question": "What is the main risk of taking advice from an unregistered advisor?",
+      "options": [
+        "You might have to pay a higher fee.",
+        "You have little to no legal recourse if you are defrauded.",
+        "Their advice might be too conservative."
+      ],
+      "correctAnswer": "You have little to no legal recourse if you are defrauded."
+    },
+    {
+      "id": "q10",
+      "question": "What is the best way to find a legitimate investment advisor?",
+      "options": [
+        "Through a social media advertisement.",
+        "By searching for \"guaranteed returns\" online.",
+        "By using the list of registered intermediaries on the SEBI website."
+      ],
+      "correctAnswer": "By using the list of registered intermediaries on the SEBI website."
+    }
+  ]
+}

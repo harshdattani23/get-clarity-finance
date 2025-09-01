@@ -25,9 +25,11 @@ const AVAILABLE_LANGUAGES: Language[] = [
 
 interface Module1AudioPlayerProps {
   className?: string;
+  onComplete?: () => void;
+  isCompleted?: boolean;
 }
 
-export default function Module1AudioPlayer({ className = '' }: Module1AudioPlayerProps) {
+export default function Module1AudioPlayer({ className = '', onComplete, isCompleted = false }: Module1AudioPlayerProps) {
   const { t } = useTranslation('audio-player');
   const languageContext = useContext(LanguageContext);
   const globalLanguage = languageContext ? languageContext.language : 'en';
@@ -42,6 +44,7 @@ export default function Module1AudioPlayer({ className = '' }: Module1AudioPlaye
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasCompletionBeenTriggered, setHasCompletionBeenTriggered] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -96,7 +99,21 @@ export default function Module1AudioPlayer({ className = '' }: Module1AudioPlaye
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
+      const currentTime = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      
+      setCurrentTime(currentTime);
+      
+      // Check if we should trigger completion (90% watched or reached the end)
+      if (!hasCompletionBeenTriggered && !isCompleted && duration > 0) {
+        const percentageWatched = (currentTime / duration) * 100;
+        
+        if (percentageWatched >= 90 || currentTime >= duration - 1) {
+          console.log('Audio completion triggered at', percentageWatched.toFixed(1), '% or', currentTime.toFixed(1), 'seconds');
+          setHasCompletionBeenTriggered(true);
+          onComplete?.();
+        }
+      }
     }
   };
 
@@ -211,7 +228,15 @@ export default function Module1AudioPlayer({ className = '' }: Module1AudioPlaye
         onLoadStart={handleLoadStart}
         onCanPlay={handleCanPlay}
         onError={handleError}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false);
+          // Trigger completion on audio end if not already triggered
+          if (!hasCompletionBeenTriggered && !isCompleted && onComplete) {
+            console.log('Audio completion triggered on audio end');
+            setHasCompletionBeenTriggered(true);
+            onComplete();
+          }
+        }}
         preload="metadata"
       />
 

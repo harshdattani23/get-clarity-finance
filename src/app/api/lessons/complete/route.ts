@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { db } from '@/lib/db';
+import { prisma as db } from '@/lib/prisma';
 import { checkAndAwardAchievements } from '@/lib/achievements';
 import { ProgressStatus } from '@prisma/client';
 

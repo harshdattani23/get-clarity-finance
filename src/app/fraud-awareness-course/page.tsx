@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import type { JSX } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
+import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
 
 import { 
   Shield, 
@@ -216,6 +217,23 @@ const FraudAwarenessCoursePage: NextPage = () => {
   const [showAnimation, setShowAnimation] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showCertificate, setShowCertificate] = useState(false);
+  const [certificateData, setCertificateData] = useState<{
+    id: string;
+    userName: string;
+    courseName: string;
+    totalXP: number;
+    moduleCount: number;
+    completedModules: Array<{
+      id: string;
+      title: string;
+      xpEarned: number;
+      completedAt: string;
+      completed: boolean;
+    }>;
+    completionDate: string;
+    publicUrl?: string;
+  } | null>(null);
 
   useEffect(() => {
     // Simulate loading animation
@@ -358,6 +376,53 @@ const FraudAwarenessCoursePage: NextPage = () => {
       case 'Intermediate': return 'text-yellow-600 bg-yellow-100';
       case 'Advanced': return 'text-red-600 bg-red-100';
       default: return 'text-gray-600 bg-gray-100';
+    }
+  };
+
+  const handleCourseCompletion = async () => {
+    // Check if user has completed the intro module (for demo purposes)
+    const introModule = modules.find(m => m.id === 'intro-to-frauds');
+    if (!introModule || introModule.progress < 100) {
+      alert('Please complete the Introduction to Frauds module first!');
+      return;
+    }
+
+    try {
+      const completedModules = modules
+        .filter(m => m.progress === 100)
+        .map(m => ({
+          id: m.id,
+          title: t(`modules.${m.id}.title`) as string,
+          xpEarned: m.xpReward,
+          completedAt: new Date().toISOString(),
+          completed: true
+        }));
+
+      const response = await fetch('/api/courses/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          courseId: 'fraud-awareness',
+          courseName: 'Fraud Awareness Course',
+          totalXP: completedModules.reduce((sum, m) => sum + m.xpEarned, 0),
+          completedModules
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCertificateData(data.certificate);
+        setShowCertificate(true);
+      } else {
+        const error = await response.json();
+        alert(error.message || 'Failed to generate certificate');
+      }
+    } catch (error) {
+      console.error('Course completion error:', error);
+      alert('Failed to complete course. Please try again.');
     }
   };
 
@@ -513,13 +578,21 @@ const FraudAwarenessCoursePage: NextPage = () => {
                 >
                   {/* Module Header */}
                   <div className="p-6 bg-gray-50">
-                    <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-between items-start mb-4">
                       <div className={`p-3 bg-gray-100 rounded-lg ${colors.text}`}>
                         {module.icon}
                       </div>
-                      {module.locked && (
-                        <Lock className="w-5 h-5 text-gray-400" />
-                      )}
+                      <div className="flex items-center gap-2">
+                        {module.progress === 100 && (
+                          <div className="flex items-center gap-1 px-2 py-1 bg-green-100 rounded-full">
+                            <CheckCircle className="w-3 h-3 text-green-600" />
+                            <span className="text-xs text-green-700 font-medium">Complete</span>
+                          </div>
+                        )}
+                        {module.locked && (
+                          <Lock className="w-5 h-5 text-gray-400" />
+                        )}
+                      </div>
                     </div>
                     
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{t(`modules.${module.id}.title`) as string}</h3>
@@ -573,23 +646,41 @@ const FraudAwarenessCoursePage: NextPage = () => {
                   
                   {/* Action Button */}
                   <div className="px-6 py-4 border-t border-gray-200">
-                    <button
-                      onClick={() => isAccessible && setSelectedModule(module)}
-                      className={`w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 transition-all transform ${ 
-                        isAccessible
-                          ? 'bg-lime-400 text-black hover:bg-lime-500 hover:scale-105'
-                          : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                      }`}
-                      disabled={!isAccessible}
-                    >
-                      {module.locked ? (
-                        <>{t('module.button.unlock_prompt') as string}</>
-                      ) : module.progress > 0 ? (
-                        <>{t('module.button.continue') as string} <ChevronRight className="w-4 h-4" /></>
-                      ) : (
-                        <>{t('module.button.start') as string} <ChevronRight className="w-4 h-4" /></>
-                      )}
-                    </button>
+                    {module.progress === 100 ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-green-600 font-medium">
+                          <Trophy className="w-4 h-4" />
+                          <span>Module Completed!</span>
+                        </div>
+                        {module.id === 'intro-to-frauds' && (
+                          <button
+                            onClick={handleCourseCompletion}
+                            className="w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105"
+                          >
+                            <Award className="w-4 h-4" />
+                            Get Certificate
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => isAccessible && setSelectedModule(module)}
+                        className={`w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 transition-all transform ${ 
+                          isAccessible
+                            ? 'bg-lime-400 text-black hover:bg-lime-500 hover:scale-105'
+                            : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                        }`}
+                        disabled={!isAccessible}
+                      >
+                        {module.locked ? (
+                          <>{t('module.button.unlock_prompt') as string}</>
+                        ) : module.progress > 0 ? (
+                          <>{t('module.button.continue') as string} <ChevronRight className="w-4 h-4" /></>
+                        ) : (
+                          <>{t('module.button.start') as string} <ChevronRight className="w-4 h-4" /></>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -630,8 +721,22 @@ const FraudAwarenessCoursePage: NextPage = () => {
           </div>
         </div>
       </div>
+      
+      {/* Certificate Modal */}
+      {showCertificate && certificateData && (
+        <CourseCompletionCertificate
+          userName={certificateData.userName}
+          courseName={certificateData.courseName}
+          completionDate={certificateData.completionDate}
+          totalXP={certificateData.totalXP}
+          moduleCount={certificateData.moduleCount}
+          completedModules={certificateData.completedModules}
+          certificateId={certificateData.id}
+          onClose={() => setShowCertificate(false)}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default FraudAwarenessCoursePage;

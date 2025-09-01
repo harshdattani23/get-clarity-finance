@@ -1,0 +1,74 @@
+{
+  "header": {
+    "module": "Module 2",
+    "title": "Ponzi & Pyramid Schemes",
+    "progress": "Lesson Progress",
+    "xp": "+150 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: Understanding Ponzi Schemes",
+      "duration": "Duration: 10 minutes"
+    },
+    "section1": {
+      "title": "The Mechanics of a Ponzi Scheme",
+      "p1": "A Ponzi scheme is a fraudulent investing scam promising high rates of return with little risk to investors. It generates returns for earlier investors with money taken from later investors. This is similar to a pyramid scheme in that both are based on using new investors' funds to pay the earlier backers.",
+      "p2": "The scheme is named after Charles Ponzi, who became notorious for using the technique in 1920. The scheme is designed to collapse, and it inevitably does when the flood of new money dries up.",
+      "p3": "Key characteristics of a Ponzi scheme include:",
+      "list": [
+        "A promise of high returns with little or no risk.",
+        "A consistent flow of returns regardless of market conditions.",
+        "An investment strategy that is secret or described as too complex to explain.",
+        "A focus on attracting new investors to keep the scheme going."
+      ]
+    },
+    "section2": {
+      "title": "Ponzi vs. Pyramid Schemes",
+      "p1": "While often used interchangeably, Ponzi and pyramid schemes have some key differences. The main distinction lies in how they are structured and how they generate returns.",
+      "ponzi": {
+        "title": "Ponzi Scheme",
+        "description": "A centralized model where the fraudster takes money from new investors to pay off earlier ones."
+      },
+      "pyramid": {
+        "title": "Pyramid Scheme",
+        "description": "A model that requires participants to recruit new members, with the new members' fees paying the people who recruited them."
+      }
+    },
+    "section3": {
+      "title": "Famous Indian Case Studies",
+      "saradha": {
+        "title": "The Saradha Group Chit Fund Scam",
+        "description": "A massive Ponzi scheme that collapsed in 2013, defrauding hundreds of thousands of investors, primarily in West Bengal and other eastern states. The scheme promised high returns through a chit fund, but it was actually using new investors' money to pay off earlier ones."
+      },
+      "speakasia": {
+        "title": "The SpeakAsia Online Survey Scam",
+        "description": "A classic example of a pyramid scheme that promised high returns for simply filling out online surveys. The business model was primarily based on recruiting new members, and it eventually collapsed, leaving many in financial ruin."
+      }
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Test Your Knowledge",
+    "subtitle": "Answer these questions to complete the lesson and earn your XP rewards!",
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Lesson Complete!",
+    "subtitle": "You've earned 150 XP",
+    "button": "Back to Course"
+  }
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "title": "The High-Return Investment Pitch",
+    "detailedScenario": "Meet Raj, a successful software engineer living in Bangalore. He's been approached by his friend Vikram who claims to have discovered an 'amazing investment opportunity.' Vikram shows him glossy brochures and testimonials from supposedly satisfied investors. The company, 'Golden Future Investments,' promises 20% monthly returns through their 'proprietary trading algorithm.' They claim to have partnerships with major international banks and use AI-powered trading strategies. Vikram mentions that the company is exclusive - they only accept investors who are referred by existing clients. He also mentions that if Raj refers 3 more people, he'll get a special 5% bonus on his returns. The company requires a minimum investment of ₹2 lakh and asks for immediate payment via cash or cryptocurrency to 'secure the limited spots.' They provide no detailed documentation about their trading strategies, citing 'competitive secrecy.'",
+    "character": "Raj - Software Engineer",
+    "setting": "Bangalore Coffee Shop",
+    "options": [
+      {
+        "text": "The exclusive nature shows it's a premium opportunity",
+        "isCorrect": false,
+        "explanation": "Exclusivity is often used to create artificial scarcity and pressure. Legitimate investments don't need to be 'exclusive' to be profitable.",
+        "icon": "👑"
+      },
+      {
+        "text": "20% monthly returns with referral bonuses are classic Ponzi red flags",
+        "isCorrect": true,
+        "explanation": "Guaranteed high returns (240% annually) combined with referral incentives are textbook Ponzi scheme characteristics. No legitimate investment can consistently guarantee such returns.",
+        "icon": "🚩"
+      },
+      {
+        "text": "The AI trading technology sounds legitimate and modern",
+        "isCorrect": false,
+        "explanation": "Buzzwords like 'AI' and 'proprietary algorithms' are commonly used by fraudsters to sound sophisticated while providing no real substance or proof.",
+        "icon": "🤖"
+      },
+      {
+        "text": "Payment in cash/crypto is normal for international investments",
+        "isCorrect": false,
+        "explanation": "Legitimate investment firms use regulated banking channels and provide proper documentation. Requests for cash or cryptocurrency payments are major red flags.",
+        "icon": "💰"
+      }
+    ],
+    "correctAnswer": "20% monthly returns with referral bonuses are classic Ponzi red flags",
+    "learningPoint": "Be extremely wary of any investment promising guaranteed high returns (especially above 15% annually) combined with recruitment incentives. These are the hallmarks of Ponzi schemes."
+  },
+  {
+    "id": 2,
+    "title": "The Secretive Investment Strategy",
+    "detailedScenario": "Priya, a bank manager from Mumbai, is attending a financial seminar in a 5-star hotel. The presenter, Dr. Sharma, claims to be a former RBI advisor (though this can't be verified). He's presenting 'Wealth Multiplier Pro,' an investment scheme that has allegedly generated 30% annual returns for the past 3 years. Dr. Sharma shows impressive charts and graphs, testimonials from 'satisfied clients,' and mentions partnerships with European hedge funds. However, when attendees ask about the specific investment strategy, he becomes evasive, saying it's 'highly technical' and involves 'proprietary arbitrage methods' that he cannot disclose due to competitive reasons. He mentions that the strategy exploits 'market inefficiencies' and uses 'algorithmic trading systems.' The scheme requires investors to sign an NDA before investing, and they discourage any independent research. Dr. Sharma pressures the audience by saying only the first 50 investors will get the 'founder's rate' and slots are filling up quickly.",
+    "character": "Priya - Bank Manager",
+    "setting": "Mumbai Hotel Seminar",
+    "options": [
+      {
+        "text": "Former RBI credentials make him trustworthy",
+        "isCorrect": false,
+        "explanation": "Fraudsters often claim false credentials or exaggerate their background. Always verify such claims independently through official channels.",
+        "icon": "🏛️"
+      },
+      {
+        "text": "The lack of transparency about investment methods is a major red flag",
+        "isCorrect": true,
+        "explanation": "Legitimate investment advisors can explain their strategies without revealing trade secrets. Complete secrecy and NDAs for basic investment information are warning signs.",
+        "icon": "🔍"
+      },
+      {
+        "text": "The impressive charts and testimonials prove the scheme works",
+        "isCorrect": false,
+        "explanation": "Charts, graphs, and testimonials can be easily fabricated. In Ponzi schemes, early testimonials may be from investors who received payouts from new investor money.",
+        "icon": "📊"
+      },
+      {
+        "text": "The urgency to invest shows this is a limited-time opportunity",
+        "isCorrect": false,
+        "explanation": "Creating false urgency is a common sales tactic used by fraudsters to prevent potential victims from conducting due diligence or seeking second opinions.",
+        "icon": "⏰"
+      }
+    ],
+    "correctAnswer": "The lack of transparency about investment methods is a major red flag",
+    "learningPoint": "Legitimate investments can be explained in understandable terms. Excessive secrecy, NDAs for basic information, and refusal to provide details about investment strategies are major warning signs."
+  },
+  {
+    "id": 3,
+    "title": "The Social Media Investment Guru",
+    "detailedScenario": "Amit, a college student from Delhi, follows 'FinanceGuru_Rohan' on Instagram, who has 500K followers and posts pictures of luxury cars, expensive watches, and foreign vacations. Rohan regularly posts about his '7-figure trading success' and offers to teach his 'secret method' through a 'mentorship program.' The program costs ₹50,000 and promises students can earn ₹1 lakh per month within 3 months using Rohan's 'insider trading techniques.' Rohan showcases screenshots of trading profits, bank statements (which look suspicious), and video testimonials from students claiming massive success. He creates urgency by saying he only takes 20 students per batch and the 'next batch is filling up fast.' The program includes access to his 'private trading signals' and a 'guaranteed profit system.' When Amit tries to research Rohan's background, he finds no verifiable information about his trading credentials or regulatory licenses. Rohan's WhatsApp messages to Amit include phrases like 'become rich like me' and 'this opportunity won't last forever.'",
+    "character": "Amit - College Student",
+    "setting": "Delhi University Campus",
+    "options": [
+      {
+        "text": "His large social media following proves he's successful",
+        "isCorrect": false,
+        "explanation": "Social media followers can be bought, and flashy lifestyle posts don't prove legitimate trading success. Many fraudsters use fake lifestyle displays to attract victims.",
+        "icon": "📱"
+      },
+      {
+        "text": "The screenshots of profits look like genuine evidence",
+        "isCorrect": false,
+        "explanation": "Trading screenshots and bank statements can be easily manipulated using photo editing tools. Genuine traders don't typically share such sensitive financial information publicly.",
+        "icon": "📸"
+      },
+      {
+        "text": "Lack of verifiable credentials and unrealistic profit promises are red flags",
+        "isCorrect": true,
+        "explanation": "Legitimate trading educators have verifiable credentials and realistic expectations. The promise of ₹1 lakh monthly from a ₹50,000 course with no risk is classic fraud territory.",
+        "icon": "⚠️"
+      },
+      {
+        "text": "Getting insider trading tips would give me an advantage",
+        "isCorrect": false,
+        "explanation": "Actual insider trading is illegal and could result in criminal charges. Anyone claiming to provide 'insider tips' is either lying or engaging in illegal activities.",
+        "icon": "🔒"
+      }
+    ],
+    "correctAnswer": "Lack of verifiable credentials and unrealistic profit promises are red flags",
+    "learningPoint": "Be skeptical of social media financial gurus who cannot provide verifiable credentials. No legitimate educator can guarantee specific returns, and 'insider trading' information is illegal."
+  },
+  {
+    "id": 4,
+    "title": "The Multi-Level Investment Club",
+    "detailedScenario": "Sunita, a homemaker from Pune, is invited by her neighbor Mrs. Gupta to join 'Prosperity Circle,' a 'revolutionary investment club' that combines community investing with friendship. Mrs. Gupta explains that members pool their money together and the fund managers invest it in 'diversified portfolios' including real estate, stocks, and international markets. The club promises 15% monthly returns and has a 'friendship bonus system' where members earn extra money for bringing in friends and family. Mrs. Gupta shows Sunita a WhatsApp group with 200+ members sharing success stories and photos of their returns. The club organizes regular meetings at community centers where successful members share their stories and new members are celebrated. To join, Sunita needs to invest ₹1 lakh initially and commit to bringing at least 2 new members within 6 months. The club's promotional materials show pictures of happy families and use phrases like 'financial freedom through community' and 'trust-based investing.' They claim to be registered with SEBI but provide no registration numbers, and when asked for documentation, they say everything is handled digitally for convenience.",
+    "character": "Sunita - Homemaker",
+    "setting": "Pune Community Center",
+    "options": [
+      {
+        "text": "Community-based investing with friends sounds safer",
+        "isCorrect": false,
+        "explanation": "Fraudsters often exploit trust within communities and social networks. The involvement of friends doesn't make an investment legitimate or safe.",
+        "icon": "👥"
+      },
+      {
+        "text": "The requirement to recruit others reveals this is a pyramid structure",
+        "isCorrect": true,
+        "explanation": "Any investment requiring recruitment of new members to maintain returns is a pyramid/Ponzi scheme. Legitimate investments don't depend on continuous recruitment.",
+        "icon": "🔺"
+      },
+      {
+        "text": "SEBI registration claims provide regulatory safety",
+        "isCorrect": false,
+        "explanation": "False claims of regulatory approval are common in fraud schemes. Always verify registration numbers directly with SEBI's official website or helpline.",
+        "icon": "🏛️"
+      },
+      {
+        "text": "Success stories in WhatsApp groups provide social proof",
+        "isCorrect": false,
+        "explanation": "WhatsApp testimonials and success stories can be fabricated or from early investors receiving money from new investors' funds. This isn't reliable evidence.",
+        "icon": "💬"
+      }
+    ],
+    "correctAnswer": "The requirement to recruit others reveals this is a pyramid structure",
+    "learningPoint": "Be extremely cautious of any investment opportunity that requires you to recruit others or depends on bringing in new members. This is the defining characteristic of pyramid schemes."
+  }
+]

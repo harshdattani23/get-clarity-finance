@@ -69,6 +69,59 @@
     },
     "button": {
       "practice": "Continue to Practice"
+    },
+    "steps": {
+      "step1": "What is Fraud?",
+      "step2": "Types of Fraud",
+      "step3": "SEBI's Role"
+    },
+    "interactiveGames": {
+      "title": "🎮 Interactive Learning Games",
+      "subtitle": "Now that you know the basics, test your knowledge with these fun challenges!",
+      "fraudDetectionChallenge": {
+        "title": "🎯 Fraud Detection Challenge",
+        "description": "Match each fraud type with its warning sign! Drag and drop to learn:"
+      },
+      "timelineBuilder": {
+        "title": "⏱️ Build a Fraud Timeline",
+        "description": "Arrange these events in the order of a typical Ponzi scheme:"
+      }
+    },
+    "caseStudies": {
+      "satyam": {
+        "title": "The Satyam Saga",
+        "description": "A deep dive into one of India's biggest corporate frauds."
+      },
+      "harshad": {
+        "title": "Harshad Mehta Scam",
+        "description": "Understanding the 1992 securities scam that shook the nation."
+      }
+    },
+    "spotTheRedFlag": {
+      "title": "Spot the Red Flag",
+      "scenario1": "A friend tells you about a new stock. Which of the following is a major red flag?",
+      "options1": {
+        "0": "The stock is in a new, growing industry.",
+        "1": "The stock is 'guaranteed' to double in a week.",
+        "2": "The stock is recommended by a financial news channel."
+      },
+      "answer1": "The stock is 'guaranteed' to double in a week.",
+      "scenario2": "You receive an email about a new IPO. Which of the following is a major red flag?",
+      "options2": {
+        "0": "The email is from a well-known brokerage firm.",
+        "1": "The email provides a link to the company's official website.",
+        "2": "The email is from a stockbroker you've never heard of."
+      },
+      "answer2": "The email is from a stockbroker you've never heard of.",
+      "scenario3": "You see an online ad for a new cryptocurrency. Which of the following is a major red flag?",
+      "options3": {
+        "0": "The ad promises 'risk-free' returns of 20% per month.",
+        "1": "The ad explains the technology behind the cryptocurrency.",
+        "2": "The ad features a celebrity endorsement."
+      },
+      "answer3": "The ad promises 'risk-free' returns of 20% per month.",
+      "correct": "Correct! Promises of guaranteed high returns are a classic red flag.",
+      "incorrect": "Not quite. The correct answer is \"{answer}\". This is a major red flag."
     }
   },
   "simulator": {

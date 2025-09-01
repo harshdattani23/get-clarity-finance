@@ -1,0 +1,35 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient rounded square -->
+  <defs>
+    <linearGradient id="bgGradientApple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded background -->
+  <rect x="0" y="0" width="180" height="180" rx="40" ry="40" fill="url(#bgGradientApple)"/>
+  
+  <!-- Shield shape with eye icon representing clarity and protection -->
+  <g transform="translate(22, 14)">
+    <!-- Shield background -->
+    <path
+      d="M68 11L17 39V68C17 93.105 38.72 117.185 68 124C97.28 117.185 119 93.105 119 68V39L68 11Z"
+      fill="white"
+      fill-opacity="0.95"
+      transform="scale(0.9) translate(5, 5)"
+    />
+    <!-- Eye outer circle -->
+    <path
+      d="M68 51C75.18 51 85 56.88 85 68C85 79.12 75.18 85 68 85C60.82 85 51 79.12 51 68C51 56.88 60.82 51 68 51Z"
+      fill="#059669"
+      transform="scale(0.9) translate(5, 5)"
+    />
+    <!-- Eye inner circle (pupil) -->
+    <path
+      d="M68 62C71.175 62 73.5 64.325 73.5 68C73.5 71.675 71.175 74 68 74C64.825 74 62 71.675 62 68C62 64.325 64.825 62 68 62Z"
+      fill="white"
+      transform="scale(0.9) translate(5, 5)"
+    />
+  </g>
+</svg>

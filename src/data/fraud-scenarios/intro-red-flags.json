@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "title": "The WhatsApp Investment Group",
+    "detailedScenario": "Meet Anita, a 35-year-old teacher from Chennai. She was added to a WhatsApp group called 'Elite Stock Tips 💎' by a colleague. The group has over 300 members and is managed by someone calling himself 'Stock Guru Rajesh.' Every day, Rajesh shares screenshots of his trading profits showing gains of 15-20% daily. He claims to use 'insider information' and 'AI algorithms' to predict market movements. The group members constantly praise Rajesh, sharing their own profit screenshots. Rajesh announces a 'VIP membership' for ₹25,000 that gives access to his 'premium calls' with guaranteed 30% monthly returns. He creates urgency by saying only 20 VIP spots are available and shows a countdown timer. Several group members immediately pay and share screenshots of their payments, encouraging others to join quickly.",
+    "character": "Anita - School Teacher",
+    "setting": "Chennai WhatsApp Group",
+    "options": [
+      {
+        "text": "The daily 15-20% returns and member testimonials prove this is legitimate",
+        "isCorrect": false,
+        "explanation": "Consistent daily returns of 15-20% are mathematically impossible in legitimate trading. Screenshots and testimonials can be easily fabricated in these scam groups.",
+        "icon": "📊"
+      },
+      {
+        "text": "Guaranteed 30% monthly returns with insider information is a major red flag",
+        "isCorrect": true,
+        "explanation": "No legitimate investment can guarantee 30% monthly returns (360% annually). Claims of 'insider information' are either illegal or false, both major warning signs.",
+        "icon": "🚩"
+      },
+      {
+        "text": "The AI algorithms and technical analysis make this a modern, scientific approach",
+        "isCorrect": false,
+        "explanation": "Fraudsters often use technical buzzwords like 'AI algorithms' to sound sophisticated, but provide no real proof of their methods or track record.",
+        "icon": "🤖"
+      },
+      {
+        "text": "The urgency and limited spots indicate this is an exclusive opportunity",
+        "isCorrect": false,
+        "explanation": "Creating false urgency with countdown timers and 'limited spots' is a classic pressure tactic used by scammers to prevent victims from thinking rationally.",
+        "icon": "⏰"
+      }
+    ],
+    "correctAnswer": "Guaranteed 30% monthly returns with insider information is a major red flag",
+    "learningPoint": "Be extremely skeptical of investment groups promising guaranteed high returns. Legitimate investments carry risk, and claims of 'insider information' are red flags for either fraud or illegal activity."
+  },
+  {
+    "id": 2,
+    "title": "The Social Media Trading Mentor",
+    "detailedScenario": "Ravi, a 28-year-old IT professional from Hyderabad, follows 'TradingKing_Mumbai' on Instagram. This account has 800K followers and posts luxury lifestyle content - expensive cars, five-star hotel stays, and designer clothes. The bio claims '7-figure trader | Helping others achieve financial freedom | DM for mentorship.' TradingKing regularly posts stories showing trading screens with massive profits and Bank statements displaying crores in balance. He offers a 'Financial Freedom Masterclass' for ₹75,000, promising students can quit their jobs within 6 months using his 'secret strategies.' The course includes access to a private Telegram group with 'live trading signals' and claims a 95% success rate. When Ravi tries to research TradingKing's real identity, he finds no verifiable trading credentials, SEBI registration, or even a real name - just the flashy Instagram profile.",
+    "character": "Ravi - IT Professional",
+    "setting": "Hyderabad Instagram Profile",
+    "options": [
+      {
+        "text": "The large follower count and luxury lifestyle prove his trading success",
+        "isCorrect": false,
+        "explanation": "Followers can be purchased, and luxury lifestyle posts don't prove trading profits. Many fraudsters rent expensive items or use borrowed photos to create false impressions.",
+        "icon": "📱"
+      },
+      {
+        "text": "The lack of verifiable credentials and anonymous identity are major red flags",
+        "isCorrect": true,
+        "explanation": "Legitimate trading educators and financial advisors have verifiable credentials, SEBI registration, and transparent identities. Anonymous 'gurus' are highly suspicious.",
+        "icon": "🔍"
+      },
+      {
+        "text": "The 95% success rate and guaranteed job quitting timeline sound promising",
+        "isCorrect": false,
+        "explanation": "No trading strategy can guarantee a 95% success rate, and promising specific timelines for quitting jobs is unrealistic and manipulative marketing.",
+        "icon": "📈"
+      },
+      {
+        "text": "Getting live trading signals from an expert would give me an advantage",
+        "isCorrect": false,
+        "explanation": "If someone truly had profitable trading signals, they wouldn't need to sell them to others. This is a common scam model that preys on inexperienced traders.",
+        "icon": "📢"
+      }
+    ],
+    "correctAnswer": "The lack of verifiable credentials and anonymous identity are major red flags",
+    "learningPoint": "Always verify the credentials and identity of anyone offering financial advice. Legitimate advisors are registered with SEBI and transparent about their qualifications and track record."
+  },
+  {
+    "id": 3,
+    "title": "The IPO Investment Opportunity",
+    "detailedScenario": "Priya, a 42-year-old banker from Pune, receives a call from someone claiming to be from 'Prime Securities Advisory.' The caller, Vikash, says they have insider information about an upcoming IPO of a 'revolutionary tech company' that will be 'the next big thing like Reliance or TCS.' He claims this IPO is not yet public knowledge and offers Priya a chance to invest ₹5 lakhs at 'pre-IPO prices' for guaranteed 300-500% returns within 3 months. Vikash provides a professional-looking website with fake testimonials, forged documents claiming SEBI approval, and pressure her to transfer money immediately via NEFT to secure her allocation. He mentions that 'big investors like Mukesh Ambani are also investing' and that this opportunity is only for 'select clients.' When Priya asks for official documents, Vikash becomes evasive and says everything must be done quickly before the 'window closes.'",
+    "character": "Priya - Bank Manager",
+    "setting": "Pune Phone Call",
+    "options": [
+      {
+        "text": "Insider information about IPOs gives me an unfair advantage over other investors",
+        "isCorrect": false,
+        "explanation": "Trading on actual insider information about IPOs is illegal. Anyone claiming to have such information is either lying or engaging in securities fraud.",
+        "icon": "🔒"
+      },
+      {
+        "text": "The professional website and SEBI approval documents provide credibility",
+        "isCorrect": false,
+        "explanation": "Websites and documents can be easily forged. Always verify SEBI registration directly with SEBI's official website, never trust documents provided by the caller.",
+        "icon": "🌐"
+      },
+      {
+        "text": "Guaranteed 300-500% returns and pressure for immediate payment are major red flags",
+        "isCorrect": true,
+        "explanation": "No legitimate investment guarantees 300-500% returns. Pressure for immediate payment without proper documentation is a classic fraud tactic.",
+        "icon": "⚠️"
+      },
+      {
+        "text": "Celebrity investor involvement and exclusive client status make this seem legitimate",
+        "isCorrect": false,
+        "explanation": "Fraudsters often falsely claim celebrity or high-profile investor involvement to add credibility. These claims are typically fabricated.",
+        "icon": "⭐"
+      }
+    ],
+    "correctAnswer": "Guaranteed 300-500% returns and pressure for immediate payment are major red flags",
+    "learningPoint": "Pre-IPO investment scams are common. Always verify any investment opportunity through official channels, and never invest based on unsolicited calls promising guaranteed returns."
+  }
+]

@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main source of returns in a Ponzi scheme?",
+      "options": [
+        "Profitable investments",
+        "Money from new investors",
+        "Bank loans"
+      ],
+      "correctAnswer": "Money from new investors"
+    },
+    {
+      "id": "q2",
+      "question": "What is a key difference between a Ponzi scheme and a pyramid scheme?",
+      "options": [
+        "Ponzi schemes are legal, while pyramid schemes are not.",
+        "Pyramid schemes require participants to recruit new members.",
+        "Ponzi schemes only invest in real estate."
+      ],
+      "correctAnswer": "Pyramid schemes require participants to recruit new members."
+    },
+    {
+      "id": "q3",
+      "question": "What is a common red flag of a Ponzi scheme?",
+      "options": [
+        "High, consistent returns with little risk",
+        "Transparent business model",
+        "SEBI registration"
+      ],
+      "correctAnswer": "High, consistent returns with little risk"
+    },
+    {
+      "id": "q4",
+      "question": "What eventually happens to all Ponzi schemes?",
+      "options": [
+        "They become legitimate businesses.",
+        "They are taken over by the government.",
+        "They collapse when they can't attract enough new investors."
+      ],
+      "correctAnswer": "They collapse when they can't attract enough new investors."
+    },
+    {
+      "id": "q5",
+      "question": "Who was Charles Ponzi?",
+      "options": [
+        "A famous economist.",
+        "The creator of the first mutual fund.",
+        "An infamous fraudster who ran a large-scale postage stamp scheme."
+      ],
+      "correctAnswer": "An infamous fraudster who ran a large-scale postage stamp scheme."
+    },
+    {
+      "id": "q6",
+      "question": "What is the best way to protect yourself from Ponzi schemes?",
+      "options": [
+        "Invest a small amount first to see if you get returns.",
+        "Be skeptical of promises of high, guaranteed returns and do your own research.",
+        "Only invest in schemes recommended by friends."
+      ],
+      "correctAnswer": "Be skeptical of promises of high, guaranteed returns and do your own research."
+    },
+    {
+      "id": "q7",
+      "question": "What is the role of SEBI in relation to Ponzi schemes?",
+      "options": [
+        "SEBI insures investors against losses from Ponzi schemes.",
+        "SEBI does not regulate Ponzi schemes.",
+        "SEBI investigates and takes action against illegal investment schemes."
+      ],
+      "correctAnswer": "SEBI investigates and takes action against illegal investment schemes."
+    },
+    {
+      "id": "q8",
+      "question": "What is a common characteristic of a pyramid scheme?",
+      "options": [
+        "A focus on selling a high-quality product.",
+        "A complex commission structure based on recruitment.",
+        "A low, one-time entry fee."
+      ],
+      "correctAnswer": "A complex commission structure based on recruitment."
+    },
+    {
+      "id": "q9",
+      "question": "What was the Saradha Group chit fund scam?",
+      "options": [
+        "A successful investment fund.",
+        "A massive Ponzi scheme that defrauded thousands of investors.",
+        "A government-run savings program."
+      ],
+      "correctAnswer": "A massive Ponzi scheme that defrauded thousands of investors."
+    },
+    {
+      "id": "q10",
+      "question": "What should you do if you suspect an investment scheme might be a Ponzi or pyramid scheme?",
+      "options": [
+        "Invest a large amount to maximize your potential returns.",
+        "Report it to the authorities, such as SEBI or the police.",
+        "Keep it to yourself so you don't cause a panic."
+      ],
+      "correctAnswer": "Report it to the authorities, such as SEBI or the police."
+    }
+  ]
+}

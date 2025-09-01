@@ -1,0 +1,95 @@
+{
+  "header": {
+    "module": "Module 3",
+    "title": "Pump & Dump Schemes",
+    "progress": "Lesson Progress",
+    "xp": "+150 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: How Pump & Dump Works",
+      "duration": "Duration: 9 minutes"
+    },
+    "section1": {
+      "title": "Understanding Pump & Dump Schemes",
+      "p1": "A pump and dump scheme is a form of securities fraud where perpetrators artificially inflate the price of a stock through false and misleading positive statements (the 'pump'), then sell their shares at the inflated price (the 'dump'), leaving other investors with worthless stock.",
+      "p2": "These schemes have evolved with technology and now frequently use social media platforms, messaging apps, and coordinated online campaigns to create artificial demand and manipulate stock prices.",
+      "p3": "Pump and dump schemes are particularly dangerous because:",
+      "list": [
+        "They target retail investors who may lack sophisticated market knowledge.",
+        "They often involve penny stocks with low liquidity, making manipulation easier.",
+        "They can cause massive losses for unsuspecting investors within hours or days.",
+        "They undermine market integrity and investor confidence."
+      ]
+    },
+    "section2": {
+      "title": "The Four-Phase Process",
+      "phase1": {
+        "title": "Target Selection",
+        "description": "Fraudsters identify low-priced, thinly-traded stocks that are easier to manipulate."
+      },
+      "phase2": {
+        "title": "Accumulation",
+        "description": "Perpetrators secretly buy large quantities of the target stock at low prices."
+      },
+      "phase3": {
+        "title": "Promotion (PUMP)",
+        "description": "Launch aggressive marketing campaigns to artificially drive up demand and price."
+      },
+      "phase4": {
+        "title": "Distribution (DUMP)",
+        "description": "Sell accumulated shares at peak prices, causing the stock to crash."
+      }
+    },
+    "section3": {
+      "title": "Warning Signs & Red Flags",
+      "p1": "Learning to identify pump and dump warning signs is crucial for protecting your investments:",
+      "warningSign1": "Stock promoted heavily on social media with claims like 'This stock will 10X in the next week!' with rocket emojis and screenshots of profits.",
+      "warningSign2": "Penny stock suddenly has 50x normal trading volume and is up 200% in one day with no company news.",
+      "warningSign3": "WhatsApp group admin claims to have 'insider information' about a stock and says 'buy now, sell tomorrow for guaranteed 50% profit'."
+    },
+    "section4": {
+      "title": "Famous Case Studies",
+      "wolfWallStreet": {
+        "title": "The Wolf of Wall Street (1990s)",
+        "description": "Jordan Belfort and Stratton Oakmont manipulated penny stocks through cold calling and false promotions.",
+        "impact": "$200 million in investor losses"
+      },
+      "socialMediaPumps": {
+        "title": "Social Media Pump Groups (2020-2021)",
+        "description": "Coordinated campaigns on Discord, Telegram, and Reddit manipulated various cryptocurrency and stock prices.",
+        "impact": "Billions in retail investor losses"
+      },
+      "celebrityCryptoPumps": {
+        "title": "Celebrity Crypto Pumps (2021-2022)",
+        "description": "Various celebrities promoted cryptocurrencies without disclosure, leading to massive price manipulation.",
+        "impact": "SEC settlements and investor losses"
+      }
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Pump & Dump Quiz",
+    "subtitle": "Test your knowledge about pump and dump schemes",
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Lesson Complete!",
+    "subtitle": "You've earned 150 XP",
+    "button": "Back to Course"
+  }
+}

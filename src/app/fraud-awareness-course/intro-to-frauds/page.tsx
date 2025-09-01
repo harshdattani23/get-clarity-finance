@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useUser } from '@clerk/nextjs';
+import { SignInButton } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
 import Module1VideoPlayer from '@/components/fraud-awareness-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
+import SpotTheRedFlag from '@/components/fraud-awareness/SpotTheRedFlag';
+import ProgressiveRedFlagQuiz from '@/components/fraud-awareness/ProgressiveRedFlagQuiz';
+import InteractiveInfographic from '@/components/fraud-awareness/InteractiveInfographic';
+import CaseStudyModal from '@/components/fraud-awareness/CaseStudyModal';
+import FraudMatchingGame from '@/components/fraud-awareness/FraudMatchingGame';
+import TimelineBuilder from '@/components/fraud-awareness/TimelineBuilder';
+import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
+import introRedFlagScenarios from '@/data/fraud-scenarios/intro-red-flags.json';
 import { 
   ArrowLeft,
   ChevronRight,
@@ -20,30 +31,404 @@ import {
   Zap,
   Lock,
   Repeat,
-  Briefcase
+  Briefcase,
+  Brain,
+  Target,
+  DollarSign,
+  MessageCircle,
+  Phone,
+  Clock
 } from 'lucide-react';
 
 export default function IntroToFraudsPage() {
   const { t } = useTranslation('courses.intro-to-frauds');
-  const [currentSection, setCurrentSection] = useState<'overview' | 'simulator' | 'quiz'>('overview');
-  const [lessonProgress, setLessonProgress] = useState(33);
+  const { user: clerkUser, isLoaded } = useUser(); // Get user data and loading state from Clerk
+  const [overviewStep, setOverviewStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', description: '' });
+  
+  // Track engagement and XP
+  const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set());
+  const [currentXP, setCurrentXP] = useState(0);
+  const [showXPAnimation, setShowXPAnimation] = useState(false);
+  const [lastXPEarned, setLastXPEarned] = useState(0);
+  
+  // Gamification state
+  const [streakCount, setStreakCount] = useState(1);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [achievements, setAchievements] = useState<string[]>([]);
+  const [currentQuizScore, setCurrentQuizScore] = useState(0);
+  
+  // Certificate state
+  const [showCertificate, setShowCertificate] = useState(false);
+  const [certificateData, setCertificateData] = useState<{
+    id: string;
+    userName: string;
+    courseName: string;
+    totalXP: number;
+    moduleCount: number;
+    completedModules: Array<{
+      id: string;
+      title: string;
+      xpEarned: number;
+      completedAt: string;
+      completed: boolean;
+    }>;
+    completionDate: string;
+    publicUrl?: string;
+  } | null>(null);
+
+  const lessonProgress = useMemo(() => {
+    // Base activities that contribute to progress
+    const totalActivities = 10; // video + audio + 3 red flag scenarios + 3 fraud type interactions + simulator
+    const completedCount = completedActivities.size;
+    
+    // Progress based on current step and activities completed
+    const stepProgress = (overviewStep / 4) * 100;
+    const activityProgress = (completedCount / totalActivities) * 100;
+    return Math.min(100, Math.max(stepProgress, activityProgress));
+  }, [overviewStep, completedActivities]);
+
+  // Load existing progress on mount
+  useEffect(() => {
+    const loadProgress = async () => {
+      console.log('Clerk user data:', clerkUser);
+      if (clerkUser) {
+        console.log('User authenticated with Clerk:', {
+          id: clerkUser.id,
+          fullName: clerkUser.fullName,
+          firstName: clerkUser.firstName,
+          lastName: clerkUser.lastName,
+          username: clerkUser.username,
+          primaryEmailAddress: clerkUser.primaryEmailAddress?.emailAddress
+        });
+      } else {
+        console.log('No Clerk user found - user not signed in');
+      }
+
+      // Load progress data
+      try {
+        const response = await fetch('/api/lessons/interactions?lessonId=intro-to-frauds', {
+          credentials: 'include'
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Loaded progress from database:', data);
+          setCurrentXP(data.totalXpEarned || 0);
+          setCompletedActivities(new Set(data.completedActivities || []));
+        } else if (response.status === 401) {
+          console.log('User not authenticated, starting with fresh progress');
+          // User is not authenticated, start with fresh progress
+          setCurrentXP(0);
+          setCompletedActivities(new Set());
+        } else {
+          console.log('Database unavailable, starting with fresh progress');
+          // Start with fresh progress if database is unavailable
+          setCurrentXP(0);
+          setCompletedActivities(new Set());
+        }
+      } catch (error) {
+        console.log('Database connection failed, starting with fresh progress:', error);
+        // Start with fresh progress if database connection fails
+        setCurrentXP(0);
+        setCompletedActivities(new Set());
+      }
+    };
+
+    loadProgress();
+  }, [clerkUser]); // Re-run when clerkUser changes
+
+  const addXP = async (amount: number, activityId: string) => {
+    if (completedActivities.has(activityId)) {
+      console.log(`XP already awarded for ${activityId}`);
+      return; // Don't award XP twice
+    }
+    
+    console.log(`Awarding ${amount} XP for ${activityId}`);
+    
+    // Always update UI immediately for better user experience
+    setCompletedActivities(prev => new Set([...prev, activityId]));
+    setCurrentXP(prev => {
+      const newXP = prev + amount;
+      console.log(`XP updated from ${prev} to ${newXP}`);
+      return newXP;
+    });
+    setLastXPEarned(amount);
+    setShowXPAnimation(true);
+    setTimeout(() => setShowXPAnimation(false), 2000);
+    
+    // Try to save to database in background
+    try {
+      const response = await fetch('/api/lessons/interactions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          lessonId: 'intro-to-frauds',
+          interactionId: activityId,
+          xpEarned: amount,
+          interactionType: activityId.includes('red-flag') ? 'SCENARIO' : 'DECISION',
+          response: 'completed',
+          isCorrect: true,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('XP saved to database:', data);
+      } else if (response.status === 401) {
+        console.log('User not authenticated, XP saved locally only');
+      } else {
+        console.log('Database save failed, but UI already updated');
+      }
+    } catch (error) {
+      console.error('Failed to save XP to database:', error);
+      console.log('UI already updated optimistically');
+    }
+  };
+
+  const scenarios = [
+    {
+      id: 1,
+      text: t('overview.spotTheRedFlag.scenario1') as string,
+      options: [
+        t('overview.spotTheRedFlag.options1.0') as string,
+        t('overview.spotTheRedFlag.options1.1') as string,
+        t('overview.spotTheRedFlag.options1.2') as string,
+      ],
+      answer: t('overview.spotTheRedFlag.answer1') as string,
+    },
+    {
+      id: 2,
+      text: t('overview.spotTheRedFlag.scenario2') as string,
+      options: [
+        t('overview.spotTheRedFlag.options2.0') as string,
+        t('overview.spotTheRedFlag.options2.1') as string,
+        t('overview.spotTheRedFlag.options2.2') as string,
+      ],
+      answer: t('overview.spotTheRedFlag.answer2') as string,
+    },
+    {
+      id: 3,
+      text: t('overview.spotTheRedFlag.scenario3') as string,
+      options: [
+        t('overview.spotTheRedFlag.options3.0') as string,
+        t('overview.spotTheRedFlag.options3.1') as string,
+        t('overview.spotTheRedFlag.options3.2') as string,
+      ],
+      answer: t('overview.spotTheRedFlag.answer3') as string,
+    },
+  ];
 
   const handleCompleteLesson = async () => {
     try {
+      // Mark lesson as complete in the backend
       await fetch('/api/lessons/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
-          lessonId: 'intro-to-frauds', // Assuming the lesson slug is the ID
-          courseId: 'clx2no2g0000008l8g8r8g8r8', // The ID from the seed script
+          lessonId: 'intro-to-frauds',
+          courseId: 'clx2no2g0000008l8g8r8g8r8',
         }),
       });
+
+      // Generate certificate immediately
+      await generateCertificate();
+
     } catch (error) {
       console.error('Failed to mark lesson as complete', error);
+      // Still show certificate even if backend fails
+      await generateCertificate();
     }
   };
+
+  const generateCertificate = async () => {
+    try {
+      const completedModules = [
+        {
+          id: 'intro-to-frauds',
+          title: 'Introduction to Stock Market Frauds',
+          xpEarned: currentXP || 100,
+          completedAt: new Date().toISOString(),
+          completed: true
+        }
+      ];
+
+      // Generate unique certificate ID
+      const certificateId = `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+      
+      // Get user name from Clerk user or use fallback
+      const userName = clerkUser?.fullName || 
+        (clerkUser?.firstName && clerkUser?.lastName ? `${clerkUser.firstName} ${clerkUser.lastName}` : null) ||
+        clerkUser?.firstName ||
+        clerkUser?.username ||
+        clerkUser?.primaryEmailAddress?.emailAddress ||
+        'Course Participant';
+      
+      console.log('Certificate generation - userName selected:', userName, 'from clerkUser:', clerkUser);
+      
+      const certificateData = {
+        id: certificateId,
+        userName: userName,
+        courseName: 'Fraud Awareness Course - Introduction to Stock Market Frauds',
+        totalXP: currentXP || 100,
+        moduleCount: 1,
+        completedModules,
+        completionDate: new Date().toISOString()
+      };
+
+      // Store certificate in database with public URL
+      try {
+        const storeResponse = await fetch(`/api/certificates/${certificateId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(certificateData)
+        });
+
+        if (storeResponse.ok) {
+          const storeData = await storeResponse.json();
+          console.log('Certificate stored with public URL:', storeData.publicUrl);
+          setCertificateData({
+            ...certificateData,
+            publicUrl: storeData.publicUrl
+          });
+        } else {
+          console.log('Certificate storage failed, using local data');
+          setCertificateData(certificateData);
+        }
+      } catch (storeError) {
+        console.log('Certificate storage error, using local data:', storeError);
+        setCertificateData(certificateData);
+      }
+      
+      setShowCertificate(true);
+      
+    } catch (error) {
+      console.error('Certificate generation error:', error);
+      // Fallback: create certificate data directly
+      const userName = clerkUser?.fullName || 
+        (clerkUser?.firstName && clerkUser?.lastName ? `${clerkUser.firstName} ${clerkUser.lastName}` : null) ||
+        clerkUser?.firstName ||
+        clerkUser?.username ||
+        clerkUser?.primaryEmailAddress?.emailAddress ||
+        'Course Participant';
+        
+      const fallbackCertificate = {
+        id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+        userName: userName,
+        courseName: 'Fraud Awareness Course - Introduction to Stock Market Frauds',
+        totalXP: currentXP || 100,
+        moduleCount: 1,
+        completedModules: [
+          {
+            id: 'intro-to-frauds',
+            title: 'Introduction to Stock Market Frauds',
+            xpEarned: currentXP || 100,
+            completedAt: new Date().toISOString(),
+            completed: true
+          }
+        ],
+        completionDate: new Date().toISOString()
+      };
+      setCertificateData(fallbackCertificate);
+      setShowCertificate(true);
+    }
+  };
+
+  const openModal = (title: string, description: string) => {
+    setModalContent({ title, description });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Show loading state while Clerk is loading
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading course...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show sign-in prompt if user is not authenticated
+  if (!clerkUser) {
+    return (
+      <div className="min-h-screen bg-gray-50 text-gray-800">
+        {/* Header */}
+        <div className="bg-white border-b sticky top-0 z-10">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Link 
+                  href="/fraud-awareness-course"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </Link>
+                <div>
+                  <p className="text-xs text-gray-500">Module 1</p>
+                  <h1 className="text-lg font-semibold">Introduction to Stock Market Frauds</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sign-in Required Content */}
+        <div className="container mx-auto px-6 py-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-lg p-8 shadow-lg border border-gray-200"
+            >
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-8 h-8 text-blue-600" />
+              </div>
+              
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Sign In Required
+              </h2>
+              
+              <p className="text-gray-600 mb-6">
+                To access this fraud awareness course and earn your personalized certificate, 
+                please sign in to your account.
+              </p>
+              
+              <div className="space-y-4">
+                <SignInButton mode="modal">
+                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                    Sign In to Start Course
+                  </button>
+                </SignInButton>
+                
+                <div className="text-sm text-gray-500">
+                  <p>✓ Track your progress</p>
+                  <p>✓ Earn XP and achievements</p>
+                  <p>✓ Get your personalized certificate</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
@@ -78,350 +463,513 @@ export default function IntroToFraudsPage() {
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-2 text-sm relative">
                 <Trophy className="w-4 h-4 text-yellow-500" />
-                <span>{t('header.xp') as string}</span>
+                <span>{currentXP} XP</span>
+                {showXPAnimation && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: -20 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute -top-6 left-0 text-green-500 font-bold text-sm pointer-events-none"
+                  >
+                    +{lastXPEarned} XP
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-6">
-          <div className="flex gap-6">
-            <button
-              onClick={() => setCurrentSection('overview')}
-              className={`py-3 px-4 border-b-2 transition-colors ${
-                currentSection === 'overview'
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4" />
-                {t('tabs.overview') as string}
-              </div>
-            </button>
-            <button
-              onClick={() => {
-                setCurrentSection('simulator');
-                setLessonProgress(66);
-              }}
-              className={`py-3 px-4 border-b-2 transition-colors ${
-                currentSection === 'simulator'
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4" />
-                {t('tabs.simulator') as string}
-              </div>
-            </button>
-            <button
-              onClick={() => {
-                setCurrentSection('quiz');
-              }}
-              className={`py-3 px-4 border-b-2 transition-colors ${
-                currentSection === 'quiz'
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                {t('tabs.quiz') as string}
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Content */}
       <div className="container mx-auto px-6 py-8">
-        {currentSection === 'overview' && (
-          <div className="max-w-4xl mx-auto">
-            {/* Video Section */}
-            <ClientOnly>
-              <Module1VideoPlayer className="mb-8" />
-            </ClientOnly>
-
-            {/* Audio Content Section */}
-            <ClientOnly>
-              <Module1AudioPlayer className="mb-8" />
-            </ClientOnly>
-
-            {/* Content Sections */}
-            <div className="space-y-8">
-              <section className="bg-white rounded-xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                  <AlertTriangle className="w-6 h-6 text-red-500" />
-                  {t('overview.section1.title') as string}
-                </h2>
-                <p className="text-gray-700 mb-4">
-                  {t('overview.section1.p1') as string}
-                </p>
-                <p className="text-gray-700 mb-4">
-                  {t('overview.section1.p2') as string}
-                </p>
-                <p className="text-gray-700 font-semibold mb-4">
-                  {t('overview.section1.p3') as string}
-                </p>
-                <ul className="space-y-2 ml-6">
-                  {Array.isArray(t('overview.section1.list')) ? (t('overview.section1.list') as string[]).map((item, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  )) : (
-                    // Fallback content if translation fails
-                    <>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                        <span>WhatsApp and Telegram groups offering "guaranteed returns".</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                        <span>Fake investment advisory websites and social media profiles.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                        <span>Sophisticated Ponzi and pyramid schemes disguised as legitimate investments.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                        <span>Pump and dump operations coordinated through online forums.</span>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </section>
-
-              <section className="bg-white rounded-xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold mb-4">{t('overview.section2.title') as string}</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <TrendingUp className="w-6 h-6 text-red-600" />
-                      <h3 className="font-semibold text-red-600">{t('overview.section2.ponzi.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.ponzi.description') as string}
-                    </p>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Zap className="w-6 h-6 text-yellow-600" />
-                      <h3 className="font-semibold text-yellow-600">{t('overview.section2.pump_dump.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.pump_dump.description') as string}
-                    </p>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Lock className="w-6 h-6 text-purple-600" />
-                      <h3 className="font-semibold text-purple-600">{t('overview.section2.insider_trading.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.insider_trading.description') as string}
-                    </p>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Users className="w-6 h-6 text-blue-600" />
-                      <h3 className="font-semibold text-blue-600">{t('overview.section2.fake_advisors.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.fake_advisors.description') as string}
-                    </p>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Repeat className="w-6 h-6 text-cyan-600" />
-                      <h3 className="font-semibold text-cyan-600">{t('overview.section2.circular_trading.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.circular_trading.description') as string}
-                    </p>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Briefcase className="w-6 h-6 text-indigo-600" />
-                      <h3 className="font-semibold text-indigo-600">{t('overview.section2.front_running.title') as string}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {t('overview.section2.front_running.description') as string}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6">
-                <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
-                  <Shield className="w-6 h-6 text-yellow-600" />
-                  {t('overview.section3.title') as string}
-                </h2>
-                <p className="text-gray-700 mb-3">
-                  {t('overview.section3.p1') as string}
-                </p>
-                <p className="text-gray-700 font-semibold mb-3">
-                  {t('overview.section3.p2') as string}
-                </p>
-                <ul className="space-y-2 text-sm list-disc list-inside">
-                  {Array.isArray(t('overview.section3.list')) ? (t('overview.section3.list') as string[]).map((item, index) => (
-                    <li key={index}>{item}</li>
-                  )) : (
-                    // Fallback content
-                    <>
-                      <li>Registering and regulating all market intermediaries, such as brokers, investment advisers, and mutual funds.</li>
-                      <li>Prohibiting fraudulent and unfair trade practices.</li>
-                      <li>Promoting investor education and awareness.</li>
-                      <li>Investigating cases of market manipulation and insider trading.</li>
-                      <li>Issuing guidelines and regulations to ensure market integrity.</li>
-                    </>
-                  )}
-                </ul>
-                <div className="mt-4">
-                  <a href="https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yes&intmId=13" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-blue-600 hover:underline">
-                    {t('overview.section3.link') as string}
-                  </a>
-                </div>
-              </section>
-
-              <div className="flex justify-end">
-                <button
-                  onClick={() => {
-                    setCurrentSection('simulator');
-                    setLessonProgress(66);
-                    window.scrollTo(0, 0);
-                  }}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
-                >
-                  {t('overview.button.practice') as string}
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto"
+        >
+          {/* Stepper */}
+          <div className="flex justify-between items-center mb-8">
+            <div className="flex items-center gap-4">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 2 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 2 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 3 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 3 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 4 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 4 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>4</div>
             </div>
           </div>
-        )}
 
-        {currentSection === 'simulator' && (
-          <div>
-            <FraudSimulator />
-            <div className="max-w-4xl mx-auto mt-8 flex justify-end">
-              <button
-                onClick={() => {
-                  setCurrentSection('quiz');
-                }}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
-              >
-                {t('simulator.button.quiz') as string}
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        )}
+            {overviewStep === 1 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">{t('overview.steps.step1') as string}</h2>
+                
+                {/* XP Overview Section */}
+                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 mb-6 border border-yellow-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                      <Trophy className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">Earn XP by Learning!</h3>
+                      <p className="text-sm text-gray-600">Complete activities to gain experience points and track your progress</p>
+                    </div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-blue-600 font-bold text-xs">📹</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Watch Video</p>
+                        <p className="text-xs text-gray-500">20 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                        <span className="text-purple-600 font-bold text-xs">🎵</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Listen Audio</p>
+                        <p className="text-xs text-gray-500">15 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <span className="text-green-600 font-bold text-xs">🎯</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Interactive</p>
+                        <p className="text-xs text-gray-500">10-25 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                        <span className="text-red-600 font-bold text-xs">🚩</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Spot Red Flags</p>
+                        <p className="text-xs text-gray-500">15 XP each</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Video Section */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold">{t('overview.video.title') as string}</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+20 XP</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">{t('overview.video.duration') as string}</p>
+                  
+                  <div className="relative mb-4">
+                    <ClientOnly>
+                      <Module1VideoPlayer 
+                        onComplete={() => addXP(20, 'video-completed')}
+                        isCompleted={completedActivities.has('video-completed')}
+                      />
+                    </ClientOnly>
+                  </div>
+                  
+                  {completedActivities.has('video-completed') && (
+                    <div className="flex items-center gap-2 text-green-600 text-sm">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Video completed (+20 XP)</span>
+                    </div>
+                  )}
+                </div>
 
-        {currentSection === 'quiz' && (
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6">{t('quiz.title') as string}</h2>
-              <p className="text-gray-600 mb-8">
-                {t('quiz.subtitle') as string}
-              </p>
-              
-              {/* Sample quiz questions */}
-              <div className="space-y-6">
-                <div className="border rounded-lg p-6">
-                  <p className="font-semibold mb-4">{t('quiz.q1.question') as string}</p>
-                  <div className="space-y-2">
-                    {Array.isArray(t('quiz.q1.options')) ? (t('quiz.q1.options') as string[]).map((option, index) => (
-                      <label key={index} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                        <input type="radio" name="q1" className="w-4 h-4" />
-                        <span>{option}</span>
-                      </label>
-                    )) : (
-                      // Fallback quiz options
-                      <>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q1" className="w-4 h-4" />
-                          <span>Guaranteeing investment returns</span>
-                        </label>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q1" className="w-4 h-4" />
-                          <span>Regulating and monitoring market participants</span>
-                        </label>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q1" className="w-4 h-4" />
-                          <span>Providing stock tips</span>
-                        </label>
-                      </>
-                    )}
+                {/* Audio Section */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold">Audio: Key Insights on Securities Fraud</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+15 XP</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">Duration: 5 minutes • Available in 9 languages</p>
+                  
+                  <div className="relative mb-4">
+                    <ClientOnly>
+                      <Module1AudioPlayer 
+                        onComplete={() => addXP(15, 'audio-completed')}
+                        isCompleted={completedActivities.has('audio-completed')}
+                      />
+                    </ClientOnly>
+                  </div>
+                  
+                  {completedActivities.has('audio-completed') && (
+                    <div className="flex items-center gap-2 text-green-600 text-sm">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Audio completed (+15 XP)</span>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-6 mb-6">
+                  <h3 className="text-lg font-semibold mb-4">What is Securities Fraud?</h3>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p1') as string}</p>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p2') as string}</p>
+                  
+                  <div className="mt-4">
+                    <h4 className="font-medium mb-3">{t('overview.section1.p3') as string}</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      {Array.isArray(t('overview.section1.list')) ? 
+                        (t('overview.section1.list') as string[]).map((item, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        )) : 
+                        // Fallback list if translation fails
+                        [
+                          'WhatsApp and Telegram groups offering "guaranteed returns".',
+                          'Fake investment advisory websites and social media profiles.',
+                          'Sophisticated Ponzi and pyramid schemes disguised as legitimate investments.',
+                          'Pump and dump operations coordinated through online forums.'
+                        ].map((item, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="flex justify-end">
+                  <button onClick={() => setOverviewStep(2)} className="bg-blue-500 text-white px-6 py-2 rounded-lg">Next</button>
+                </div>
+              </motion.div>
+            )}
+
+            {overviewStep === 2 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-6">{t('overview.steps.step2') as string}</h2>
+                
+                {/* Basic Fraud Type Cards - Educational First */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-semibold mb-6 text-gray-800">Common Types of Stock Market Frauds</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {['ponzi', 'pump_dump', 'insider_trading'].map((fraudType, index) => (
+                      <motion.div 
+                        key={fraudType}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => {
+                          addXP(10, `fraud-type-${fraudType}`);
+                          // Add confetti effect for first time clicks
+                          if (!completedActivities.has(`fraud-type-${fraudType}`)) {
+                            setShowCelebration(true);
+                            setTimeout(() => setShowCelebration(false), 1500);
+                          }
+                        }}
+                        className={`p-6 border rounded-xl cursor-pointer transition-all hover:scale-105 hover:shadow-xl relative overflow-hidden ${
+                          completedActivities.has(`fraud-type-${fraudType}`) 
+                            ? 'border-green-400 bg-gradient-to-br from-green-50 to-green-100' 
+                            : 'border-gray-200 hover:border-blue-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50'
+                        }`}
+                      >
+                        {/* Animated background pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="w-full h-full bg-gradient-to-br from-blue-200 to-purple-200 rounded-xl" />
+                        </div>
+                        
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div className={`w-3 h-3 rounded-full ${
+                                fraudType === 'ponzi' ? 'bg-red-400' :
+                                fraudType === 'pump_dump' ? 'bg-orange-400' : 'bg-purple-400'
+                              }`} />
+                              <h3 className="font-bold text-gray-800">{t(`overview.section2.${fraudType}.title`) as string}</h3>
+                            </div>
+                            {completedActivities.has(`fraud-type-${fraudType}`) && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                              >
+                                <CheckCircle className="w-6 h-6 text-green-500" />
+                              </motion.div>
+                            )}
+                          </div>
+                          
+                          <p className="text-sm text-gray-700 mb-4">{t(`overview.section2.${fraudType}.description`) as string}</p>
+                          
+                          {!completedActivities.has(`fraud-type-${fraudType}`) && (
+                            <div className="flex items-center gap-2">
+                              <Zap className="w-4 h-4 text-blue-500" />
+                              <p className="text-xs text-blue-600 font-medium">Click to explore (+10 XP)</p>
+                            </div>
+                          )}
+                          
+                          {completedActivities.has(`fraud-type-${fraudType}`) && (
+                            <div className="flex items-center gap-2">
+                              <Trophy className="w-4 h-4 text-yellow-500" />
+                              <p className="text-xs text-green-600 font-medium">Mastered! +10 XP</p>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-6">
-                  <p className="font-semibold mb-4">{t('quiz.q2.question') as string}</p>
-                  <div className="space-y-2">
-                    {Array.isArray(t('quiz.q2.options')) ? (t('quiz.q2.options') as string[]).map((option, index) => (
-                      <label key={index} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                        <input type="radio" name="q2" className="w-4 h-4" />
-                        <span>{option}</span>
-                      </label>
-                    )) : (
-                      // Fallback quiz options
-                      <>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q2" className="w-4 h-4" />
-                          <span>Guaranteed high returns with no risk</span>
-                        </label>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q2" className="w-4 h-4" />
-                          <span>SEBI registration number provided</span>
-                        </label>
-                        <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <input type="radio" name="q2" className="w-4 h-4" />
-                          <span>Transparent fee structure</span>
-                        </label>
-                      </>
-                    )}
+                {/* Interactive Games Section */}
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{t('overview.interactiveGames.title') as string}</h3>
+                    <p className="text-gray-600">{t('overview.interactiveGames.subtitle') as string}</p>
+                  </div>
+
+                  {/* Drag & Drop Fraud Matching Game */}
+                  <div className="bg-white rounded-lg p-6 border border-gray-200">
+                    <h3 className="text-xl font-semibold mb-4">{t('overview.interactiveGames.fraudDetectionChallenge.title') as string}</h3>
+                    <p className="text-gray-600 mb-6">{t('overview.interactiveGames.fraudDetectionChallenge.description') as string}</p>
+                    
+                    <FraudMatchingGame 
+                      onComplete={(score) => {
+                        addXP(25, 'matching-game-completed');
+                        setCurrentQuizScore(score);
+                        if (score >= 80) {
+                          setShowCelebration(true);
+                          setTimeout(() => setShowCelebration(false), 3000);
+                        }
+                      }}
+                      isCompleted={completedActivities.has('matching-game-completed')}
+                    />
+                  </div>
+
+                  {/* Interactive Timeline Builder */}
+                  <div className="bg-white rounded-lg p-6 border border-gray-200">
+                    <h3 className="text-xl font-semibold mb-4">{t('overview.interactiveGames.timelineBuilder.title') as string}</h3>
+                    <p className="text-gray-600 mb-4">{t('overview.interactiveGames.timelineBuilder.description') as string}</p>
+                    
+                    <TimelineBuilder 
+                      events={[
+                        { id: '1', text: 'Initial victims invest money', stage: 'early' },
+                        { id: '2', text: 'Returns paid using new investor money', stage: 'middle' },
+                        { id: '3', text: 'Scheme promoted as "guaranteed returns"', stage: 'early' },
+                        { id: '4', text: 'Recruitment of new investors accelerates', stage: 'middle' },
+                        { id: '5', text: 'Scheme collapses, investors lose money', stage: 'end' }
+                      ]}
+                      onComplete={() => addXP(20, 'timeline-completed')}
+                      isCompleted={completedActivities.has('timeline-completed')}
+                    />
                   </div>
                 </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(1)} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">Back</button>
+                  <button onClick={() => setOverviewStep(3)} className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">Next</button>
+                </div>
+              </motion.div>
+            )}
 
-                <div className="flex justify-center mt-8">
-                  <button 
-                    onClick={() => {
-                      setLessonProgress(100);
+            {overviewStep === 3 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">{t('overview.steps.step3') as string}</h2>
+                <p className="text-gray-700 mb-6">{t('overview.section3.p1') as string}</p>
+                
+                {/* Progressive Red Flag Quiz */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <h3 className="text-xl font-semibold mb-4 text-gray-800">🚩 Interactive Red Flag Detection Challenge</h3>
+                  <p className="text-gray-600 mb-6">Learn to identify stock market fraud warning signs through realistic scenarios. Each scenario awards 15 XP when completed correctly.</p>
+                  
+                  <ProgressiveRedFlagQuiz 
+                    scenarios={introRedFlagScenarios.map(scenario => ({
+                      ...scenario,
+                      options: scenario.options.map(option => ({
+                        ...option,
+                        icon: (
+                          option.icon === '🚩' ? <AlertTriangle className="w-4 h-4" /> :
+                          option.icon === '📊' ? <TrendingUp className="w-4 h-4" /> :
+                          option.icon === '🤖' ? <Brain className="w-4 h-4" /> :
+                          option.icon === '⏰' ? <Clock className="w-4 h-4" /> :
+                          option.icon === '📱' ? <Phone className="w-4 h-4" /> :
+                          option.icon === '🔍' ? <Target className="w-4 h-4" /> :
+                          option.icon === '📈' ? <TrendingUp className="w-4 h-4" /> :
+                          option.icon === '📢' ? <MessageCircle className="w-4 h-4" /> :
+                          option.icon === '🔒' ? <Lock className="w-4 h-4" /> :
+                          option.icon === '🌐' ? <Users className="w-4 h-4" /> :
+                          option.icon === '⚠️' ? <AlertTriangle className="w-4 h-4" /> :
+                          option.icon === '⭐' ? <Trophy className="w-4 h-4" /> :
+                          option.icon === '💱' ? <DollarSign className="w-4 h-4" /> :
+                          option.icon === '🏦' ? <Shield className="w-4 h-4" /> :
+                          option.icon === '🎁' ? <Trophy className="w-4 h-4" /> :
+                          <AlertTriangle className="w-4 h-4" />
+                        )
+                      }))
+                    }))}
+                    onComplete={(scenarioId) => addXP(15, `red-flag-intro-${scenarioId}`)}
+                    completedScenarios={completedActivities}
+                  />
+                </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(2)} className="bg-gray-200 px-6 py-2 rounded-lg">Back</button>
+                  <button onClick={() => setOverviewStep(4)} className="bg-green-500 text-white px-6 py-2 rounded-lg">Continue to Simulator</button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step 4: Interactive Fraud Simulator */}
+            {overviewStep === 4 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">Interactive Fraud Simulator</h2>
+                <p className="text-gray-700 mb-6">Test your fraud detection skills in realistic scenarios and earn XP for making smart decisions!</p>
+                
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold">Fraud Detection Simulator</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+30 XP</span>
+                    </div>
+                  </div>
+                  
+                  <FraudSimulator 
+                    onComplete={() => {
+                      addXP(30, 'simulator-completed');
                       handleCompleteLesson();
                     }}
-                    className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                  >
-                    {t('quiz.button.submit') as string}
-                  </button>
+                    isCompleted={completedActivities.has('simulator-completed')}
+                  />
+                  
+                  {completedActivities.has('simulator-completed') && (
+                    <div className="bg-green-50 rounded-lg p-4 mt-4 border border-green-200">
+                      <div className="flex items-center gap-2 text-green-600 text-sm mb-2">
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Simulator completed (+30 XP) - Course Complete! 🎉</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Congratulations! You've successfully completed the Introduction to Stock Market Frauds course.</p>
+                      <button
+                        onClick={() => {
+                          console.log('=== CERTIFICATE GENERATION DEBUG ===');
+                          console.log('Main View Certificate clicked');
+                          console.log('Current certificateData:', certificateData);
+                          console.log('Current XP:', currentXP);
+                          console.log('Raw clerkUser object:', clerkUser);
+                          console.log('clerkUser keys:', clerkUser ? Object.keys(clerkUser) : 'null');
+                          console.log('clerkUser.username:', clerkUser?.username);
+                          console.log('clerkUser.primaryEmailAddress:', clerkUser?.primaryEmailAddress?.emailAddress);
+                          console.log('clerkUser.fullName:', clerkUser?.fullName);
+                          console.log('clerkUser.firstName:', clerkUser?.firstName);
+                          console.log('clerkUser.lastName:', clerkUser?.lastName);
+                          
+                          // Try different name fields that might come from Clerk
+                          const possibleUserNames = {
+                            username: clerkUser?.username,
+                            email: clerkUser?.primaryEmailAddress?.emailAddress,
+                            fullName: clerkUser?.fullName,
+                            firstName: clerkUser?.firstName,
+                            lastName: clerkUser?.lastName,
+                            publicMetadata: clerkUser?.publicMetadata,
+                            unsafeMetadata: clerkUser?.unsafeMetadata
+                          };
+                          console.log('All possible name fields:', possibleUserNames);
+                          
+                          // Determine the best user name to use
+                          let userName = 'Course Participant';
+                          if (clerkUser?.fullName) {
+                            userName = clerkUser.fullName;
+                            console.log('Using fullName field:', userName);
+                          } else if (clerkUser?.firstName && clerkUser?.lastName) {
+                            userName = `${clerkUser.firstName} ${clerkUser.lastName}`;
+                            console.log('Using firstName + lastName:', userName);
+                          } else if (clerkUser?.firstName) {
+                            userName = clerkUser.firstName;
+                            console.log('Using firstName only:', userName);
+                          } else if (clerkUser?.username) {
+                            userName = clerkUser.username;
+                            console.log('Using username:', userName);
+                          } else if (clerkUser?.primaryEmailAddress?.emailAddress) {
+                            userName = clerkUser.primaryEmailAddress.emailAddress;
+                            console.log('Using email:', userName);
+                          } else {
+                            console.log('No user data available, using fallback:', userName);
+                          }
+                          
+                          const mainCertificate = {
+                            id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+                            userName: userName,
+                            courseName: 'Fraud Awareness Course - Introduction to Stock Market Frauds',
+                            totalXP: currentXP || 100,
+                            moduleCount: 1,
+                            completedModules: [
+                              {
+                                id: 'intro-to-frauds',
+                                title: 'Introduction to Stock Market Frauds',
+                                xpEarned: currentXP || 100,
+                                completedAt: new Date().toISOString(),
+                                completed: true
+                              }
+                            ],
+                            completionDate: new Date().toISOString()
+                          };
+                          
+                          console.log('Final userName selected:', userName);
+                          console.log('Generated certificate data:', mainCertificate);
+                          setCertificateData(mainCertificate);
+                          setShowCertificate(true);
+                          console.log('Certificate modal should be showing now');
+                          console.log('=== END CERTIFICATE DEBUG ===');
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105"
+                      >
+                        <Trophy className="w-4 h-4" />
+                        View Certificate
+                      </button>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </div>
-
-            {/* Completion Card */}
-            {lessonProgress === 100 && (
-              <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-8 text-white text-center mt-8">
-                <Trophy className="w-16 h-16 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">{t('completion.title') as string}</h3>
-                <p className="mb-4">{t('completion.subtitle') as string}</p>
-                <Link
-                  href="/fraud-awareness-course"
-                  className="inline-block bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors"
-                >
-                  {t('completion.button') as string}
-                </Link>
-              </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(3)} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">Back</button>
+                  <Link
+                    href="/fraud-awareness-course"
+                    className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                  >
+                    Complete Course 🏆
+                  </Link>
+                </div>
+              </motion.div>
             )}
-          </div>
-        )}
+
+          </motion.div>
       </div>
+      <CaseStudyModal 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+        title={modalContent.title} 
+        description={modalContent.description} 
+      />
+      
+      {/* Certificate Modal */}
+      {showCertificate && certificateData && (
+        <CourseCompletionCertificate
+          userName={certificateData.userName}
+          courseName={certificateData.courseName}
+          completionDate={certificateData.completionDate}
+          totalXP={certificateData.totalXP}
+          moduleCount={certificateData.moduleCount}
+          completedModules={certificateData.completedModules}
+          certificateId={certificateData.id}
+          onClose={() => setShowCertificate(false)}
+        />
+      )}
     </div>
   );
 }

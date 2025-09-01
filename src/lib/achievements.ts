@@ -49,6 +49,26 @@ export async function checkAndAwardAchievements(userId: string) {
 
             if (userLessonProgress.length === lessonIds.length) {
               isAchieved = true;
+
+              const enrollment = await db.courseEnrollment.findFirst({
+                  where: { userClerkId: userId, courseId: courseModule.courseId }
+              });
+
+              if (enrollment) {
+                  const moduleProgress = await db.moduleProgress.findFirst({
+                      where: {
+                          enrollmentId: enrollment.id,
+                          moduleId: requirement.moduleId
+                      }
+                  });
+
+                  if (moduleProgress) {
+                      await db.moduleProgress.update({
+                          where: { id: moduleProgress.id },
+                          data: { status: ProgressStatus.COMPLETED }
+                      });
+                  }
+              }
             }
           }
         }
