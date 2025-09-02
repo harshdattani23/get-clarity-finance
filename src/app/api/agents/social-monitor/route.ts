@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { PrismaClient } from '@prisma/client';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const prisma = new PrismaClient();
 
 interface SocialMediaThreat {
   platform: string;
@@ -38,7 +40,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME || "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
     // Comprehensive fraud detection prompt
     const prompt = `
@@ -158,6 +160,21 @@ export async function POST(request: NextRequest) {
     const primaryThreatType = Array.isArray(threat.threatType) 
       ? threat.threatType[0] 
       : threat.threatType;
+    
+    // Store verification log in database
+    try {
+      await prisma.verificationLog.create({
+        data: {
+          searchQuery: `${platform || 'Unknown'}: ${content.substring(0, 400)}`,
+          searchType: 'social',
+          found: threat.riskScore > 50,
+          riskScore: threat.riskScore,
+          legitimacyStatus: primaryThreatType
+        }
+      });
+    } catch (logError) {
+      console.error('Failed to store verification log:', logError);
+    }
     
     return NextResponse.json({
       success: true,

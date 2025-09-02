@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     }) : [];
 
     // Use AI to analyze for fraud patterns
-    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME || "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
     
     const fraudAnalysisPrompt = `
       Analyze this search for potential investment fraud:

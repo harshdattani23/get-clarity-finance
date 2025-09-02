@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { PrismaClient } from '@prisma/client';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const prisma = new PrismaClient();
 
 interface AnnouncementVerification {
   isAuthentic: boolean;
@@ -42,7 +44,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME || "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
     // Comprehensive verification prompt
     const prompt = `
@@ -132,6 +134,21 @@ export async function POST(request: NextRequest) {
         'Contact company\'s investor relations department',
         'Report to SEBI if found to be fraudulent'
       );
+    }
+
+    // Store verification log in database
+    try {
+      await prisma.verificationLog.create({
+        data: {
+          searchQuery: `${company}: ${announcement.substring(0, 400)}`,
+          searchType: 'announcement',
+          found: verification.isAuthentic,
+          riskScore: Math.round(100 - verification.credibilityScore),
+          legitimacyStatus: verification.isAuthentic ? 'verified' : 'suspicious'
+        }
+      });
+    } catch (logError) {
+      console.error('Failed to store verification log:', logError);
     }
 
     // Generate alert for suspicious announcements

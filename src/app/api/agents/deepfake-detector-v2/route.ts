@@ -25,8 +25,18 @@ export async function POST(request: NextRequest) {
     // Generate unique session ID
     const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
-    // Configuration without thinking (not supported by current models)
+    // Configuration with thinking and tools (enhanced approach)
+    const tools = [
+      {
+        googleSearch: {}
+      }
+    ];
+    
     const config = {
+      thinkingConfig: {
+        thinkingBudget: -1,
+      },
+      tools,
       systemInstruction: [
         {
           text: `SESSION ID: ${sessionId}
@@ -89,12 +99,12 @@ Provide analysis in JSON format with:
       ],
     };
 
-    const model = process.env.GEMINI_MODEL_NAME || 'gemini-1.5-flash';
+    const model = process.env.GEMINI_MODEL_NAME!;
     
     // Prepare content based on input type
     let contents;
     if (isYouTubeVideo) {
-      // For YouTube videos, use fileData approach
+      // For YouTube videos, use fileData approach (works in newer API versions)
       contents = [
         {
           role: 'user',
@@ -106,7 +116,7 @@ Provide analysis in JSON format with:
               }
             },
             {
-              text: 'Analyze this video for deepfake and fraud indicators following the instructions provided.',
+              text: `Analyze this YouTube video for deepfake and fraud indicators following the instructions provided in the system prompt.`,
             }
           ],
         },

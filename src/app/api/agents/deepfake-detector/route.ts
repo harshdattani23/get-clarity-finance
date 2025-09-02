@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { PrismaClient } from '@prisma/client';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const prisma = new PrismaClient();
 
 interface DeepfakeAnalysis {
   isDeepfake: boolean;
@@ -36,7 +38,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME || "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
     // Check if it's a YouTube URL
     let isYouTubeVideo = false;
@@ -156,6 +158,21 @@ export async function POST(request: NextRequest) {
 
     // Generate detailed response based on analysis
     const detailedResponse = generateDetailedResponse(analysis, isYouTubeVideo);
+    
+    // Store verification log in database
+    try {
+      await prisma.verificationLog.create({
+        data: {
+          searchQuery: isYouTubeVideo ? videoUrl : inputContent.substring(0, 500),
+          searchType: 'deepfake',
+          found: analysis.isDeepfake || false,
+          riskScore: Math.round(analysis.confidence || 50),
+          legitimacyStatus: analysis.riskLevel || 'unknown'
+        }
+      });
+    } catch (logError) {
+      console.error('Failed to store verification log:', logError);
+    }
     
     return NextResponse.json({
       success: true,

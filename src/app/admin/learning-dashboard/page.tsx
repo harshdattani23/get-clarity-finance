@@ -1,671 +1,519 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser } from '@clerk/nextjs';
-import { SignInButton } from '@clerk/nextjs';
-import {
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { 
+  Search, 
+  Filter, 
+  Download, 
+  ChevronDown, 
+  ChevronUp, 
+  ArrowLeft,
   Users,
-  TrendingUp,
-  AlertTriangle,
-  CheckCircle,
   Activity,
-  FileText,
-  Shield,
-  BarChart3,
-  Clock,
-  Award,
-  BookOpen,
-  Target,
   Trophy,
-  Zap,
-  Lock,
-  ChevronRight,
-  Search,
-  Download,
+  Award,
   RefreshCw,
-  Filter,
-  Calendar,
-  Mail,
-  User,
-  GraduationCap,
-  Percent,
-  Star,
-  Eye,
-  BarChart,
-  PieChart,
-  TrendingDown,
-} from 'lucide-react';
+  X,
+  CheckCircle,
+  Clock
+} from "lucide-react";
+import Link from "next/link";
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'dattaniharsh12@gmail.com';
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "dattaniharsh12@gmail.com";
 
 interface UserProgress {
-  userId: string;
-  email: string;
+  id: string;
   name: string;
-  joinedDate: string;
-  lastActive: string;
-  totalXP: number;
-  level: number;
+  email: string;
+  imageUrl: string;
+  createdAt: number;
   completedModules: string[];
-  moduleProgress: {
-    [key: string]: {
-      progress: number;
-      completed: boolean;
-      completedAt?: string;
-      xpEarned?: number;
-    };
-  };
-  certificates: {
-    id: string;
-    moduleName: string;
-    issuedDate: string;
-  }[];
-  totalTimeSpent: number; // in minutes
-  averageScore: number;
-  achievements: string[];
+  unlockedModules: string[];
+  progressPercentage: number;
+  lastActive: string;
 }
 
-interface CourseStats {
-  totalUsers: number;
-  activeUsers: number;
-  completionRate: number;
-  averageProgress: number;
-  totalXPEarned: number;
-  totalCertificatesIssued: number;
-  popularModules: { name: string; enrollments: number }[];
-  userGrowth: { date: string; count: number }[];
+interface DashboardData {
+  stats: {
+    totalUsers: number;
+    activeUsers: number;
+    avgCompletionRate: string;
+    recentActivity: number;
+  };
+  moduleCompletionRates: Record<string, number>;
+  userProgress: UserProgress[];
+  recentUpdates: UserProgress[];
 }
-
-// Mock data generator for demonstration
-const generateMockData = (): { users: UserProgress[], stats: CourseStats } => {
-  const modules = [
-    'intro-to-frauds',
-    'intermediate-frauds', 
-    'ponzi-schemes',
-    'pump-dump',
-    'insider-trading',
-    'digital-frauds',
-    'fake-advisors',
-    'spoofing-wash-trading'
-  ];
-
-  const mockEmails = [
-    'harsh@abhyas.guru',
-    'john.doe@example.com',
-    'sarah.wilson@test.com',
-    'mike.johnson@demo.com',
-    'emily.brown@sample.com',
-    'raj.patel@example.in',
-    'priya.sharma@test.in',
-    'alex.chen@demo.com',
-    'lisa.anderson@sample.com',
-    'david.kim@example.com'
-  ];
-
-  const users: UserProgress[] = mockEmails.map((email, index) => {
-    const completedCount = Math.floor(Math.random() * modules.length);
-    const completedModules = modules.slice(0, completedCount);
-    const moduleProgress: any = {};
-    
-    modules.forEach((module, idx) => {
-      if (idx < completedCount) {
-        moduleProgress[module] = {
-          progress: 100,
-          completed: true,
-          completedAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-          xpEarned: 100 + Math.floor(Math.random() * 200)
-        };
-      } else if (idx === completedCount) {
-        moduleProgress[module] = {
-          progress: Math.floor(Math.random() * 99),
-          completed: false
-        };
-      } else {
-        moduleProgress[module] = {
-          progress: 0,
-          completed: false
-        };
-      }
-    });
-
-    return {
-      userId: `user_${index + 1}`,
-      email,
-      name: email.split('@')[0].replace('.', ' ').split(' ').map(n => n.charAt(0).toUpperCase() + n.slice(1)).join(' '),
-      joinedDate: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString(),
-      lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-      totalXP: completedCount * 150 + Math.floor(Math.random() * 500),
-      level: Math.floor(completedCount / 2) + 1,
-      completedModules,
-      moduleProgress,
-      certificates: completedModules.map(module => ({
-        id: `cert_${module}_${index}`,
-        moduleName: module.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        issuedDate: moduleProgress[module].completedAt
-      })),
-      totalTimeSpent: completedCount * 45 + Math.floor(Math.random() * 200),
-      averageScore: 70 + Math.floor(Math.random() * 30),
-      achievements: completedCount > 3 ? ['Fast Learner', 'Quiz Master'] : ['Beginner']
-    };
-  });
-
-  // Special case for harsh@abhyas.guru - show as completed Module 1
-  users[0].moduleProgress['intro-to-frauds'] = {
-    progress: 100,
-    completed: true,
-    completedAt: new Date().toISOString(),
-    xpEarned: 100
-  };
-  users[0].completedModules = ['intro-to-frauds'];
-  users[0].totalXP = 100;
-
-  const stats: CourseStats = {
-    totalUsers: users.length,
-    activeUsers: users.filter(u => new Date(u.lastActive) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length,
-    completionRate: (users.filter(u => u.completedModules.length >= 4).length / users.length) * 100,
-    averageProgress: users.reduce((acc, u) => acc + (u.completedModules.length / modules.length) * 100, 0) / users.length,
-    totalXPEarned: users.reduce((acc, u) => acc + u.totalXP, 0),
-    totalCertificatesIssued: users.reduce((acc, u) => acc + u.certificates.length, 0),
-    popularModules: modules.map(m => ({
-      name: m.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-      enrollments: users.filter(u => u.moduleProgress[m]?.progress > 0).length
-    })).sort((a, b) => b.enrollments - a.enrollments).slice(0, 5),
-    userGrowth: Array.from({ length: 7 }, (_, i) => ({
-      date: new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000).toLocaleDateString(),
-      count: Math.floor(Math.random() * 5) + 1
-    }))
-  };
-
-  return { users, stats };
-};
 
 export default function AdminLearningDashboard() {
-  const { user: clerkUser, isLoaded } = useUser();
+  const { isLoaded, userId } = useAuth();
+  const { user } = useUser();
   const router = useRouter();
-  const [users, setUsers] = useState<UserProgress[]>([]);
-  const [stats, setStats] = useState<CourseStats | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterModule, setFilterModule] = useState('all');
-  const [sortBy, setSortBy] = useState<'name' | 'progress' | 'xp' | 'lastActive'>('lastActive');
   const [loading, setLoading] = useState(true);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterModule, setFilterModule] = useState("all");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [selectedUser, setSelectedUser] = useState<UserProgress | null>(null);
 
-  // Check if user is admin
-  const isAdmin = clerkUser?.emailAddresses?.[0]?.emailAddress === ADMIN_EMAIL;
+  useEffect(() => {
+    if (isLoaded && !userId) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, userId, router]);
 
   useEffect(() => {
-    if (isLoaded && !clerkUser) {
-      // User is not signed in
-      return;
-    }
-    
-    if (isLoaded && clerkUser && !isAdmin) {
-      // User is signed in but not admin
-      router.push('/');
-      return;
-    }
+    if (user) {
+      const userEmail = user.emailAddresses.find(
+        (email) => email.id === user.primaryEmailAddressId
+      )?.emailAddress;
 
-    if (isAdmin) {
-      // Load data
-      loadDashboardData();
+      if (userEmail !== ADMIN_EMAIL) {
+        router.push("/");
+      } else {
+        fetchDashboardData();
+      }
     }
-  }, [isLoaded, clerkUser, isAdmin, router]);
+  }, [user, router]);
 
-  const loadDashboardData = async () => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      const { users: mockUsers, stats: mockStats } = generateMockData();
-      setUsers(mockUsers);
-      setStats(mockStats);
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/admin/dashboard-db");
+      if (!response.ok) {
+        throw new Error("Failed to fetch dashboard data");
+      }
+      const data = await response.json();
+      setDashboardData(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
-  const filteredUsers = users
-    .filter(user => {
-      const matchesSearch = 
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesModule = 
-        filterModule === 'all' || 
-        user.moduleProgress[filterModule]?.progress > 0;
-      
-      return matchesSearch && matchesModule;
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'name':
-          return a.name.localeCompare(b.name);
-        case 'progress':
-          return b.completedModules.length - a.completedModules.length;
-        case 'xp':
-          return b.totalXP - a.totalXP;
-        case 'lastActive':
-          return new Date(b.lastActive).getTime() - new Date(a.lastActive).getTime();
-        default:
-          return 0;
+  // Filter and sort users
+  const users = dashboardData?.userProgress || [];
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch = 
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesFilter = 
+      filterModule === "all" || 
+      (filterModule === "completed" && user.progressPercentage === 100) ||
+      (filterModule === "in-progress" && user.progressPercentage > 0 && user.progressPercentage < 100) ||
+      (filterModule === "not-started" && user.progressPercentage === 0);
+    
+    return matchesSearch && matchesFilter;
+  });
+
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    let comparison = 0;
+    switch (sortBy) {
+      case "name":
+        comparison = a.name.localeCompare(b.name);
+        break;
+      case "email":
+        comparison = a.email.localeCompare(b.email);
+        break;
+      case "progress":
+        comparison = a.progressPercentage - b.progressPercentage;
+        break;
+      case "lastActive":
+        comparison = new Date(a.lastActive).getTime() - new Date(b.lastActive).getTime();
+        break;
+      case "enrolled":
+        comparison = a.createdAt - b.createdAt;
+        break;
+    }
+    return sortDirection === "asc" ? comparison : -comparison;
+  });
+
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(field);
+      setSortDirection("asc");
+    }
+  };
+
+  const getModuleStatus = (user: UserProgress) => {
+    const modules = [
+      { id: "intro-to-frauds", name: "Introduction to Frauds", completed: user.completedModules.includes("intro-to-frauds") },
+      { id: "intermediate-frauds", name: "Intermediate Frauds", completed: user.completedModules.includes("intermediate-frauds") },
+      { id: "advanced-frauds", name: "Advanced Frauds", completed: user.completedModules.includes("advanced-frauds") },
+      { id: "prevention", name: "Prevention Strategies", completed: user.completedModules.includes("prevention") },
+    ];
+    return modules;
+  };
+
+  const getCurrentModule = (user: UserProgress) => {
+    const moduleOrder = ["intro-to-frauds", "intermediate-frauds", "advanced-frauds", "prevention"];
+    if (user.completedModules.length === 4) return "Completed";
+    for (const module of moduleOrder) {
+      if (!user.completedModules.includes(module)) {
+        const moduleNames: Record<string, string> = {
+          "intro-to-frauds": "Introduction to Frauds",
+          "intermediate-frauds": "Intermediate Frauds",
+          "advanced-frauds": "Advanced Frauds",
+          "prevention": "Prevention Strategies"
+        };
+        return moduleNames[module];
       }
-    });
+    }
+    return "Not Started";
+  };
 
   const exportToCSV = () => {
-    const headers = ['Name', 'Email', 'Completed Modules', 'Total XP', 'Level', 'Last Active'];
-    const rows = users.map(user => [
+    if (!dashboardData) return;
+    
+    const headers = ["Name", "Email", "Enrolled Date", "Completed Modules", "Progress %", "Last Active"];
+    const rows = dashboardData.userProgress.map(user => [
       user.name,
       user.email,
-      user.completedModules.length,
-      user.totalXP,
-      user.level,
+      new Date(user.createdAt).toLocaleDateString(),
+      user.completedModules.length.toString(),
+      user.progressPercentage.toFixed(0),
       new Date(user.lastActive).toLocaleDateString()
     ]);
     
     const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n');
+      headers.join(","),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(","))
+    ].join("\n");
     
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `learning-progress-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `learning-progress-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
+    window.URL.revokeObjectURL(url);
   };
 
-  if (!isLoaded) {
+  if (!isLoaded || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
-  if (!clerkUser) {
+  if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-          <div className="text-center">
-            <Shield className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Admin Access Required</h2>
-            <p className="text-gray-600 mb-6">Please sign in with your admin account to access the learning dashboard.</p>
-            <SignInButton mode="modal">
-              <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                Sign In as Admin
-              </button>
-            </SignInButton>
-          </div>
-        </div>
+        <div className="text-red-600">Error: {error}</div>
       </div>
     );
   }
 
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-          <div className="text-center">
-            <Lock className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Access Denied</h2>
-            <p className="text-gray-600 mb-2">This page is restricted to administrators only.</p>
-            <p className="text-sm text-gray-500 mb-6">Current user: {clerkUser.emailAddresses?.[0]?.emailAddress}</p>
-            <button
-              onClick={() => router.push('/')}
-              className="bg-gray-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
-            >
-              Return to Home
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard data...</p>
-        </div>
-      </div>
-    );
+  if (!dashboardData) {
+    return null;
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800">Admin Learning Dashboard</h1>
-              <p className="text-sm text-gray-600">Monitor and manage user learning progress</p>
-            </div>
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-4">
-              <button
-                onClick={loadDashboardData}
+              <Link
+                href="/admin"
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                title="Refresh data"
               >
-                <RefreshCw className="w-5 h-5 text-gray-600" />
+                <ArrowLeft className="w-5 h-5 text-gray-600" />
+              </Link>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Learning Progress Dashboard</h1>
+                <p className="text-sm text-gray-500 mt-1">Detailed user progress tracking</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button 
+                onClick={fetchDashboardData}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Refresh
               </button>
-              <button
+              <button 
                 onClick={exportToCSV}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
               >
                 <Download className="w-4 h-4" />
-                Export CSV
+                Export Report
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Overview */}
-      {stats && (
-        <div className="container mx-auto px-6 py-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Users className="w-8 h-8 text-blue-500" />
-                <span className="text-sm text-gray-500">Total</span>
-              </div>
-              <p className="text-2xl font-bold text-gray-800">{stats.totalUsers}</p>
-              <p className="text-sm text-gray-600">Registered Users</p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Activity className="w-8 h-8 text-green-500" />
-                <span className="text-sm text-gray-500">7 days</span>
-              </div>
-              <p className="text-2xl font-bold text-gray-800">{stats.activeUsers}</p>
-              <p className="text-sm text-gray-600">Active Users</p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Trophy className="w-8 h-8 text-yellow-500" />
-                <span className="text-sm text-gray-500">Total</span>
-              </div>
-              <p className="text-2xl font-bold text-gray-800">{stats.totalXPEarned.toLocaleString()}</p>
-              <p className="text-sm text-gray-600">XP Earned</p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between mb-4">
-                <Award className="w-8 h-8 text-purple-500" />
-                <span className="text-sm text-gray-500">Issued</span>
-              </div>
-              <p className="text-2xl font-bold text-gray-800">{stats.totalCertificatesIssued}</p>
-              <p className="text-sm text-gray-600">Certificates</p>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-600">Total Users</h3>
+            <p className="text-3xl font-bold text-gray-900 mt-2">{dashboardData.stats.totalUsers}</p>
+            <p className="text-xs font-medium text-green-600 mt-2">All registered users</p>
           </div>
-
-          {/* Progress Overview */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Course Metrics</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">Average Progress</span>
-                    <span className="font-medium">{stats.averageProgress.toFixed(1)}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-blue-500 h-2 rounded-full"
-                      style={{ width: `${stats.averageProgress}%` }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">Completion Rate</span>
-                    <span className="font-medium">{stats.completionRate.toFixed(1)}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-green-500 h-2 rounded-full"
-                      style={{ width: `${stats.completionRate}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Popular Modules</h3>
-              <div className="space-y-3">
-                {stats.popularModules.slice(0, 5).map((module, index) => (
-                  <div key={module.name} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-gray-600">#{index + 1}</span>
-                      <span className="text-sm text-gray-800">{module.name}</span>
-                    </div>
-                    <span className="text-sm font-medium text-blue-600">{module.enrollments} users</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-600">Active Learners</h3>
+            <p className="text-3xl font-bold text-gray-900 mt-2">
+              {dashboardData.stats.activeUsers}
+            </p>
+            <p className="text-xs font-medium text-blue-600 mt-2">
+              {dashboardData.stats.totalUsers > 0 
+                ? `${((dashboardData.stats.activeUsers / dashboardData.stats.totalUsers) * 100).toFixed(0)}% engagement`
+                : "0% engagement"}
+            </p>
           </div>
-
-          {/* Filters and Search */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <div className="flex flex-wrap gap-4 items-center">
-              <div className="flex-1 min-w-[200px]">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search by name or email..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-              
-              <select
-                value={filterModule}
-                onChange={(e) => setFilterModule(e.target.value)}
-                className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="all">All Modules</option>
-                <option value="intro-to-frauds">Introduction to Frauds</option>
-                <option value="intermediate-frauds">Common Investment Frauds</option>
-                <option value="ponzi-schemes">Ponzi Schemes</option>
-                <option value="pump-dump">Pump & Dump</option>
-                <option value="insider-trading">Insider Trading</option>
-              </select>
-              
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
-                className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="lastActive">Last Active</option>
-                <option value="name">Name</option>
-                <option value="progress">Progress</option>
-                <option value="xp">XP Earned</option>
-              </select>
-            </div>
+          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-600">Completion Rate</h3>
+            <p className="text-3xl font-bold text-gray-900 mt-2">
+              {users.filter(u => u.progressPercentage === 100).length > 0
+                ? `${((users.filter(u => u.progressPercentage === 100).length / users.length) * 100).toFixed(0)}%`
+                : "0%"}
+            </p>
+            <p className="text-xs font-medium text-purple-600 mt-2">
+              {users.filter(u => u.progressPercentage === 100).length} completed
+            </p>
           </div>
-
-          {/* Users Table */}
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      User
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Progress
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Level
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      XP
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Certificates
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Last Active
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {filteredUsers.map((user) => (
-                    <tr key={user.userId} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                          <div className="text-sm text-gray-500">{user.email}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-24 bg-gray-200 rounded-full h-2 mr-2">
-                            <div 
-                              className="bg-blue-500 h-2 rounded-full"
-                              style={{ width: `${(user.completedModules.length / 8) * 100}%` }}
-                            />
-                          </div>
-                          <span className="text-sm text-gray-600">
-                            {user.completedModules.length}/8
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-yellow-500" />
-                          <span className="text-sm font-medium">{user.level}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1">
-                          <Zap className="w-4 h-4 text-purple-500" />
-                          <span className="text-sm font-medium">{user.totalXP}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1">
-                          <Award className="w-4 h-4 text-green-500" />
-                          <span className="text-sm">{user.certificates.length}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(user.lastActive).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button
-                          onClick={() => setSelectedUser(user)}
-                          className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                        >
-                          View Details
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-600">Avg. Progress</h3>
+            <p className="text-3xl font-bold text-gray-900 mt-2">
+              {dashboardData.stats.avgCompletionRate}%
+            </p>
+            <p className="text-xs font-medium text-orange-600 mt-2">Across all users</p>
           </div>
         </div>
-      )}
 
-      {/* User Details Modal */}
-      {selectedUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800">{selectedUser.name}</h2>
-                  <p className="text-sm text-gray-600">{selectedUser.email}</p>
-                </div>
-                <button
-                  onClick={() => setSelectedUser(null)}
-                  className="p-2 hover:bg-gray-100 rounded-lg"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-200">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search by name or email..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
             </div>
-            
-            <div className="p-6">
-              <div className="grid md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Total XP</p>
-                  <p className="text-2xl font-bold text-gray-800">{selectedUser.totalXP}</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Level</p>
-                  <p className="text-2xl font-bold text-gray-800">{selectedUser.level}</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Time Spent</p>
-                  <p className="text-2xl font-bold text-gray-800">{selectedUser.totalTimeSpent} min</p>
-                </div>
-              </div>
-              
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Module Progress</h3>
-              <div className="space-y-3 mb-6">
-                {Object.entries(selectedUser.moduleProgress).map(([module, progress]) => (
-                  <div key={module} className="bg-gray-50 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-800">
-                        {module.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                      </span>
-                      <span className="text-sm text-gray-600">{progress.progress}%</span>
+            <select
+              value={filterModule}
+              onChange={(e) => setFilterModule(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Users</option>
+              <option value="completed">Completed Course</option>
+              <option value="in-progress">In Progress</option>
+              <option value="not-started">Not Started</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Users Table */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th 
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    onClick={() => handleSort("name")}
+                  >
+                    <div className="flex items-center gap-1">
+                      User
+                      {sortBy === "name" && (sortDirection === "asc" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${progress.completed ? 'bg-green-500' : 'bg-blue-500'}`}
-                        style={{ width: `${progress.progress}%` }}
-                      />
+                  </th>
+                  <th 
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    onClick={() => handleSort("enrolled")}
+                  >
+                    <div className="flex items-center gap-1">
+                      Enrolled
+                      {sortBy === "enrolled" && (sortDirection === "asc" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}
                     </div>
-                    {progress.completed && (
-                      <p className="text-xs text-gray-500 mt-1">
-                        Completed on {new Date(progress.completedAt!).toLocaleDateString()}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-              
-              {selectedUser.certificates.length > 0 && (
-                <>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Certificates Earned</h3>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {selectedUser.certificates.map((cert) => (
-                      <div key={cert.id} className="bg-green-50 border border-green-200 rounded-lg p-3">
-                        <div className="flex items-center gap-2">
-                          <Award className="w-5 h-5 text-green-600" />
-                          <div>
-                            <p className="text-sm font-medium text-gray-800">{cert.moduleName}</p>
-                            <p className="text-xs text-gray-600">
-                              Issued: {new Date(cert.issuedDate).toLocaleDateString()}
-                            </p>
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Current Module
+                  </th>
+                  <th 
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    onClick={() => handleSort("progress")}
+                  >
+                    <div className="flex items-center gap-1">
+                      Progress
+                      {sortBy === "progress" && (sortDirection === "asc" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}
+                    </div>
+                  </th>
+                  <th 
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    onClick={() => handleSort("lastActive")}
+                  >
+                    <div className="flex items-center gap-1">
+                      Last Active
+                      {sortBy === "lastActive" && (sortDirection === "asc" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}
+                    </div>
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {sortedUsers.map((user) => (
+                  <tr key={user.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        {user.imageUrl ? (
+                          <img 
+                            src={user.imageUrl} 
+                            alt={user.name}
+                            className="h-10 w-10 rounded-full"
+                          />
+                        ) : (
+                          <div className="flex-shrink-0 h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center">
+                            <span className="text-gray-700 font-semibold">
+                              {user.name.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+                        <div className="ml-4">
+                          <div className="text-sm font-semibold text-gray-900">{user.name}</div>
+                          <div className="text-sm text-gray-600">{user.email}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {new Date(user.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {user.progressPercentage === 100 ? (
+                        <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                          Completed
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                          {getCurrentModule(user)}
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="flex-1">
+                          <div className="flex items-center">
+                            <div className="w-24 bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-blue-600 h-2 rounded-full"
+                                style={{ width: `${user.progressPercentage}%` }}
+                              />
+                            </div>
+                            <span className="ml-2 text-sm text-gray-600">
+                              {user.progressPercentage.toFixed(0)}%
+                            </span>
                           </div>
                         </div>
                       </div>
-                    ))}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {new Date(user.lastActive).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button
+                        onClick={() => setSelectedUser(user)}
+                        className="text-blue-600 hover:text-blue-900"
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* User Details Modal */}
+      {selectedUser && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-lg bg-white">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">User Details</h3>
+              <button
+                onClick={() => setSelectedUser(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                {selectedUser.imageUrl ? (
+                  <img 
+                    src={selectedUser.imageUrl} 
+                    alt={selectedUser.name}
+                    className="h-16 w-16 rounded-full"
+                  />
+                ) : (
+                  <div className="h-16 w-16 bg-gray-300 rounded-full flex items-center justify-center">
+                    <span className="text-gray-700 font-bold text-xl">
+                      {selectedUser.name.charAt(0).toUpperCase()}
+                    </span>
                   </div>
-                </>
-              )}
+                )}
+                <div className="ml-4">
+                  <h3 className="text-lg font-semibold text-gray-900">{selectedUser.name}</h3>
+                  <p className="text-sm text-gray-600">{selectedUser.email}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600 font-medium">Enrolled Date</p>
+                  <p className="font-semibold text-gray-900">{new Date(selectedUser.createdAt).toLocaleDateString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 font-medium">Last Active</p>
+                  <p className="font-semibold text-gray-900">{new Date(selectedUser.lastActive).toLocaleDateString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 font-medium">Modules Completed</p>
+                  <p className="font-semibold text-gray-900">{selectedUser.completedModules.length}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 font-medium">Overall Progress</p>
+                  <p className="font-semibold text-gray-900">{selectedUser.progressPercentage.toFixed(0)}%</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Module Progress</h4>
+                <div className="space-y-2">
+                  {getModuleStatus(selectedUser).map((module) => (
+                    <div key={module.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                      <span className="text-sm font-medium text-gray-800">{module.name}</span>
+                      {module.completed ? (
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <Clock className="w-5 h-5 text-gray-400" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -673,10 +521,3 @@ export default function AdminLearningDashboard() {
     </div>
   );
 }
-
-// Add X icon component
-const X = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);

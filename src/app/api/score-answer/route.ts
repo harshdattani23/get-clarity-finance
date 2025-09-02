@@ -24,7 +24,7 @@ const safetySettings = [
 
 async function scoreAnswer(question: string, userAnswer: string, correctAnswer: string, explanation: string) {
   const model = genAI.getGenerativeModel({ 
-    model: process.env.GEMINI_MODEL_NAME || 'gemini-2.5-flash', 
+    model: process.env.GEMINI_MODEL_NAME!,
     safetySettings 
   });
   
