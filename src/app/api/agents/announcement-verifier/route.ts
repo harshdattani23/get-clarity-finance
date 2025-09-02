@@ -251,7 +251,7 @@ function getNextSteps(credibilityScore: number): string[] {
 }
 
 function generateReportId(prefix: string): string {
-  return `SEBI-${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `GC-${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 // Bulk verification endpoint

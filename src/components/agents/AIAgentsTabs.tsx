@@ -619,7 +619,10 @@ export default function AIAgentsTabs() {
                     <Brain className="w-8 h-8 text-indigo-600" />
                   </motion.div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    AI Video Analysis in Progress
+                    {activeTab === 'deepfake' && 'AI Video Analysis in Progress'}
+                    {activeTab === 'social' && 'AI Social Media Analysis in Progress'}
+                    {activeTab === 'announcement' && 'AI Announcement Verification in Progress'}
+                    {activeTab === 'sebi-query' && 'AI SEBI Registry Search in Progress'}
                   </h3>
                   <motion.div
                     animate={{ rotate: -360 }}
@@ -807,6 +810,102 @@ export default function AIAgentsTabs() {
                       >
                         <CheckCircle className={`w-4 h-4 ${thinkingProgress > 90 ? 'text-green-500' : 'text-gray-400'}`} />
                         <span className="text-xs font-medium text-gray-700">Report Ready</span>
+                      </motion.div>
+                    </>
+                  )}
+                  {activeTab === 'social' && (
+                    <>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 25 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 25 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Content Parsed</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 50 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Patterns Found</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 75 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 75 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Scheme Detected</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 90 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 90 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Alert Generated</span>
+                      </motion.div>
+                    </>
+                  )}
+                  {activeTab === 'announcement' && (
+                    <>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 25 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 25 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Data Extracted</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 50 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Records Checked</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 75 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 75 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Validity Assessed</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 90 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 90 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Report Complete</span>
+                      </motion.div>
+                    </>
+                  )}
+                  {activeTab === 'sebi-query' && (
+                    <>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 25 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 25 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Query Parsed</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 50 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 50 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Registry Searched</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 75 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 75 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Entities Matched</span>
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: thinkingProgress > 90 ? 1 : 0.3 }}
+                        className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
+                      >
+                        <CheckCircle className={`w-4 h-4 ${thinkingProgress > 90 ? 'text-green-500' : 'text-gray-400'}`} />
+                        <span className="text-xs font-medium text-gray-700">Results Ready</span>
                       </motion.div>
                     </>
                   )}

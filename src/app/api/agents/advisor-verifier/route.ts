@@ -235,7 +235,7 @@ export async function POST(request: NextRequest) {
     if (legitimacy === 'fraudulent' || (legitimacy === 'suspicious' && riskScore > 60)) {
       await prisma.fraudReport.create({
         data: {
-          reportId: `SEBI-FR-${Date.now()}`,
+          reportId: `GC-FR-${Date.now()}`,
           entityName: name || 'Unknown',
           registrationClaim: registrationNumber,
           fraudType: legitimacy === 'fraudulent' ? 'unregistered' : 'suspicious',

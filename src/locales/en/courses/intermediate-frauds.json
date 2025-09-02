@@ -1,0 +1,167 @@
+{
+  "title": "Common Investment Frauds",
+  "moduleNumber": "Module 2",
+  "overview": {
+    "title": "Module Overview",
+    "introduction": {
+      "title": "Common Investment Frauds in India",
+      "description": "This comprehensive module covers the most common investment frauds targeting Indian investors. Learn to identify, understand, and protect yourself from these sophisticated scams that have caused losses worth thousands of crores.",
+      "whatYouLearn": {
+        "title": "What You'll Learn:",
+        "items": [
+          "5 major types of investment frauds",
+          "Red flags and warning signals", 
+          "Real-world case studies",
+          "Protection strategies"
+        ]
+      },
+      "moduleStats": {
+        "title": "Module Stats:",
+        "duration": "Duration: 3 hours",
+        "totalXP": "Total XP: 300",
+        "lessons": "15 interactive lessons",
+        "difficulty": "Difficulty: Intermediate"
+      }
+    },
+    "fraudTypesCovered": "Fraud Types Covered",
+    "startLearning": "Start Learning"
+  },
+  "fraudTypes": {
+    "title": "Detailed Fraud Analysis",
+    "selectPrompt": "Select a fraud type above to learn more",
+    "ponziSchemes": {
+      "title": "Ponzi Schemes",
+      "description": "Investment scams where returns for existing investors are generated using new investors' money.",
+      "warningSignals": {
+        "title": "Warning Signals",
+        "items": [
+          "Guaranteed high returns with no risk",
+          "Consistent returns regardless of market conditions",
+          "Difficulty withdrawing funds",
+          "Pressure to recruit new investors"
+        ]
+      },
+      "realWorldExample": {
+        "title": "Real World Example",
+        "description": "Saradha Group Scam (2013) - ₹2,500 crores, 1.7 million victims"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "video": "How Ponzi Schemes Work",
+        "interactive": "Identify Ponzi Red Flags",
+        "quiz": "Ponzi Scheme Quiz"
+      }
+    },
+    "pumpDump": {
+      "title": "Pump & Dump Schemes",
+      "description": "Artificially inflating stock prices through false promotions, then selling at peak.",
+      "warningSignals": {
+        "title": "Warning Signals",
+        "items": [
+          "Sudden price spikes with no news",
+          "Heavy social media promotion",
+          "Claims of 'guaranteed' profits",
+          "Pressure to buy immediately"
+        ]
+      },
+      "realWorldExample": {
+        "title": "Real World Example",
+        "description": "Wolf of Wall Street - Jordan Belfort manipulated penny stocks"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "video": "The Pump & Dump Process",
+        "interactive": "Spot Social Media Pumps",
+        "quiz": "Pump & Dump Detection Quiz"
+      }
+    },
+    "digitalFrauds": {
+      "title": "Digital & Cyber Frauds",
+      "description": "Online scams using fake apps, phishing, and deepfakes to steal money.",
+      "warningSignals": {
+        "title": "Warning Signals",
+        "items": [
+          "Unsolicited messages with investment tips",
+          "Apps not on official app stores",
+          "Requests for passwords or OTPs",
+          "Fake celebrity endorsements"
+        ]
+      },
+      "realWorldExample": {
+        "title": "Real World Example",
+        "description": "Fake trading apps scammed investors of ₹500+ crores in 2023"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "video": "Common Digital Frauds",
+        "interactive": "Identify Fake Trading Apps",
+        "quiz": "Digital Safety Quiz"
+      }
+    },
+    "advanceFee": {
+      "title": "Advance Fee Frauds",
+      "description": "Scams requiring upfront payment for promised large returns or services.",
+      "warningSignals": {
+        "title": "Warning Signals",
+        "items": [
+          "Upfront fees for 'processing' or 'taxes'",
+          "Promise of large inheritance or lottery wins",
+          "Urgency and secrecy demanded",
+          "Poor grammar in communications"
+        ]
+      },
+      "realWorldExample": {
+        "title": "Real World Example",
+        "description": "Nigerian Prince scams evolved into sophisticated investment frauds"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "video": "Understanding Advance Fee Fraud",
+        "interactive": "Red Flags Detection",
+        "quiz": "Advance Fee Quiz"
+      }
+    },
+    "brokerFraud": {
+      "title": "Broker & Advisor Frauds",
+      "description": "Unauthorized trading, churning accounts, and fake advisor scams.",
+      "warningSignals": {
+        "title": "Warning Signals",
+        "items": [
+          "Excessive trading in your account",
+          "Unregistered advisors",
+          "Guaranteed return promises",
+          "Pressure to invest in specific products"
+        ]
+      },
+      "realWorldExample": {
+        "title": "Real World Example",
+        "description": "Karvy Stock Broking misused ₹2,000+ crores of client securities"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "video": "Types of Broker Fraud",
+        "interactive": "Verify Your Advisor",
+        "quiz": "Broker Fraud Quiz"
+      }
+    }
+  },
+  "simulator": {
+    "title": "Fraud Detection Simulator"
+  },
+  "quiz": {
+    "title": "Module 2 Quiz",
+    "description": "Test your knowledge of common investment frauds",
+    "comingSoon": "Quiz coming soon!",
+    "completeFirst": "Complete all fraud type lessons first"
+  },
+  "navigation": {
+    "overview": "Overview",
+    "fraudTypes": "Fraud Types",
+    "simulator": "Simulator",
+    "quiz": "Quiz"
+  },
+  "progress": {
+    "label": "Progress",
+    "xp": "XP"
+  }
+}

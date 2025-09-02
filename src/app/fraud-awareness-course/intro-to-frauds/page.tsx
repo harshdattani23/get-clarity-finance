@@ -18,6 +18,7 @@ import FraudMatchingGame from '@/components/fraud-awareness/FraudMatchingGame';
 import TimelineBuilder from '@/components/fraud-awareness/TimelineBuilder';
 import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
 import introRedFlagScenarios from '@/data/fraud-scenarios/intro-red-flags.json';
+import { moduleProgressStore } from '@/lib/module-progress-store';
 import { 
   ArrowLeft,
   ChevronRight,
@@ -236,6 +237,30 @@ export default function IntroToFraudsPage() {
           courseId: 'clx2no2g0000008l8g8r8g8r8',
         }),
       });
+
+      // Mark the entire module as complete and unlock next modules
+      const completeResponse = await fetch('/api/courses/fraud-awareness/complete-module', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          moduleId: 'intro-to-frauds',
+        }),
+      });
+
+      if (completeResponse.ok) {
+        const data = await completeResponse.json();
+        console.log('Module completed successfully:', data);
+        console.log('Unlocked modules:', data.unlockedModules);
+      }
+      
+      // Also save to localStorage for persistence
+      if (clerkUser?.id) {
+        moduleProgressStore.markModuleComplete(clerkUser.id, 'intro-to-frauds', currentXP || 100);
+        console.log('Module progress saved to localStorage');
+      }
 
       // Generate certificate immediately
       await generateCertificate();

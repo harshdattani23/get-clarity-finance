@@ -315,7 +315,7 @@ async function logSuspiciousContent(data: SuspiciousContent) {
 }
 
 function generateReportId(): string {
-  return `SEBI-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `GC-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 function generateDetailedResponse(analysis: DeepfakeAnalysis, isYouTubeVideo?: boolean) {

@@ -181,7 +181,7 @@ Provide analysis in JSON format with:
     }
 
     // Generate report ID
-    const reportId = `SEBI-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const reportId = `GC-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
     // Prepare detailed response
     const detailedResponse = generateDetailedResponse(analysis, isYouTubeVideo);

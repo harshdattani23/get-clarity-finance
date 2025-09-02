@@ -6,7 +6,7 @@ import { CourseDifficulty, ProgressStatus } from '@prisma/client';
 // Mock storage for demo purposes when database is not available
 const mockModuleProgress: Record<string, number> = {};
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const { userId } = await auth();
 
@@ -109,12 +109,84 @@ export async function GET() {
     console.error('[COURSE_MODULES_GET]', error);
     
     // Fallback to mock data for demo purposes
+    // Try to get module progress from our complete-module endpoint
+    try {
+      const progressResponse = await fetch(
+        `${request.nextUrl.origin}/api/courses/fraud-awareness/complete-module`,
+        {
+          headers: {
+            cookie: request.headers.get('cookie') || '',
+          },
+        }
+      );
+      
+      if (progressResponse.ok) {
+        const { userProgress, unlockedModules } = await progressResponse.json();
+        
+        const mockModules = [
+          {
+            id: 'intro-to-frauds',
+            slug: 'intro-to-frauds',
+            locked: false,
+            progress: userProgress['intro-to-frauds']?.progress || mockModuleProgress['intro-to-frauds'] || 0
+          },
+          {
+            id: 'intermediate-frauds',
+            slug: 'intermediate-frauds',
+            locked: !unlockedModules['intermediate-frauds']?.unlocked,
+            progress: userProgress['intermediate-frauds']?.progress || mockModuleProgress['intermediate-frauds'] || 0
+          },
+          {
+            id: 'ponzi-schemes', 
+            slug: 'ponzi-schemes',
+            locked: !unlockedModules['ponzi-schemes']?.unlocked,
+            progress: userProgress['ponzi-schemes']?.progress || mockModuleProgress['ponzi-schemes'] || 0
+          },
+          {
+            id: 'pump-dump',
+            slug: 'pump-dump', 
+            locked: !unlockedModules['pump-dump']?.unlocked,
+            progress: userProgress['pump-dump']?.progress || mockModuleProgress['pump-dump'] || 0
+          },
+          {
+            id: 'insider-trading',
+            slug: 'insider-trading',
+            locked: !unlockedModules['insider-trading']?.unlocked, 
+            progress: userProgress['insider-trading']?.progress || mockModuleProgress['insider-trading'] || 0
+          },
+          {
+            id: 'fake-advisors',
+            slug: 'fake-advisors',
+            locked: !unlockedModules['fake-advisors']?.unlocked,
+            progress: userProgress['fake-advisors']?.progress || mockModuleProgress['fake-advisors'] || 0
+          },
+          {
+            id: 'digital-frauds',
+            slug: 'digital-frauds',
+            locked: !unlockedModules['digital-frauds']?.unlocked,
+            progress: userProgress['digital-frauds']?.progress || mockModuleProgress['digital-frauds'] || 0
+          }
+        ];
+        
+        return NextResponse.json(mockModules);
+      }
+    } catch (progressError) {
+      console.log('Could not fetch progress from complete-module endpoint:', progressError);
+    }
+    
+    // Ultimate fallback
     const mockModules = [
       {
         id: 'intro-to-frauds',
         slug: 'intro-to-frauds',
         locked: false,
         progress: mockModuleProgress['intro-to-frauds'] || 0
+      },
+      {
+        id: 'intermediate-frauds',
+        slug: 'intermediate-frauds',
+        locked: true,
+        progress: mockModuleProgress['intermediate-frauds'] || 0
       },
       {
         id: 'ponzi-schemes', 
@@ -137,7 +209,7 @@ export async function GET() {
       {
         id: 'fake-advisors',
         slug: 'fake-advisors',
-        locked: false,
+        locked: true,
         progress: mockModuleProgress['fake-advisors'] || 0
       },
       {

@@ -6,6 +6,8 @@ import type { NextPage } from 'next';
 import type { JSX } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
+import { useUser } from '@clerk/nextjs';
+import { moduleProgressStore } from '@/lib/module-progress-store';
 
 import { 
   Shield, 
@@ -59,6 +61,7 @@ interface FetchedModule {
 
 const FraudAwarenessCoursePage: NextPage = () => {
   const { t } = useTranslation('fraud-awareness-course');
+  const { user: clerkUser } = useUser();
   const [modules, setModules] = useState<Module[]>([
     {
       id: 'intro-to-frauds',
@@ -79,36 +82,22 @@ const FraudAwarenessCoursePage: NextPage = () => {
       color: 'red'
     },
     {
-      id: 'ponzi-schemes',
+      id: 'intermediate-frauds',
       icon: <TrendingDown className="w-6 h-6" />,
-      duration: '60 mins',
+      duration: '3 hours',
       difficulty: 'Intermediate',
-      xpReward: 150,
+      xpReward: 300,
       progress: 0,
       locked: true,
       lessons: [
-        { id: 'ponzi-mechanics', title: 'How Ponzi Schemes Work', type: 'interactive', completed: false },
-        { id: 'famous-cases', title: 'Famous Indian Cases', type: 'case-study', completed: false },
-        { id: 'pyramid-vs-ponzi', title: 'Pyramid vs Ponzi', type: 'video', completed: false },
-        { id: 'identify-ponzi', title: 'Identify the Scheme', type: 'quiz', completed: false }
+        { id: 'ponzi-schemes', title: 'Ponzi Schemes & Pyramid Frauds', type: 'interactive', completed: false },
+        { id: 'pump-dump', title: 'Pump & Dump Market Manipulation', type: 'interactive', completed: false },
+        { id: 'digital-frauds', title: 'Digital & Cyber Investment Frauds', type: 'interactive', completed: false },
+        { id: 'advance-fee', title: 'Advance Fee & High-Yield Scams', type: 'interactive', completed: false },
+        { id: 'broker-fraud', title: 'Broker & Advisor Frauds', type: 'interactive', completed: false },
+        { id: 'fraud-simulator', title: 'Fraud Detection Simulator', type: 'quiz', completed: false }
       ],
       color: 'orange'
-    },
-    {
-      id: 'pump-dump',
-      icon: <Zap className="w-6 h-6" />,
-      duration: '55 mins',
-      difficulty: 'Intermediate',
-      xpReward: 150,
-      progress: 0,
-      locked: true,
-      lessons: [
-        { id: 'pump-mechanics', title: 'The Pump Phase', type: 'interactive', completed: false },
-        { id: 'dump-phase', title: 'The Dump Phase', type: 'video', completed: false },
-        { id: 'social-media-pumps', title: 'Social Media Manipulation', type: 'case-study', completed: false },
-        { id: 'protect-yourself', title: 'Protection Strategies', type: 'quiz', completed: false }
-      ],
-      color: 'yellow'
     },
     {
       id: 'insider-trading',
@@ -128,54 +117,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
       color: 'purple'
     },
     {
-      id: 'fake-advisors',
-      icon: <Users className="w-6 h-6" />,
-      duration: '40 mins',
-      difficulty: 'Beginner',
-      xpReward: 100,
-      progress: 0,
-      locked: false,
-      lessons: [
-        { id: 'registered-vs-fake', title: 'SEBI Registered vs Fake', type: 'interactive', completed: false },
-        { id: 'verify-advisor', title: 'How to Verify Advisors', type: 'video', completed: false },
-        { id: 'telegram-scams', title: 'Telegram & WhatsApp Scams', type: 'case-study', completed: false },
-        { id: 'test-knowledge', title: 'Test Your Knowledge', type: 'quiz', completed: false }
-      ],
-      color: 'blue'
-    },
-    {
-      id: 'digital-frauds',
-      icon: <Shield className="w-6 h-6" />,
-      duration: '45 mins',
-      difficulty: 'Intermediate',
-      xpReward: 150,
-      progress: 0,
-      locked: true,
-      lessons: [
-        { id: 'phishing-attacks', title: 'Phishing Attacks', type: 'interactive', completed: false },
-        { id: 'fake-trading-apps', title: 'Fake Trading Apps', type: 'video', completed: false },
-        { id: 'deepfake-scams', title: 'Deepfake Investment Scams', type: 'case-study', completed: false },
-        { id: 'digital-safety', title: 'Digital Safety Quiz', type: 'quiz', completed: false }
-      ],
-      color: 'green'
-    },
-    {
-      id: 'advanced-fee-schemes',
-      icon: <DollarSign className="w-6 h-6" />,
-      duration: '45 mins',
-      difficulty: 'Intermediate',
-      xpReward: 150,
-      progress: 0,
-      locked: true,
-      lessons: [
-        { id: 'advance-fee-intro', title: 'Understanding Advance Fee Fraud', type: 'video', completed: false },
-        { id: 'high-yield-red-flags', title: 'Red Flags of High-Yield Scams', type: 'interactive', completed: false },
-        { id: 'case-study-advance-fee', title: 'Case Study: The Nigerian Prince Scam (Finance Edition)', type: 'case-study', completed: false },
-        { id: 'quiz-advance-fee', title: 'Quiz: Identify the Scheme', type: 'quiz', completed: false }
-      ],
-      color: 'teal'
-    },
-    {
       id: 'spoofing-wash-trading',
       icon: <Repeat className="w-6 h-6" />,
       duration: '60 mins',
@@ -190,22 +131,6 @@ const FraudAwarenessCoursePage: NextPage = () => {
         { id: 'quiz-market-manipulation', title: 'Quiz: Spot the Manipulation', type: 'quiz', completed: false }
       ],
       color: 'cyan'
-    },
-    {
-      id: 'broker-fraud',
-      icon: <Briefcase className="w-6 h-6" />,
-      duration: '50 mins',
-      difficulty: 'Intermediate',
-      xpReward: 150,
-      progress: 0,
-      locked: true,
-      lessons: [
-        { id: 'churning-intro', title: 'Understanding Account Churning', type: 'video', completed: false },
-        { id: 'embezzlement-risks', title: 'Broker Embezzlement Risks', type: 'interactive', completed: false },
-        { id: 'case-study-broker-fraud', title: 'Case Study: A Broker\'s Betrayal', type: 'case-study', completed: false },
-        { id: 'quiz-broker-fraud', title: 'Quiz: Is Your Broker a Fraud?', type: 'quiz', completed: false }
-      ],
-      color: 'indigo'
     }
   ]);
 
@@ -274,13 +199,34 @@ const FraudAwarenessCoursePage: NextPage = () => {
             })
           );
         }
+        
+        // Also check localStorage for progress
+        if (clerkUser?.id) {
+          const userProgress = moduleProgressStore.getUserProgress(clerkUser.id);
+          const unlockedModules = moduleProgressStore.getUnlockedModules(clerkUser.id);
+          
+          if (userProgress) {
+            setModules(currentModules =>
+              currentModules.map(module => {
+                const moduleProgress = userProgress.modules[module.id];
+                const isUnlocked = unlockedModules[module.id];
+                
+                return {
+                  ...module,
+                  locked: !isUnlocked,
+                  progress: moduleProgress?.progress || module.progress,
+                };
+              })
+            );
+          }
+        }
       } catch (error) {
         console.error('Failed to fetch course data', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [clerkUser]); // Re-fetch when user changes
 
   useEffect(() => {
     if (selectedModule) {
