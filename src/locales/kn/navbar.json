@@ -1,10 +1,7 @@
 {
-  "title": "ಗೆಟ್ ಕ್ಲಾರಿಟಿ ಫೈನಾನ್ಸ್",
-  "analyzer": "ವಿಶ್ಲೇಷಕ",
-  "investorAssessment": "ಹೂಡಿಕೆದಾರರ ಮೌಲ್ಯಮಾಪน",
-  "fraudProtection": "ವಂಚನೆ ರಕ್ಷಣೆ",
-  "stockMarketCourse": "ಷೇರು ಮಾರುಕಟ್ಟೆ ಕೋರ್ಸ್",
-  "fraudAwarenessCourse": "ವಂಚನೆ ಜಾಗೃತಿ",
+  "title": "ಗೆಟ್ ಕ್ಲೇರಿಟಿ ಫೈನಾನ್ಸ್",
+  "fraudDetection": "ವಂಚನೆ ಪತ್ತೆ",
+  "learningCourses": "ಕಲಿಕೆಯ ಕೋರ್ಸ್‌ಗಳು",
   "virtualTrading": "ವರ್ಚುವಲ್ ಟ್ರೇಡಿಂಗ್",
   "signIn": "ಸೈನ್ ಇನ್ ಮಾಡಿ",
   "signUp": "ಸೈನ್ ಅಪ್ ಮಾಡಿ"

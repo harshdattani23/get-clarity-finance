@@ -1,11 +1,8 @@
 {
   "title": "గెట్ క్లారిటీ ఫైనాన్స్",
-  "analyzer": "విశ్లేషణకారి",
-  "investorAssessment": "పెట్టుబడిదారుల మదింపు",
-  "fraudProtection": "మోసం నుండి రక్షణ",
-  "stockMarketCourse": "స్టాక్ మార్కెట్ కోర్సు",
-  "fraudAwarenessCourse": "మోసంపై అవగాహన",
-  "virtualTrading": "వర్చువల్ ట్రేడింగ్",
+  "fraudDetection": "మోసం గుర్తింపు",
+  "learningCourses": "నేర్చుకునే కోర్సులు", 
+  "virtualTrading": "వర్చుఅల్ ట్రేడింగ్",
   "signIn": "సైన్ ఇన్ చేయండి",
   "signUp": "సైన్ అప్ చేయండి"
 }

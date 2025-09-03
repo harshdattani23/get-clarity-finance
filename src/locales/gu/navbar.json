@@ -1,9 +1,7 @@
 {
-  "title": "Get Clarity Finance",
-  "analyzer": "વિશ્લેષક",
-  "investorAssessment": "રોકાણકાર મૂલ્યાંકન",
-  "fraudProtection": "છેતરપિંડી સુરક્ષા",
-  "stockMarketCourse": "શેર બજાર અભ્યાસક્રમ",
+  "title": "ગેટ ક્લેરિટી ફાઇનાન્સ",
+  "fraudDetection": "ફ્રોડ ડિટેક્શન", 
+  "learningCourses": "શિક્ષણ કોર્સેસ",
   "virtualTrading": "વર્ચ્યુઅલ ટ્રેડિંગ",
   "signIn": "સાઇન ઇન કરો",
   "signUp": "સાઇન અપ કરો"

@@ -1,9 +1,7 @@
 {
   "title": "Get Clarity Finance",
-  "analyzer": "Analyzer",
-  "investorAssessment": "Investor Assessment",
-  "fraudProtection": "Fraud Protection",
-  "stockMarketCourse": "Stock Market Course",
+  "fraudDetection": "Fraud Detection",
+  "learningCourses": "Courses seekhiye",
   "virtualTrading": "Virtual Trading",
   "signIn": "Sign In",
   "signUp": "Sign Up"

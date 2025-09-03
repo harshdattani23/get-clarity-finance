@@ -2,37 +2,40 @@
 
 import Link from 'next/link';
 import { UserPlus, BookOpen, Shield, TrendingUp, Award } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function HowItWorks() {
+  const { t } = useTranslation('home');
+
   const steps = [
     {
       icon: <UserPlus className="w-8 h-8" />,
-      title: "Sign Up Free",
-      description: "Create your account in 30 seconds. No credit card required.",
+      titleKey: "journey.step1.title",
+      descriptionKey: "journey.step1.description",
       color: "blue"
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "Verify Messages",
-      description: "Use our AI to check suspicious investment offers instantly.",
+      titleKey: "journey.step2.title",
+      descriptionKey: "journey.step2.description",
       color: "green"
     },
     {
       icon: <BookOpen className="w-8 h-8" />,
-      title: "Learn Market Basics",
-      description: "Understand stock market fundamentals and trading strategies.",
+      titleKey: "journey.step3.title",
+      descriptionKey: "journey.step3.description",
       color: "purple"
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      title: "Practice Trading",
-      description: "Use virtual money to practice in real market conditions.",
+      titleKey: "journey.step4.title",
+      descriptionKey: "journey.step4.description",
       color: "orange"
     },
     {
       icon: <Award className="w-8 h-8" />,
-      title: "Invest Confidently",
-      description: "Apply your knowledge to make informed investment decisions.",
+      titleKey: "journey.step5.title",
+      descriptionKey: "journey.step5.description",
       color: "indigo"
     }
   ];
@@ -53,10 +56,10 @@ export default function HowItWorks() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Your Journey to Smart Investing
+            {t('journey.title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get started in minutes and begin your path to becoming a confident investor
+            {t('journey.subtitle')}
           </p>
         </div>
 
@@ -76,8 +79,8 @@ export default function HowItWorks() {
                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">
                       {index + 1}
                     </div>
-                    <h3 className="font-semibold text-lg mb-2 mt-2">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
+                    <h3 className="font-semibold text-lg mb-2 mt-2">{t(step.titleKey)}</h3>
+                    <p className="text-gray-600 text-sm">{t(step.descriptionKey)}</p>
                   </div>
                 </div>
               );
@@ -86,19 +89,19 @@ export default function HowItWorks() {
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6">Ready to start your investment journey?</p>
+          <p className="text-gray-600 mb-6">{t('journey.readyText')}</p>
           <div className="flex justify-center gap-4">
             <Link 
               href="/sign-up" 
               className="bg-[#163300] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#1a4000] transition-colors"
             >
-              Get Started Free
+              {t('journey.getStarted')}
             </Link>
             <Link 
               href="/virtual-trading" 
               className="bg-white text-[#163300] border-2 border-[#163300] px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors"
             >
-              Start Trading
+              {t('journey.startTrading')}
             </Link>
           </div>
         </div>

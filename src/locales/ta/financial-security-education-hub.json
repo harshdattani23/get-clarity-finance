@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "முழுமையான நிதிப் பாதுகாப்பு கல்வி",
+    "title": "நிதிப் பாதுகாப்பு மற்றும் சந்தை கல்வி மையம்",
+    "subtitle": "ஒவ்வொரு திறன் மட்டத்திற்கும் வடிவமைக்கப்பட்ட முழுமையான பாடநெறிகளுடன் மோசடி அடையாளம், அல்காரிதமிக் ட்ரேடிங் மற்றும் போர்ட்ஃபோலியோ மேலாண்மையில் நிபுணத்துவம் பெறுங்கள்",
+    "stats": {
+      "level": "உங்கள் மட்டம்",
+      "xp": "மொத்த XP",
+      "modules": "தொகுதிகள்",
+      "time": "மொத்த நேரம்",
+      "status": "முன்னேற்றம்"
+    },
+    "previews": {
+      "simulations": "ஊடாட்ட உருவகங்கள்",
+      "cases": "உண்மையான வழக்கு ஆய்வுகள்",
+      "certificates": "தொழில்முறை சான்றிதழ்கள்",
+      "achievements": "சாதனைகளைப் பார்க்கவும்",
+      "trading": "நேரலை ட்ரேடிங் உருவகம்",
+      "portfolio": "போர்ட்ஃபோலியோ மேலாண்மை கருவிகள்"
+    }
+  },
+  "coursesSection": {
+    "title": "பாடநெறி பிரிவுகள்",
+    "subtitle": "உங்கள் இலக்குகள் மற்றும் அனுபவ மட்டத்தின் அடிப்படையில் உங்கள் கற்றல் பாதையைத் தேர்ந்தெடுக்கவும்"
+  },
+  "modulesSection": {
+    "title": "பாடநெறி தொகுதிகள்"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} பாடங்கள்"
+    },
+    "progress": "முன்னேற்றம்",
+    "completed": "முழுமையானது",
+    "lessons_more": "+{count} மேலும் பாடங்கள்",
+    "button": {
+      "unlock_prompt": "திறக்க முன்நிபந்தனைகளை முடிக்கவும்",
+      "continue": "கற்றலைத் தொடரவும்",
+      "start": "தொகுதியைத் தொடங்கு",
+      "enroll": "இப்போதே பதிவு செய்யுங்கள்"
+    }
+  },
+  "cta": {
+    "title": "நிதிச் சந்தைகளில் நிபுணத்துவம் பெற தயாரா?",
+    "subtitle": "மோசடி விழிப்புணர்விலிருந்து தொடங்கி மேம்பட்ட ட்ரேடிங் மற்றும் போர்ட்ஃபோலியோ மேலாண்மைக்கு முன்னேறுங்கள்",
+    "start_lesson": "கற்றலைத் தொடங்குங்கள்",
+    "create_account": "இலவச கணக்கை உருவாக்கவும்",
+    "browse_all": "அனைத்து பாடநெறிகளையும் உலாவவும்"
+  },
+  "filters": {
+    "search": "பாடநெறிகளைத் தேடுங்கள்...",
+    "all": "அனைத்து பாடநெறிகள்",
+    "fraud_awareness": "மோசடி விழிப்புணர்வு",
+    "algorithmic_trading": "அல்காரிதமிக் ட்ரேடிங்",
+    "portfolio_management": "போர்ட்ஃபோலியோ மேலாண்மை",
+    "beginner": "ஆரம்பநிலை",
+    "intermediate": "இடைநிலை",
+    "advanced": "மேம்பட்ட"
+  },
+  "tags": {
+    "all": "அனைத்து குறிச்சொற்கள்",
+    "awareness": "விழிப்புணர்வு",
+    "market_knowledge": "சந்தை அறிவு"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "மோசடி விழிப்புணர்வு மற்றும் பாதுகாப்பு",
+      "description": "நிதி மோசடி மற்றும் சந்தை கையாளுதலுக்கு எதிரான முழுமையான பாதுகாப்பு",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "உயர் அதிர்வெண் மற்றும் அல்காரிதமிக் ட்ரேடிங்",
+      "description": "மேம்பட்ட ட்ரேடிங் தொழில்நுட்பம் மற்றும் அளவு முறைகள்",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "முதலீடு மற்றும் போர்ட்ஃபோலியோ மேலாண்மை",
+      "description": "தொழில்முறை சொத்து மேலாண்மை மற்றும் நீண்ட கால முதலீடு",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "பங்குச் சந்தை மோசடிகளுக்கு அறிமுகம்",
+      "description": "இந்திய பங்குச் சந்தையில் பொதுவான மோசடி வடிவங்கள் மற்றும் சிவப்பு கொடிகளைக் கற்றுக்கொள்ளுங்கள்",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "விரிவான மோசடி திட்டங்கள்",
+      "description": "பான்ஸி திட்டங்கள், பம்ப் அண்ட் டம்ப் செயல்பாடுகள், உள்நாட்டு வர்த்தகம் மற்றும் சமூக ஊடக கையாளுதல் அடையாளத்தில் நிபுணத்துவம் பெறுங்கள்",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "மேம்பட்ட சந்தை கையாளுதல் மற்றும் கண்டறிதல்",
+      "description": "AI-இயக்கப்படும் திட்டங்கள், ஒழுங்குமுறை வலுவார்த்தணம் மற்றும் டார்க் வெப் மோசடி உட்பட தொழில்முறை-நிலை மோசடி கண்டறிதல்",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "விரிவான பங்குச் சந்தை நிபுணத்துவம்",
+      "description": "சந்தை அடிப்படைகள், அடிப்படை பகுப்பாய்வு, தொழில்நுட்ப பகுப்பாய்வு மற்றும் வர்த்தக உளவியல் ஆகியவற்றை உள்ளடக்கிய முழுமையான அடித்தளம்",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "மேம்பட்ட அல்காரிதமிக் மற்றும் HFT ட்ரேடிங்",
+      "description": "அல்காரிதமிக் ட்ரேடிং், உயர்-அதிர்வெண் உத்திகள், இயந்திர கற்றல் பயன்பாடுகள் மற்றும் தொழில்முறை ட்ரேடிங் அமைப்புகளில் நிபுணத்துவம் பெறுங்கள்",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "முதலீட்டு தத்துவம் மற்றும் போர்ட்ஃபோலியோ கோட்பாடு",
+      "description": "நவீன போர்ட்ஃபோலியோ கோட்பாடு மற்றும் நீண்ட கால முதலீட்டு கொள்கைகள்",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "முதலீட்டு வாகனங்கள் மற்றும் தயாரிப்புகள்",
+      "description": "மியூச்சுவல் ஃபண்டுகள், ETF, பத்திரங்கள் மற்றும் மாற்று முதலீடுகள்",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "6 மணிநேரம்",
+      "difficulty": "ஆரம்பநிலை முதல் மேம்பட்டது வரை",
+      "certification": "மோசடி கண்டறிதல் நிபுணர்"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "4 மணிநேரம்",
+      "difficulty": "இடைநிலை",
+      "certification": "சந்தை பகுப்பாய்வு தொழில்முறை"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "12 மணிநேரம்",
+      "difficulty": "மேம்பட்ட",
+      "certification": "அல்காரிதமிக் ட்ரேடிங் மாஸ்டர்"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "7 மணிநேரம்",
+      "difficulty": "இடைநிலை முதல் மேம்பட்டது வரை",
+      "certification": "போர்ட்ஃபோலியோ மேலாண்மை தொழில்முறை"
+    }
+  }
+}

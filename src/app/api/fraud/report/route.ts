@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Generate unique report ID
-    const reportId = `FR-${nanoid(10).toUpperCase()}`;
+    const reportId = `GC-FR-${nanoid(10).toUpperCase()}`;
 
     // Create fraud report
     const fraudReport = await prisma.fraudReport.create({

@@ -7,7 +7,7 @@ import { useUser } from '@clerk/nextjs';
 import { SignInButton } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
-import Module1VideoPlayer from '@/components/fraud-awareness-course/Module1VideoPlayer';
+import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import SpotTheRedFlag from '@/components/fraud-awareness/SpotTheRedFlag';
@@ -399,7 +399,7 @@ export default function IntroToFraudsPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Link 
-                  href="/fraud-awareness-course"
+                  href="/investment-security-course"
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <ArrowLeft className="w-5 h-5" />
@@ -463,7 +463,7 @@ export default function IntroToFraudsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link 
-                href="/fraud-awareness-course"
+                href="/investment-security-course"
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -964,7 +964,7 @@ export default function IntroToFraudsPage() {
                 <div className="flex justify-between">
                   <button onClick={() => setOverviewStep(3)} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">Back</button>
                   <Link
-                    href="/fraud-awareness-course"
+                    href="/investment-security-course"
                     className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
                   >
                     Complete Course 🏆
@@ -998,3 +998,4 @@ export default function IntroToFraudsPage() {
     </div>
   );
 }
+

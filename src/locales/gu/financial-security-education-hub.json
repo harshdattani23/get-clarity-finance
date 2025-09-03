@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "સંપૂર્ણ નાણાકીય સુરક્ષા શિક્ષણ",
+    "title": "નાણાકીય સુરક્ષા અને બજાર શિક્ષણ કેન્દ્ર",
+    "subtitle": "દરેક સ્તરની કુશળતા માટે ડિઝાઇન કરેલ વ્યાપક કોર્સો સાથે છેતરપિંડીની ઓળખ, અલ્ગોરિધમિક ટ્રેડિંગ અને પોર્ટફોલિયો મેનેજમેન્ટમાં નિપુણતા મેળવો",
+    "stats": {
+      "level": "તમારું સ્તર",
+      "xp": "કુલ XP",
+      "modules": "મોડ્યુલ",
+      "time": "કુલ સમય",
+      "status": "પ્રગતિ"
+    },
+    "previews": {
+      "simulations": "ઇન્ટરેક્ટિવ સિમ્યુલેશન",
+      "cases": "વાસ્તવિક કેસ અભ્યાસ",
+      "certificates": "વ્યાવસાયિક પ્રમાણપત્રો",
+      "achievements": "સિદ્ધિઓ જુઓ",
+      "trading": "લાઇવ ટ્રેડિંગ સિમ્યુલેશન",
+      "portfolio": "પોર્ટફોલિયો મેનેજમેન્ટ સાધનો"
+    }
+  },
+  "coursesSection": {
+    "title": "કોર્સ શ્રેણીઓ",
+    "subtitle": "તમારા લક્ષ્યો અને અનુભવ સ્તરના આધારે તમારું શિક્ષણ માર્ગ પસંદ કરો"
+  },
+  "modulesSection": {
+    "title": "કોર્સ મોડ્યુલ"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} પાઠો"
+    },
+    "progress": "પ્રગતિ",
+    "completed": "પૂર્ણ",
+    "lessons_more": "+{count} વધુ પાઠો",
+    "button": {
+      "unlock_prompt": "અનલોક કરવા માટે પૂર્વશરતો પૂર્ણ કરો",
+      "continue": "શીખવાનું ચાલુ રાખો",
+      "start": "મોડ્યુલ શરૂ કરો",
+      "enroll": "હવે નોંધણી કરો"
+    }
+  },
+  "cta": {
+    "title": "નાણાકીય બજારોમાં નિપુણતા મેળવવા માટે તૈયાર?",
+    "subtitle": "છેતરપિંડી જાગૃતિથી શરૂ કરો અને એડવાન્સ ટ્રેડિંગ અને પોર્ટફોલિયો મેનેજમેન્ટ તરફ આગળ વધો",
+    "start_lesson": "શીખવાનું શરૂ કરો",
+    "create_account": "મફત ખાતું બનાવો",
+    "browse_all": "બધા કોર્સ જુઓ"
+  },
+  "filters": {
+    "search": "કોર્સ શોધો...",
+    "all": "બધા કોર્સ",
+    "fraud_awareness": "છેતરપિંડી જાગૃતિ",
+    "algorithmic_trading": "અલ્ગોરિધમિક ટ્રેડિંગ",
+    "portfolio_management": "પોર્ટફોલિયો મેનેજમેન્ટ",
+    "beginner": "શરૂઆતી",
+    "intermediate": "મધ્યમ",
+    "advanced": "એડવાન્સ"
+  },
+  "tags": {
+    "all": "બધા ટૅગ્સ",
+    "awareness": "જાગૃતિ",
+    "market_knowledge": "બજાર જ્ઞાન"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "છેતરપિંડી જાગૃતિ અને સુરક્ષા",
+      "description": "નાણાકીય છેતરપિંડી અને બજાર મેનિપ્યુલેશન સામે સંપૂર્ણ સુરક્ષા",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "ઉચ્ચ-આવૃત્તિ અને અલ્ગોરિધમિક ટ્રેડિંગ",
+      "description": "એડવાન્સ ટ્રેડિંગ ટેકનોલોજી અને માત્રાત્મક પદ્ધતિઓ",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "રોકાણ અને પોર્ટફોલિયો મેનેજમેન્ટ",
+      "description": "વ્યાવસાયિક સંપત્તિ મેનેજમેન્ટ અને લાંબા ગાળાના રોકાણ",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "શેર બજારની છેતરપિંડીનો પરિચય",
+      "description": "ભારતીય શેર બજારમાં સામાન્ય છેતરપિંડીની પેટર્ન અને લાલ ધ્વજો વિશે જાણો",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "વ્યાપક છેતરપિંડી યોજનાઓ",
+      "description": "પોંઝી યોજનાઓ, પંપ અને ડંપ ઓપરેશન, ઇનસાઇડર ટ્રેડિંગ અને સોશિયલ મીડિયા મેનિપ્યુલેશનની ઓળખમાં નિપુણતા મેળવો",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "એડવાન્સ માર્કેટ મેનિપ્યુલેશન અને ઓળખ",
+      "description": "AI-ચાલિત યોજનાઓ, નિયમનકારી આર્બિટ્રેજ અને ડાર્ક વેબ છેતરપિંડી સહિત વ્યાવસાયિક-સ્તરની છેતરપિંડી ઓળખ",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "વ્યાપક શેર બજાર નિપુણતા",
+      "description": "બજારના મૂળભૂત સિદ્ધાંતો, મૂળભૂત વિશ્લેષણ, તકનીકી વિશ્લેષણ અને ટ્રેડિંગ મનોવિજ્ઞાનને આવરી લેતી સંપૂર્ણ પાયાની રચના",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "એડવાન્સ અલ્ગોરિધમિક અને HFT ટ્રેડિંગ",
+      "description": "અલ્ગોરિધમિક ટ્રેડિંગ, ઉચ્ચ-આવૃત્તિ વ્યૂહરચનાઓ, મશીન લર્નિંગ એપ્લિકેશન અને વ્યાવસાયિક ટ્રેડિંગ સિસ્ટમ્સમાં નિપુણતા મેળવો",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "રોકાણ દર્શન અને પોર્ટફોલિયો સિદ્ધાંત",
+      "description": "આધુનિક પોર્ટફોલિયો સિદ્ધાંત અને લાંબા ગાળાના રોકાણના સિદ્ધાંતો",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "રોકાણ માધ્યમો અને ઉત્પાદનો",
+      "description": "મ્યુચ્યુઅલ ફંડ્સ, ETF, બોન્ડ્સ અને વૈકલ્પિક રોકાણો",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "૬ કલાક",
+      "difficulty": "શરૂઆતીથી એડવાન્સ",
+      "certification": "છેતરપિંડી ઓળખ નિષ્ણાત"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "૪ કલાક",
+      "difficulty": "મધ્યમ",
+      "certification": "બજાર વિશ્લેષણ વ્યાવસાયિક"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "૧૨ કલાક",
+      "difficulty": "એડવાન્સ",
+      "certification": "અલ્ગોરિધમિક ટ્રેડિંગ માસ્ટર"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "૭ કલાક",
+      "difficulty": "મધ્યમથી એડવાન્સ",
+      "certification": "પોર્ટફોલિયો મેનેજમેન્ટ વ્યાવસાયિક"
+    }
+  }
+}

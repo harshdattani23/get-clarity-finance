@@ -1,13 +1,13 @@
 {
   "hero": {
-    "title": "AI-Powered Investment Safety Platform",
-    "subtitle": "Protect yourself from ₹50,000+ crore annual investment frauds. Learn stock market investing the right way with 50+ courses, practice risk-free with virtual trading, and verify every investment opportunity with AI.",
-    "benefit1": "Instant Fraud Detection",
-    "benefit2": "50+ Expert Courses",
-    "benefit3": "Learn by Virtual Trading",
-    "benefit4": "100% Safe & Secure",
-    "cta1": "See How It Works",
-    "cta2": "Learn About Investing",
+    "title": "Learn, Practice, Stay Protected: Your AI-Powered Investment Companion",
+    "subtitle": "AI-powered fraud detection meets comprehensive financial education. Learn market fundamentals, practice with virtual trading, and stay protected from scams—all in one platform designed for Indian investors.",
+    "benefit1": "Real-time Fraud Detection & Alerts",
+    "benefit2": "Financial Literacy Courses",
+    "benefit3": "Risk-free Virtual Trading Simulator",
+    "benefit4": "Multilingual Education Resources",
+    "cta1": "Try Fraud Detection",
+    "cta2": "Start Learning Courses",
     "cta3": "Practice Virtual Trading"
   },
   "news": {
@@ -17,5 +17,32 @@
   "agents": {
     "title": "AI-Powered Fraud Detection Agents",
     "subtitle": "Test our advanced AI agents that protect investors from various types of financial fraud in real-time."
+  },
+  "journey": {
+    "title": "Your Journey to Smart Investing",
+    "subtitle": "Get started in minutes and begin your path to becoming a confident investor",
+    "step1": {
+      "title": "Sign Up Free",
+      "description": "Create your account in 30 seconds. No credit card required."
+    },
+    "step2": {
+      "title": "Verify Messages",
+      "description": "Use our AI to check suspicious investment offers instantly."
+    },
+    "step3": {
+      "title": "Learn Market Basics",
+      "description": "Understand stock market fundamentals and trading strategies."
+    },
+    "step4": {
+      "title": "Practice Trading",
+      "description": "Use virtual money to practice in real market conditions."
+    },
+    "step5": {
+      "title": "Invest Confidently",
+      "description": "Apply your knowledge to make informed investment decisions."
+    },
+    "readyText": "Ready to start your investment journey?",
+    "getStarted": "Get Started Free",
+    "startTrading": "Start Trading"
   }
 }

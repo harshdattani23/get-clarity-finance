@@ -32,15 +32,15 @@ export default function FraudProtectionTips() {
   }));
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+    <div className="bg-[#163300] text-white min-h-screen">
+      <div className="container mx-auto px-6 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-white">
               {t('mainTitle') as string}
             </span>
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
             {t('mainSubtitle') as string}
           </p>
         </div>
@@ -49,18 +49,18 @@ export default function FraudProtectionTips() {
           {fraudTips.map((tip) => (
             <motion.div
               key={tip.id}
-              whileHover={{ scale: 1.02, borderColor: '#f87171' }}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 cursor-pointer hover:bg-gray-700 transition-colors"
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-lg p-6 cursor-pointer hover:bg-white/15 transition-colors"
               onClick={() => setSelectedTip(selectedTip === tip.id ? null : tip.id)}
             >
               <div className="flex items-start gap-4">
-                <div className="bg-red-900/50 p-3 rounded-full text-red-400">
+                <div className="bg-red-500/20 p-3 rounded-full text-red-300">
                   {tip.icon}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-white mb-2">{tip.title}</h3>
-                  <p className="text-gray-400 text-sm">{tip.description}</p>
+                  <p className="text-white/70 text-sm">{tip.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -71,19 +71,19 @@ export default function FraudProtectionTips() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gray-800 rounded-2xl shadow-lg p-8 max-w-4xl mx-auto border border-gray-700"
+            className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-lg p-8 max-w-4xl mx-auto"
           >
             {fraudTips.map((tip) => 
               tip.id === selectedTip ? (
                 <div key={tip.id}>
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-red-900/50 p-3 rounded-full text-red-400">
+                    <div className="bg-red-500/20 p-3 rounded-full text-red-300">
                       {tip.icon}
                     </div>
                     <h2 className="text-2xl font-bold text-white">{tip.title}</h2>
                   </div>
                   
-                  <p className="text-gray-300 mb-8 text-lg">{tip.description}</p>
+                  <p className="text-white/90 mb-8 text-lg">{tip.description}</p>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
@@ -94,8 +94,8 @@ export default function FraudProtectionTips() {
                       <ul className="space-y-3">
                         {tip.redFlags.map((flag, index) => (
                           <li key={index} className="flex items-start gap-3">
-                            <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-300">{flag}</span>
+                            <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-white/80">{flag}</span>
                           </li>
                         ))}
                       </ul>
@@ -109,8 +109,8 @@ export default function FraudProtectionTips() {
                       <ul className="space-y-3">
                         {tip.protectiveActions.map((action, index) => (
                           <li key={index} className="flex items-start gap-3">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-300">{action}</span>
+                            <div className="w-2 h-2 bg-lime-400 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-white/80">{action}</span>
                           </li>
                         ))}
                       </ul>

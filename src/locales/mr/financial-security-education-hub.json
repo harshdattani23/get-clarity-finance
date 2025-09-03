@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "संपूर्ण वित्तीय सुरक्षा शिक्षण",
+    "title": "वित्तीय सुरक्षा आणि बाजार शिक्षण केंद्र",
+    "subtitle": "प्रत्येक कौशल्य पातळीसाठी डिझाइन केलेल्या व्यापक अभ्यासक्रमांसह फसवणूक ओळख, अल्गोरिदमिक ट्रेडिंग आणि पोर्टफोलिओ व्यवस्थापनामध्ये प्रावीण्य मिळवा",
+    "stats": {
+      "level": "तुमची पातळी",
+      "xp": "एकूण XP",
+      "modules": "मॉड्यूल",
+      "time": "एकूण वेळ",
+      "status": "प्रगती"
+    },
+    "previews": {
+      "simulations": "परस्परसंवादी सिम्युलेशन",
+      "cases": "वास्तविक केस स्टडी",
+      "certificates": "व्यावसायिक प्रमाणपत्रे",
+      "achievements": "कामगिरी पहा",
+      "trading": "लाइव्ह ट्रेडिंग सिम्युलेशन",
+      "portfolio": "पोर्टफोलिओ व्यवस्थापन साधने"
+    }
+  },
+  "coursesSection": {
+    "title": "कोर्स विभाग",
+    "subtitle": "तुमची उद्दिष्टे आणि अनुभव पातळीवर आधारित तुमचा शिकण्याचा मार्ग निवडा"
+  },
+  "modulesSection": {
+    "title": "कोर्स मॉड्यूल"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} धडे"
+    },
+    "progress": "प्रगती",
+    "completed": "पूर्ण",
+    "lessons_more": "+{count} आणखी धडे",
+    "button": {
+      "unlock_prompt": "अनलॉक करण्यासाठी पूर्वअपेक्षा पूर्ण करा",
+      "continue": "शिकणे सुरू ठेवा",
+      "start": "मॉड्यूल सुरू करा",
+      "enroll": "आता नोंदणी करा"
+    }
+  },
+  "cta": {
+    "title": "वित्तीय बाजारांमध्ये प्रावीण्य मिळवण्यासाठी तयार आहात?",
+    "subtitle": "फसवणूक जागरूकतेपासून सुरुवात करा आणि प्रगत ट्रेडिंग आणि पोर्टफोलिओ व्यवस्थापनाकडे पुढे जा",
+    "start_lesson": "शिकणे सुरू करा",
+    "create_account": "विनामूल्य खाते तयार करा",
+    "browse_all": "सर्व कोर्स पहा"
+  },
+  "filters": {
+    "search": "कोर्स शोधा...",
+    "all": "सर्व कोर्स",
+    "fraud_awareness": "फसवणूक जागरूकता",
+    "algorithmic_trading": "अल्गोरिदमिक ट्रेडिंग",
+    "portfolio_management": "पोर्टफोलिओ व्यवस्थापन",
+    "beginner": "प्रारंभिक",
+    "intermediate": "मध्यम",
+    "advanced": "प्रगत"
+  },
+  "tags": {
+    "all": "सर्व टॅग",
+    "awareness": "जागरूकता",
+    "market_knowledge": "बाजार ज्ञान"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "फसवणूक जागरूकता आणि सुरक्षा",
+      "description": "वित्तीय फसवणूक आणि बाजार हाताळणीविरुद्ध संपूर्ण संरक्षण",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "उच्च वारंवारता आणि अल्गोरिदमिक ट्रेडिंग",
+      "description": "प्रगत ट्रेडिंग तंत्रज्ञान आणि परिमाणवाचक पद्धती",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "गुंतवणूक आणि पोर्टफोलिओ व्यवस्थापन",
+      "description": "व्यावसायिक मालमत्ता व्यवस्थापन आणि दीर्घकालीन गुंतवणूक",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "शेअर मार्केट फसवणुकीचा परिचय",
+      "description": "भारतीय शेअर मार्केटमधील सामान्य फसवणूक पॅटर्न आणि लाल झेंडे शिका",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "व्यापक फसवणूक योजना",
+      "description": "पॉन्झी योजना, पंप अँड डंप ऑपरेशन्स, इन्साइडर ट्रेडिंग आणि सोशल मीडिया मॅनिप्युलेशन ओळखण्यामध्ये प्रावीण्य मिळवा",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "प्रगत बाजार हाताळणी आणि शोध",
+      "description": "AI-चालित योजना, नियामक मध्यस्थी आणि डार्क वेब फसवणूकीसह व्यावसायिक-स्तरीय फसवणूक शोध",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "व्यापक शेअर मार्केट प्रावीण्य",
+      "description": "बाजारातील मूलभूत तत्त्वे, मूलभूत विश्लेषण, तांत्रिक विश्लेषण आणि ट्रेडिंग मानसशास्त्र समाविष्ट असलेला संपूर्ण पाया",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "प्रगत अल्गोरिदमिक आणि HFT ट्रेडिंग",
+      "description": "अल्गोरिदमिक ट्रेडिंग, उच्च-वारंवारता रणनीती, मशीन लर्निंग अनुप्रयोग आणि व्यावसायिक ट्रेडिंग सिस्टममध्ये प्रावीण्य मिळवा",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "गुंतवणूक तत्त्वज्ञान आणि पोर्टफोलिओ सिद्धांत",
+      "description": "आधुनिक पोर्टफोलिओ सिद्धांत आणि दीर्घकालीन गुंतवणूक तत्त्वे",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "गुंतवणूक वाहने आणि उत्पादने",
+      "description": "म्युच्युअल फंड, ETF, बॉण्ड आणि पर्यायी गुंतवणूक",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "६ तास",
+      "difficulty": "प्रारंभिक ते प्रगत",
+      "certification": "फसवणूक शोध तज्ञ"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "४ तास",
+      "difficulty": "मध्यम",
+      "certification": "बाजार विश्लेषण व्यावसायिक"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "१२ तास",
+      "difficulty": "प्रगत",
+      "certification": "अल्गोरिदमिक ट्रेडिंग मास्टर"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "७ तास",
+      "difficulty": "मध्यम ते प्रगत",
+      "certification": "पोर्टफोलिओ व्यवस्थापन व्यावसायिक"
+    }
+  }
+}

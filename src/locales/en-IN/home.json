@@ -1,9 +1,22 @@
 {
   "hero": {
-    "title": "Confidence ke saath invest karein. Clarity ke saath trade karein.",
-    "subtitle": "Financial fraud ke khilaaf aapka AI-powered shield. Invest karne se pehle seekhein, practice karein, aur verify karein. Modern Indian investor ke liye banaya gaya hai.",
-    "cta": "Ek message analyze karein",
-    "cta2": "Quiz Lein"
+    "title": "Seekhiye, Practice Kariye, Protected Rahiye: Aapka AI-Powered Investment Saathi",
+    "subtitle": "AI-powered fraud detection aur complete financial education ka combination. Market ke basics samjhiye, virtual trading mein practice kariye, aur scams se bachiye—sab kuch ek saath, sirf Indian investors ke liye banaya gaya.",
+    "benefit1": "Turant Fraud Detection aur Alerts",
+    "benefit2": "Financial Literacy ke Courses",
+    "benefit3": "Bina Risk Virtual Trading Simulator",
+    "benefit4": "Hindi mein Education Resources",
+    "cta1": "Fraud Detection dekhiye",
+    "cta2": "Courses shuru kariye",
+    "cta3": "Virtual Trading kariye"
+  },
+  "news": {
+    "title": "Latest Market Ki Updates",
+    "live": "LIVE"
+  },
+  "agents": {
+    "title": "AI-Powered Fraud Detection Agents",
+    "subtitle": "Hamare advanced AI agents ko test kariye jo investors ko har tarah ke financial fraud se real-time mein protect karte hain."
   },
   "services": {
     "title": "Hamein numbers handle karne dein, taaki aap apni success handle kar sakein."
@@ -33,5 +46,32 @@
       "safe": "Surakshit Lag Raha Hai",
       "aiAssistant": "AI Assistant Ka Jawab"
     }
+  },
+  "journey": {
+    "title": "Aapki Smart Investing Ki Journey",
+    "subtitle": "Minutes mein start kariye aur ek confident investor banne ka raasta shuru kariye",
+    "step1": {
+      "title": "Free Sign Up Kariye",
+      "description": "30 seconds mein apna account banayiye. Credit card ki zarurat nahi."
+    },
+    "step2": {
+      "title": "Messages Verify Kariye",
+      "description": "Suspicious investment offers ko instantly check karne ke liye hamara AI use kariye."
+    },
+    "step3": {
+      "title": "Market Basics Seekhiye",
+      "description": "Stock market ke fundamentals aur trading strategies ko samjhiye."
+    },
+    "step4": {
+      "title": "Trading Practice Kariye",
+      "description": "Real market conditions mein virtual money use karke practice kariye."
+    },
+    "step5": {
+      "title": "Confidence Ke Saath Invest Kariye",
+      "description": "Informed investment decisions lene ke liye apna knowledge apply kariye."
+    },
+    "readyText": "Apni investment journey start karne ke liye ready hain?",
+    "getStarted": "Free Mein Start Kariye",
+    "startTrading": "Trading Shuru Kariye"
   }
 }

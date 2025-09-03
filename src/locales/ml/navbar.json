@@ -1,11 +1,8 @@
 {
   "title": "ഗെറ്റ് ക്ലാരിറ്റി ഫൈനാൻസ്",
-  "analyzer": "വിശകലന ഉപകരണം",
-  "investorAssessment": "നിക്ഷേപക വിലയിരുത്തൽ",
-  "fraudProtection": "വഞ്ചന സംരക്ഷണം",
-  "stockMarketCourse": "സ്റ്റോക്ക് മാർക്കറ്റ് കോഴ്സ്",
-  "fraudAwarenessCourse": "വഞ്ചന ബോധവൽക്കരണം",
-  "virtualTrading": "വെർച്വൽ ട്രേഡിംഗ്",
+  "fraudDetection": "വഞ്ചന കണ്ടെത്തൽ",
+  "learningCourses": "പഠന കോഴ്‌സുകൾ",
+  "virtualTrading": "വെർച്വൽ ട്രേഡിങ്ഗ്",
   "signIn": "സൈൻ ഇൻ ചെയ്യുക",
   "signUp": "സൈൻ അപ്പ് ചെയ്യുക"
 }

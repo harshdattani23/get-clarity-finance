@@ -8,11 +8,13 @@ import { useTranslation } from '@/hooks/useTranslation';
 import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
 import { useUser } from '@clerk/nextjs';
 import { moduleProgressStore } from '@/lib/module-progress-store';
+import CourseDataDebug from '@/components/debug/CourseDataDebug';
 
 import { 
   Shield, 
   AlertTriangle, 
-  TrendingDown, 
+  TrendingDown,
+  TrendingUp,
   Users, 
   Zap, 
   Lock,
@@ -30,7 +32,15 @@ import {
   DollarSign,
   Repeat,
   Briefcase,
-  Search
+  Search,
+  Cpu,
+  BarChart3,
+  PieChart,
+  Calculator,
+  Layers,
+  Network,
+  Bot,
+  LineChart
 } from 'lucide-react';
 
 interface Module {
@@ -50,6 +60,21 @@ interface Module {
     completed: boolean;
   }[];
   color: string;
+  course: 'fraud_awareness' | 'fundamentals' | 'algorithmic_trading' | 'portfolio_management';
+  prerequisites: string[];
+  tags: string[];
+}
+
+interface Course {
+  id: string;
+  title: string;
+  description: string;
+  color: string;
+  icon: JSX.Element;
+  moduleCount: number;
+  totalDuration: string;
+  difficulty: string;
+  certification: string;
 }
 
 interface FetchedModule {
@@ -59,10 +84,11 @@ interface FetchedModule {
   progress: number;
 }
 
-const FraudAwarenessCoursePage: NextPage = () => {
-  const { t } = useTranslation('fraud-awareness-course');
+const FinancialSecurityEducationHub: NextPage = () => {
+  const { t } = useTranslation('financial-security-education-hub');
   const { user: clerkUser } = useUser();
   const [modules, setModules] = useState<Module[]>([
+    // Fraud Awareness Modules
     {
       id: 'intro-to-frauds',
       icon: <AlertTriangle className="w-6 h-6" />,
@@ -71,76 +97,222 @@ const FraudAwarenessCoursePage: NextPage = () => {
       xpReward: 100,
       progress: 0,
       locked: false,
+      course: 'fraud_awareness',
+      prerequisites: [],
       lessons: [
         { id: 'what-is-fraud', title: 'What is Securities Fraud?', type: 'video', completed: false },
         { id: 'common-patterns', title: 'Common Fraud Patterns', type: 'interactive', completed: false },
         { id: 'red-flags', title: 'Spot the Red Flags', type: 'quiz', completed: false },
         { id: 'sebi-role', title: "SEBI's Role in Protection", type: 'video', completed: false },
-        { id: 'satyam-scam', title: 'The Satyam Saga: Uncovering Corporate Fraud', type: 'case-study', completed: false },
-        { id: 'harshad-mehta-scam', title: 'Harshad Mehta: The 1992 Securities Scam', type: 'case-study', completed: false }
+        { id: 'case-studies', title: 'Major Fraud Case Studies', type: 'case-study', completed: false }
       ],
-      color: 'red'
+      color: 'red',
+      tags: ['Awareness']
     },
     {
-      id: 'intermediate-frauds',
+      id: 'comprehensive-fraud-schemes',
       icon: <TrendingDown className="w-6 h-6" />,
+      duration: '3 hours',
+      difficulty: 'Intermediate',
+      xpReward: 400,
+      progress: 0,
+      locked: true,
+      course: 'fraud_awareness',
+      prerequisites: ['intro-to-frauds'],
+      lessons: [
+        { id: 'ponzi-mechanics', title: 'How Ponzi Schemes Work', type: 'interactive', completed: false },
+        { id: 'pyramid-vs-ponzi', title: 'Pyramid vs Ponzi Schemes', type: 'video', completed: false },
+        { id: 'pump-dump-mechanics', title: 'Pump & Dump Process', type: 'interactive', completed: false },
+        { id: 'social-media-manipulation', title: 'Social Media Manipulation', type: 'video', completed: false },
+        { id: 'penny-stock-risks', title: 'Penny Stock Scams', type: 'case-study', completed: false },
+        { id: 'insider-trading-basics', title: 'Insider Trading Fundamentals', type: 'video', completed: false },
+        { id: 'circular-trading', title: 'Circular Trading Explained', type: 'case-study', completed: false },
+        { id: 'detection-tools', title: 'Fraud Detection Tools & Techniques', type: 'interactive', completed: false },
+        { id: 'indian-fraud-cases', title: 'Major Indian Fraud Cases', type: 'case-study', completed: false },
+        { id: 'comprehensive-quiz', title: 'Comprehensive Fraud Detection Quiz', type: 'quiz', completed: false }
+      ],
+      color: 'orange',
+      tags: ['Awareness']
+    },
+    {
+      id: 'advanced-market-manipulation',
+      icon: <Network className="w-6 h-6" />,
+      duration: '2 hours',
+      difficulty: 'Advanced',
+      xpReward: 500,
+      progress: 0,
+      locked: true,
+      course: 'fraud_awareness',
+      prerequisites: ['comprehensive-fraud-schemes'],
+      lessons: [
+        { id: 'sophisticated-schemes', title: 'Sophisticated Market Manipulation', type: 'interactive', completed: false },
+        { id: 'cross-border-frauds', title: 'Cross-Border Investment Scams', type: 'case-study', completed: false },
+        { id: 'ai-powered-frauds', title: 'AI-Powered Market Manipulation', type: 'video', completed: false },
+        { id: 'regulatory-arbitrage', title: 'Regulatory Arbitrage & Loopholes', type: 'interactive', completed: false },
+        { id: 'dark-web-schemes', title: 'Dark Web Investment Frauds', type: 'case-study', completed: false },
+        { id: 'professional-detection', title: 'Professional Detection Techniques', type: 'quiz', completed: false }
+      ],
+      color: 'indigo',
+      tags: ['Awareness']
+    },
+
+    // Stock Market Fundamentals (Combined)
+    {
+      id: 'comprehensive-stock-market-mastery',
+      icon: <PieChart className="w-6 h-6" />,
+      duration: '4 hours',
+      difficulty: 'Intermediate',
+      xpReward: 400,
+      progress: 0,
+      locked: false,
+      course: 'fundamentals',
+      prerequisites: [],
+      lessons: [
+        { id: 'what-is-stock', title: 'What is a Stock?', type: 'video', completed: false },
+        { id: 'stock-types', title: 'Types of Stocks', type: 'interactive', completed: false },
+        { id: 'market-mechanics', title: 'How Markets Work', type: 'video', completed: false },
+        { id: 'trading-basics', title: 'Trading Basics', type: 'quiz', completed: false },
+        { id: 'financial-statements', title: 'Reading Financial Statements', type: 'interactive', completed: false },
+        { id: 'ratio-analysis', title: 'Financial Ratio Analysis', type: 'video', completed: false },
+        { id: 'valuation-methods', title: 'Company Valuation', type: 'case-study', completed: false },
+        { id: 'technical-analysis', title: 'Technical Analysis Fundamentals', type: 'interactive', completed: false },
+        { id: 'market-psychology', title: 'Market Psychology & Behavioral Finance', type: 'video', completed: false },
+        { id: 'comprehensive-market-quiz', title: 'Comprehensive Market Analysis Quiz', type: 'quiz', completed: false }
+      ],
+      color: 'blue',
+      tags: ['Market Knowledge']
+    },
+    
+    // Algorithmic Trading & HFT (Combined)
+    {
+      id: 'advanced-algorithmic-hft-trading',
+      icon: <Cpu className="w-6 h-6" />,
+      duration: '12 hours',
+      difficulty: 'Advanced',
+      xpReward: 1200,
+      progress: 0,
+      locked: true,
+      course: 'algorithmic_trading',
+      prerequisites: ['comprehensive-stock-market-mastery'],
+      lessons: [
+        { id: 'algo-intro', title: 'Introduction to Algorithmic Trading', type: 'video', completed: false },
+        { id: 'market-microstructure', title: 'Market Microstructure', type: 'interactive', completed: false },
+        { id: 'trading-infrastructure', title: 'Trading Infrastructure', type: 'video', completed: false },
+        { id: 'programming-basics', title: 'Programming for Trading', type: 'interactive', completed: false },
+        { id: 'hft-intro', title: 'High-Frequency Trading Basics', type: 'video', completed: false },
+        { id: 'market-making', title: 'Market Making Strategies', type: 'interactive', completed: false },
+        { id: 'arbitrage-strategies', title: 'Arbitrage Techniques', type: 'case-study', completed: false },
+        { id: 'latency-optimization', title: 'Latency Optimization', type: 'video', completed: false },
+        { id: 'ml-basics', title: 'Machine Learning Fundamentals', type: 'video', completed: false },
+        { id: 'feature-engineering', title: 'Feature Engineering', type: 'interactive', completed: false },
+        { id: 'deep-learning', title: 'Deep Learning Applications', type: 'case-study', completed: false },
+        { id: 'nlp-trading', title: 'NLP for Trading', type: 'interactive', completed: false },
+        { id: 'risk-management-algo', title: 'Algorithmic Risk Management', type: 'video', completed: false },
+        { id: 'backtesting-strategies', title: 'Backtesting & Strategy Validation', type: 'interactive', completed: false },
+        { id: 'regulatory-compliance', title: 'Regulatory Compliance & Ethics', type: 'case-study', completed: false },
+        { id: 'advanced-trading-quiz', title: 'Advanced Trading Systems Quiz', type: 'quiz', completed: false }
+      ],
+      color: 'purple',
+      tags: ['Market Knowledge']
+    },
+
+    // Portfolio Management
+    {
+      id: 'investment-philosophy',
+      icon: <TrendingUp className="w-6 h-6" />,
       duration: '3 hours',
       difficulty: 'Intermediate',
       xpReward: 300,
       progress: 0,
       locked: true,
+      course: 'portfolio_management',
+      prerequisites: ['comprehensive-stock-market-mastery'],
       lessons: [
-        { id: 'ponzi-schemes', title: 'Ponzi Schemes & Pyramid Frauds', type: 'interactive', completed: false },
-        { id: 'pump-dump', title: 'Pump & Dump Market Manipulation', type: 'interactive', completed: false },
-        { id: 'digital-frauds', title: 'Digital & Cyber Investment Frauds', type: 'interactive', completed: false },
-        { id: 'advance-fee', title: 'Advance Fee & High-Yield Scams', type: 'interactive', completed: false },
-        { id: 'broker-fraud', title: 'Broker & Advisor Frauds', type: 'interactive', completed: false },
-        { id: 'fraud-simulator', title: 'Fraud Detection Simulator', type: 'quiz', completed: false }
+        { id: 'investment-principles', title: 'Investment Principles', type: 'video', completed: false },
+        { id: 'portfolio-theory', title: 'Modern Portfolio Theory', type: 'interactive', completed: false },
+        { id: 'diversification', title: 'Diversification Strategies', type: 'video', completed: false },
+        { id: 'asset-allocation', title: 'Asset Allocation Models', type: 'quiz', completed: false }
       ],
-      color: 'orange'
+      color: 'green',
+      tags: ['Market Knowledge']
     },
     {
-      id: 'insider-trading',
-      icon: <Lock className="w-6 h-6" />,
-      duration: '50 mins',
-      difficulty: 'Advanced',
-      xpReward: 200,
+      id: 'investment-vehicles',
+      icon: <Layers className="w-6 h-6" />,
+      duration: '4 hours',
+      difficulty: 'Intermediate',
+      xpReward: 350,
       progress: 0,
       locked: true,
+      course: 'portfolio_management',
+      prerequisites: ['investment-philosophy'],
       lessons: [
-        { id: 'what-is-insider', title: 'Understanding Insider Trading', type: 'video', completed: false },
-        { id: 'manipulation-tactics', title: 'Market Manipulation Tactics', type: 'interactive', completed: false },
-        { id: 'real-cases', title: 'Case Studies', type: 'case-study', completed: false },
-        { id: 'circular-trading', title: 'Circular Trading Explained', type: 'case-study', completed: false },
-        { id: 'legal-consequences', title: 'Legal Consequences', type: 'quiz', completed: false }
+        { id: 'mutual-funds', title: 'Mutual Funds Deep Dive', type: 'video', completed: false },
+        { id: 'etfs', title: 'Exchange-Traded Funds', type: 'interactive', completed: false },
+        { id: 'bonds', title: 'Fixed Income Securities', type: 'video', completed: false },
+        { id: 'alternatives', title: 'Alternative Investments', type: 'case-study', completed: false }
       ],
-      color: 'purple'
+      color: 'teal',
+      tags: ['Market Knowledge']
+    }
+  ]);
+
+  const [courses] = useState<Course[]>([
+    {
+      id: 'fraud_awareness',
+      title: 'Fraud Awareness & Protection',
+      description: 'Complete protection against financial frauds and market manipulation',
+      color: 'red',
+      icon: <Shield className="w-8 h-8" />,
+      moduleCount: 3,
+      totalDuration: '6 hours',
+      difficulty: 'Beginner to Advanced',
+      certification: 'Fraud Detection Specialist'
     },
     {
-      id: 'spoofing-wash-trading',
-      icon: <Repeat className="w-6 h-6" />,
-      duration: '60 mins',
+      id: 'fundamentals',
+      title: 'Stock Market Fundamentals',
+      description: 'Comprehensive market knowledge from basics to advanced analysis',
+      color: 'blue',
+      icon: <PieChart className="w-8 h-8" />,
+      moduleCount: 1,
+      totalDuration: '4 hours',
+      difficulty: 'Intermediate',
+      certification: 'Market Analysis Professional'
+    },
+    {
+      id: 'algorithmic_trading',
+      title: 'Advanced Algorithmic & HFT Trading',
+      description: 'Complete mastery of algorithmic trading, HFT, and machine learning',
+      color: 'purple',
+      icon: <Cpu className="w-8 h-8" />,
+      moduleCount: 1,
+      totalDuration: '12 hours',
       difficulty: 'Advanced',
-      xpReward: 200,
-      progress: 0,
-      locked: true,
-      lessons: [
-        { id: 'spoofing-intro', title: 'What is Spoofing?', type: 'video', completed: false },
-        { id: 'wash-trading-intro', title: 'What is Wash Trading?', type: 'video', completed: false },
-        { id: 'market-data-analysis', title: 'Analyzing Market Data for Manipulation', type: 'interactive', completed: false },
-        { id: 'quiz-market-manipulation', title: 'Quiz: Spot the Manipulation', type: 'quiz', completed: false }
-      ],
-      color: 'cyan'
+      certification: 'Algorithmic Trading Master'
+    },
+    {
+      id: 'portfolio_management',
+      title: 'Investment & Portfolio Management',
+      description: 'Professional wealth management and long-term investing',
+      color: 'green',
+      icon: <TrendingUp className="w-8 h-8" />,
+      moduleCount: 2,
+      totalDuration: '7 hours',
+      difficulty: 'Intermediate to Advanced',
+      certification: 'Portfolio Management Professional'
     }
   ]);
 
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [totalXP, setTotalXP] = useState(0);
   const [userLevel, setUserLevel] = useState(1);
-  const [courseStats, setCourseStats] = useState({ totalModules: 6, totalTime: 5 });
+  const [courseStats, setCourseStats] = useState({ totalModules: 7, totalTime: 29 });
   const [courseStatus, setCourseStatus] = useState('NOT_ENROLLED');
   const [showAnimation, setShowAnimation] = useState(true);
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeCourseFilter, setActiveCourseFilter] = useState('all');
+  const [activeTagFilter, setActiveTagFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
   const [certificateData, setCertificateData] = useState<{
@@ -166,10 +338,23 @@ const FraudAwarenessCoursePage: NextPage = () => {
 
     const fetchData = async () => {
       try {
+        // First, ensure the course is set up and user is enrolled
+        try {
+          const setupRes = await fetch('/api/courses/investment-security/setup', {
+            method: 'POST',
+            credentials: 'include',
+          });
+          if (setupRes.ok) {
+            console.log('Course setup completed successfully');
+          }
+        } catch (setupError) {
+          console.log('Course setup failed, continuing with fallback:', setupError);
+        }
+
         // Fetch stats and modules in parallel
         const [statsRes, modulesRes] = await Promise.all([
-          fetch('/api/courses/fraud-awareness/stats'),
-          fetch('/api/courses/fraud-awareness/modules'),
+          fetch('/api/courses/investment-security/stats', { credentials: 'include' }),
+          fetch('/api/courses/investment-security/modules', { credentials: 'include' }),
         ]);
 
         if (statsRes.ok) {
@@ -230,7 +415,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
 
   useEffect(() => {
     if (selectedModule) {
-      window.location.href = `/fraud-awareness-course/${selectedModule.id}`;
+      window.location.href = `/investment-security-course/${selectedModule.id}`;
     }
   }, [selectedModule]);
 
@@ -245,16 +430,23 @@ const FraudAwarenessCoursePage: NextPage = () => {
       .filter(module => {
         const title = t(`modules.${module.id}.title`) as string;
         const description = t(`modules.${module.id}.description`) as string;
-        const searchMatch =
-          title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          description.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        const searchMatch = title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           description.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        const difficultyMatch = activeFilter === 'all' || 
+                               module.difficulty.toLowerCase() === activeFilter;
+        
+        const courseMatch = activeCourseFilter === 'all' || 
+                           module.course === activeCourseFilter;
+        
+        const tagMatch = activeTagFilter === 'all' || 
+                        module.tags.some(tag => tag.toLowerCase() === activeTagFilter.toLowerCase());
 
-        const filterMatch = activeFilter === 'All' || module.difficulty === activeFilter;
-
-        return searchMatch && filterMatch;
+        return searchMatch && difficultyMatch && courseMatch && tagMatch;
       })
       .sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
-  }, [modules, activeFilter, searchTerm, t]);
+  }, [modules, activeFilter, activeCourseFilter, activeTagFilter, searchTerm, t]);
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; border: string; text: string; light: string }> = {
@@ -490,9 +682,9 @@ const FraudAwarenessCoursePage: NextPage = () => {
               {['All', 'Beginner', 'Intermediate', 'Advanced'].map(filter => (
                 <button
                   key={filter}
-                  onClick={() => setActiveFilter(filter)}
+                  onClick={() => setActiveFilter(filter.toLowerCase())}
                   className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${ 
-                    activeFilter === filter
+                    activeFilter === filter.toLowerCase()
                       ? 'bg-lime-500 text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
@@ -501,6 +693,75 @@ const FraudAwarenessCoursePage: NextPage = () => {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+        
+        {/* Course Category Filters */}
+        <div className="mb-6">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {courses.map((course) => (
+              <button
+                key={course.id}
+                onClick={() => setActiveCourseFilter(course.id === activeCourseFilter ? 'all' : course.id)}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                  activeCourseFilter === course.id
+                    ? 'bg-[#163300] text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {course.icon}
+                {course.title}
+              </button>
+            ))}
+            <button
+              onClick={() => setActiveCourseFilter('all')}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                activeCourseFilter === 'all'
+                  ? 'bg-[#163300] text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              All Courses
+            </button>
+          </div>
+        </div>
+
+        {/* Tag Filters */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={() => setActiveTagFilter('all')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                activeTagFilter === 'all'
+                  ? 'bg-lime-500 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Target className="w-4 h-4" />
+              All Tags
+            </button>
+            <button
+              onClick={() => setActiveTagFilter('awareness')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                activeTagFilter === 'awareness'
+                  ? 'bg-lime-500 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Shield className="w-4 h-4" />
+              Awareness
+            </button>
+            <button
+              onClick={() => setActiveTagFilter('market knowledge')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                activeTagFilter === 'market knowledge'
+                  ? 'bg-lime-500 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              Market Knowledge
+            </button>
           </div>
         </div>
         
@@ -650,7 +911,7 @@ const FraudAwarenessCoursePage: NextPage = () => {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link 
-                  href="/fraud-awareness-course/intro-to-frauds"
+                  href="/investment-security-course/intro-to-frauds"
                   className="inline-flex items-center gap-2 bg-lime-400 text-black px-6 py-3 rounded-full font-bold hover:bg-lime-500 transition-all transform hover:scale-105"
                 >
                   {t('cta.start_lesson') as string}
@@ -681,8 +942,12 @@ const FraudAwarenessCoursePage: NextPage = () => {
           onClose={() => setShowCertificate(false)}
         />
       )}
+      
+      {/* Temporary Debug Component */}
+      <CourseDataDebug />
     </div>
   );
 };
 
-export default FraudAwarenessCoursePage;
+export default FinancialSecurityEducationHub;
+

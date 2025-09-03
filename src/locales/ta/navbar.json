@@ -1,10 +1,8 @@
 {
-  "title": "Get Clarity Finance",
-  "analyzer": "பகுப்பாய்வி",
-  "investorAssessment": "முதலீட்டாளர் மதிப்பீடு",
-  "fraudProtection": "மோசடி பாதுகாப்பு",
-  "stockMarketCourse": "பங்குச் சந்தை பாடநெறி",
-  "virtualTrading": "மெய்நிகர் வர்த்தகம்",
-  "signIn": "உள்நுழைக",
-  "signUp": "பதிவுபெறுக"
+  "title": "கெட் கிளாரிட்டி பைனான்ஸ்",
+  "fraudDetection": "மோசடி கண்டறிதல்",
+  "learningCourses": "கல்வி பாடங்கள்",
+  "virtualTrading": "மெய்நிகர வர்த்தகம்",
+  "signIn": "உள்நுழையுங்கள்",
+  "signUp": "பதிவு செய்யுங்கள்"
 }

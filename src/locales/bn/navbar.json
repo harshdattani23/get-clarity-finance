@@ -1,10 +1,8 @@
 {
-  "title": "Get Clarity Finance",
-  "analyzer": "বিশ্লেষক",
-  "investorAssessment": "বিনিয়োগকারী মূল্যায়ন",
-  "fraudProtection": "জালিয়াতি সুরক্ষা",
-  "stockMarketCourse": "শেয়ার বাজার কোর্স",
-  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
+  "title": "গেট ক্ল্যারিটি ফাইন্যান্স",
+  "fraudDetection": "জালিয়াতি চিহ্নিতকরণ",
+  "learningCourses": "শিক্ষা কোর্সসমূহ",
+  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
   "signIn": "সাইন ইন করুন",
   "signUp": "সাইন আপ করুন"
 }

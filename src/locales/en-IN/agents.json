@@ -1,0 +1,133 @@
+{
+  "tabs": {
+    "videoFraud": "Video Fraud Analyzer",
+    "socialMedia": "Social Media Monitor", 
+    "announcement": "Announcement Verifier",
+    "sebiRegistry": "SEBI Registry Verification"
+  },
+  "titles": {
+    "deepfake": "🎥 Video Fraud Analysis System",
+    "social": "📱 Social Media Fraud Monitor",
+    "announcement": "📄 Corporate Announcement Verifier",
+    "sebiQuery": "🏛️ SEBI Registry Intelligence"
+  },
+  "descriptions": {
+    "deepfake": "Financial fraud detection ke liye comprehensive video analysis. YouTube videos aur doosre media analyze karta hai - deepfakes, impersonation, jhoothe daave, manipulated content, aur unauthorized financial advice ke liye. Hamare AI investors ki safety ke liye video, audio, metadata aur content claims check karta hai.",
+    "social": "WhatsApp, Telegram aur social media par pump-and-dump schemes, fake investment tips, Ponzi schemes aur coordinated market manipulation attempts monitor karta hai.",
+    "announcement": "Historical data se cross-reference karke, compliance requirements check karke aur suspicious patterns detect karke corporate announcements ki authenticity verify karta hai.",
+    "sebiQuery": "Comprehensive SEBI registry intelligence access kariye. Instantly broker registrations verify kariye, Alternative Investment Funds search kariye, multi-segment operators identify kariye, aur AI-powered natural language search ke saath 4,923+ registered intermediaries analyze kariye."
+  },
+  "features": {
+    "deepfake": {
+      "feature1": "Fraud Detection",
+      "feature2": "Deepfake Analysis", 
+      "feature3": "Claims Verification",
+      "feature4": "SEBI Compliance"
+    },
+    "social": {
+      "feature1": "Pattern Detection",
+      "feature2": "Bot Identification",
+      "feature3": "Volume Analysis", 
+      "feature4": "Group Monitoring"
+    },
+    "announcement": {
+      "feature1": "Historical Check",
+      "feature2": "Compliance Verify",
+      "feature3": "Cross-Reference",
+      "feature4": "BSE/NSE Check"
+    },
+    "sebiQuery": {
+      "feature1": "4,923+ Entities",
+      "feature2": "Multi-Segment Search",
+      "feature3": "Real-time Verification",
+      "feature4": "AI-Powered Queries"
+    }
+  },
+  "inputLabels": {
+    "general": "Analysis ke liye suspicious content enter kariye",
+    "sebiQuery": "SEBI Registry search kariye"
+  },
+  "placeholders": {
+    "deepfake": "YouTube URL, transcript, ya suspicious video/audio ka description paste kariye...",
+    "social": "WhatsApp/Telegram message ya social media post paste kariye...",
+    "announcement": "Corporate announcement ya news paste kariye...",
+    "sebiQuery": "SEBI ke official registry database mein search kariye...\n\nSearch examples:\n• Verify kariye ki kya Zerodha SEBI registered hai\n• Saare Alternative Investment Funds list kariye\n• Multi-segment financial operators find kariye\n• 'Capital' naam waale brokers search kariye\n• Database statistics aur insights paayiye"
+  },
+  "buttons": {
+    "analyzeGeneral": "Fraud ke liye Analyze kariye",
+    "verifySebi": "SEBI Registry mein Verify kariye",
+    "analyzing": "Analyze kar rahe hain...",
+    "useExample": "Example Use kariye"
+  },
+  "analysis": {
+    "titles": {
+      "deepfake": "AI Video Analysis progress mein hai",
+      "social": "AI Social Media Analysis progress mein hai", 
+      "announcement": "AI Announcement Verification progress mein hai",
+      "sebiQuery": "AI SEBI Registry Search progress mein hai"
+    },
+    "currentProcess": "Current Process:",
+    "analysisProgress": "Analysis Progress",
+    "currentlyAnalyzing": "🔍 Currently Analyze kar rahe hain",
+    "importantTips": "💡 Important: Video Fraud kaise spot karein",
+    "elementsAnalyzed": "✅ Elements Analyzed"
+  },
+  "results": {
+    "sebiResults": "SEBI Registry Results",
+    "analysisResult": "Analysis Result",
+    "searchType": "Search Type:",
+    "entitiesFound": "Entities Mile:",
+    "verifiedEntities": "Verified Entities:",
+    "segments": "Segments:",
+    "videoContentSummary": "Video Content Summary",
+    "channel": "Channel:",
+    "about": "Ke baare mein:",
+    "mainTopics": "📌 Main Topics:",
+    "speakerClaims": "🎭 Speaker ke Claims:",
+    "investmentClaimsMade": "💣 Investment Claims Made:",
+    "duration": "Duration:",
+    "keyInsights": "Key Insights",
+    "investmentRedFlags": "Investment Red Flags", 
+    "technicalAnalysis": "Technical Analysis",
+    "analysisDetails": "Analysis Details",
+    "mediaType": "Media Type:",
+    "confidenceScore": "Confidence Score:",
+    "riskLevel": "Risk Level:",
+    "analyzed": "Analyzed:",
+    "reportId": "Report ID:",
+    "threatType": "Threat Type:",
+    "affectedStocks": "Affected Stocks:",
+    "credibilityScore": "Credibility Score:",
+    "recommendedActions": "Recommended Actions:",
+    "sebiFraudReporting": "⚠️ SEBI Fraud Reporting Required",
+    "fraudReportingText": "Is content ko potential fraud ke roop mein flag kiya gaya hai. Doosre investors ki safety ke liye turant report kariye.",
+    "fileComplaint": "🚨 SEBI SCORES Portal par Complaint file kariye",
+    "sebiTollFree": "📞 SEBI Toll-Free: 1800-266-7575 ya 1800-22-7575",
+    "availableHours": "(Subah 9:00 se Shaam 6:00 tak available)",
+    "saveEvidence": "💡 Report karne se pehle saare evidence (screenshots, URLs, transcripts) save kariye"
+  },
+  "stages": {
+    "video": [
+      "📥 Video content download kar rahe hain...",
+      "🎬 Video aur audio process kar rahe hain...",
+      "🧠 AI fraud indicators analyze kar raha hai...",
+      "🔍 Multiple fraud patterns check kar rahe hain...",
+      "👤 Speaker authenticity verify kar rahe hain...",
+      "🏛️ SEBI database se cross-reference kar rahe hain...",
+      "📋 Comprehensive report compile kar rahe hain..."
+    ],
+    "sebiQuery": [
+      "💭 Aapki query samajh rahe hain...",
+      "🔎 4,923+ SEBI entities mein search kar rahe hain...",
+      "🤖 AI patterns analyze kar raha hai...",
+      "🎯 Best matches find kar rahe hain...",
+      "📊 Verified results compile kar rahe hain..."
+    ],
+    "general": [
+      "📝 Content padh rahe hain...",
+      "🚨 Fraud signals detect kar rahe hain...",
+      "🔗 Data cross-reference kar rahe hain...",
+      "✅ Analysis finalize kar rahe hain..."
+    ]
+  }
+}

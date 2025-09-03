@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "സമ്പൂർണ്ണ സാമ്പത്തിക സുരക്ഷാ വിദ്യാഭ്യാസം",
+    "title": "സാമ്പത്തിക സുരക്ഷയും മാർക്കറ്റ് വിദ്യാഭ്യാസ കേന്ദ്രവും",
+    "subtitle": "എല്ലാ കഴിവ് തലങ്ങൾക്കായി രൂപകൽപ്പന ചെയ്ത സമഗ്ര കോഴ്സുകളോടെ വഞ്ചന തിരിച്ചറിയൽ, അൽഗോരിതമിക് ട്രേഡിംഗ്, പോർട്ട്ഫോളിയോ മാനേജ്മെന്റ് എന്നിവയിൽ വൈദഗ്ദ്ധ്യം നേടുക",
+    "stats": {
+      "level": "നിങ്ങളുടെ നില",
+      "xp": "ആകെ XP",
+      "modules": "മൊഡ്യൂളുകൾ",
+      "time": "ആകെ സമയം",
+      "status": "പുരോഗതി"
+    },
+    "previews": {
+      "simulations": "ഇന്റർആക്ടിവ് സിമുലേഷനുകൾ",
+      "cases": "യഥാർത്ഥ കേസ് പഠനങ്ങൾ",
+      "certificates": "പ്രൊഫഷണൽ സാക്ഷ്യപത്രങ്ങൾ",
+      "achievements": "നേട്ടങ്ങൾ കാണുക",
+      "trading": "ലൈവ് ട്രേഡിംഗ് സിമുലേഷൻ",
+      "portfolio": "പോർട്ട്ഫോളിയോ മാനേജ്മെന്റ് ടൂളുകൾ"
+    }
+  },
+  "coursesSection": {
+    "title": "കോഴ്സ് വിഭാഗങ്ങൾ",
+    "subtitle": "നിങ്ങളുടെ ലക്ഷ്യങ്ങളും അനുഭവ നിലയും അടിസ്ഥാനമാക്കി നിങ്ങളുടെ പഠന പാത തിരഞ്ഞെടുക്കുക"
+  },
+  "modulesSection": {
+    "title": "കോഴ്സ് മൊഡ്യൂളുകൾ"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} പാഠങ്ങൾ"
+    },
+    "progress": "പുരോഗതി",
+    "completed": "പൂർത്തിയായി",
+    "lessons_more": "+{count} കൂടുതൽ പാഠങ്ങൾ",
+    "button": {
+      "unlock_prompt": "അൺലോക് ചെയ്യാൻ മുൻകോപവാദങ്ങൾ പൂർത്തിയാക്കുക",
+      "continue": "പഠനം തുടരുക",
+      "start": "മൊഡ്യൂൾ ആരംഭിക്കുക",
+      "enroll": "ഇപ്പോൾ എൻറോൾ ചെയ്യുക"
+    }
+  },
+  "cta": {
+    "title": "സാമ്പത്തിക വിപണികളിൽ വൈദഗ്ദ്ധ്യം നേടാൻ തയ്യാറാണോ?",
+    "subtitle": "വഞ്ചന ബോധവൽക്കരണത്തിൽ നിന്ന് ആരംഭിച്ച് വിപുലമായ ട്രേഡിംഗും പോർട്ട്ഫോളിയോ മാനേജ്മെന്റുമായി മുന്നോട്ട് പോകുക",
+    "start_lesson": "പഠനം ആരംഭിക്കുക",
+    "create_account": "സൗജന്യ അക്കൗണ്ട് സൃഷ്ടിക്കുക",
+    "browse_all": "എല്ലാ കോഴ്സുകളും ബ്രൗസ് ചെയ്യുക"
+  },
+  "filters": {
+    "search": "കോഴ്സുകൾ തിരയുക...",
+    "all": "എല്ലാ കോഴ്സുകളും",
+    "fraud_awareness": "വഞ്ചന ബോധവൽക്കരണം",
+    "algorithmic_trading": "അൽഗോരിതമിക് ട്രേഡിംഗ്",
+    "portfolio_management": "പോർട്ട്ഫോളിയോ മാനേജ്മെന്റ്",
+    "beginner": "തുടക്കക്കാരൻ",
+    "intermediate": "ഇന്റർമീഡിയറ്റ്",
+    "advanced": "അഡ്വാൻസ്ഡ്"
+  },
+  "tags": {
+    "all": "എല്ലാ ടാഗുകളും",
+    "awareness": "ബോധവൽക്കരണം",
+    "market_knowledge": "മാർക്കറ്റ് അറിവ്"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "വഞ്ചന ബോധവൽക്കരണവും സുരക്ഷയും",
+      "description": "സാമ്പത്തിക വഞ്ചനയ്ക്കും മാർക്കറ്റ് മാനിപുലേഷനുമെതിരായ സമ്പൂർണ്ണ സംരക്ഷണം",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "ഉയർന്ന ആവൃത്തിയുള്ളതും അൽഗോരിതമിക് ട്രേഡിംഗും",
+      "description": "അഡ്വാൻസ്ഡ് ട്രേഡിംഗ് സാങ്കേതികവിദ്യയും ക്വാണ്ടിറ്റേറ്റിവ് രീതികളും",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "നിക്ഷേപവും പോർട്ട്ഫോളിയോ മാനേജ്മെന്റും",
+      "description": "പ്രൊഫഷണൽ അസ്സറ്റ് മാനേജ്മെന്റും ദീർഘകാല നിക്ഷേപവും",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "ഷെയർ മാർക്കറ്റ് വഞ്ചനകളിലേക്കുള്ള ആമുഖം",
+      "description": "ഇന്ത്യൻ ഷെയർ മാർക്കറ്റിലെ സാധാരണ വഞ്ചന പാറ്റേണുകളും റെഡ് ഫ്ലാഗുകളും പഠിക്കുക",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "സമഗ്ര വഞ്ചന സ്കീമുകൾ",
+      "description": "പോൺസി സ്കീമുകൾ, പമ്പ് ആൻഡ് ഡമ്പ് ഓപ്പറേഷനുകൾ, ഇൻസൈഡർ ട്രേഡിംഗ്, സോഷ്യൽ മീഡിയ മാനിപുലേഷൻ തിരിച്ചറിയൽ എന്നിവയിൽ വൈദഗ്ദ്ധ്യം നേടുക",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "അഡ്വാൻസ്ഡ് മാർക്കറ്റ് മാനിപുലേഷനും കണ്ടെത്തലും",
+      "description": "AI-ഇൻ ഡ്രൈവൻ സ്കീമുകൾ, റെഗുലേറ്ററി ആർബിട്രേജ്, ഡാർക്ക് വെബ് വഞ്ചന എന്നിവ ഉൾപ്പെടുന്ന പ്രൊഫഷണൽ-ലെവൽ വഞ്ചന കണ്ടെത്തൽ",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "സമഗ്ര ഷെയർ മാർക്കറ്റ് വൈദഗ്ദ്ധ്യം",
+      "description": "മാർക്കറ്റ് അടിസ്ഥാനകാര്യങ്ങൾ, ഫണ്ടമെന്റൽ അനാലിസിസ്, ടെക്നിക്കൽ അനാലിസിസ്, ട്രേഡിംഗ് സൈക്കോളജി എന്നിവ ഉൾക്കൊള്ളുന്ന സമ്പൂർണ്ണ അടിത്തറ",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "അഡ്വാൻസ്ഡ് അൽഗോരിതമിക്, HFT ട്രേഡിംഗ്",
+      "description": "അൽഗോരിതമിക് ട്രേഡിംഗ്, ഹൈ-ഫ്രീക്വൻസി തന്ത്രങ്ങൾ, മെഷീൻ ലേണിംഗ് ആപ്ലിക്കേഷനുകൾ, പ്രൊഫഷണൽ ട്രേഡിംഗ് സിസ്റ്റങ്ങൾ എന്നിവയിൽ വൈദഗ്ദ്ധ്യം നേടുക",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "നിക്ഷേപ തത്വശാസ്ത്രവും പോർട്ട്ഫോളിയോ സിദ്ധാന്തവും",
+      "description": "ആധുനിക പോർട്ട്ഫോളിയോ സിദ്ധാന്തവും ദീർഘകാല നിക്ഷേപ തത്വങ്ങളും",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "നിക്ഷേപ വാഹനങ്ങളും ഉത്പാദനങ്ങളും",
+      "description": "മ്യൂച്വൽ ഫണ്ടുകൾ, ETF, ബോണ്ടുകൾ, ബദൽ നിക്ഷേപങ്ങൾ",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "6 മണിക്കൂർ",
+      "difficulty": "തുടക്കക്കാരൻ മുതൽ അഡ്വാൻസ്ഡ് വരെ",
+      "certification": "വഞ്ചന കണ്ടെത്തൽ വിദഗ്ദ്ധൻ"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "4 മണിക്കൂർ",
+      "difficulty": "ഇന്റർമീഡിയറ്റ്",
+      "certification": "മാർക്കറ്റ് അനാലിസിസ് പ്രൊഫഷണൽ"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "12 മണിക്കൂർ",
+      "difficulty": "അഡ്വാൻസ്ഡ്",
+      "certification": "അൽഗോരിതമിക് ട്രേഡിംഗ് മാസ്റ്റർ"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "7 മണിക്കൂർ",
+      "difficulty": "ഇന്റർമീഡിയറ്റ് മുതൽ അഡ്വാൻസ്ഡ് വരെ",
+      "certification": "പോർട്ട്ഫോളിയോ മാനേജ്മെന്റ് പ്രൊഫഷണൽ"
+    }
+  }
+}

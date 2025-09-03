@@ -48,7 +48,7 @@ export const useTranslation = (namespace?: string) => {
     fetchTranslations();
   }, [language, namespace]);
 
-  const t = (key: string): TranslationValue => {
+  const t = (key: string, options?: { returnObjects?: boolean }): any => {
     if (!namespace) {
       console.warn("No namespace provided to useTranslation hook, but t() function was called.");
       return key;
@@ -65,6 +65,10 @@ export const useTranslation = (namespace?: string) => {
     }
 
     if (result !== undefined) {
+      // If returnObjects is true and result is an object, return the object
+      if (options?.returnObjects && typeof result === 'object' && !Array.isArray(result)) {
+        return result;
+      }
       return result;
     }
 

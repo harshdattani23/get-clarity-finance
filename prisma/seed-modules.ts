@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   const course = await prisma.course.findUnique({
-    where: { slug: 'fraud-awareness-course' },
+    where: { slug: 'investment-security-course' },
   });
 
   if (!course) {
-    console.error('Course "fraud-awareness-course" not found.');
+    console.error('Course "investment-security-course" not found.');
     return;
   }
 

@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "ಸಂಪೂರ್ಣ ಹಣಕಾಸು ಸುರಕ್ಷತಾ ಶಿಕ್ಷಣ",
+    "title": "ಹಣಕಾಸು ಸುರಕ್ಷತೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಶಿಕ್ಷಣ ಕೇಂದ್ರ",
+    "subtitle": "ಪ್ರತಿ ಕೌಶಲ್ಯ ಮಟ್ಟಕ್ಕಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಸಮಗ್ರ ಕೋರ್ಸುಗಳೊಂದಿಗೆ ವಂಚನೆ ಗುರುತಿಸುವಿಕೆ, ಆಲ್ಗೋರಿದಮಿಕ್ ಟ್ರೇಡಿಂಗ್ ಮತ್ತು ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣೆಯಲ್ಲಿ ಪಾಂಡಿತ್ಯ ಪಡೆಯಿರಿ",
+    "stats": {
+      "level": "ನಿಮ್ಮ ಮಟ್ಟ",
+      "xp": "ಒಟ್ಟು XP",
+      "modules": "ಮಾಡ್ಯೂಲ್ಗಳು",
+      "time": "ಒಟ್ಟು ಸಮಯ",
+      "status": "ಪ್ರಗತಿ"
+    },
+    "previews": {
+      "simulations": "ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್ಗಳು",
+      "cases": "ನೈಜ ಪ್ರಕರಣ ಅಧ್ಯಯನಗಳು",
+      "certificates": "ವೃತ್ತಿಪರ ಪ್ರಮಾಣಪತ್ರಗಳು",
+      "achievements": "ಸಾಧನೆಗಳನ್ನು ನೋಡಿ",
+      "trading": "ಲೈವ್ ಟ್ರೇಡಿಂಗ್ ಸಿಮ್ಯುಲೇಶನ್",
+      "portfolio": "ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣಾ ಸಾಧನಗಳು"
+    }
+  },
+  "coursesSection": {
+    "title": "ಕೋರ್ಸ್ ವಿಭಾಗಗಳು",
+    "subtitle": "ನಿಮ್ಮ ಗುರಿಗಳು ಮತ್ತು ಅನುಭವ ಮಟ್ಟವನ್ನು ಆಧರಿಸಿ ನಿಮ್ಮ ಕಲಿಕಾ ಪಥವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
+  },
+  "modulesSection": {
+    "title": "ಕೋರ್ಸ್ ಮಾಡ್ಯೂಲ್ಗಳು"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} ಪಾಠಗಳು"
+    },
+    "progress": "ಪ್ರಗತಿ",
+    "completed": "ಪೂರ್ಣ",
+    "lessons_more": "+{count} ಹೆಚ್ಚು ಪಾಠಗಳು",
+    "button": {
+      "unlock_prompt": "ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಪೂರ್ವಾಪೇಕ್ಷಿತಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ",
+      "continue": "ಕಲಿಕೆ ಮುಂದುವರಿಸಿ",
+      "start": "ಮಾಡ್ಯೂಲ್ ಪ್ರಾರಂಭಿಸಿ",
+      "enroll": "ಈಗ ನೋಂದಾಯಿಸಿ"
+    }
+  },
+  "cta": {
+    "title": "ಹಣಕಾಸು ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಪಾಂಡಿತ್ಯ ಪಡೆಯಲು ಸಿದ್ಧರಾಗಿದ್ದೀರಾ?",
+    "subtitle": "ವಂಚನೆ ಜಾಗೃತಿಯೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ಪ್ರಗತಿಯುತ ಟ್ರೇಡಿಂಗ್ ಮತ್ತು ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣೆಗೆ ಮುಂದಕ್ಕೆ ಹೋಗಿ",
+    "start_lesson": "ಕಲಿಕೆ ಪ್ರಾರಂಭಿಸಿ",
+    "create_account": "ಉಚಿತ ಖಾತೆ ರಚಿಸಿ",
+    "browse_all": "ಎಲ್ಲ ಕೋರ್ಸುಗಳನ್ನು ಪರಿಶೀಲಿಸಿ"
+  },
+  "filters": {
+    "search": "ಕೋರ್ಸುಗಳನ್ನು ಹುಡುಕಿ...",
+    "all": "ಎಲ್ಲ ಕೋರ್ಸುಗಳು",
+    "fraud_awareness": "ವಂಚನೆ ಜಾಗೃತಿ",
+    "algorithmic_trading": "ಆಲ್ಗೋರಿದಮಿಕ್ ಟ್ರೇಡಿಂಗ್",
+    "portfolio_management": "ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣೆ",
+    "beginner": "ಆರಂಭಿಕ",
+    "intermediate": "ಮಧ್ಯಮ",
+    "advanced": "ಪ್ರಗತಿಯುತ"
+  },
+  "tags": {
+    "all": "ಎಲ್ಲ ಟ್ಯಾಗ್‌ಗಳು",
+    "awareness": "ಜಾಗೃತಿ",
+    "market_knowledge": "ಮಾರುಕಟ್ಟೆ ಜ್ಞಾನ"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "ವಂಚನೆ ಜಾಗೃತಿ ಮತ್ತು ಸುರಕ್ಷತೆ",
+      "description": "ಹಣಕಾಸು ವಂಚನೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಮ್ಯಾನಿಪುಲೇಷನ್ ವಿರುದ್ಧ ಸಂಪೂರ್ಣ ಸುರಕ್ಷತೆ",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "ಹೆಚ್ಚಿನ ಆವೃತ್ತಿ ಮತ್ತು ಆಲ್ಗೋರಿದಮಿಕ್ ಟ್ರೇಡಿಂಗ್",
+      "description": "ಪ್ರಗತಿಯುತ ಟ್ರೇಡಿಂಗ್ ತಂತ್ರಜ್ಞಾನ ಮತ್ತು ಪರಿಮಾಣಾತ್ಮಕ ವಿಧಾನಗಳು",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "ಹೂಡಿಕೆ ಮತ್ತು ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣೆ",
+      "description": "ವೃತ್ತಿಪರ ಆಸ್ತಿ ನಿರ್ವಹಣೆ ಮತ್ತು ದೀರ್ಘಾವಧಿ ಹೂಡಿಕೆ",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "ಷೇರು ಮಾರುಕಟ್ಟೆ ವಂಚನೆಗಳಿಗೆ ಪರಿಚಯ",
+      "description": "ಭಾರತೀಯ ಷೇರು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿನ ಸಾಮಾನ್ಯ ವಂಚನೆ ಮಾದರಿಗಳು ಮತ್ತು ಕೆಂಪು ಧ್ವಜಗಳ ಬಗ್ಗೆ ಕಲಿಯಿರಿ",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "ಸಮಗ್ರ ವಂಚನೆ ಯೋಜನೆಗಳು",
+      "description": "ಪೋಂಜಿ ಯೋಜನೆಗಳು, ಪಂಪ್ ಮತ್ತು ಡಂಪ್ ಆಪರೇಷನ್ಗಳು, ಇನ್ಸೈಡರ್ ಟ್ರೇಡಿಂಗ್ ಮತ್ತು ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ ಮ್ಯಾನಿಪುಲೇಷನ್ ಗುರುತಿಸುವಿಕೆಯಲ್ಲಿ ಪಾಂಡಿತ್ಯ ಪಡೆಯಿರಿ",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "ಪ್ರಗತಿಯುತ ಮಾರುಕಟ್ಟೆ ಮ್ಯಾನಿಪುಲೇಷನ್ ಮತ್ತು ಪತ್ತೆ",
+      "description": "AI-ನಿರ್ವಹಿತ ಯೋಜನೆಗಳು, ನಿಯಂತ್ರಣ ಆರ್ಬಿಟ್ರಾಜ್ ಮತ್ತು ಡಾರ್ಕ್ ವೆಬ್ ವಂಚನೆ ಸೇರಿದಂತೆ ವೃತ್ತಿಪರ-ಮಟ್ಟದ ವಂಚನೆ ಪತ್ತೆ",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "ಸಮಗ್ರ ಷೇರು ಮಾರುಕಟ್ಟೆ ಪಾಂಡಿತ್ಯ",
+      "description": "ಮಾರುಕಟ್ಟೆ ಮೂಲಭೂತಗಳು, ಮೂಲಭೂತ ವಿಶ್ಲೇಷಣೆ, ತಾಂತ್ರಿಕ ವಿಶ್ಲೇಷಣೆ ಮತ್ತು ಟ್ರೇಡಿಂಗ್ ಮನೋವಿಜ್ಞಾನವನ್ನು ಒಳಗೊಳ್ಳುವ ಸಂಪೂರ್ಣ ಅಡಿಪಾಯ",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "ಪ್ರಗತಿಯುತ ಆಲ್ಗೋರಿದಮಿಕ್ ಮತ್ತು HFT ಟ್ರೇಡಿಂಗ್",
+      "description": "ಆಲ್ಗೋರಿದಮಿಕ್ ಟ್ರೇಡಿಂಗ್, ಹೆಚ್ಚಿನ-ಆವೃತ್ತಿ ತಂತ್ರಗಳು, ಯಂತ್ರ ಕಲಿಕೆ ಅನ್ವಯಿಕೆಗಳು ಮತ್ತು ವೃತ್ತಿಪರ ಟ್ರೇಡಿಂಗ್ ಸಿಸ್ಟಮ್ಗಳಲ್ಲಿ ಪಾಂಡಿತ್ಯ ಪಡೆಯಿರಿ",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "ಹೂಡಿಕೆ ತತ್ವಶಾಸ್ತ್ರ ಮತ್ತು ಪೋರ್ಟ್ಫೋಲಿಯೋ ಸಿದ್ಧಾಂತ",
+      "description": "ಆಧುನಿಕ ಪೋರ್ಟ್ಫೋಲಿಯೋ ಸಿದ್ಧಾಂತ ಮತ್ತು ದೀರ್ಘಾವಧಿ ಹೂಡಿಕೆ ತತ್ವಗಳು",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "ಹೂಡಿಕೆ ಸಾಧನಗಳು ಮತ್ತು ಉತ್ಪಾದನೆಗಳು",
+      "description": "ಮ್ಯೂಚುಯಲ್ ಫಂಡ್ಗಳು, ETF, ಬಾಂಡ್ಗಳು ಮತ್ತು ಪರ್ಯಾಯ ಹೂಡಿಕೆಗಳು",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "೬ ಗಂಟೆಗಳು",
+      "difficulty": "ಆರಂಭಿಕರಿಂದ ಪ್ರಗತಿಯುತ",
+      "certification": "ವಂಚನೆ ಪತ್ತೆ ತಜ್ಞ"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "೪ ಗಂಟೆಗಳು",
+      "difficulty": "ಮಧ್ಯಮ",
+      "certification": "ಮಾರುಕಟ್ಟೆ ವಿಶ್ಲೇಷಣೆ ವೃತ್ತಿಪರ"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "೧೨ ಗಂಟೆಗಳು",
+      "difficulty": "ಪ್ರಗತಿಯುತ",
+      "certification": "ಆಲ್ಗೋರಿದಮಿಕ್ ಟ್ರೇಡಿಂಗ್ ಮಾಸ್ಟರ್"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "೭ ಗಂಟೆಗಳು",
+      "difficulty": "ಮಧ್ಯಮದಿಂದ ಪ್ರಗತಿಯುತ",
+      "certification": "ಪೋರ್ಟ್ಫೋಲಿಯೋ ನಿರ್ವಹಣಾ ವೃತ್ತಿಪರ"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "Complete Financial Security Education",
+    "title": "Financial Security & Market Education Hub",
+    "subtitle": "Master fraud detection, algorithmic trading, and portfolio management with comprehensive courses designed for every level of expertise",
+    "stats": {
+      "level": "Your Level",
+      "xp": "Total XP",
+      "modules": "Modules",
+      "time": "Total Time",
+      "status": "Progress"
+    },
+    "previews": {
+      "simulations": "Interactive Simulations",
+      "cases": "Real Case Studies",
+      "certificates": "Professional Certificates",
+      "achievements": "View Achievements",
+      "trading": "Live Trading Simulations",
+      "portfolio": "Portfolio Management Tools"
+    }
+  },
+  "coursesSection": {
+    "title": "Course Categories",
+    "subtitle": "Choose your learning path based on your goals and experience level"
+  },
+  "modulesSection": {
+    "title": "Course Modules"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} lessons"
+    },
+    "progress": "Progress",
+    "completed": "Completed",
+    "lessons_more": "+{count} more lessons",
+    "button": {
+      "unlock_prompt": "Complete prerequisites to unlock",
+      "continue": "Continue Learning",
+      "start": "Start Module",
+      "enroll": "Enroll Now"
+    }
+  },
+  "cta": {
+    "title": "Ready to Master Financial Markets?",
+    "subtitle": "Start with fraud awareness and progress to advanced trading and portfolio management",
+    "start_lesson": "Start Learning",
+    "create_account": "Create Free Account",
+    "browse_all": "Browse All Courses"
+  },
+  "filters": {
+    "search": "Search courses...",
+    "all": "All Courses",
+    "fraud_awareness": "Fraud Awareness",
+    "algorithmic_trading": "Algorithmic Trading",
+    "portfolio_management": "Portfolio Management",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "tags": {
+    "all": "All Tags",
+    "awareness": "Awareness",
+    "market_knowledge": "Market Knowledge"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "Fraud Awareness & Protection",
+      "description": "Complete protection against financial frauds and market manipulation",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "High-Frequency & Algorithmic Trading",
+      "description": "Advanced trading technology and quantitative methods",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "Investment & Portfolio Management",
+      "description": "Professional wealth management and long-term investing",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "Introduction to Stock Market Frauds",
+      "description": "Learn about common fraud patterns and red flags in the Indian stock market",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "Comprehensive Fraud Schemes",
+      "description": "Master detection of Ponzi schemes, pump & dump operations, insider trading, and social media manipulation",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "Advanced Market Manipulation & Detection",
+      "description": "Professional-level fraud detection including AI-powered schemes, regulatory arbitrage, and dark web frauds",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "Comprehensive Stock Market Mastery",
+      "description": "Complete foundation covering market basics, fundamental analysis, technical analysis, and trading psychology",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "Advanced Algorithmic & HFT Trading",
+      "description": "Master algorithmic trading, high-frequency strategies, machine learning applications, and professional trading systems",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "Investment Philosophy & Portfolio Theory",
+      "description": "Modern portfolio theory and long-term investment principles",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "Investment Vehicles & Products",
+      "description": "Mutual funds, ETFs, bonds, and alternative investments",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "6 hours",
+      "difficulty": "Beginner to Advanced",
+      "certification": "Fraud Detection Specialist"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "4 hours",
+      "difficulty": "Intermediate",
+      "certification": "Market Analysis Professional"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "12 hours",
+      "difficulty": "Advanced",
+      "certification": "Algorithmic Trading Master"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "7 hours",
+      "difficulty": "Intermediate to Advanced",
+      "certification": "Portfolio Management Professional"
+    }
+  }
+}

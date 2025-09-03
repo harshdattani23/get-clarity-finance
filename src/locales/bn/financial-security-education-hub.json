@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "সম্পূর্ণ আর্থিক নিরাপত্তা শিক্ষা",
+    "title": "আর্থিক নিরাপত্তা ও বাজার শিক্ষা কেন্দ্র",
+    "subtitle": "প্রতিটি দক্ষতার স্তরের জন্য ডিজাইন করা ব্যাপক কোর্সের মাধ্যমে জালিয়াতি সনাক্তকরণ, অ্যালগরিদমিক ট্রেডিং এবং পোর্টফোলিও ম্যানেজমেন্টে দক্ষতা অর্জন করুন",
+    "stats": {
+      "level": "আপনার স্তর",
+      "xp": "মোট XP",
+      "modules": "মডিউল",
+      "time": "মোট সময়",
+      "status": "অগ্রগতি"
+    },
+    "previews": {
+      "simulations": "ইন্টারঅ্যাকটিভ সিমুলেশন",
+      "cases": "প্রকৃত কেস স্টাডি",
+      "certificates": "পেশাদার সার্টিফিকেট",
+      "achievements": "অর্জন দেখুন",
+      "trading": "লাইভ ট্রেডিং সিমুলেশন",
+      "portfolio": "পোর্টফোলিও ম্যানেজমেন্ট টুলস"
+    }
+  },
+  "coursesSection": {
+    "title": "কোর্স বিভাগ",
+    "subtitle": "আপনার লক্ষ্য এবং অভিজ্ঞতার স্তরের ভিত্তিতে আপনার শেখার পথ বেছে নিন"
+  },
+  "modulesSection": {
+    "title": "কোর্স মডিউল"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} পাঠ"
+    },
+    "progress": "অগ্রগতি",
+    "completed": "সম্পন্ন",
+    "lessons_more": "+{count} আরো পাঠ",
+    "button": {
+      "unlock_prompt": "আনলক করতে পূর্বশর্ত সম্পূর্ণ করুন",
+      "continue": "শেখা অব্যাহত রাখুন",
+      "start": "মডিউল শুরু করুন",
+      "enroll": "এখনই নথিভুক্ত হন"
+    }
+  },
+  "cta": {
+    "title": "আর্থিক বাজারে দক্ষতা অর্জনের জন্য প্রস্তুত?",
+    "subtitle": "জালিয়াতি সচেতনতা দিয়ে শুরু করুন এবং উন্নত ট্রেডিং ও পোর্টফোলিও ম্যানেজমেন্টে এগিয়ে যান",
+    "start_lesson": "শেখা শুরু করুন",
+    "create_account": "বিনামূল্যে অ্যাকাউন্ট তৈরি করুন",
+    "browse_all": "সব কোর্স ব্রাউজ করুন"
+  },
+  "filters": {
+    "search": "কোর্স খুঁজুন...",
+    "all": "সব কোর্স",
+    "fraud_awareness": "জালিয়াতি সচেতনতা",
+    "algorithmic_trading": "অ্যালগরিদমিক ট্রেডিং",
+    "portfolio_management": "পোর্টফোলিও ম্যানেজমেন্ট",
+    "beginner": "নতুন",
+    "intermediate": "মধ্যম",
+    "advanced": "উন্নত"
+  },
+  "tags": {
+    "all": "সব ট্যাগ",
+    "awareness": "সচেতনতা",
+    "market_knowledge": "বাজার জ্ঞান"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "জালিয়াতি সচেতনতা ও সুরক্ষা",
+      "description": "আর্থিক জালিয়াতি ও বাজার ম্যানিপুলেশনের বিরুদ্ধে সম্পূর্ণ সুরক্ষা",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "উচ্চ-ফ্রিকোয়েন্সি ও অ্যালগরিদমিক ট্রেডিং",
+      "description": "উন্নত ট্রেডিং প্রযুক্তি এবং পরিমাণগত পদ্ধতি",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "বিনিয়োগ ও পোর্টফোলিও ম্যানেজমেন্ট",
+      "description": "পেশাদার সম্পদ ব্যবস্থাপনা এবং দীর্ঘমেয়াদী বিনিয়োগ",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "শেয়ার বাজার জালিয়াতির পরিচয়",
+      "description": "ভারতীয় শেয়ার বাজারে সাধারণ জালিয়াতির প্যাটার্ন এবং লাল পতাকা সম্পর্কে জানুন",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "ব্যাপক জালিয়াতি স্কিম",
+      "description": "পনজি স্কিম, পাম্প ও ডাম্প অপারেশন, ইনসাইডার ট্রেডিং এবং সোশ্যাল মিডিয়া ম্যানিপুলেশন সনাক্তকরণে দক্ষতা অর্জন করুন",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "উন্নত বাজার ম্যানিপুলেশন ও সনাক্তকরণ",
+      "description": "AI-চালিত স্কিম, নিয়ন্ত্রক সালিশি এবং ডার্ক ওয়েব জালিয়াতি সহ পেশাদার-স্তরের জালিয়াতি সনাক্তকরণ",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "ব্যাপক শেয়ার বাজার দক্ষতা",
+      "description": "বাজারের মূলনীতি, মৌলিক বিশ্লেষণ, কারিগরি বিশ্লেষণ এবং ট্রেডিং মনোবিজ্ঞান কভার করে সম্পূর্ণ ভিত্তি",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "উন্নত অ্যালগরিদমিক ও HFT ট্রেডিং",
+      "description": "অ্যালগরিদমিক ট্রেডিং, উচ্চ-ফ্রিকোয়েন্সি কৌশল, মেশিন লার্নিং অ্যাপ্লিকেশন এবং পেশাদার ট্রেডিং সিস্টেমে দক্ষতা অর্জন",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "বিনিয়োগ দর্শন ও পোর্টফোলিও তত্ত্ব",
+      "description": "আধুনিক পোর্টফোলিও তত্ত্ব এবং দীর্ঘমেয়াদী বিনিয়োগের নীতি",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "বিনিয়োগ মাধ্যম ও পণ্য",
+      "description": "মিউচুয়াল ফান্ড, ETF, বন্ড এবং বিকল্প বিনিয়োগ",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "৬ ঘন্টা",
+      "difficulty": "নতুন থেকে উন্নত",
+      "certification": "জালিয়াতি সনাক্তকরণ বিশেষজ্ঞ"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "৪ ঘন্টা",
+      "difficulty": "মধ্যম",
+      "certification": "বাজার বিশ্লেষণ পেশাদার"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "১২ ঘন্টা",
+      "difficulty": "উন্নত",
+      "certification": "অ্যালগরিদমিক ট্রেডিং মাস্টার"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "৭ ঘন্টা",
+      "difficulty": "মধ্যম থেকে উন্নত",
+      "certification": "পোর্টফোলিও ম্যানেজমেন্ট পেশাদার"
+    }
+  }
+}

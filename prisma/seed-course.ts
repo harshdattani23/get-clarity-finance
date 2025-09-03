@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.course.upsert({
-    where: { slug: 'fraud-awareness-course' },
+    where: { slug: 'investment-security-course' },
     update: {},
     create: {
       id: 'clx2no2g0000008l8g8r8g8r8', // A unique ID for the course
-      slug: 'fraud-awareness-course',
+      slug: 'investment-security-course',
       category: 'Financial Literacy',
       difficulty: CourseDifficulty.BEGINNER,
       estimatedHours: 5,

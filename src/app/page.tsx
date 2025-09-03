@@ -50,22 +50,24 @@ export default function Home() {
               {/* Clear CTAs */}
               <div className="flex flex-wrap gap-3">
                 <Link 
-                  href="#demo" 
+                  href="#agents" 
                   className="bg-lime-400 text-black font-bold px-6 py-3 rounded-full hover:bg-lime-500 transition-all transform hover:scale-105 flex items-center"
                 >
-                  <Play className="w-5 h-5 mr-2" />
+                  <Shield className="w-5 h-5 mr-2" />
                   {t('hero.cta1') as string}
                 </Link>
                 <Link 
-                  href="/sign-up" 
-                  className="bg-white text-[#163300] font-bold px-6 py-3 rounded-full hover:bg-gray-100 transition-all transform hover:scale-105"
+                  href="/investment-security-course"
+                  className="bg-white text-[#163300] font-bold px-6 py-3 rounded-full hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center"
                 >
+                  <BookOpen className="w-5 h-5 mr-2" />
                   {t('hero.cta2') as string}
                 </Link>
                 <Link 
                   href="/virtual-trading" 
-                  className="bg-white/20 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/30 transition-colors border border-white/30"
+                  className="bg-white/20 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/30 transition-colors border border-white/30 flex items-center"
                 >
+                  <TrendingUp className="w-5 h-5 mr-2" />
                   {t('hero.cta3') as string}
                 </Link>
               </div>
@@ -91,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* AI Fraud Detection Agents Section */}
-      <section className="py-16 bg-gray-50">
+      <section id="agents" className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">

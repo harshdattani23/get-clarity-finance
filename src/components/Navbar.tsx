@@ -14,9 +14,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/fraud-protection', key: 'fraudProtection' },
-    { href: '/fraud-awareness-course', key: 'fraudAwarenessCourse' },
-    { href: '/virtual-trading', key: 'virtualTrading' },
+    { href: '/fraud-protection', key: 'fraudDetection', icon: 'shield' },
+    { href: '/investment-security-course', key: 'learningCourses', icon: 'book' },
+    { href: '/virtual-trading', key: 'virtualTrading', icon: 'trending' },
   ];
 
   useEffect(() => {

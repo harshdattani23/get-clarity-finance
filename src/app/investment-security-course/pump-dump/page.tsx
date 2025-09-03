@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
-import Module1VideoPlayer from '@/components/fraud-awareness-course/Module1VideoPlayer';
+import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import TimelineBuilder from '@/components/fraud-awareness/TimelineBuilder';
@@ -247,7 +247,7 @@ export default function PumpDumpPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link 
-                href="/fraud-awareness-course"
+                href="/investment-security-course"
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -939,7 +939,7 @@ export default function PumpDumpPage() {
                       Retake Quiz
                     </button>
                     <Link
-                      href="/fraud-awareness-course"
+                      href="/investment-security-course"
                       className="bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-700 transition-colors flex items-center gap-2"
                     >
                       Back to Course
@@ -955,3 +955,4 @@ export default function PumpDumpPage() {
     </div>
   );
 }
+

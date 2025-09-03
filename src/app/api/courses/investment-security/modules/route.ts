@@ -14,23 +14,28 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const courseSlug = 'fraud-awareness-course';
+    // Try both old and new course slugs for backward compatibility
+    const courseSlugs = ['investment-security-course', 'fraud-awareness-course'];
+    let course = null;
 
-    const course = await db.course.findUnique({
-      where: { slug: courseSlug },
-      include: {
-        CourseModule: {
-          include: {
-            CourseLesson: {
-              select: { id: true },
+    for (const courseSlug of courseSlugs) {
+      course = await db.course.findUnique({
+        where: { slug: courseSlug },
+        include: {
+          CourseModule: {
+            include: {
+              CourseLesson: {
+                select: { id: true },
+              },
+            },
+            orderBy: {
+              order: 'asc',
             },
           },
-          orderBy: {
-            order: 'asc',
-          },
         },
-      },
-    });
+      });
+      if (course) break;
+    }
 
     if (!course) {
       return new NextResponse('Course not found', { status: 404 });
@@ -112,7 +117,7 @@ export async function GET(request: NextRequest) {
     // Try to get module progress from our complete-module endpoint
     try {
       const progressResponse = await fetch(
-        `${request.nextUrl.origin}/api/courses/fraud-awareness/complete-module`,
+        `${request.nextUrl.origin}/api/courses/investment-security/complete-module`,
         {
           headers: {
             cookie: request.headers.get('cookie') || '',

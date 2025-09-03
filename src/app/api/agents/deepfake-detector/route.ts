@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       analysis,
-      reportId: generateReportId(),
+      sessionId: sessionId, // Use session ID instead of report ID for analysis
       message: detailedResponse.summary,
       detailed: detailedResponse,
       videoAnalyzed: isYouTubeVideo,

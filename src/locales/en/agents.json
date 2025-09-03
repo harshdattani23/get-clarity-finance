@@ -1,0 +1,133 @@
+{
+  "tabs": {
+    "videoFraud": "Video Fraud Analyzer",
+    "socialMedia": "Social Media Monitor", 
+    "announcement": "Announcement Verifier",
+    "sebiRegistry": "SEBI Registry Verification"
+  },
+  "titles": {
+    "deepfake": "🎥 Video Fraud Analysis System",
+    "social": "📱 Social Media Fraud Monitor",
+    "announcement": "📄 Corporate Announcement Verifier",
+    "sebiQuery": "🏛️ SEBI Registry Intelligence"
+  },
+  "descriptions": {
+    "deepfake": "Comprehensive video analysis for financial fraud detection. Analyzes YouTube videos and other media for multiple fraud indicators including deepfakes, impersonation, false claims, manipulated content, and unauthorized financial advice. Our AI examines video, audio, metadata, and content claims to protect investors.",
+    "social": "Monitors WhatsApp, Telegram, and social media for pump-and-dump schemes, fake investment tips, Ponzi schemes, and coordinated market manipulation attempts.",
+    "announcement": "Verifies authenticity of corporate announcements by cross-referencing with historical data, checking compliance requirements, and detecting suspicious patterns.",
+    "sebiQuery": "Access comprehensive SEBI registry intelligence. Instantly verify broker registrations, search Alternative Investment Funds, identify multi-segment operators, and analyze 4,923+ registered intermediaries with AI-powered natural language search."
+  },
+  "features": {
+    "deepfake": {
+      "feature1": "Fraud Detection",
+      "feature2": "Deepfake Analysis", 
+      "feature3": "Claims Verification",
+      "feature4": "SEBI Compliance"
+    },
+    "social": {
+      "feature1": "Pattern Detection",
+      "feature2": "Bot Identification",
+      "feature3": "Volume Analysis", 
+      "feature4": "Group Monitoring"
+    },
+    "announcement": {
+      "feature1": "Historical Check",
+      "feature2": "Compliance Verify",
+      "feature3": "Cross-Reference",
+      "feature4": "BSE/NSE Check"
+    },
+    "sebiQuery": {
+      "feature1": "4,923+ Entities",
+      "feature2": "Multi-Segment Search",
+      "feature3": "Real-time Verification",
+      "feature4": "AI-Powered Queries"
+    }
+  },
+  "inputLabels": {
+    "general": "Enter Suspicious Content for Analysis",
+    "sebiQuery": "Search SEBI Registry"
+  },
+  "placeholders": {
+    "deepfake": "Paste YouTube URL, transcript, or description of suspicious video/audio...",
+    "social": "Paste WhatsApp/Telegram message or social media post...",
+    "announcement": "Paste corporate announcement or news...",
+    "sebiQuery": "Search SEBI's official registry database...\n\nExample searches:\n• Verify if Zerodha is SEBI registered\n• List all Alternative Investment Funds\n• Find multi-segment financial operators\n• Search brokers with 'Capital' in name\n• Get database statistics and insights"
+  },
+  "buttons": {
+    "analyzeGeneral": "Analyze for Fraud",
+    "verifySebi": "Verify in SEBI Registry",
+    "analyzing": "Analyzing...",
+    "useExample": "Use Example"
+  },
+  "analysis": {
+    "titles": {
+      "deepfake": "AI Video Analysis in Progress",
+      "social": "AI Social Media Analysis in Progress", 
+      "announcement": "AI Announcement Verification in Progress",
+      "sebiQuery": "AI SEBI Registry Search in Progress"
+    },
+    "currentProcess": "Current Process:",
+    "analysisProgress": "Analysis Progress",
+    "currentlyAnalyzing": "🔍 Currently Analyzing",
+    "importantTips": "💡 Important: How to Spot Video Fraud",
+    "elementsAnalyzed": "✅ Elements Analyzed"
+  },
+  "results": {
+    "sebiResults": "SEBI Registry Results",
+    "analysisResult": "Analysis Result",
+    "searchType": "Search Type:",
+    "entitiesFound": "Entities Found:",
+    "verifiedEntities": "Verified Entities:",
+    "segments": "Segments:",
+    "videoContentSummary": "Video Content Summary",
+    "channel": "Channel:",
+    "about": "About:",
+    "mainTopics": "📌 Main Topics:",
+    "speakerClaims": "🎭 Speaker Claims:",
+    "investmentClaimsMade": "💣 Investment Claims Made:",
+    "duration": "Duration:",
+    "keyInsights": "Key Insights",
+    "investmentRedFlags": "Investment Red Flags", 
+    "technicalAnalysis": "Technical Analysis",
+    "analysisDetails": "Analysis Details",
+    "mediaType": "Media Type:",
+    "confidenceScore": "Confidence Score:",
+    "riskLevel": "Risk Level:",
+    "analyzed": "Analyzed:",
+    "reportId": "Report ID:",
+    "threatType": "Threat Type:",
+    "affectedStocks": "Affected Stocks:",
+    "credibilityScore": "Credibility Score:",
+    "recommendedActions": "Recommended Actions:",
+    "sebiFraudReporting": "⚠️ SEBI Fraud Reporting Required",
+    "fraudReportingText": "This content has been flagged as potentially fraudulent. Report immediately to protect other investors.",
+    "fileComplaint": "🚨 File Complaint at SEBI SCORES Portal",
+    "sebiTollFree": "📞 SEBI Toll-Free: 1800-266-7575 or 1800-22-7575",
+    "availableHours": "(Available 9:00 AM to 6:00 PM)",
+    "saveEvidence": "💡 Save all evidence (screenshots, URLs, transcripts) before reporting"
+  },
+  "stages": {
+    "video": [
+      "📥 Downloading video content...",
+      "🎬 Processing video and audio...",
+      "🧠 AI analyzing for fraud indicators...",
+      "🔍 Checking multiple fraud patterns...",
+      "👤 Verifying speaker authenticity...",
+      "🏛️ Cross-referencing SEBI database...",
+      "📋 Compiling comprehensive report..."
+    ],
+    "sebiQuery": [
+      "💭 Understanding your query...",
+      "🔎 Searching 4,923+ SEBI entities...",
+      "🤖 AI analyzing patterns...",
+      "🎯 Finding best matches...",
+      "📊 Compiling verified results..."
+    ],
+    "general": [
+      "📝 Reading content...",
+      "🚨 Detecting fraud signals...",
+      "🔗 Cross-referencing data...",
+      "✅ Finalizing analysis..."
+    ]
+  }
+}

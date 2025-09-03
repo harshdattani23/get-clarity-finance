@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface TabContent {
   id: string;
@@ -64,31 +65,31 @@ interface AnalysisResult {
   raw_data?: unknown;
 }
 
-const tabs: TabContent[] = [
+const getTabsWithTranslation = (t: (key: string, options?: any) => any): TabContent[] => [
   {
     id: 'deepfake',
-    label: 'Video Fraud Analyzer',
+    label: t('tabs.videoFraud'),
     icon: <Camera className="w-5 h-5" />,
     color: 'purple',
     bgGradient: 'from-purple-50 to-purple-100'
   },
   {
     id: 'social',
-    label: 'Social Media Monitor',
+    label: t('tabs.socialMedia'),
     icon: <MessageSquare className="w-5 h-5" />,
     color: 'blue',
     bgGradient: 'from-blue-50 to-blue-100'
   },
   {
     id: 'announcement',
-    label: 'Announcement Verifier',
+    label: t('tabs.announcement'),
     icon: <FileText className="w-5 h-5" />,
     color: 'green',
     bgGradient: 'from-green-50 to-green-100'
   },
   {
     id: 'sebi-query',
-    label: 'SEBI Registry Verification',
+    label: t('tabs.sebiRegistry'),
     icon: <Database className="w-5 h-5" />,
     color: 'indigo',
     bgGradient: 'from-indigo-50 to-indigo-100'
@@ -96,6 +97,8 @@ const tabs: TabContent[] = [
 ];
 
 export default function AIAgentsTabs() {
+  const { t } = useTranslation('agents');
+  const tabs = getTabsWithTranslation(t);
   const [activeTab, setActiveTab] = useState('deepfake');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [inputContent, setInputContent] = useState('');
@@ -443,104 +446,60 @@ export default function AIAgentsTabs() {
           className="bg-white rounded-2xl shadow-xl p-8"
         >
           {/* Agent Description */}
-          <div className={`bg-gradient-to-br ${tabs.find(t => t.id === activeTab)?.bgGradient} p-6 rounded-xl mb-6`}>
+          <div className={`bg-gradient-to-br ${tabs.find(tab => tab.id === activeTab)?.bgGradient} p-6 rounded-xl mb-6`}>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
-              {activeTab === 'deepfake' && '🎥 Video Fraud Analysis System'}
-              {activeTab === 'social' && '📱 Social Media Fraud Monitor'}
-              {activeTab === 'announcement' && '📄 Corporate Announcement Verifier'}
-              {activeTab === 'sebi-query' && '🏛️ SEBI Registry Intelligence'}
+              {activeTab === 'deepfake' && t('titles.deepfake')}
+              {activeTab === 'social' && t('titles.social')}
+              {activeTab === 'announcement' && t('titles.announcement')}
+              {activeTab === 'sebi-query' && t('titles.sebiQuery')}
             </h3>
             <p className="text-gray-700">
-              {activeTab === 'deepfake' && 
-                'Comprehensive video analysis for financial fraud detection. Analyzes YouTube videos and other media for multiple fraud indicators including deepfakes, impersonation, false claims, manipulated content, and unauthorized financial advice. Our AI examines video, audio, metadata, and content claims to protect investors.'}
-              {activeTab === 'social' && 
-                'Monitors WhatsApp, Telegram, and social media for pump-and-dump schemes, fake investment tips, Ponzi schemes, and coordinated market manipulation attempts.'}
-              {activeTab === 'announcement' && 
-                'Verifies authenticity of corporate announcements by cross-referencing with historical data, checking compliance requirements, and detecting suspicious patterns.'}
-              {activeTab === 'sebi-query' && 
-                'Access comprehensive SEBI registry intelligence. Instantly verify broker registrations, search Alternative Investment Funds, identify multi-segment operators, and analyze 4,923+ registered intermediaries with AI-powered natural language search.'}
+              {activeTab === 'deepfake' && t('descriptions.deepfake')}
+              {activeTab === 'social' && t('descriptions.social')}
+              {activeTab === 'announcement' && t('descriptions.announcement')}
+              {activeTab === 'sebi-query' && t('descriptions.sebiQuery')}
             </p>
             
             {/* Features */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
               {activeTab === 'deepfake' && (
                 <>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Fraud Detection</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Deepfake Analysis</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">Claims Verification</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm">SEBI Compliance</span>
-                  </div>
+                  {Object.values(t('features.deepfake', { returnObjects: true }) || {}).map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <ChevronRight className="w-4 h-4 text-purple-600" />
+                      <span className="text-sm">{String(feature)}</span>
+                    </div>
+                  ))}
                 </>
               )}
               {activeTab === 'social' && (
                 <>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm">Pattern Detection</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm">Bot Identification</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm">Volume Analysis</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm">Group Monitoring</span>
-                  </div>
+                  {Object.values(t('features.social', { returnObjects: true }) || {}).map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <ChevronRight className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm">{String(feature)}</span>
+                    </div>
+                  ))}
                 </>
               )}
               {activeTab === 'announcement' && (
                 <>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-green-600" />
-                    <span className="text-sm">Historical Check</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-green-600" />
-                    <span className="text-sm">Compliance Verify</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-green-600" />
-                    <span className="text-sm">Cross-Reference</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-green-600" />
-                    <span className="text-sm">BSE/NSE Check</span>
-                  </div>
+                  {Object.values(t('features.announcement', { returnObjects: true }) || {}).map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <ChevronRight className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">{String(feature)}</span>
+                    </div>
+                  ))}
                 </>
               )}
               {activeTab === 'sebi-query' && (
                 <>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-indigo-600" />
-                    <span className="text-sm">4,923+ Entities</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-indigo-600" />
-                    <span className="text-sm">Multi-Segment Search</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-indigo-600" />
-                    <span className="text-sm">Real-time Verification</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4 text-indigo-600" />
-                    <span className="text-sm">AI-Powered Queries</span>
-                  </div>
+                  {Object.values(t('features.sebiQuery', { returnObjects: true }) || {}).map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <ChevronRight className="w-4 h-4 text-indigo-600" />
+                      <span className="text-sm">{String(feature)}</span>
+                    </div>
+                  ))}
                 </>
               )}
             </div>
@@ -550,19 +509,19 @@ export default function AIAgentsTabs() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {activeTab === 'sebi-query' ? 'Search SEBI Registry' : 'Enter Suspicious Content for Analysis'}
+                {activeTab === 'sebi-query' ? t('inputLabels.sebiQuery') : t('inputLabels.general')}
               </label>
               <textarea
                 className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 rows={5}
                 placeholder={
                   activeTab === 'deepfake' ? 
-                    "Paste YouTube URL, transcript, or description of suspicious video/audio..." :
+                    t('placeholders.deepfake') :
                   activeTab === 'social' ? 
-                    "Paste WhatsApp/Telegram message or social media post..." :
+                    t('placeholders.social') :
                   activeTab === 'announcement' ?
-                    "Paste corporate announcement or news..." :
-                    "Search SEBI's official registry database...\n\nExample searches:\n• Verify if Zerodha is SEBI registered\n• List all Alternative Investment Funds\n• Find multi-segment financial operators\n• Search brokers with 'Capital' in name\n• Get database statistics and insights"
+                    t('placeholders.announcement') :
+                    t('placeholders.sebiQuery')
                 }
                 value={inputContent}
                 onChange={(e) => setInputContent(e.target.value)}
@@ -578,15 +537,12 @@ export default function AIAgentsTabs() {
                 {isAnalyzing ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Analyzing...
+                    {t('buttons.analyzing')}
                   </>
                 ) : (
                   <>
-                    {activeTab === 'sebi-query' ? (
-                      <><Search className="w-5 h-5" />Verify in SEBI Registry</>
-                    ) : (
-                      <><Shield className="w-5 h-5" />Analyze for Fraud</>
-                    )}
+                    <Shield className="w-5 h-5" />
+                    {activeTab === 'sebi-query' ? t('buttons.verifySebi') : t('buttons.analyzeGeneral')}
                   </>
                 )}
               </button>
@@ -596,7 +552,7 @@ export default function AIAgentsTabs() {
                 className="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-all flex items-center gap-2"
               >
                 <TrendingUp className="w-5 h-5" />
-                Use Example
+                {t('buttons.useExample')}
               </button>
             </div>
           </div>
@@ -619,10 +575,10 @@ export default function AIAgentsTabs() {
                     <Brain className="w-8 h-8 text-indigo-600" />
                   </motion.div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    {activeTab === 'deepfake' && 'AI Video Analysis in Progress'}
-                    {activeTab === 'social' && 'AI Social Media Analysis in Progress'}
-                    {activeTab === 'announcement' && 'AI Announcement Verification in Progress'}
-                    {activeTab === 'sebi-query' && 'AI SEBI Registry Search in Progress'}
+                    {activeTab === 'deepfake' && t('analysis.titles.deepfake')}
+                    {activeTab === 'social' && t('analysis.titles.social')}
+                    {activeTab === 'announcement' && t('analysis.titles.announcement')}
+                    {activeTab === 'sebi-query' && t('analysis.titles.sebiQuery')}
                   </h3>
                   <motion.div
                     animate={{ rotate: -360 }}
@@ -641,7 +597,7 @@ export default function AIAgentsTabs() {
                     >
                       <Eye className="w-5 h-5 text-indigo-600" />
                     </motion.div>
-                    <span className="text-sm font-medium text-gray-600">Current Process:</span>
+                    <span className="text-sm font-medium text-gray-600">{t('analysis.currentProcess')}</span>
                   </div>
                   <motion.p 
                     key={thinkingStage}
@@ -656,7 +612,7 @@ export default function AIAgentsTabs() {
                 {/* Progress Bar */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-600">Analysis Progress</span>
+                    <span className="text-sm font-medium text-gray-600">{t('analysis.analysisProgress')}</span>
                     <span className="text-sm font-bold text-indigo-600">{Math.round(thinkingProgress)}%</span>
                   </div>
                   <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
@@ -716,7 +672,7 @@ export default function AIAgentsTabs() {
                 {/* AI Currently Checking */}
                 {currentChecks.length > 0 && (
                   <div className="mt-4 bg-white/80 rounded-lg p-4">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-3">🔍 Currently Analyzing</h4>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3">{t('analysis.currentlyAnalyzing')}</h4>
                     <div className="space-y-2">
                       {currentChecks.map((check, idx) => (
                         <motion.div
@@ -742,7 +698,7 @@ export default function AIAgentsTabs() {
                 {/* Educational Tips */}
                 {educationalTips.length > 0 && (
                   <div className="mt-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200">
-                    <h4 className="text-sm font-semibold text-amber-900 mb-2">💡 Important: How to Spot Video Fraud</h4>
+                    <h4 className="text-sm font-semibold text-amber-900 mb-2">{t('analysis.importantTips')}</h4>
                     <div className="space-y-2">
                       {educationalTips.map((tip, idx) => (
                         <motion.div
@@ -761,7 +717,7 @@ export default function AIAgentsTabs() {
                 {/* Detected Elements */}
                 {detectedElements.length > 0 && (
                   <div className="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
-                    <h4 className="text-xs font-semibold text-green-800 mb-2">✅ Elements Analyzed</h4>
+                    <h4 className="text-xs font-semibold text-green-800 mb-2">{t('analysis.elementsAnalyzed')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {detectedElements.map((element, idx) => (
                         <motion.div
@@ -923,7 +879,7 @@ export default function AIAgentsTabs() {
             >
               <div className="flex items-start justify-between mb-4">
                 <h4 className="text-lg font-bold text-gray-900">
-                  {activeTab === 'sebi-query' ? 'SEBI Registry Results' : 'Analysis Result'}
+                  {activeTab === 'sebi-query' ? t('results.sebiResults') : t('results.analysisResult')}
                 </h4>
                 {activeTab !== 'sebi-query' && getRiskIndicator(analysisResult)}
               </div>

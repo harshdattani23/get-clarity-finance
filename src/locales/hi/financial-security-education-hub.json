@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "supertitle": "संपूर्ण वित्तीय सुरक्षा शिक्षा",
+    "title": "वित्तीय सुरक्षा और बाजार शिक्षा केंद्र",
+    "subtitle": "धोखाधड़ी की पहचान, एल्गोरिदमिक ट्रेडिंग और पोर्टफोलियो प्रबंधन में विशेषज्ञता हासिल करें व्यापक पाठ्यक्रमों के साथ जो हर स्तर की विशेषज्ञता के लिए डिज़ाइन किए गए हैं",
+    "stats": {
+      "level": "आपका स्तर",
+      "xp": "कुल XP",
+      "modules": "मॉड्यूल",
+      "time": "कुल समय",
+      "status": "प्रगति"
+    },
+    "previews": {
+      "simulations": "इंटरैक्टिव सिमुलेशन",
+      "cases": "वास्तविक केस स्टडी",
+      "certificates": "प्रोफेशनल सर्टिफिकेट",
+      "achievements": "उपलब्धियां देखें",
+      "trading": "लाइव ट्रेडिंग सिमुलेशन",
+      "portfolio": "पोर्टफोलियो प्रबंधन उपकरण"
+    }
+  },
+  "coursesSection": {
+    "title": "पाठ्यक्रम श्रेणियां",
+    "subtitle": "अपने लक्ष्यों और अनुभव स्तर के आधार पर अपना सीखने का पथ चुनें"
+  },
+  "modulesSection": {
+    "title": "पाठ्यक्रम मॉड्यूल"
+  },
+  "module": {
+    "meta": {
+      "duration": "{duration}",
+      "xp": "+{xpReward} XP",
+      "lessons": "{count} पाठ"
+    },
+    "progress": "प्रगति",
+    "completed": "पूर्ण",
+    "lessons_more": "+{count} और पाठ",
+    "button": {
+      "unlock_prompt": "अनलॉक करने के लिए पूर्वापेक्षाएं पूरी करें",
+      "continue": "सीखना जारी रखें",
+      "start": "मॉड्यूल शुरू करें",
+      "enroll": "अभी दाखिला लें"
+    }
+  },
+  "cta": {
+    "title": "वित्तीय बाजारों में महारत हासिल करने के लिए तैयार हैं?",
+    "subtitle": "धोखाधड़ी जागरूकता से शुरू करें और उन्नत ट्रेडिंग और पोर्टफोलियो प्रबंधन की ओर बढ़ें",
+    "start_lesson": "सीखना शुरू करें",
+    "create_account": "मुफ्त खाता बनाएं",
+    "browse_all": "सभी पाठ्यक्रम देखें"
+  },
+  "filters": {
+    "search": "पाठ्यक्रम खोजें...",
+    "all": "सभी पाठ्यक्रम",
+    "fraud_awareness": "धोखाधड़ी जागरूकता",
+    "algorithmic_trading": "एल्गोरिदमिक ट्रेडिंग",
+    "portfolio_management": "पोर्टफोलियो प्रबंधन",
+    "beginner": "शुरुआती",
+    "intermediate": "मध्यम",
+    "advanced": "उन्नत"
+  },
+  "tags": {
+    "all": "सभी टैग",
+    "awareness": "जागरूकता",
+    "market_knowledge": "बाजार ज्ञान"
+  },
+  "courses": {
+    "fraud_awareness": {
+      "title": "धोखाधड़ी जागरूकता और सुरक्षा",
+      "description": "वित्तीय धोखाधड़ी और बाजार हेराफेरी के खिलाफ पूर्ण सुरक्षा",
+      "color": "red",
+      "icon": "shield"
+    },
+    "algorithmic_trading": {
+      "title": "उच्च-आवृत्ति और एल्गोरिदमिक ट्रेडिंग",
+      "description": "उन्नत ट्रेडिंग तकनीक और मात्रात्मक तरीके",
+      "color": "blue",
+      "icon": "cpu"
+    },
+    "portfolio_management": {
+      "title": "निवेश और पोर्टफोलियो प्रबंधन",
+      "description": "पेशेवर संपत्ति प्रबंधन और दीर्घकालिक निवेश",
+      "color": "green",
+      "icon": "trending-up"
+    }
+  },
+  "modules": {
+    "intro-to-frauds": {
+      "title": "शेयर बाजार धोखाधड़ी का परिचय",
+      "description": "भारतीय शेयर बाजार में सामान्य धोखाधड़ी के पैटर्न और लाल झंडे के बारे में जानें",
+      "course": "fraud_awareness",
+      "prerequisites": []
+    },
+    "comprehensive-fraud-schemes": {
+      "title": "व्यापक धोखाधड़ी योजनाएं",
+      "description": "पॉन्जी योजना, पंप और डंप संचालन, इनसाइडर ट्रेडिंग और सोशल मीडिया हेराफेरी की पहचान में महारत हासिल करें",
+      "course": "fraud_awareness",
+      "prerequisites": ["intro-to-frauds"]
+    },
+    "advanced-market-manipulation": {
+      "title": "उन्नत बाजार हेराफेरी और पहचान",
+      "description": "AI-संचालित योजनाओं, नियामक मध्यस्थता और डार्क वेब धोखाधड़ी सहित पेशेवर-स्तर की धोखाधड़ी पहचान",
+      "course": "fraud_awareness",
+      "prerequisites": ["comprehensive-fraud-schemes"]
+    },
+    
+    "comprehensive-stock-market-mastery": {
+      "title": "व्यापक शेयर बाजार महारत",
+      "description": "बाजार की मूल बातें, मौलिक विश्लेषण, तकनीकी विश्लेषण और ट्रेडिंग मनोविज्ञान को कवर करने वाली पूर्ण नींव",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    
+    "advanced-algorithmic-hft-trading": {
+      "title": "उन्नत एल्गोरिदमिक और HFT ट्रेडिंग",
+      "description": "एल्गोरिदमिक ट्रेडिंग, उच्च-आवृत्ति रणनीतियों, मशीन लर्निंग अनुप्रयोगों और पेशेवर ट्रेडिंग सिस्टम में महारत हासिल करें",
+      "course": "algorithmic_trading",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    
+    "investment-philosophy": {
+      "title": "निवेश दर्शन और पोर्टफोलियो सिद्धांत",
+      "description": "आधुनिक पोर्टफोलियो सिद्धांत और दीर्घकालिक निवेश सिद्धांत",
+      "course": "portfolio_management",
+      "prerequisites": ["comprehensive-stock-market-mastery"]
+    },
+    "investment-vehicles": {
+      "title": "निवेश साधन और उत्पाद",
+      "description": "म्यूचुअल फंड, ETF, बॉन्ड और वैकल्पिक निवेश",
+      "course": "portfolio_management",
+      "prerequisites": ["investment-philosophy"]
+    }
+  },
+  "courseStats": {
+    "fraud_awareness": {
+      "modules": 3,
+      "duration": "6 घंटे",
+      "difficulty": "शुरुआती से उन्नत",
+      "certification": "धोखाधड़ी पहचान विशेषज्ञ"
+    },
+    "fundamentals": {
+      "modules": 1,
+      "duration": "4 घंटे",
+      "difficulty": "मध्यम",
+      "certification": "बाजार विश्लेषण पेशेवर"
+    },
+    "algorithmic_trading": {
+      "modules": 1,
+      "duration": "12 घंटे",
+      "difficulty": "उन्नत",
+      "certification": "एल्गोरिदमिक ट्रेडिंग मास्टर"
+    },
+    "portfolio_management": {
+      "modules": 2,
+      "duration": "7 घंटे",
+      "difficulty": "मध्यम से उन्नत",
+      "certification": "पोर्टफोलियो प्रबंधन पेशेवर"
+    }
+  }
+}
