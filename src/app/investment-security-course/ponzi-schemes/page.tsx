@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
-import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
+
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -361,27 +361,6 @@ export default function PonziSchemesPage() {
                   )}
                 </div>
 
-                {/* Audio Section */}
-                <div className="bg-white rounded-lg p-6 mb-6">
-                  <h3 className="text-lg font-semibold mb-4">🎧 Audio: Charles Ponzi's Original Scheme</h3>
-                  <p className="text-sm text-gray-600 mb-4">Duration: 6 minutes</p>
-                  
-                  <div className="relative mb-4">
-                    <ClientOnly>
-                      <Module1AudioPlayer 
-                        onComplete={() => addXP(15, 'ponzi-audio-completed')}
-                        isCompleted={completedActivities.has('ponzi-audio-completed')}
-                      />
-                    </ClientOnly>
-                  </div>
-                  
-                  {completedActivities.has('ponzi-audio-completed') && (
-                    <div className="flex items-center gap-2 text-green-600 text-sm">
-                      <CheckCircle className="w-4 h-4" />
-                      <span>Audio completed (+15 XP)</span>
-                    </div>
-                  )}
-                </div>
                 
                 <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-6 mb-6 border border-orange-200">
                   <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -770,4 +749,5 @@ export default function PonziSchemesPage() {
     </div>
   );
 }
+
 

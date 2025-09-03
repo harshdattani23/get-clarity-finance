@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
-import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
+
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -408,27 +408,6 @@ export default function InsiderTradingPage() {
                   )}
                 </div>
 
-                {/* Audio Section */}
-                <div className="bg-white rounded-lg p-6 mb-6">
-                  <h3 className="text-lg font-semibold mb-4">🎧 Audio: Famous Insider Trading Cases</h3>
-                  <p className="text-sm text-gray-600 mb-4">Duration: 8 minutes</p>
-                  
-                  <div className="relative mb-4">
-                    <ClientOnly>
-                      <Module1AudioPlayer 
-                        onComplete={() => addXP(20, 'insider-trading-audio-completed')}
-                        isCompleted={completedActivities.has('insider-trading-audio-completed')}
-                      />
-                    </ClientOnly>
-                  </div>
-                  
-                  {completedActivities.has('insider-trading-audio-completed') && (
-                    <div className="flex items-center gap-2 text-green-600 text-sm">
-                      <CheckCircle className="w-4 h-4" />
-                      <span>Audio completed (+20 XP)</span>
-                    </div>
-                  )}
-                </div>
                 
                 <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-6 mb-6 border border-purple-200">
                   <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -1091,4 +1070,5 @@ export default function InsiderTradingPage() {
     </div>
   );
 }
+
 

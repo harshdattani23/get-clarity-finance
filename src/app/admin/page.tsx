@@ -17,7 +17,8 @@ import {
   Search,
   AlertTriangle,
   FileText,
-  Shield
+  Shield,
+  Music
 } from "lucide-react";
 import Link from "next/link";
 
@@ -188,6 +189,13 @@ export default function AdminDashboard() {
               <p className="text-sm text-gray-500 mt-1">Overview of learning platform statistics</p>
             </div>
             <div className="flex gap-4">
+              <Link
+                href="/admin/audio-chapters"
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
+              >
+                <Music className="w-4 h-4" />
+                Audio Chapters
+              </Link>
               <Link
                 href="/admin/learning-dashboard"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"

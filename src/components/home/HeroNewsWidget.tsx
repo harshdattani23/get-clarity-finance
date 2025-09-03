@@ -363,9 +363,16 @@ const HeroNewsWidget: React.FC = () => {
                                 if (!source) return;
                                 
                                 // Get source identifier
-                                const sourceName = source?.domain || source?.title || 
-                                  (source?.url ? new URL(source.url).hostname.replace('www.', '').split('.')[0] : null) ||
-                                  'News Source';
+                                let urlHostname = null;
+                                if (source?.url) {
+                                  try {
+                                    urlHostname = new URL(source.url).hostname.replace('www.', '').split('.')[0];
+                                  } catch (e) {
+                                    // Invalid URL, ignore
+                                    console.warn('Invalid URL in news source:', source.url);
+                                  }
+                                }
+                                const sourceName = source?.domain || source?.title || urlHostname || 'News Source';
                                 
                                 const sourceKey = sourceName.toLowerCase();
                                 
@@ -425,8 +432,16 @@ const HeroNewsWidget: React.FC = () => {
                                       
                                       // Try to get favicon from domain
                                       if (source.domain || source.url) {
-                                        const domain = source.domain || 
-                                          (source.url ? new URL(source.url).hostname : null);
+                                        let domain: string | null = source.domain || null;
+                                        if (!domain && source.url) {
+                                          try {
+                                            domain = new URL(source.url).hostname;
+                                          } catch (e) {
+                                            // Invalid URL, skip domain extraction
+                                            console.warn('Invalid URL in source display:', source.url);
+                                            domain = null;
+                                          }
+                                        }
                                         
                                         if (domain) {
                                           // Special cases for known domains

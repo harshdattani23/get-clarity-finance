@@ -6,8 +6,9 @@ import { motion } from 'framer-motion';
 import { useUser } from '@clerk/nextjs';
 import { SignInButton } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
-import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
+
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
+import Module1AudioPlayer from '@/components/investment-security-course/Module1AudioPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import SpotTheRedFlag from '@/components/fraud-awareness/SpotTheRedFlag';
@@ -81,7 +82,7 @@ export default function IntroToFraudsPage() {
 
   const lessonProgress = useMemo(() => {
     // Base activities that contribute to progress
-    const totalActivities = 10; // video + audio + 3 red flag scenarios + 3 fraud type interactions + simulator
+    const totalActivities = 11; // video + audio + 3 red flag scenarios + 3 fraud type interactions + 2 games + simulator
     const completedCount = completedActivities.size;
     
     // Progress based on current step and activities completed
@@ -615,13 +616,13 @@ export default function IntroToFraudsPage() {
                 {/* Audio Section */}
                 <div className="bg-white rounded-lg p-6 mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">Audio: Key Insights on Securities Fraud</h3>
+                    <h3 className="text-lg font-semibold">Audio Lesson</h3>
                     <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
                       <Trophy className="w-4 h-4 text-yellow-600" />
                       <span className="text-yellow-700 font-medium">+15 XP</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">Duration: 5 minutes • Available in 9 languages</p>
+                  <p className="text-sm text-gray-600 mb-4">Listen to the comprehensive audio version • 8 minutes</p>
                   
                   <div className="relative mb-4">
                     <ClientOnly>
@@ -635,10 +636,11 @@ export default function IntroToFraudsPage() {
                   {completedActivities.has('audio-completed') && (
                     <div className="flex items-center gap-2 text-green-600 text-sm">
                       <CheckCircle className="w-4 h-4" />
-                      <span>Audio completed (+15 XP)</span>
+                      <span>Audio lesson completed (+15 XP)</span>
                     </div>
                   )}
                 </div>
+
                 
                 <div className="bg-gray-50 rounded-lg p-6 mb-6">
                   <h3 className="text-lg font-semibold mb-4">What is Securities Fraud?</h3>
@@ -998,4 +1000,5 @@ export default function IntroToFraudsPage() {
     </div>
   );
 }
+
 

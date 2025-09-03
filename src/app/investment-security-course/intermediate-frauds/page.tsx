@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, type ReactElement } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
-import Module1AudioPlayer from '@/components/stock-market-course/Module1AudioPlayer';
+
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -590,4 +590,5 @@ export default function IntermediateFraudsPage() {
     </div>
   );
 }
+
 

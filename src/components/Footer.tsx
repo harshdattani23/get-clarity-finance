@@ -28,7 +28,6 @@ const Footer = () => {
               <h3 className="font-semibold text-gray-800 mb-4">Learn</h3>
               <ul className="space-y-2">
                 <li><Link href="/investment-security-course" className="text-gray-600 hover:text-blue-600">Investment Course</Link></li>
-                <li><Link href="/stock-market-course" className="text-gray-600 hover:text-blue-600">Stock Market Course</Link></li>
                 <li><Link href="/investment-quiz" className="text-gray-600 hover:text-blue-600">Investment Quiz</Link></li>
               </ul>
             </div>
