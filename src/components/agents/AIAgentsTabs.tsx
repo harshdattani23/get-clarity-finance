@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle } from 'lucide-react';
+import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle, FileSearch, Upload } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -88,6 +88,13 @@ const getTabsWithTranslation = (t: (key: string, options?: any) => any): TabCont
     bgGradient: 'from-green-50 to-green-100'
   },
   {
+    id: 'document',
+    label: t('tabs.documentAnalyzer') || 'Document Analyzer',
+    icon: <FileSearch className="w-5 h-5" />,
+    color: 'orange',
+    bgGradient: 'from-orange-50 to-orange-100'
+  },
+  {
     id: 'sebi-query',
     label: t('tabs.sebiRegistry'),
     icon: <Database className="w-5 h-5" />,
@@ -102,6 +109,7 @@ export default function AIAgentsTabs() {
   const [activeTab, setActiveTab] = useState('deepfake');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [inputContent, setInputContent] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [thinkingStage, setThinkingStage] = useState('');
   const [thinkingProgress, setThinkingProgress] = useState(0);
@@ -111,6 +119,11 @@ export default function AIAgentsTabs() {
   const [educationalTips, setEducationalTips] = useState<string[]>([]);
 
   const analyzeContent = async () => {
+    if (activeTab === 'document') {
+      if (!selectedFile) return;
+      await analyzeDocument();
+      return;
+    }
     if (!inputContent.trim()) return;
     
     setIsAnalyzing(true);
@@ -143,7 +156,7 @@ export default function AIAgentsTabs() {
       `🛡️ Tip: Always verify advisor credentials on SEBI's official website`,
       `📖 Learn: Legitimate investment returns average 12-15% annually in equity`,
       `🔍 Check: Deepfakes often have unnatural eye movements and lip-sync issues`,
-      `💰 Reality: "Get rich quick" schemes are almost always fraudulent`,
+      `💰 Reality: "Get rich quick" schemes are almost always suspicious`,
       `📱 Alert: Report suspicious videos to SEBI's SCORES portal immediately`
     ];
     
@@ -154,7 +167,7 @@ export default function AIAgentsTabs() {
       '🎬 Separating video into frames for inspection',
       '🔊 Extracting audio track for voice analysis',
       '📝 Transcribing speech to analyze claims',
-      '💰 Scanning for investment fraud indicators',
+      '💰 Scanning for investment suspicious indicators',
       '📈 Checking for unrealistic return promises',
       '⚠️ Detecting misleading financial advice',
       '🏛️ Verifying speaker claims against SEBI database',
@@ -167,8 +180,8 @@ export default function AIAgentsTabs() {
       '📜 Cross-referencing with official records',
       '🌐 Verifying channel authenticity and history',
       '🔗 Checking consistency across metadata',
-      '⚖️ Applying comprehensive fraud models',
-      '✅ Generating detailed fraud analysis report'
+      '⚖️ Applying comprehensive suspicious activity models',
+      '✅ Generating detailed suspicious activity analysis report'
     ];
     
     // Dynamic AI thoughts that appear randomly
@@ -190,8 +203,8 @@ export default function AIAgentsTabs() {
     const stages = isVideo ? [
       '📥 Downloading video content...',
       '🎬 Processing video and audio...',
-      '🧠 AI analyzing for fraud indicators...',
-      '🔍 Checking multiple fraud patterns...',
+      '🧠 AI analyzing for suspicious indicators...',
+      '🔍 Checking multiple suspicious patterns...',
       '👤 Verifying speaker authenticity...',
       '🏛️ Cross-referencing SEBI database...',
       '📋 Compiling comprehensive report...'
@@ -203,7 +216,7 @@ export default function AIAgentsTabs() {
       '📊 Compiling verified results...'
     ] : [
       '📝 Reading content...',
-      '🚨 Detecting fraud signals...',
+      '🚨 Detecting suspicious signals...',
       '🔗 Cross-referencing data...',
       '✅ Finalizing analysis...'
     ];
@@ -308,6 +321,9 @@ export default function AIAgentsTabs() {
             source: 'Social Media'
           };
           break;
+        case 'document':
+          // Document analysis is handled separately
+          return;
         case 'sebi-query':
           endpoint = '/api/agents/sebi-query';
           payload = { 
@@ -355,6 +371,141 @@ export default function AIAgentsTabs() {
     }
   };
 
+  const analyzeDocument = async () => {
+    if (!selectedFile) return;
+    
+    setIsAnalyzing(true);
+    setAnalysisResult(null);
+    setThinkingProgress(0);
+    
+    // Document analysis stages
+    const stages = [
+      '📄 Processing document...',
+      '🔍 Extracting text content...',
+      '🧠 AI analyzing for fraud patterns...',
+      '🚨 Checking SEBI compliance...',
+      '⚖️ Calculating risk score...',
+      '📋 Generating comprehensive report...'
+    ];
+    
+    // Start progress animation
+    let stageIndex = 0;
+    const totalAnalysisTime = 45000; // 45 seconds for document analysis
+    const stageInterval = setInterval(() => {
+      if (stageIndex < stages.length) {
+        setThinkingStage(stages[stageIndex]);
+        const progress = (stageIndex + 1) / stages.length * 100;
+        setThinkingProgress(progress);
+        stageIndex++;
+      }
+    }, totalAnalysisTime / stages.length);
+
+    try {
+      const formData = new FormData();
+      formData.append('document', selectedFile);
+
+      const response = await fetch('/api/agents/document-analyzer', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      clearInterval(stageInterval);
+      
+      setThinkingProgress(100);
+      setThinkingStage('✅ Document analysis complete!');
+      
+      // Small delay to show completion
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // Format the response to match the expected structure
+      const formattedResult = {
+        success: data.success,
+        message: data.message,
+        reportId: data.reportId,
+        analysis: {
+          riskLevel: data.analysis?.riskLevel || 'low',
+          riskScore: data.analysis?.riskScore || 0
+        },
+        detailed: {
+          insights: data.analysis?.recommendations || [],
+          investmentWarnings: data.analysis?.fraudIndicators?.map((indicator: any) => 
+            `${indicator.description}: ${indicator.matches?.join(', ') || 'Pattern detected'}`
+          ) || [],
+          technicalFindings: [
+            `Document Type: ${data.analysis?.documentType || 'Unknown'}`,
+            `Confidence Score: ${data.analysis?.confidence || 0}%`,
+            `Processing Time: ${data.processingTime || 0}ms`
+          ],
+          confidence: data.analysis?.confidence || 0,
+          riskLevel: data.analysis?.riskLevel || 'low',
+          timestamp: new Date().toISOString(),
+          mediaAnalyzed: 'Document Analysis'
+        },
+        nextSteps: [
+          '📞 Contact SEBI if suspicious: 1800-266-7575',
+          '💻 Report fraud at: https://scores.sebi.gov.in/',
+          '🔍 Verify any registration numbers on official SEBI website',
+          '💾 Save this analysis report for your records'
+        ]
+      };
+      
+      setAnalysisResult(formattedResult);
+    } catch (error) {
+      console.error('Document analysis error:', error);
+      clearInterval(stageInterval);
+      setAnalysisResult({ 
+        error: 'Document analysis failed. Please try again.',
+        message: 'Failed to analyze document' 
+      });
+    } finally {
+      setIsAnalyzing(false);
+      setThinkingStage('');
+      setThinkingProgress(0);
+    }
+  };
+
+  const handleFileSelection = (file: File) => {
+    // Validate file type
+    const supportedTypes = [
+      'application/pdf',
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+      'image/gif',
+      'image/webp',
+      'text/plain'
+    ];
+
+    if (!supportedTypes.includes(file.type)) {
+      setAnalysisResult({ 
+        error: 'Unsupported file type. Please upload PDF, image, or text files.',
+        message: 'Invalid file format'
+      });
+      return;
+    }
+
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      setAnalysisResult({ 
+        error: 'File size must be less than 10MB.',
+        message: 'File too large'
+      });
+      return;
+    }
+
+    setSelectedFile(file);
+    setAnalysisResult(null);
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
   const getExampleContent = (): string => {
     switch (activeTab) {
       case 'deepfake':
@@ -363,6 +514,8 @@ export default function AIAgentsTabs() {
         return "🚀 BUY TOMORROW AT 9:15 AM SHARP! Stock: XYZ Ltd. Target: ₹500 (CMP ₹200). Guaranteed profit! Our group has insider information. Join premium group for ₹5000 only. Last 10 slots left! Message me privately.";
       case 'announcement':
         return "XYZ Corporation announces 500% dividend and bonus shares 10:1. Board has approved buyback at 200% premium. Company revenue jumped from ₹100 Cr to ₹10,000 Cr in one quarter. Invest now before stock splits!";
+      case 'document':
+        return "Upload a suspicious investment document, SEBI letter, or certificate to analyze for fraud indicators...";
       case 'sebi-query':
         return "Is Zerodha registered with SEBI? What segments are they authorized for?";
       default:
@@ -412,6 +565,7 @@ export default function AIAgentsTabs() {
               setActiveTab(tab.id);
               setAnalysisResult(null);
               setInputContent('');
+              setSelectedFile(null);
             }}
             className={`
               flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all
@@ -425,7 +579,8 @@ export default function AIAgentsTabs() {
                 (tab.color === 'purple' ? '#9333ea' : 
                  tab.color === 'blue' ? '#2563eb' : 
                  tab.color === 'green' ? '#16a34a' :
-                 tab.color === 'indigo' ? '#4f46e5' : '#6b7280') 
+                 tab.color === 'orange' ? '#ea580c' :
+                 tab.color === 'indigo' ? '#4f46e5' : '#6b7280')
                 : undefined
             }}
           >
@@ -451,12 +606,14 @@ export default function AIAgentsTabs() {
               {activeTab === 'deepfake' && t('titles.deepfake')}
               {activeTab === 'social' && t('titles.social')}
               {activeTab === 'announcement' && t('titles.announcement')}
+              {activeTab === 'document' && (t('titles.documentAnalyzer') || 'Document Fraud Analyzer')}
               {activeTab === 'sebi-query' && t('titles.sebiQuery')}
             </h3>
             <p className="text-gray-700">
               {activeTab === 'deepfake' && t('descriptions.deepfake')}
               {activeTab === 'social' && t('descriptions.social')}
               {activeTab === 'announcement' && t('descriptions.announcement')}
+              {activeTab === 'document' && (t('descriptions.documentAnalyzer') || 'Upload and analyze suspicious investment documents, fake SEBI letters, and certificates using advanced OCR and AI fraud detection.')}
               {activeTab === 'sebi-query' && t('descriptions.sebiQuery')}
             </p>
             
@@ -492,6 +649,26 @@ export default function AIAgentsTabs() {
                   ))}
                 </>
               )}
+              {activeTab === 'document' && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm">PDF Text Extraction</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm">OCR for Images</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm">SEBI Pattern Detection</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm">Fraud Risk Scoring</span>
+                  </div>
+                </>
+              )}
               {activeTab === 'sebi-query' && (
                 <>
                   {Object.values(t('features.sebiQuery', { returnObjects: true }) || {}).map((feature, idx) => (
@@ -507,53 +684,133 @@ export default function AIAgentsTabs() {
 
           {/* Input Section */}
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                {activeTab === 'sebi-query' ? t('inputLabels.sebiQuery') : t('inputLabels.general')}
-              </label>
-              <textarea
-                className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                rows={5}
-                placeholder={
-                  activeTab === 'deepfake' ? 
-                    t('placeholders.deepfake') :
-                  activeTab === 'social' ? 
-                    t('placeholders.social') :
-                  activeTab === 'announcement' ?
-                    t('placeholders.announcement') :
-                    t('placeholders.sebiQuery')
-                }
-                value={inputContent}
-                onChange={(e) => setInputContent(e.target.value)}
-              />
-            </div>
+            {activeTab === 'document' ? (
+              // Document Upload Section
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Suspicious Document
+                </label>
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-orange-400 transition-colors">
+                  {selectedFile ? (
+                    // File Selected
+                    <div className="space-y-3">
+                      <FileText className="w-12 h-12 text-orange-500 mx-auto" />
+                      <div>
+                        <p className="font-medium text-gray-900">{selectedFile.name}</p>
+                        <p className="text-sm text-gray-500">
+                          {formatFileSize(selectedFile.size)} • {selectedFile.type}
+                        </p>
+                      </div>
+                      <div className="flex gap-2 justify-center">
+                        <button
+                          onClick={() => setSelectedFile(null)}
+                          className="text-sm text-gray-600 hover:text-gray-800"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    // No File Selected
+                    <div className="space-y-3">
+                      <Upload className="w-12 h-12 text-gray-400 mx-auto" />
+                      <div>
+                        <p className="text-lg font-medium text-gray-900 mb-2">
+                          Drop your document here or click to browse
+                        </p>
+                        <p className="text-sm text-gray-500 mb-4">
+                          Supports PDF, Images (PNG, JPG, GIF, WebP), and Text files up to 10MB
+                        </p>
+                        <input
+                          type="file"
+                          accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.txt"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleFileSelection(file);
+                          }}
+                          className="hidden"
+                          id="document-upload"
+                        />
+                        <label
+                          htmlFor="document-upload"
+                          className="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 cursor-pointer transition-colors"
+                        >
+                          Select Document
+                        </label>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Document Analysis Tips */}
+                <div className="mt-4 bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <h5 className="font-semibold text-orange-900 mb-2">💡 What We Can Detect:</h5>
+                  <ul className="space-y-1 text-sm text-orange-800">
+                    <li>• Fake SEBI approval claims</li>
+                    <li>• Guaranteed return promises</li>
+                    <li>• Invalid registration formats</li>
+                    <li>• Suspicious document metadata</li>
+                    <li>• Ponzi scheme indicators</li>
+                    <li>• Urgent action requests</li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              // Text Input Section (for other agents)
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {activeTab === 'sebi-query' ? t('inputLabels.sebiQuery') : t('inputLabels.general')}
+                </label>
+                <textarea
+                  className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  rows={5}
+                  placeholder={
+                    activeTab === 'deepfake' ? 
+                      t('placeholders.deepfake') :
+                    activeTab === 'social' ? 
+                      t('placeholders.social') :
+                    activeTab === 'announcement' ?
+                      t('placeholders.announcement') :
+                      t('placeholders.sebiQuery')
+                  }
+                  value={inputContent}
+                  onChange={(e) => setInputContent(e.target.value)}
+                />
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={analyzeContent}
-                disabled={!inputContent.trim() || isAnalyzing}
+                disabled={
+                  (activeTab === 'document' && !selectedFile) || 
+                  (activeTab !== 'document' && !inputContent.trim()) || 
+                  isAnalyzing
+                }
                 className="px-6 py-3 bg-gradient-to-r from-[#163300] to-[#2d5a00] text-white font-semibold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isAnalyzing ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    {t('buttons.analyzing')}
+                    {activeTab === 'document' ? 'Analyzing Document...' : t('buttons.analyzing')}
                   </>
                 ) : (
                   <>
                     <Shield className="w-5 h-5" />
-                    {activeTab === 'sebi-query' ? t('buttons.verifySebi') : t('buttons.analyzeGeneral')}
+                    {activeTab === 'document' ? 'Analyze Document' :
+                     activeTab === 'sebi-query' ? t('buttons.verifySebi') : t('buttons.analyzeGeneral')}
                   </>
                 )}
               </button>
               
-              <button
-                onClick={() => setInputContent(getExampleContent())}
-                className="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-all flex items-center gap-2"
-              >
-                <TrendingUp className="w-5 h-5" />
-                {t('buttons.useExample')}
-              </button>
+              {activeTab !== 'document' && (
+                <button
+                  onClick={() => setInputContent(getExampleContent())}
+                  className="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-all flex items-center gap-2"
+                >
+                  <TrendingUp className="w-5 h-5" />
+                  {t('buttons.useExample')}
+                </button>
+              )}
             </div>
           </div>
 
@@ -578,6 +835,7 @@ export default function AIAgentsTabs() {
                     {activeTab === 'deepfake' && t('analysis.titles.deepfake')}
                     {activeTab === 'social' && t('analysis.titles.social')}
                     {activeTab === 'announcement' && t('analysis.titles.announcement')}
+                    {activeTab === 'document' && 'AI Document Analysis Engine'}
                     {activeTab === 'sebi-query' && t('analysis.titles.sebiQuery')}
                   </h3>
                   <motion.div
@@ -758,7 +1016,7 @@ export default function AIAgentsTabs() {
                         className="flex items-center gap-2 bg-white/60 rounded-lg p-2"
                       >
                         <CheckCircle className={`w-4 h-4 ${thinkingProgress > 75 ? 'text-green-500' : 'text-gray-400'}`} />
-                        <span className="text-xs font-medium text-gray-700">Fraud Detected</span>
+                        <span className="text-xs font-medium text-gray-700">Suspicious Activity Detected</span>
                       </motion.div>
                       <motion.div
                         animate={{ opacity: thinkingProgress > 90 ? 1 : 0.3 }}
@@ -877,6 +1135,25 @@ export default function AIAgentsTabs() {
               animate={{ opacity: 1, y: 0 }}
               className="mt-8 p-6 bg-gray-50 rounded-xl border-2 border-gray-200"
             >
+              {/* AI Analysis Disclaimer - Moved to top */}
+              <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-5">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <h5 className="font-bold text-amber-900 text-sm mb-2">{t('disclaimer.title')}</h5>
+                    <p className="text-sm text-amber-800 mb-3 leading-relaxed">
+                      {t('disclaimer.content')}
+                    </p>
+                    <p className="text-xs font-semibold text-amber-900 bg-amber-100 px-3 py-2 rounded-lg border border-amber-300">
+                      {t('disclaimer.riskNotice')}
+                    </p>
+                    <p className="text-xs text-amber-800 mt-2">
+                      {t('disclaimer.verificationAdvice')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex items-start justify-between mb-4">
                 <h4 className="text-lg font-bold text-gray-900">
                   {activeTab === 'sebi-query' ? t('results.sebiResults') : t('results.analysisResult')}
@@ -1207,9 +1484,9 @@ export default function AIAgentsTabs() {
                       <div className="flex items-start gap-3">
                         <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5 animate-pulse" />
                         <div className="flex-1">
-                          <h5 className="font-bold text-red-900 text-lg mb-2">⚠️ SEBI Fraud Reporting Required</h5>
+                          <h5 className="font-bold text-red-900 text-lg mb-2">⚠️ SEBI Suspicious Activity Reporting Required</h5>
                           <p className="text-sm text-red-800 mb-3">
-                            This content has been flagged as potentially fraudulent. Report immediately to protect other investors.
+                            This content has been flagged as potentially suspicious. Report immediately to protect other investors.
                           </p>
                           <div className="space-y-2">
                             <a 
@@ -1239,6 +1516,7 @@ export default function AIAgentsTabs() {
                   )}
                 </div>
               )}
+
             </motion.div>
           )}
         </motion.div>

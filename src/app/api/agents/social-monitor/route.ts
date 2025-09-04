@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
 import { auth } from '@clerk/nextjs/server';
+import { validateSocialMonitorPayload } from '@/lib/agentValidation';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
     
+    const body = await request.json();
     const { 
       content, 
       platform, 
@@ -41,13 +43,11 @@ export async function POST(request: NextRequest) {
       userCount, 
       messageHistory,
       stockMentions 
-    } = await request.json();
+    } = body;
 
-    if (!content) {
-      return NextResponse.json(
-        { error: 'Content is required for analysis' },
-        { status: 400 }
-      );
+    const v = validateSocialMonitorPayload(body);
+    if (!v.valid) {
+      return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
     
     // Generate report ID for this query
@@ -55,9 +55,9 @@ export async function POST(request: NextRequest) {
 
     const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
-    // Comprehensive fraud detection prompt
+    // Comprehensive suspicious activity detection prompt
     const prompt = `
-      As a SEBI fraud detection specialist, analyze this social media content for investment fraud:
+      As a SEBI suspicious activity detection specialist, analyze this social media content for investment suspicious activity:
       
       Platform: ${platform || 'Unknown'}
       Group/Channel: ${groupName || 'Unknown'}
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       Message History: ${messageHistory ? JSON.stringify(messageHistory.slice(0, 10)) : 'Not available'}
       Stocks Mentioned: ${stockMentions ? stockMentions.join(', ') : 'None identified'}
       
-      Detect these fraud patterns:
+      Detect these suspicious patterns:
       
       1. PUMP AND DUMP SCHEMES:
          - Coordinated buying messages
@@ -139,12 +139,12 @@ export async function POST(request: NextRequest) {
       } else {
         threat = generateDefaultThreatAnalysis(content);
       }
-    } catch {
+    } catch (e) {
       threat = generateDefaultThreatAnalysis(content);
     }
 
-    // Check against known fraud patterns in database
-    const knownPatterns = await checkKnownFraudPatterns(content, stockMentions);
+    // Check against known suspicious patterns in database
+    const knownPatterns = await checkKnownSuspiciousPatterns(content, stockMentions);
     
     // Enhance risk score based on database patterns
     if (knownPatterns.length > 0) {
@@ -238,9 +238,9 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function checkKnownFraudPatterns(content: string, _stocks?: string[]): Promise<string[]> {
+async function checkKnownSuspiciousPatterns(content: string, _stocks?: string[]): Promise<string[]> {
   const patterns: string[] = [];
-  const fraudKeywords = [
+  const suspiciousKeywords = [
     'guaranteed returns',
     'insider information',
     'buy now sell tomorrow',
@@ -253,9 +253,9 @@ async function checkKnownFraudPatterns(content: string, _stocks?: string[]): Pro
     'target achieved'
   ];
 
-  fraudKeywords.forEach(keyword => {
+  suspiciousKeywords.forEach(keyword => {
     if (content.toLowerCase().includes(keyword)) {
-      patterns.push(`Known fraud pattern: "${keyword}"`);
+      patterns.push(`Known suspicious pattern: "${keyword}"`);
     }
   });
 
@@ -307,7 +307,7 @@ function generateDefaultThreatAnalysis(content: string): SocialMediaThreat & { r
       'DO NOT invest or transfer any money based on this suspicious content',
       'Take screenshots of all messages as evidence before any action',
       'Block and report this sender/group immediately on the platform',
-      'Report this fraud at SEBI SCORES portal: https://scores.sebi.gov.in/',
+      'Report this suspicious activity at SEBI SCORES portal: https://scores.sebi.gov.in/',
       'Call SEBI toll-free helpline: 1800-266-7575 or 1800-22-7575 (9 AM - 6 PM)',
       'Warn your friends and family about this potential scam',
       'Verify advisor registration at: https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognised=yes',
@@ -322,7 +322,7 @@ function getAlertMessage(riskScore: number, threatType: string): string {
   } else if (riskScore > 60) {
     return `⚠️ WARNING: Suspicious ${threatType.replace('_', ' ')} activity detected. Exercise extreme caution.`;
   } else if (riskScore > 40) {
-    return `⚡ CAUTION: Potential fraudulent activity. Verify all information through official channels.`;
+    return `⚡ CAUTION: Potential suspicious activity. Verify all information through official channels.`;
   }
   return `ℹ️ Monitor: Low-risk content, but always verify investment advice.`;
 }

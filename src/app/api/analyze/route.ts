@@ -29,7 +29,7 @@ async function analyzeText(text: string) {
   });
   
   const prompt = `
-    Analyze the following text and identify potential red flags for investment fraud.
+    Analyze the following text and identify potential red flags for investment suspicious activity.
     Provide a detailed analysis, a risk score from 0 to 100, a confidence score, and a final verdict.
     Format the output as a JSON object with the following keys:
     "detailedAnalysis", "riskScore", "confidenceScore", "finalVerdict".

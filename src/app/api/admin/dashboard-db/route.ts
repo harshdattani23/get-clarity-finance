@@ -70,11 +70,30 @@ export async function GET() {
       // Removed limit to get all queries
     });
 
-    // Fetch fraud reports
-    const fraudReports = await prisma.fraudReport.findMany({
+    // Fetch suspicious activity reports
+    const suspiciousReports = await prisma.fraudReport.findMany({
       orderBy: {
         createdAt: 'desc'
       }
+    });
+
+    // Fetch document analyzer data (file metadata)
+    const documentFiles = await prisma.fileMetadata.findMany({
+      where: {
+        isActive: true
+      },
+      orderBy: {
+        uploadedAt: 'desc'
+      },
+      take: 50 // Limit for dashboard display
+    });
+
+    // Fetch file access logs
+    const fileAccessLogs = await prisma.fileAccessLog.findMany({
+      orderBy: {
+        accessedAt: 'desc'
+      },
+      take: 50 // Recent access logs
     });
 
     // Calculate statistics
@@ -85,26 +104,26 @@ export async function GET() {
       user.CourseEnrollment.length > 0 || user.courseProgress.length > 0
     ).length;
 
-    // Mock module stats for fraud awareness course
+    // Mock module stats for suspicious activity awareness course
     // In a real implementation, we'd track this properly
     const moduleStats: Record<string, number> = {
-      "intro-to-frauds": 0,
-      "intermediate-frauds": 0,
-      "advanced-frauds": 0,
+      "intro-to-suspicious-activity": 0,
+      "intermediate-suspicious-activity": 0,
+      "advanced-suspicious-activity": 0,
       "prevention": 0
     };
 
     // Special case for demo user
     const demoUser = dbUsers.find(u => u.email === "harsh@abhyas.guru");
     if (demoUser) {
-      moduleStats["intro-to-frauds"] = 1;
+      moduleStats["intro-to-suspicious-activity"] = 1;
     }
 
     // Calculate completion rates for each module  
     const moduleCompletionRates = {
-      "intro-to-frauds": totalUsers > 0 ? (moduleStats["intro-to-frauds"] || 0) / totalUsers * 100 : 0,
-      "intermediate-frauds": totalUsers > 0 ? (moduleStats["intermediate-frauds"] || 0) / totalUsers * 100 : 0,
-      "advanced-frauds": totalUsers > 0 ? (moduleStats["advanced-frauds"] || 0) / totalUsers * 100 : 0,
+      "intro-to-suspicious-activity": totalUsers > 0 ? (moduleStats["intro-to-suspicious-activity"] || 0) / totalUsers * 100 : 0,
+      "intermediate-suspicious-activity": totalUsers > 0 ? (moduleStats["intermediate-suspicious-activity"] || 0) / totalUsers * 100 : 0,
+      "advanced-suspicious-activity": totalUsers > 0 ? (moduleStats["advanced-suspicious-activity"] || 0) / totalUsers * 100 : 0,
       "prevention": totalUsers > 0 ? (moduleStats["prevention"] || 0) / totalUsers * 100 : 0,
     };
 
@@ -118,16 +137,16 @@ export async function GET() {
     const userProgressList = dbUsers.map((user) => {
       // Mock progress data - in production this would come from actual tracking
       const completedModules: string[] = [];
-      const unlockedModules: string[] = ["intro-to-frauds"];
+      const unlockedModules: string[] = ["intro-to-suspicious-activity"];
       
       // Special case for demo
       if (user.email === "harsh@abhyas.guru") {
-        completedModules.push("intro-to-frauds");
-        unlockedModules.push("intermediate-frauds");
+        completedModules.push("intro-to-suspicious-activity");
+        unlockedModules.push("intermediate-suspicious-activity");
       }
 
       // Calculate progress from course enrollments
-      const totalCourses = 4; // Assuming 4 modules in fraud awareness
+      const totalCourses = 4; // Assuming 4 modules in suspicious activity awareness
       const completedCourses = user.CourseEnrollment.filter(e => e.status === "COMPLETED").length;
       const progressFromEnrollments = (completedCourses / totalCourses) * 100;
       
@@ -195,6 +214,7 @@ export async function GET() {
       'announcement-verifier': (agentQueryTypes['announcement-verifier'] || 0) + (legacyQueryTypes['announcement'] || legacyQueryTypes['corporate'] || 0),
       'sebi-query': (agentQueryTypes['sebi-query'] || 0) + (legacyQueryTypes['sebi-query'] || legacyQueryTypes['sebi'] || legacyQueryTypes['registry'] || 0),
       'advisor-verifier': (agentQueryTypes['advisor-verifier'] || 0) + (legacyQueryTypes['advisor-verifier'] || legacyQueryTypes['advisor'] || 0),
+      'document-analyzer': agentQueryTypes['document-analyzer'] || 0,
       'other': (agentQueryTypes['other'] || 0) + (legacyQueryTypes['other'] || legacyQueryTypes['unknown'] || 0)
     };
 
@@ -202,15 +222,32 @@ export async function GET() {
     const totalQueries = totalAgentQueries + totalLegacyQueries;
     const queriesLast7Days = agentQueriesLast7Days + legacyQueriesLast7Days;
 
-    // Process fraud reports
-    const totalReports = fraudReports.length;
-    const pendingReports = fraudReports.filter(r => r.status === 'pending').length;
-    const verifiedReports = fraudReports.filter(r => r.status === 'verified').length;
-    const reportedToSEBI = fraudReports.filter(r => r.sebiReported).length;
+    // Process suspicious activity reports
+    const totalReports = suspiciousReports.length;
+    const pendingReports = suspiciousReports.filter(r => r.status === 'pending').length;
+    const verifiedReports = suspiciousReports.filter(r => r.status === 'verified').length;
+    const reportedToSEBI = suspiciousReports.filter(r => r.sebiReported).length;
 
-    // Get top fraud types
-    const fraudTypeStats = fraudReports.reduce((acc, report) => {
+    // Get top suspicious activity types
+    const suspiciousTypeStats = suspiciousReports.reduce((acc, report) => {
       acc[report.fraudType] = (acc[report.fraudType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Process document analyzer data
+    const totalFiles = documentFiles.length;
+    const filesThisWeek = documentFiles.filter(
+      file => new Date(file.uploadedAt) > sevenDaysAgo
+    ).length;
+    const totalFileSize = documentFiles.reduce((acc, file) => acc + file.fileSize, 0);
+    
+    // Group files by type
+    const fileTypeStats = documentFiles.reduce((acc, file) => {
+      const mimeType = file.mimeType;
+      const category = mimeType.startsWith('image/') ? 'Images' : 
+                      mimeType === 'application/pdf' ? 'PDFs' :
+                      mimeType === 'text/plain' ? 'Text Files' : 'Other';
+      acc[category] = (acc[category] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
@@ -257,11 +294,11 @@ export async function GET() {
         userId: query.userId,
         createdAt: query.createdAt.toISOString(),
       })),
-      fraudReports: fraudReports.slice(0, 10).map(report => ({
+      suspiciousReports: suspiciousReports.slice(0, 10).map(report => ({
         id: report.id,
         reportId: report.reportId,
         entityName: report.entityName,
-        fraudType: report.fraudType,
+        suspiciousType: report.fraudType,
         riskScore: report.riskScore,
         status: report.status,
         sebiReported: report.sebiReported,
@@ -270,12 +307,38 @@ export async function GET() {
       queryTypes: legacyQueryTypes, // Legacy query types
       agentQueryTypes, // New agent query types
       agentQueryBreakdown,
-      fraudTypeStats,
+      suspiciousTypeStats,
       reportStats: {
         total: totalReports,
         pending: pendingReports,
         verified: verifiedReports,
         reportedToSEBI,
+      },
+      // Document Analyzer Data
+      documentFiles: documentFiles.map(file => ({
+        id: file.id,
+        fileId: file.fileId,
+        originalName: file.originalName,
+        fileSize: file.fileSize,
+        mimeType: file.mimeType,
+        uploadedBy: file.uploadedBy,
+        uploadedAt: file.uploadedAt.toISOString(),
+        analysisReportId: file.analysisReportId,
+        accessLevel: file.accessLevel,
+        expiresAt: file.expiresAt?.toISOString(),
+      })),
+      fileAccessLogs: fileAccessLogs.map(log => ({
+        id: log.id,
+        fileId: log.fileId,
+        accessedBy: log.accessedBy,
+        accessedAt: log.accessedAt.toISOString(),
+        accessType: log.accessType,
+      })),
+      fileStats: {
+        totalFiles,
+        filesThisWeek,
+        totalSizeMB: Math.round(totalFileSize / (1024 * 1024) * 100) / 100,
+        fileTypeStats,
       },
     };
 

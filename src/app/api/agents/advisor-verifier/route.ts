@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
 import { auth } from '@clerk/nextjs/server';
+import { validateAdvisorVerifierPayload } from '@/lib/agentValidation';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -26,7 +27,7 @@ interface AdvisorVerification {
     };
   };
   verificationStatus: {
-    legitimacy: 'verified' | 'suspicious' | 'fraudulent' | 'unregistered';
+    legitimacy: 'verified' | 'suspicious' | 'suspicious' | 'not_found';
     confidence: number;
     riskScore: number;
   };
@@ -46,17 +47,16 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
     
+    const body = await request.json();
     const { 
       name,
       registrationNumber,
       checkType = 'both' // 'name', 'registration', or 'both'
-    } = await request.json();
+    } = body;
 
-    if (!name && !registrationNumber) {
-      return NextResponse.json(
-        { error: 'Name or registration number is required' },
-        { status: 400 }
-      );
+    const v = validateAdvisorVerifierPayload(body);
+    if (!v.valid) {
+      return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
     
     // Generate report ID for this query
@@ -125,8 +125,8 @@ export async function POST(request: NextRequest) {
     // Use AI to analyze for fraud patterns
     const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
     
-    const fraudAnalysisPrompt = `
-      Analyze this search for potential investment fraud:
+    const suspiciousAnalysisPrompt = `
+      Analyze this search for potential suspicious investment activity:
       
       Search Query:
       - Name: ${name || 'Not provided'}
@@ -157,24 +157,24 @@ export async function POST(request: NextRequest) {
       - specificWarnings: array of warnings
     `;
 
-    const aiResult = await model.generateContent(fraudAnalysisPrompt);
+    const aiResult = await model.generateContent(suspiciousAnalysisPrompt);
     const aiAnalysis = await aiResult.response.text();
     
-    let fraudAssessment;
+    let suspiciousAssessment;
     try {
       const jsonMatch = aiAnalysis.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        fraudAssessment = JSON.parse(jsonMatch[0]);
+        suspiciousAssessment = JSON.parse(jsonMatch[0]);
       } else {
-        fraudAssessment = {
+        suspiciousAssessment = {
           impersonationRisk: 'medium',
           suspiciousPatterns: [],
           legitimacyScore: 50,
           specificWarnings: []
         };
       }
-    } catch {
-      fraudAssessment = {
+    } catch (e) {
+      suspiciousAssessment = {
         impersonationRisk: 'medium',
         suspiciousPatterns: [],
         legitimacyScore: 50,
@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
     if (!intermediary) {
       riskScore += 50;
     }
-    if (fraudAssessment.impersonationRisk === 'high' || fraudAssessment.impersonationRisk === 'critical') {
+    if (suspiciousAssessment.impersonationRisk === 'high' || suspiciousAssessment.impersonationRisk === 'critical') {
       riskScore += 30;
     }
     if (similarNames.length > 0 && !intermediary) {
@@ -196,8 +196,8 @@ export async function POST(request: NextRequest) {
     
     // Determine legitimacy
     const legitimacy = intermediary && riskScore < 30 ? 'verified' :
-                      !intermediary && riskScore > 70 ? 'fraudulent' :
-                      !intermediary ? 'unregistered' : 'suspicious';
+                      !intermediary && riskScore > 70 ? 'suspicious' :
+                      !intermediary ? 'not_found' : 'suspicious';
 
     // Build verification response
     const verification: AdvisorVerification = {
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
         riskScore
       },
       fraudIndicators: [
-        ...fraudAssessment.suspiciousPatterns,
+        ...suspiciousAssessment.suspiciousPatterns,
         ...(similarNames.length > 0 && !intermediary ? ['Similar names found - possible impersonation'] : [])
       ],
       recommendations: generateRecommendations(legitimacy, intermediary, similarNames),
@@ -232,19 +232,19 @@ export async function POST(request: NextRequest) {
       lastUpdated: 'Aug 26, 2025'
     };
 
-    // Log high-risk cases (keeping existing fraud report system)
-    if (legitimacy === 'fraudulent' || (legitimacy === 'suspicious' && riskScore > 60)) {
+    // Log high-risk cases (keeping existing suspicious report system)
+    if (legitimacy === 'suspicious' || riskScore > 60) {
       await prisma.fraudReport.create({
         data: {
           reportId: `GC-FR-${Date.now()}`,
           entityName: name || 'Unknown',
           registrationClaim: registrationNumber,
-          fraudType: legitimacy === 'fraudulent' ? 'unregistered' : 'suspicious',
+          fraudType: legitimacy === 'suspicious' ? 'not_found' : 'suspicious',
           riskScore,
           evidence: {
             searchQuery: { name, registrationNumber },
             similarNames: similarNames.map(s => s.name),
-            aiAnalysis: fraudAssessment
+            aiAnalysis: suspiciousAssessment
           }
         }
       });
@@ -342,10 +342,10 @@ function generateRecommendations(
       );
       break;
       
-    case 'unregistered':
+    case 'not_found':
       recommendations.push(
-        '❌ NOT FOUND in SEBI database',
-        '⚠️ Operating without SEBI registration is ILLEGAL',
+        '❌ Not found in SEBI database',
+        '⚠️ Operating without SEBI registration may be concerning',
         '🚫 DO NOT engage or transfer money',
         '📞 Report to SEBI: 1800-266-7575',
         '💻 File complaint: https://scores.sebi.gov.in/'
@@ -368,14 +368,14 @@ function generateRecommendations(
       );
       break;
       
-    case 'fraudulent':
+    case 'highly_suspicious':
       recommendations.push(
-        '🚨 HIGH FRAUD RISK DETECTED',
+        '🚨 HIGH SUSPICIOUS ACTIVITY DETECTED',
         '❌ DO NOT ENGAGE OR TRANSFER MONEY',
         '📞 Report immediately to SEBI: 1800-266-7575',
         '💻 File complaint at https://scores.sebi.gov.in/',
         '👮 Consider filing police complaint',
-        '⚠️ Warn others about this fraud'
+        '⚠️ Warn others about this suspicious activity'
       );
       break;
   }
@@ -388,10 +388,10 @@ function generateSummaryMessage(verification: AdvisorVerification): string {
   
   if (legitimacy === 'verified') {
     return `✅ VERIFIED: ${verification.registrationDetails?.name} is a SEBI-registered ${verification.registrationType}`;
-  } else if (legitimacy === 'fraudulent') {
-    return `🚨 FRAUD ALERT: High risk of fraud (Risk Score: ${riskScore}/100). DO NOT ENGAGE.`;
-  } else if (legitimacy === 'unregistered') {
-    return `❌ NOT REGISTERED: No SEBI registration found. Be extremely cautious.`;
+  } else if (legitimacy === 'suspicious') {
+    return `🚨 SUSPICIOUS ACTIVITY: High risk detected (Risk Score: ${riskScore}/100). DO NOT ENGAGE.`;
+  } else if (legitimacy === 'not_found') {
+    return `❌ NOT FOUND: No SEBI registration found. Be extremely cautious.`;
   }
   return `⚠️ NEEDS VERIFICATION: Unable to confirm registration. Contact SEBI.`;
 }
@@ -423,9 +423,9 @@ export async function PUT(request: NextRequest) {
     const summary = {
       total: searches.length,
       verified: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'verified').length,
-      unregistered: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'unregistered').length,
+      not_found: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'not_found').length,
       suspicious: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'suspicious').length,
-      fraudulent: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'fraudulent').length
+      highly_suspicious: results.filter(r => r.verification?.verificationStatus?.legitimacy === 'highly_suspicious').length
     };
 
     return NextResponse.json({

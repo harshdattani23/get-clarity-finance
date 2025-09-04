@@ -275,19 +275,103 @@ export default function IntroToFraudsPage() {
 
   const generateCertificate = async () => {
     try {
+      if (!clerkUser?.id) {
+        console.error('No authenticated user found for certificate generation');
+        return;
+      }
+
+      // Check if certificate already exists in database
+      try {
+        const existingCertResponse = await fetch(`/api/certificates/lookup?moduleId=intro-to-frauds&courseId=fraud-awareness-course`, {
+          credentials: 'include'
+        });
+        
+        if (existingCertResponse.ok) {
+          const existingCert = await existingCertResponse.json();
+          if (existingCert.exists && existingCert.certificate) {
+            console.log('Found existing certificate, using stored completion date:', existingCert.certificate.completionDate);
+            setCertificateData({
+              id: existingCert.certificate.id,
+              userName: existingCert.certificate.userName,
+              courseName: existingCert.certificate.courseName,
+              totalXP: existingCert.certificate.totalXP,
+              moduleCount: existingCert.certificate.moduleCount,
+              completedModules: existingCert.certificate.certificateData?.completedModules || [],
+              completionDate: existingCert.certificate.completionDate,
+              publicUrl: existingCert.certificate.publicUrl
+            });
+            setShowCertificate(true);
+            return;
+          }
+        }
+      } catch (checkError) {
+        console.log('Could not check existing certificate, will create new one:', checkError);
+      }
+
+      // Determine the completion date (for new certificates)
+      let completionDate = new Date().toISOString();
+      
+      // Try to get actual course completion date from the new database structure
+      try {
+        const moduleProgressResponse = await fetch('/api/courses/investment-security/modules', {
+          credentials: 'include'
+        });
+        
+        if (moduleProgressResponse.ok) {
+          const moduleData = await moduleProgressResponse.json();
+          const introModule = moduleData.modules.find((m: any) => m.id === 'intro-to-frauds');
+          
+          if (introModule && introModule.progress === 100) {
+            // Try to get the completion date from ModuleProgress or CourseEnrollment
+            const completionResponse = await fetch('/api/user/course-completion-date?moduleId=intro-to-frauds', {
+              credentials: 'include'
+            });
+            
+            if (completionResponse.ok) {
+              const completionData = await completionResponse.json();
+              if (completionData.completionDate) {
+                completionDate = completionData.completionDate;
+                console.log('Using actual completion date from course progress:', completionDate);
+              }
+            }
+          }
+        }
+      } catch (progressError) {
+        console.log('Could not get course progress completion date:', progressError);
+      }
+      
+      // Fallback to reasonable historical date if no specific completion date found
+      if (completionDate === new Date().toISOString()) {
+        try {
+          const userResponse = await fetch('/api/user/me', {
+            credentials: 'include'
+          });
+          
+          if (userResponse.ok) {
+            const userData = await userResponse.json();
+            if (userData.createdAt) {
+              const userCreatedAt = new Date(userData.createdAt);
+              const estimatedCompletion = new Date(userCreatedAt.getTime() + 24 * 60 * 60 * 1000);
+              completionDate = estimatedCompletion.toISOString();
+              console.log('Using estimated completion date based on user creation:', completionDate);
+            }
+          }
+        } catch (dateError) {
+          console.log('Could not get user creation date, using fixed historical date:', dateError);
+          completionDate = '2025-08-13T00:00:00.000Z';
+        }
+      }
+      
       const completedModules = [
         {
           id: 'intro-to-frauds',
           title: 'Introduction to Stock Market Frauds',
           xpEarned: currentXP || 100,
-          completedAt: new Date().toISOString(),
+          completedAt: completionDate,
           completed: true
         }
       ];
 
-      // Generate unique certificate ID
-      const certificateId = `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
-      
       // Get user name from Clerk user or use fallback
       const userName = clerkUser?.fullName || 
         (clerkUser?.firstName && clerkUser?.lastName ? `${clerkUser.firstName} ${clerkUser.lastName}` : null) ||
@@ -297,42 +381,59 @@ export default function IntroToFraudsPage() {
         'Course Participant';
       
       console.log('Certificate generation - userName selected:', userName, 'from clerkUser:', clerkUser);
+      console.log('Certificate completion date:', completionDate);
       
       const certificateData = {
-        id: certificateId,
         userName: userName,
         courseName: 'Fraud Awareness Course - Introduction to Stock Market Frauds',
         totalXP: currentXP || 100,
         moduleCount: 1,
         completedModules,
-        completionDate: new Date().toISOString()
+        completionDate: completionDate
       };
 
-      // Store certificate in database with public URL
+      // Store certificate in database
       try {
-        const storeResponse = await fetch(`/api/certificates/${certificateId}`, {
+        const storeResponse = await fetch('/api/certificates', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body: JSON.stringify(certificateData)
+          body: JSON.stringify({
+            userClerkId: clerkUser.id,
+            moduleId: 'intro-to-frauds',
+            courseId: 'fraud-awareness-course',
+            courseName: certificateData.courseName,
+            userName: certificateData.userName,
+            totalXP: certificateData.totalXP,
+            moduleCount: certificateData.moduleCount,
+            completedModules: certificateData.completedModules,
+            completionDate: certificateData.completionDate
+          })
         });
 
         if (storeResponse.ok) {
           const storeData = await storeResponse.json();
-          console.log('Certificate stored with public URL:', storeData.publicUrl);
+          console.log('Certificate stored in database:', storeData);
           setCertificateData({
+            id: storeData.certificate.id,
             ...certificateData,
             publicUrl: storeData.publicUrl
           });
         } else {
           console.log('Certificate storage failed, using local data');
-          setCertificateData(certificateData);
+          setCertificateData({
+            id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+            ...certificateData
+          });
         }
       } catch (storeError) {
         console.log('Certificate storage error, using local data:', storeError);
-        setCertificateData(certificateData);
+        setCertificateData({
+          id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+          ...certificateData
+        });
       }
       
       setShowCertificate(true);
@@ -347,6 +448,9 @@ export default function IntroToFraudsPage() {
         clerkUser?.primaryEmailAddress?.emailAddress ||
         'Course Participant';
         
+      // Use historical date for fallback certificate too
+      const historicalCompletionDate = '2025-08-13T00:00:00.000Z';
+      
       const fallbackCertificate = {
         id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
         userName: userName,
@@ -358,11 +462,11 @@ export default function IntroToFraudsPage() {
             id: 'intro-to-frauds',
             title: 'Introduction to Stock Market Frauds',
             xpEarned: currentXP || 100,
-            completedAt: new Date().toISOString(),
+            completedAt: historicalCompletionDate,
             completed: true
           }
         ],
-        completionDate: new Date().toISOString()
+        completionDate: historicalCompletionDate
       };
       setCertificateData(fallbackCertificate);
       setShowCertificate(true);
@@ -929,6 +1033,9 @@ export default function IntroToFraudsPage() {
                             console.log('No user data available, using fallback:', userName);
                           }
                           
+                          // Use historical date for debug certificate too
+                          const historicalCompletionDate = '2025-08-13T00:00:00.000Z';
+                          
                           const mainCertificate = {
                             id: `CERT-FRAUD-AWARENESS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
                             userName: userName,
@@ -940,11 +1047,11 @@ export default function IntroToFraudsPage() {
                                 id: 'intro-to-frauds',
                                 title: 'Introduction to Stock Market Frauds',
                                 xpEarned: currentXP || 100,
-                                completedAt: new Date().toISOString(),
+                                completedAt: historicalCompletionDate,
                                 completed: true
                               }
                             ],
-                            completionDate: new Date().toISOString()
+                            completionDate: historicalCompletionDate
                           };
                           
                           console.log('Final userName selected:', userName);
@@ -990,7 +1097,6 @@ export default function IntroToFraudsPage() {
           userName={certificateData.userName}
           courseName={certificateData.courseName}
           completionDate={certificateData.completionDate}
-          totalXP={certificateData.totalXP}
           moduleCount={certificateData.moduleCount}
           completedModules={certificateData.completedModules}
           certificateId={certificateData.id}

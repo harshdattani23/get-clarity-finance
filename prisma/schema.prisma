@@ -24,6 +24,7 @@ model User {
   achievements         UserAchievement[]
   virtualTrades        VirtualTrade[]
   watchlists           Watchlist[]
+  certificates         Certificate[]
 }
 
 model CourseProgress {
@@ -523,6 +524,64 @@ model AgentQuery {
   @@index([reportId])
 }
 
+model FileMetadata {
+  id              String   @id @default(cuid())
+  fileId          String   @unique // doc_timestamp_randomstring
+  originalName    String
+  encryptedPath   String   // Path in Google Cloud Storage
+  fileSize        Int
+  mimeType        String
+  uploadedBy      String?
+  uploadedAt      DateTime @default(now())
+  analysisReportId String?
+  encryptionKey   String   // Encrypted with master key (contains key, iv, tag)
+  accessLevel     String   @default("private") // private, internal, admin
+  expiresAt       DateTime?
+  isActive        Boolean  @default(true)
+  
+  @@index([uploadedBy])
+  @@index([uploadedAt])
+  @@index([expiresAt])
+  @@index([analysisReportId])
+}
+
+model FileAccessLog {
+  id         String   @id @default(cuid())
+  fileId     String
+  accessedBy String?
+  accessedAt DateTime @default(now())
+  accessType String   // upload, download, analyze, delete
+  ipAddress  String?
+  userAgent  String?
+  
+  @@index([fileId])
+  @@index([accessedBy])
+  @@index([accessedAt])
+  @@index([accessType])
+}
+
+model Certificate {
+  id              String   @id @default(cuid())
+  userClerkId     String
+  courseId        String?
+  moduleId        String?
+  courseName      String
+  userName        String
+  totalXP         Int      @default(0)
+  moduleCount     Int      @default(1)
+  completionDate  DateTime
+  issuedAt        DateTime @default(now())
+  publicUrl       String?
+  certificateData Json?    // Store full certificate data as JSON
+  user            User     @relation(fields: [userClerkId], references: [clerkId])
+  
+  @@index([userClerkId])
+  @@index([courseId])
+  @@index([moduleId])
+  @@index([completionDate])
+  @@unique([userClerkId, courseId, moduleId])
+}
+
 enum InvestmentExperience {
   BEGINNER
   INTERMEDIATE
@@ -583,6 +642,7 @@ enum CourseDifficulty {
   INTERMEDIATE
   ADVANCED
 }
+
 
 enum EnrollmentStatus {
   ENROLLED

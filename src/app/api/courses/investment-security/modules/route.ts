@@ -6,6 +6,74 @@ import { CourseDifficulty, ProgressStatus } from '@prisma/client';
 // Mock storage for demo purposes when database is not available
 const mockModuleProgress: Record<string, number> = {};
 
+// Cache constants for better performance
+const COURSE_SLUGS = ['investment-security-course', 'fraud-awareness-course'];
+const MOCK_MODULES = [
+  {
+    id: 'intro-to-frauds',
+    slug: 'intro-to-frauds',
+    title: 'Introduction to Investment Frauds',
+    difficulty: 'BEGINNER' as const,
+    order: 1,
+    locked: false,
+    progress: 0
+  },
+  {
+    id: 'intermediate-frauds',
+    slug: 'intermediate-frauds',
+    title: 'Intermediate Fraud Schemes',
+    difficulty: 'INTERMEDIATE' as const,
+    order: 2,
+    locked: true,
+    progress: 0
+  },
+  {
+    id: 'ponzi-schemes', 
+    slug: 'ponzi-schemes',
+    title: 'Ponzi Schemes',
+    difficulty: 'INTERMEDIATE' as const,
+    order: 3,
+    locked: true,
+    progress: 0
+  },
+  {
+    id: 'pump-dump',
+    slug: 'pump-dump',
+    title: 'Pump & Dump Schemes',
+    difficulty: 'INTERMEDIATE' as const,
+    order: 4,
+    locked: true,
+    progress: 0
+  },
+  {
+    id: 'fake-advisors',
+    slug: 'fake-advisors',
+    title: 'Fake Investment Advisors',
+    difficulty: 'INTERMEDIATE' as const,
+    order: 5,
+    locked: true,
+    progress: 0
+  },
+  {
+    id: 'insider-trading',
+    slug: 'insider-trading',
+    title: 'Insider Trading & Market Manipulation',
+    difficulty: 'ADVANCED' as const,
+    order: 6,
+    locked: true, 
+    progress: 0
+  },
+  {
+    id: 'digital-frauds',
+    slug: 'digital-frauds',
+    title: 'Digital Investment Frauds',
+    difficulty: 'INTERMEDIATE' as const,
+    order: 7,
+    locked: true,
+    progress: 0
+  }
+] as const;
+
 export async function GET(request: NextRequest) {
   try {
     const { userId } = await auth();
@@ -14,51 +82,70 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    // Try both old and new course slugs for backward compatibility
-    const courseSlugs = ['investment-security-course', 'fraud-awareness-course'];
-    let course = null;
-
-    for (const courseSlug of courseSlugs) {
-      course = await db.course.findUnique({
-        where: { slug: courseSlug },
-        include: {
-          CourseModule: {
-            include: {
-              CourseLesson: {
-                select: { id: true },
-              },
-            },
-            orderBy: {
-              order: 'asc',
+    // Single optimized query for course with all required data
+    const course = await db.course.findFirst({
+      where: {
+        slug: {
+          in: COURSE_SLUGS,
+        },
+      },
+      include: {
+        CourseModule: {
+          include: {
+            CourseLesson: {
+              select: { id: true },
             },
           },
+          orderBy: {
+            order: 'asc',
+          },
         },
-      });
-      if (course) break;
-    }
-
-    if (!course) {
-      return new NextResponse('Course not found', { status: 404 });
-    }
-
-    const userEnrollment = await db.courseEnrollment.findUnique({
-      where: { userClerkId_courseId: { userClerkId: userId, courseId: course.id } },
-      include: {
-        ModuleProgress: true,
-        LessonProgress: {
-          where: { status: ProgressStatus.COMPLETED },
-          select: { lessonId: true },
+        CourseEnrollment: {
+          where: {
+            userClerkId: userId,
+          },
+          include: {
+            ModuleProgress: {
+              select: {
+                moduleId: true,
+                status: true,
+              },
+            },
+            LessonProgress: {
+              where: { status: ProgressStatus.COMPLETED },
+              select: { lessonId: true },
+            },
+          },
         },
       },
     });
 
+    if (!course) {
+      console.log('Course not found in database, returning mock data');
+      return NextResponse.json(MOCK_MODULES);
+    }
+
+    // Use enrollment data already fetched with the course
+    const userEnrollment = course.CourseEnrollment[0];
+
     const moduleProgressMap = new Map(
-      userEnrollment?.ModuleProgress.map(p => [p.moduleId, p.status])
+      userEnrollment?.ModuleProgress.map(p => [p.moduleId, p.status]) || []
     );
 
     const completedLessonIds = new Set(
       userEnrollment?.LessonProgress.map(lp => lp.lessonId) || []
     );
+
+    // Check legacy course progress for intro-to-frauds completion (optimized query)
+    const introToFraudsCompleted = await db.courseProgress.findFirst({
+      where: {
+        userClerkId: userId,
+        courseId: 'fraud-awareness-course',
+        lessonId: 'intro-to-frauds',
+        status: 'COMPLETED'
+      },
+      select: { id: true }
+    }).then(result => Boolean(result));
 
     const beginnerModules = course.CourseModule.filter(
       m => m.difficulty === CourseDifficulty.BEGINNER
@@ -69,7 +156,7 @@ export async function GET(request: NextRequest) {
 
     const allBeginnerCompleted = beginnerModules.every(
       m => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
-    );
+    ) || introToFraudsCompleted; // Include legacy progress check
 
     const allIntermediateCompleted = intermediateModules.every(
       m => moduleProgressMap.get(m.id) === ProgressStatus.COMPLETED
@@ -96,7 +183,14 @@ export async function GET(request: NextRequest) {
       const completedLessons = module.CourseLesson.filter(l =>
         completedLessonIds.has(l.id)
       ).length;
-      const progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+      
+      // Calculate progress, with special handling for intro-to-frauds
+      let progress = 0;
+      if (module.slug === 'intro-to-frauds' && introToFraudsCompleted) {
+        progress = 100;
+      } else {
+        progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+      }
 
       return {
         id: module.id,
@@ -113,119 +207,13 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('[COURSE_MODULES_GET]', error);
     
-    // Fallback to mock data for demo purposes
-    // Try to get module progress from our complete-module endpoint
-    try {
-      const progressResponse = await fetch(
-        `${request.nextUrl.origin}/api/courses/investment-security/complete-module`,
-        {
-          headers: {
-            cookie: request.headers.get('cookie') || '',
-          },
-        }
-      );
-      
-      if (progressResponse.ok) {
-        const { userProgress, unlockedModules } = await progressResponse.json();
-        
-        const mockModules = [
-          {
-            id: 'intro-to-frauds',
-            slug: 'intro-to-frauds',
-            locked: false,
-            progress: userProgress['intro-to-frauds']?.progress || mockModuleProgress['intro-to-frauds'] || 0
-          },
-          {
-            id: 'intermediate-frauds',
-            slug: 'intermediate-frauds',
-            locked: !unlockedModules['intermediate-frauds']?.unlocked,
-            progress: userProgress['intermediate-frauds']?.progress || mockModuleProgress['intermediate-frauds'] || 0
-          },
-          {
-            id: 'ponzi-schemes', 
-            slug: 'ponzi-schemes',
-            locked: !unlockedModules['ponzi-schemes']?.unlocked,
-            progress: userProgress['ponzi-schemes']?.progress || mockModuleProgress['ponzi-schemes'] || 0
-          },
-          {
-            id: 'pump-dump',
-            slug: 'pump-dump', 
-            locked: !unlockedModules['pump-dump']?.unlocked,
-            progress: userProgress['pump-dump']?.progress || mockModuleProgress['pump-dump'] || 0
-          },
-          {
-            id: 'insider-trading',
-            slug: 'insider-trading',
-            locked: !unlockedModules['insider-trading']?.unlocked, 
-            progress: userProgress['insider-trading']?.progress || mockModuleProgress['insider-trading'] || 0
-          },
-          {
-            id: 'fake-advisors',
-            slug: 'fake-advisors',
-            locked: !unlockedModules['fake-advisors']?.unlocked,
-            progress: userProgress['fake-advisors']?.progress || mockModuleProgress['fake-advisors'] || 0
-          },
-          {
-            id: 'digital-frauds',
-            slug: 'digital-frauds',
-            locked: !unlockedModules['digital-frauds']?.unlocked,
-            progress: userProgress['digital-frauds']?.progress || mockModuleProgress['digital-frauds'] || 0
-          }
-        ];
-        
-        return NextResponse.json(mockModules);
-      }
-    } catch (progressError) {
-      console.log('Could not fetch progress from complete-module endpoint:', progressError);
-    }
+    // Simple fallback without additional API calls for better performance
+    const fallbackModules = MOCK_MODULES.map(module => ({
+      ...module,
+      progress: mockModuleProgress[module.slug] || 0
+    }));
     
-    // Ultimate fallback
-    const mockModules = [
-      {
-        id: 'intro-to-frauds',
-        slug: 'intro-to-frauds',
-        locked: false,
-        progress: mockModuleProgress['intro-to-frauds'] || 0
-      },
-      {
-        id: 'intermediate-frauds',
-        slug: 'intermediate-frauds',
-        locked: true,
-        progress: mockModuleProgress['intermediate-frauds'] || 0
-      },
-      {
-        id: 'ponzi-schemes', 
-        slug: 'ponzi-schemes',
-        locked: true,
-        progress: mockModuleProgress['ponzi-schemes'] || 0
-      },
-      {
-        id: 'pump-dump',
-        slug: 'pump-dump', 
-        locked: true,
-        progress: mockModuleProgress['pump-dump'] || 0
-      },
-      {
-        id: 'insider-trading',
-        slug: 'insider-trading',
-        locked: true, 
-        progress: mockModuleProgress['insider-trading'] || 0
-      },
-      {
-        id: 'fake-advisors',
-        slug: 'fake-advisors',
-        locked: true,
-        progress: mockModuleProgress['fake-advisors'] || 0
-      },
-      {
-        id: 'digital-frauds',
-        slug: 'digital-frauds',
-        locked: true,
-        progress: mockModuleProgress['digital-frauds'] || 0
-      }
-    ];
-    
-    return NextResponse.json(mockModules);
+    return NextResponse.json(fallbackModules);
   }
 }
 

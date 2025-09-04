@@ -1,0 +1,168 @@
+{
+  "header": {
+    "module": "Module 2",
+    "title": "Comprehensive Fraud Schemes",
+    "progress": "Lesson Progress",
+    "xp": "+400 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Practice Simulator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: Advanced Fraud Detection",
+      "duration": "Duration: 12 minutes"
+    },
+    "section1": {
+      "title": "Understanding Complex Fraud Patterns",
+      "p1": "Building on the basics, this module explores sophisticated fraud schemes that combine multiple techniques to exploit investors. These advanced schemes often appear legitimate and can fool even experienced investors.",
+      "p2": "Modern fraudsters have evolved their techniques to leverage technology, social media, and psychological manipulation. Understanding these patterns is crucial for protecting yourself and recognizing sophisticated schemes.",
+      "p3": "Key areas we'll explore:",
+      "list": [
+        "Multi-layered Ponzi and pyramid schemes with legitimate business fronts",
+        "Advanced pump and dump operations using social media coordination",
+        "Sophisticated insider trading networks and information manipulation",
+        "Fake advisory services and unauthorized investment schemes",
+        "Circular trading and market manipulation techniques",
+        "Cross-border fraud schemes and regulatory arbitrage"
+      ]
+    },
+    "section2": {
+      "title": "Advanced Ponzi & Pyramid Schemes",
+      "p1": "Advanced schemes often combine legitimate business operations with fraudulent investment components, making them harder to detect.",
+      "modernPonzi": {
+        "title": "Modern Ponzi Variations",
+        "description": "Contemporary schemes use cryptocurrency, forex trading, or commodity investments as fronts while operating the classic Ponzi structure underneath."
+      },
+      "hybridSchemes": {
+        "title": "Hybrid Pyramid-Ponzi Models",
+        "description": "These schemes combine recruitment-based returns (pyramid) with investment-based promises (Ponzi), creating complex structures that are harder to identify."
+      },
+      "legitimateFronts": {
+        "title": "Legitimate Business Fronts",
+        "description": "Fraudsters often operate real businesses alongside their schemes to create credibility and confuse investigators."
+      }
+    },
+    "section3": {
+      "title": "Sophisticated Market Manipulation",
+      "p1": "Advanced market manipulation goes beyond simple pump and dump schemes to involve coordinated attacks, algorithmic manipulation, and cross-platform schemes.",
+      "coordinated": {
+        "title": "Coordinated Social Media Campaigns",
+        "description": "Organized groups use multiple platforms (WhatsApp, Telegram, Twitter, YouTube) to create artificial buzz around stocks."
+      },
+      "algorithmic": {
+        "title": "Algorithmic Price Manipulation",
+        "description": "Using automated trading systems to create artificial price movements and trading volumes in small-cap stocks."
+      },
+      "crossBorder": {
+        "title": "Cross-Border Schemes",
+        "description": "International coordination makes detection and prosecution difficult, with schemes spanning multiple jurisdictions."
+      }
+    },
+    "section4": {
+      "title": "Detection and Protection Strategies",
+      "p1": "Advanced detection requires understanding the interconnected nature of modern fraud schemes and using multiple verification methods.",
+      "redFlags": {
+        "title": "Advanced Red Flags",
+        "list": [
+          "Complex investment strategies that can't be clearly explained",
+          "Guaranteed returns regardless of market conditions",
+          "Pressure to recruit friends and family",
+          "Unusual trading patterns in promoted stocks",
+          "Claims of exclusive access to investment opportunities",
+          "Reluctance to provide detailed documentation or regulatory information"
+        ]
+      },
+      "verification": {
+        "title": "Multi-Layer Verification Process",
+        "list": [
+          "Check SEBI registration and track record",
+          "Verify business licenses and regulatory compliance",
+          "Research promoter backgrounds and past associations",
+          "Analyze financial statements for inconsistencies",
+          "Cross-check claims with independent sources",
+          "Monitor trading patterns and market behavior"
+        ]
+      }
+    },
+    "section5": {
+      "title": "Case Studies: Major Indian Fraud Schemes",
+      "saradha": {
+        "title": "Saradha Group Chit Fund Scam (2013)",
+        "description": "A ₹2,500 crore Ponzi scheme that used chit funds, real estate, and media businesses as fronts. Shows how legitimate businesses can mask fraudulent investment schemes."
+      },
+      "rosevally": {
+        "title": "Rose Valley Scam (2015)",
+        "description": "A ₹15,000 crore scheme involving hospitality, real estate, and entertainment businesses. Demonstrates the complexity of modern multi-sector frauds."
+      },
+      "pearls": {
+        "title": "Pearls Group Scam (2014)",
+        "description": "A ₹45,000 crore scheme involving agricultural land investments. Shows how traditional sectors can be used for sophisticated frauds."
+      }
+    },
+    "button": {
+      "practice": "Continue to Practice"
+    },
+    "steps": {
+      "step1": "Advanced Patterns",
+      "step2": "Market Manipulation", 
+      "step3": "Detection Strategies",
+      "step4": "Case Studies"
+    },
+    "interactiveGames": {
+      "title": "🎮 Advanced Detection Challenges",
+      "subtitle": "Test your skills with complex fraud scenarios!",
+      "schemeAnalysis": {
+        "title": "🔍 Scheme Structure Analysis",
+        "description": "Analyze complex business structures to identify fraudulent components:"
+      },
+      "redFlagDetection": {
+        "title": "🚩 Advanced Red Flag Detection",
+        "description": "Spot sophisticated red flags in realistic investment proposals:"
+      }
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Advanced Fraud Detection Quiz",
+    "subtitle": "Test your understanding of complex fraud schemes and earn your XP rewards!",
+    "q1": {
+      "question": "1. What makes modern Ponzi schemes harder to detect than traditional ones?",
+      "options": [
+        "They promise lower returns",
+        "They combine legitimate business operations with fraudulent investments",
+        "They only target wealthy investors"
+      ]
+    },
+    "q2": {
+      "question": "2. Which is a key characteristic of sophisticated market manipulation?",
+      "options": [
+        "Single-platform promotion",
+        "Coordinated multi-platform campaigns with algorithmic support",
+        "Focus only on large-cap stocks"
+      ]
+    },
+    "q3": {
+      "question": "3. What should you do when evaluating a complex investment opportunity?",
+      "options": [
+        "Trust the promoter's explanation if they seem knowledgeable",
+        "Implement a multi-layer verification process",
+        "Only check if they have a website"
+      ]
+    },
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Advanced Module Complete!",
+    "subtitle": "You've earned 400 XP and unlocked advanced detection skills",
+    "button": "Back to Course"
+  }
+}

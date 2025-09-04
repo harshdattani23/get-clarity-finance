@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { ClerkProvider } from '@clerk/nextjs';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import ChatProvider from '@/components/ChatProvider';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,11 +58,13 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${inter.className} bg-gray-50 text-gray-800`}>
               <ToastProvider />
-              <Navbar />
-              <main className="min-h-screen">
-                {children}
-              </main>
-              <Footer />
+              <ChatProvider>
+                <Navbar />
+                <main className="min-h-screen">
+                  {children}
+                </main>
+                <Footer />
+              </ChatProvider>
           </body>
         </html>
       </LanguageProvider>

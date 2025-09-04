@@ -37,9 +37,9 @@ interface DashboardStats {
 }
 
 interface ModuleCompletionRates {
-  "intro-to-frauds": number;
-  "intermediate-frauds": number;
-  "advanced-frauds": number;
+  "intro-to-suspicious-activity": number;
+  "intermediate-suspicious-activity": number;
+  "advanced-suspicious-activity": number;
   "prevention": number;
 }
 
@@ -65,11 +65,11 @@ interface VerificationLog {
   createdAt: string;
 }
 
-interface FraudReport {
+interface SuspiciousReport {
   id: string;
   reportId: string;
   entityName: string;
-  fraudType: string;
+  suspiciousType: string;
   riskScore: number;
   status: string;
   sebiReported: boolean;
@@ -82,7 +82,7 @@ interface DashboardData {
   userProgress: UserProgress[];
   recentUpdates: UserProgress[];
   verificationLogs?: VerificationLog[];
-  fraudReports?: FraudReport[];
+  suspiciousReports?: SuspiciousReport[];
   queryTypes?: Record<string, number>;
   agentQueryBreakdown?: {
     deepfake: number;
@@ -92,7 +92,7 @@ interface DashboardData {
     'advisor-verifier': number;
     other: number;
   };
-  fraudTypeStats?: Record<string, number>;
+  suspiciousTypeStats?: Record<string, number>;
   reportStats?: {
     total: number;
     pending: number;
@@ -166,9 +166,9 @@ export default function AdminDashboard() {
   }
 
   const moduleNames: Record<string, string> = {
-    "intro-to-frauds": "Introduction to Frauds",
-    "intermediate-frauds": "Intermediate Frauds",
-    "advanced-frauds": "Advanced Frauds",
+    "intro-to-suspicious-activity": "Introduction to Suspicious Activity",
+    "intermediate-suspicious-activity": "Intermediate Suspicious Activity",
+    "advanced-suspicious-activity": "Advanced Suspicious Activity",
     "prevention": "Prevention Strategies"
   };
 
@@ -359,7 +359,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Fraud Reports</p>
+                <p className="text-sm font-medium text-gray-600">Suspicious Reports</p>
                 <p className="text-3xl font-bold text-gray-900 mt-2">
                   {dashboardData.stats.totalReports || 0}
                 </p>
@@ -475,12 +475,12 @@ export default function AdminDashboard() {
           {/* Recent Fraud Reports */}
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Fraud Reports</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Recent Suspicious Activity Reports</h2>
               <AlertTriangle className="w-5 h-5 text-gray-400" />
             </div>
-            {dashboardData.fraudReports && dashboardData.fraudReports.length > 0 ? (
+            {dashboardData.suspiciousReports && dashboardData.suspiciousReports.length > 0 ? (
               <div className="space-y-3 max-h-96 overflow-y-auto">
-                {dashboardData.fraudReports.slice(0, 10).map((report) => (
+                {dashboardData.suspiciousReports.slice(0, 10).map((report) => (
                   <div key={report.id} className="p-3 bg-gray-50 rounded-lg">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
@@ -492,7 +492,7 @@ export default function AdminDashboard() {
                         </p>
                         <div className="flex items-center gap-3 mt-2">
                           <span className="text-xs text-gray-500">
-                            Type: {report.fraudType}
+                          Type: {report.suspiciousType}
                           </span>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             report.status === 'verified' ? 'bg-green-100 text-green-700' :
@@ -526,7 +526,7 @@ export default function AdminDashboard() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No fraud reports submitted</p>
+              <p className="text-gray-500 text-center py-8">No suspicious activity reports submitted</p>
             )}
           </div>
         </div>

@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
 import { auth } from '@clerk/nextjs/server';
+import { validateAnnouncementPayload } from '@/lib/agentValidation';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
     
+    const body = await request.json();
     const {
       announcement,
       company,
@@ -45,13 +47,11 @@ export async function POST(request: NextRequest) {
       date,
       historicalData,
       relatedCompanies
-    } = await request.json();
+    } = body;
 
-    if (!announcement || !company) {
-      return NextResponse.json(
-        { error: 'Announcement and company name are required' },
-        { status: 400 }
-      );
+    const v = validateAnnouncementPayload(body);
+    if (!v.valid) {
+      return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
     
     // Generate report ID for this query
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
       } else {
         verification = performBasicVerification(announcement, company);
       }
-    } catch {
+    } catch (e) {
       verification = performBasicVerification(announcement, company);
     }
 
@@ -145,14 +145,14 @@ export async function POST(request: NextRequest) {
         'Immediately verify with official BSE/NSE websites',
         'Check company\'s official website for confirmation',
         'Contact company\'s investor relations department',
-        'Report to SEBI if found to be fraudulent'
+        'Report to SEBI if found to be suspicious'
       );
     }
 
     // Generate alert for suspicious announcements
     const alert = verification.credibilityScore < 30 ? {
       level: 'CRITICAL',
-      message: 'HIGH PROBABILITY OF FRAUDULENT ANNOUNCEMENT',
+      message: 'HIGH PROBABILITY OF SUSPICIOUS ANNOUNCEMENT',
       actions: [
         'DO NOT act on this information',
         'Report immediately to SEBI',
@@ -279,9 +279,9 @@ function getSummaryMessage(verification: AnnouncementVerification): string {
   } else if (verification.credibilityScore >= 60) {
     return '⚠️ Announcement has some inconsistencies - verify through official channels';
   } else if (verification.credibilityScore >= 40) {
-    return '⚡ WARNING: Multiple red flags detected - high risk of fraudulent content';
+    return '⚡ WARNING: Multiple red flags detected - high risk of suspicious content';
   }
-  return '🚨 CRITICAL: Strong indicators of fake announcement - DO NOT trust this information';
+  return '🚨 CRITICAL: Strong indicators of suspicious announcement - DO NOT trust this information';
 }
 
 function getNextSteps(credibilityScore: number): string[] {
@@ -290,7 +290,7 @@ function getNextSteps(credibilityScore: number): string[] {
       '🚨 REPORT NOW: File complaint at SEBI SCORES - https://scores.sebi.gov.in/',
       'Contact SEBI Toll-Free: 1800-266-7575 or 1800-22-7575 (9 AM - 6 PM)',
       'Check BSE/NSE official announcements for verification',
-      'Alert other investors about potential fraud',
+      'Alert other investors about potential suspicious activity',
       'Save all evidence (screenshots, URLs, full text) for regulatory action',
       'Email for technical help: scoreshelp@sebi.gov.in'
     ];

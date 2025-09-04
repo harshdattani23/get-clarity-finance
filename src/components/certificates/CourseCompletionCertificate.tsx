@@ -33,10 +33,10 @@ interface CertificateProps {
   userName: string;
   courseName: string;
   completionDate: string;
-  totalXP: number;
   moduleCount: number;
   completedModules: Module[];
   certificateId: string;
+  publicUrl?: string;
   onClose?: () => void;
 }
 
@@ -44,10 +44,10 @@ export default function CourseCompletionCertificate({
   userName,
   courseName,
   completionDate,
-  totalXP,
   moduleCount,
   completedModules,
   certificateId,
+  publicUrl,
   onClose
 }: CertificateProps) {
   const certificateRef = useRef<HTMLDivElement>(null);
@@ -488,7 +488,7 @@ Would you like to open the print dialog now?`;
 
   const shareText = `🎉 I just completed the "${courseName}" course! 🏆 #FraudAwareness #GetClarityFinance #InvestorProtection`;
   
-  const shareUrl = `https://getclarity.finance/certificates/${certificateId}`;
+  const shareUrl = publicUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/certificates/${certificateId}`;
   const [copySuccess, setCopySuccess] = useState(false);
 
   const handleShare = (platform: string) => {
@@ -629,23 +629,23 @@ Would you like to open the print dialog now?`;
                   {courseName}
                 </h3>
                 
-                {/* Achievement Stats */}
-                <div className="flex justify-center gap-6 mb-4">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1 mb-1">
-                      <CheckCircle className="w-4 h-4" style={{ color: '#10b981' }} />
-                      <span className="text-xl font-bold" style={{ color: '#1f2937' }}>{moduleCount}</span>
-                    </div>
-                    <p className="text-xs" style={{ color: '#4b5563' }}>Module{moduleCount !== 1 ? 's' : ''}</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1 mb-1">
-                      <Sparkles className="w-4 h-4" style={{ color: '#3b82f6' }} />
-                      <span className="text-xl font-bold" style={{ color: '#1f2937' }}>100%</span>
-                    </div>
-                    <p className="text-xs" style={{ color: '#4b5563' }}>Completion</p>
-                  </div>
-                </div>
+          {/* Achievement Stats */}
+          <div className="flex justify-center gap-12 mb-4">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <CheckCircle className="w-5 h-5" style={{ color: '#10b981' }} />
+                <span className="text-2xl font-bold" style={{ color: '#1f2937' }}>{moduleCount}</span>
+              </div>
+              <p className="text-sm" style={{ color: '#4b5563' }}>Module{moduleCount !== 1 ? 's' : ''} Completed</p>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <Sparkles className="w-5 h-5" style={{ color: '#3b82f6' }} />
+                <span className="text-2xl font-bold" style={{ color: '#1f2937' }}>100%</span>
+              </div>
+              <p className="text-sm" style={{ color: '#4b5563' }}>Course Completion</p>
+            </div>
+          </div>
 
                 <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: '#374151' }}>
                   demonstrating comprehensive understanding of securities fraud detection and investor protection principles.
@@ -681,6 +681,50 @@ Would you like to open the print dialog now?`;
           </div>
         </div>
 
+
+        {/* Public URL Section */}
+        {publicUrl && (
+          <div className="px-6 py-4 bg-gray-50 border-b">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <ExternalLink className="w-5 h-5 text-blue-600" />
+                <h4 className="text-sm font-semibold text-gray-900">Public Certificate</h4>
+              </div>
+              <p className="text-xs text-gray-600 mb-3">Share this link to verify your certificate</p>
+              <div className="flex items-center gap-2 bg-white rounded-lg p-2 border">
+                <input
+                  type="text"
+                  value={publicUrl}
+                  readOnly
+                  className="flex-1 text-xs bg-transparent border-none outline-none text-gray-700"
+                />
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(publicUrl);
+                    setCopySuccess(true);
+                    setTimeout(() => setCopySuccess(false), 2000);
+                  }}
+                  className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
+                  title="Copy link"
+                >
+                  <Copy className="w-4 h-4" />
+                </button>
+                <a
+                  href={publicUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1 text-blue-600 hover:text-blue-700 transition-colors"
+                  title="Open certificate"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+              {copySuccess && (
+                <p className="text-xs text-green-600 mt-1">Link copied to clipboard!</p>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Actions */}
         <div className="p-6">

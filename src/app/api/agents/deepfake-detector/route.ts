@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
 import { auth } from '@clerk/nextjs/server';
+import { validateDeepfakePayload } from '@/lib/agentValidation';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -39,13 +40,12 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
     
-    const { mediaUrl, mediaType, transcript, metadata } = await request.json();
+    const body = await request.json();
+    const { mediaUrl, mediaType, transcript, metadata } = body;
 
-    if (!mediaUrl && !transcript) {
-      return NextResponse.json(
-        { error: 'Media URL or transcript is required' },
-        { status: 400 }
-      );
+    const v = validateDeepfakePayload(body);
+    if (!v.valid) {
+      return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
     
     // Generate report ID for this query
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       ANALYZE THIS SPECIFIC CONTENT:
       ${isYouTubeVideo ? `YouTube Video URL: ${videoUrl}` : `Content: ${inputContent}`}
       
-      As a deepfake detection expert for SEBI (Securities and Exchange Board of India), analyze the EXACT content provided above for potential fraud.
+      As a deepfake detection expert for SEBI (Securities and Exchange Board of India), analyze the EXACT content provided above for potential suspicious activity.
       
       DO NOT analyze any other video or content. DO NOT use cached information from previous analyses.
       Each analysis request is independent - analyze the content fresh.
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       6. Metadata tampering signs
       7. Known deepfake generation artifacts
       
-      Also check for securities fraud patterns:
+      Also check for securities suspicious patterns:
       - Impersonation of SEBI officials or market leaders
       - False regulatory announcements  
       - Pump and dump scheme indicators (coordinated buying, exit timing)
@@ -112,12 +112,12 @@ export async function POST(request: NextRequest) {
       - Unregistered investment advisory asking for fees
       
       IMPORTANT DISTINCTION:
-      - Market predictions (e.g., "Sensex may reach 1 lakh") = NOT FRAUD
-      - Guaranteed returns (e.g., "200% assured profit") = FRAUD
-      - Stock recommendations with analysis = NOT FRAUD  
-      - "Pay us for secret tips" = FRAUD
-      - Educational content about markets = NOT FRAUD
-      - "Transfer money to this account" = FRAUD
+      - Market predictions (e.g., "Sensex may reach 1 lakh") = NOT SUSPICIOUS
+      - Guaranteed returns (e.g., "200% assured profit") = SUSPICIOUS
+      - Stock recommendations with analysis = NOT SUSPICIOUS  
+      - "Pay us for secret tips" = SUSPICIOUS
+      - Educational content about markets = NOT SUSPICIOUS
+      - "Transfer money to this account" = HIGHLY SUSPICIOUS
       
       Provide analysis in JSON format with:
       - isDeepfake (boolean)
@@ -136,24 +136,47 @@ export async function POST(request: NextRequest) {
     // Parse AI response
     let analysis: DeepfakeAnalysis;
     try {
-      // Extract JSON from response
-      const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        analysis = JSON.parse(jsonMatch[0]);
+      // Try to extract JSON from the response - find the first complete JSON object
+      const jsonMatches = analysisText.match(/\{[\s\S]*?\}(?=\s*$|\s*```|\s*\{)/g);
+      if (jsonMatches && jsonMatches.length > 0) {
+        // Use the first valid JSON object found
+        analysis = JSON.parse(jsonMatches[0]);
       } else {
-        // Fallback analysis based on keywords
-        analysis = {
-          isDeepfake: analysisText.toLowerCase().includes('deepfake') || 
-                      analysisText.toLowerCase().includes('fake') ||
-                      analysisText.toLowerCase().includes('manipulated'),
-          confidence: 75,
-          indicators: extractIndicators(analysisText),
-          riskLevel: determineRiskLevel(analysisText),
-          recommendations: extractRecommendations(analysisText),
-          technicalDetails: {}
-        };
+        // Fallback: try to find any JSON-like structure
+        const simpleJsonMatch = analysisText.match(/\{[\s\S]*\}/);
+        if (simpleJsonMatch) {
+          // Clean up the JSON by removing any trailing content after the first complete object
+          let jsonString = simpleJsonMatch[0];
+          // Find the end of the first complete JSON object
+          let braceCount = 0;
+          let endIndex = -1;
+          for (let i = 0; i < jsonString.length; i++) {
+            if (jsonString[i] === '{') braceCount++;
+            if (jsonString[i] === '}') braceCount--;
+            if (braceCount === 0) {
+              endIndex = i + 1;
+              break;
+            }
+          }
+          if (endIndex > 0) {
+            jsonString = jsonString.substring(0, endIndex);
+          }
+          analysis = JSON.parse(jsonString);
+        } else {
+          // Fallback analysis based on keywords
+          analysis = {
+            isDeepfake: analysisText.toLowerCase().includes('deepfake') || 
+                        analysisText.toLowerCase().includes('fake') ||
+                        analysisText.toLowerCase().includes('manipulated'),
+            confidence: 75,
+            indicators: extractIndicators(analysisText),
+            riskLevel: determineRiskLevel(analysisText),
+            recommendations: extractRecommendations(analysisText),
+            technicalDetails: {}
+          };
+        }
       }
-    } catch {
+    } catch (e) {
       analysis = generateFallbackAnalysis(analysisText);
     }
 

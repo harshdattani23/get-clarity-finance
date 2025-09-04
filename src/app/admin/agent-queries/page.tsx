@@ -23,7 +23,9 @@ import {
   AlertCircle,
   Info,
   Eye,
-  X
+  X,
+  FileText,
+  HardDrive
 } from "lucide-react";
 import Link from "next/link";
 
@@ -182,7 +184,7 @@ export default function AgentQueriesDashboard() {
         if (parsedResponse.hasOwnProperty('isDeepfake')) {
           if (parsedResponse.isDeepfake === true) {
             return {
-              outcome: "fraud",
+              outcome: "suspicious",
               confidence: parsedResponse.confidence || null,
               parsedResponse
             };
@@ -191,13 +193,13 @@ export default function AgentQueriesDashboard() {
             const riskLevel = parsedResponse.riskLevel?.toLowerCase();
             if (riskLevel === 'high') {
               return {
-                outcome: "fraud",
+                outcome: "suspicious",
                 confidence: parsedResponse.confidence || null,
                 parsedResponse
               };
             } else {
               return {
-                outcome: "not_fraud",
+                outcome: "not_suspicious",
                 confidence: parsedResponse.confidence || null,
                 parsedResponse
               };
@@ -209,13 +211,13 @@ export default function AgentQueriesDashboard() {
         if (parsedResponse.hasOwnProperty('found')) {
           if (parsedResponse.found === true) {
             return {
-              outcome: "not_fraud", // Found in SEBI registry = legitimate
+              outcome: "found", // Found in SEBI registry = legitimate
               confidence: null,
               parsedResponse
             };
           } else if (parsedResponse.found === false) {
             return {
-              outcome: "fraud", // Not found in SEBI registry = potentially fraudulent
+              outcome: "not_found", // Not found in SEBI registry = potentially suspicious
               confidence: null,
               parsedResponse
             };
@@ -238,9 +240,8 @@ export default function AgentQueriesDashboard() {
           if (typeof field === 'string') {
             const lowerField = field.toLowerCase();
             
-            // Check for fraud/high-risk indicators
-            if (lowerField.includes('fraud') || 
-                lowerField.includes('suspicious') || 
+            // Check for suspicious/high-risk indicators
+            if (lowerField.includes('suspicious') || 
                 lowerField.includes('threat') ||
                 lowerField.includes('high risk') ||
                 lowerField.includes('scam') ||
@@ -251,7 +252,7 @@ export default function AgentQueriesDashboard() {
                 lowerField.includes('🚨') ||
                 (lowerField.includes('risk') && (lowerField.includes('high') || lowerField.includes('significant')))) {
               return {
-                outcome: "fraud",
+                outcome: "suspicious",
                 confidence: parsedResponse.confidence || parsedResponse.analysis?.confidence || null,
                 parsedResponse
               };
@@ -264,15 +265,15 @@ export default function AgentQueriesDashboard() {
                 lowerField.includes('authentic') ||
                 lowerField.includes('genuine') ||
                 lowerField.includes('low risk') ||
-                lowerField.includes('no fraud') ||
-                lowerField.includes('not fraud') ||
+                lowerField.includes('no suspicious') ||
+                lowerField.includes('not suspicious') ||
                 lowerField.includes('appears authentic') ||
                 lowerField.includes('relatively authentic') ||
                 lowerField.includes('✅') ||
                 lowerField.includes('✓') ||
                 (lowerField.includes('risk') && lowerField.includes('low'))) {
               return {
-                outcome: "not_fraud",
+                outcome: "not_suspicious",
                 confidence: parsedResponse.confidence || parsedResponse.analysis?.confidence || null,
                 parsedResponse
               };
@@ -281,17 +282,17 @@ export default function AgentQueriesDashboard() {
         }
         
         // Check boolean fields
-        if (parsedResponse.isFraud === true || parsedResponse.suspicious === true || parsedResponse.threat === true) {
+        if (parsedResponse.suspicious === true || parsedResponse.threat === true) {
           return {
-            outcome: "fraud",
+            outcome: "suspicious",
             confidence: parsedResponse.confidence || parsedResponse.analysis?.confidence || null,
             parsedResponse
           };
         }
         
-        if (parsedResponse.isFraud === false || parsedResponse.suspicious === false || parsedResponse.threat === false) {
+        if (parsedResponse.suspicious === false || parsedResponse.threat === false) {
           return {
-            outcome: "not_fraud",
+            outcome: "not_suspicious",
             confidence: parsedResponse.confidence || parsedResponse.analysis?.confidence || null,
             parsedResponse
           };
@@ -308,9 +309,8 @@ export default function AgentQueriesDashboard() {
     if (response && typeof response === 'string') {
       const lowerResponse = response.toLowerCase();
       
-      // Check for fraud/high-risk indicators in plain text
-      if (lowerResponse.includes('fraud') || 
-          lowerResponse.includes('suspicious') || 
+      // Check for suspicious/high-risk indicators in plain text
+      if (lowerResponse.includes('suspicious') || 
           lowerResponse.includes('threat') ||
           lowerResponse.includes('high risk') ||
           lowerResponse.includes('scam') ||
@@ -321,7 +321,7 @@ export default function AgentQueriesDashboard() {
           lowerResponse.includes('🚨') ||
           (lowerResponse.includes('risk') && (lowerResponse.includes('high') || lowerResponse.includes('significant')))) {
         return {
-          outcome: "fraud",
+          outcome: "suspicious",
           confidence: null,
           parsedResponse: { rawText: response }
         };
@@ -334,15 +334,15 @@ export default function AgentQueriesDashboard() {
           lowerResponse.includes('authentic') ||
           lowerResponse.includes('genuine') ||
           lowerResponse.includes('low risk') ||
-          lowerResponse.includes('no fraud') ||
-          lowerResponse.includes('not fraud') ||
+          lowerResponse.includes('no suspicious') ||
+          lowerResponse.includes('not suspicious') ||
           lowerResponse.includes('appears authentic') ||
           lowerResponse.includes('relatively authentic') ||
           lowerResponse.includes('✅') ||
           lowerResponse.includes('✓') ||
           (lowerResponse.includes('risk') && lowerResponse.includes('low'))) {
         return {
-          outcome: "not_fraud",
+          outcome: "not_suspicious",
           confidence: null,
           parsedResponse: { rawText: response }
         };
@@ -368,7 +368,10 @@ export default function AgentQueriesDashboard() {
     const headers = ["Report ID", "Agent Type", "Query", "Success", "Execution Time", "Created At", "Outcome"];
     const rows = sortedQueries.map(query => {
       const { outcome, confidence } = parseOutcome(query.response);
-      const outcomeText = outcome === "fraud" ? "Fraud" : outcome === "not_fraud" ? "Not Fraud" : "Unknown";
+      const outcomeText = outcome === "suspicious" ? "Suspicious" : 
+                          outcome === "not_suspicious" ? "Not Suspicious" : 
+                          outcome === "found" ? "Found" : 
+                          outcome === "not_found" ? "Not Found" : "Unknown";
       const outcomeWithConfidence = confidence ? `${outcomeText} (${confidence}%)` : outcomeText;
       
       return [
@@ -547,6 +550,7 @@ export default function AgentQueriesDashboard() {
               <option value="social-monitor">Social Monitor</option>
               <option value="announcement-verifier">Announcement Verifier</option>
               <option value="advisor-verifier">Advisor Verifier</option>
+              <option value="document-analyzer">Document Analyzer</option>
             </select>
             <select
               value={filterStatus}
@@ -652,25 +656,47 @@ export default function AgentQueriesDashboard() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {(() => {
                         const { outcome, confidence, parsedResponse } = parseOutcome(query.response);
-                        if (outcome === "fraud") {
+                        if (outcome === "suspicious") {
                           return (
                             <button
                               onClick={() => handleViewOutcome(query)}
                               className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full hover:bg-red-200 transition-colors cursor-pointer"
                             >
                               <AlertTriangle className="w-3 h-3" />
-                              Fraud {confidence && `(${confidence}%)`}
+                              Suspicious {confidence && `(${confidence}%)`}
                               <Eye className="w-3 h-3 ml-1" />
                             </button>
                           );
-                        } else if (outcome === "not_fraud") {
+                        } else if (outcome === "not_suspicious") {
                           return (
                             <button
                               onClick={() => handleViewOutcome(query)}
                               className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors cursor-pointer"
                             >
                               <CheckCircle className="w-3 h-3" />
-                              Not Fraud {confidence && `(${confidence}%)`}
+                              Not Suspicious {confidence && `(${confidence}%)`}
+                              <Eye className="w-3 h-3 ml-1" />
+                            </button>
+                          );
+                        } else if (outcome === "found") {
+                          return (
+                            <button
+                              onClick={() => handleViewOutcome(query)}
+                              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors cursor-pointer"
+                            >
+                              <CheckCircle className="w-3 h-3" />
+                              Found {confidence && `(${confidence}%)`}
+                              <Eye className="w-3 h-3 ml-1" />
+                            </button>
+                          );
+                        } else if (outcome === "not_found") {
+                          return (
+                            <button
+                              onClick={() => handleViewOutcome(query)}
+                              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full hover:bg-orange-200 transition-colors cursor-pointer"
+                            >
+                              <AlertCircle className="w-3 h-3" />
+                              Not Found {confidence && `(${confidence}%)`}
                               <Eye className="w-3 h-3 ml-1" />
                             </button>
                           );
@@ -749,15 +775,25 @@ export default function AgentQueriesDashboard() {
                     <div>
                       <h4 className="text-sm font-semibold text-gray-700 mb-2">Outcome</h4>
                       <div className="flex items-center gap-2">
-                        {outcome === "fraud" ? (
+                        {outcome === "suspicious" ? (
                           <span className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-red-100 text-red-800 rounded-full">
                             <AlertTriangle className="w-4 h-4" />
-                            Fraud Detected {confidence && `(${confidence}% confidence)`}
+                            Suspicious Activity Detected {confidence && `(${confidence}% confidence)`}
                           </span>
-                        ) : outcome === "not_fraud" ? (
+                        ) : outcome === "not_suspicious" ? (
                           <span className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">
                             <CheckCircle className="w-4 h-4" />
-                            No Fraud Detected {confidence && `(${confidence}% confidence)`}
+                            No Suspicious Activity {confidence && `(${confidence}% confidence)`}
+                          </span>
+                        ) : outcome === "found" ? (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 rounded-full">
+                            <CheckCircle className="w-4 h-4" />
+                            Found in Registry {confidence && `(${confidence}% confidence)`}
+                          </span>
+                        ) : outcome === "not_found" ? (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-orange-100 text-orange-800 rounded-full">
+                            <AlertCircle className="w-4 h-4" />
+                            Not Found in Registry {confidence && `(${confidence}% confidence)`}
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">

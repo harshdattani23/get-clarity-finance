@@ -847,7 +847,6 @@ const FinancialSecurityEducationHub: NextPage = () => {
           userName={certificateData.userName}
           courseName={certificateData.courseName}
           completionDate={certificateData.completionDate}
-          totalXP={certificateData.totalXP}
           moduleCount={certificateData.moduleCount}
           completedModules={certificateData.completedModules}
           certificateId={certificateData.id}

@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
 import { auth } from '@clerk/nextjs/server';
+import { validateSebiQueryPayload } from '@/lib/agentValidation';
 
 const prisma = new PrismaClient();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -225,13 +226,12 @@ export async function POST(request) {
   let logEntry = null;
   
   try {
-    const { question, context = {} } = await request.json();
+    const body = await request.json();
+    const { question, context = {} } = body;
 
-    if (!question) {
-      return NextResponse.json(
-        { error: 'Question is required' },
-        { status: 400 }
-      );
+    const v = validateSebiQueryPayload(body);
+    if (!v.valid) {
+      return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
 
     // Get request metadata and user info

@@ -1,25 +1,28 @@
 {
   "tabs": {
-    "videoFraud": "Video Fraud Analyzer",
+    "videoFraud": "Video Suspicious Activity Analyzer",
     "socialMedia": "Social Media Monitor", 
     "announcement": "Announcement Verifier",
-    "sebiRegistry": "SEBI Registry Verification"
+    "sebiRegistry": "SEBI Registry Verification",
+    "documentAnalyzer": "Document Analyzer"
   },
   "titles": {
     "deepfake": "🎥 Video Fraud Analysis System",
-    "social": "📱 Social Media Fraud Monitor",
+    "social": "📱 Social Media Suspicious Activity Monitor",
     "announcement": "📄 Corporate Announcement Verifier",
-    "sebiQuery": "🏛️ SEBI Registry Intelligence"
+    "sebiQuery": "🏛️ SEBI Registry Intelligence",
+    "documentAnalyzer": "📄 Document Fraud Analyzer"
   },
   "descriptions": {
-    "deepfake": "Financial fraud detection ke liye comprehensive video analysis. YouTube videos aur doosre media analyze karta hai - deepfakes, impersonation, jhoothe daave, manipulated content, aur unauthorized financial advice ke liye. Hamare AI investors ki safety ke liye video, audio, metadata aur content claims check karta hai.",
+    "deepfake": "Financial suspicious activity detection ke liye comprehensive video analysis. YouTube videos aur doosre media analyze karta hai - deepfakes, impersonation, jhoothe daave, manipulated content, aur unauthorized financial advice ke liye. Hamare AI investors ki safety ke liye video, audio, metadata aur content claims check karta hai.",
     "social": "WhatsApp, Telegram aur social media par pump-and-dump schemes, fake investment tips, Ponzi schemes aur coordinated market manipulation attempts monitor karta hai.",
     "announcement": "Historical data se cross-reference karke, compliance requirements check karke aur suspicious patterns detect karke corporate announcements ki authenticity verify karta hai.",
-    "sebiQuery": "Comprehensive SEBI registry intelligence access kariye. Instantly broker registrations verify kariye, Alternative Investment Funds search kariye, multi-segment operators identify kariye, aur AI-powered natural language search ke saath 4,923+ registered intermediaries analyze kariye."
+    "sebiQuery": "Comprehensive SEBI registry intelligence access kariye. Instantly broker registrations verify kariye, Alternative Investment Funds search kariye, multi-segment operators identify kariye, aur AI-powered natural language search ke saath 4,923+ registered intermediaries analyze kariye.",
+    "documentAnalyzer": "Advanced document fraud detection system jo suspicious investment documents, certificates, aur letters analyze karta hai. AI-powered OCR use karke PDFs aur images se text extract karta hai, phir fraud indicators, fake SEBI approvals, suspicious patterns detect karta hai aur comprehensive risk scores calculate karta hai taaki investors ko document-based scams se protection mil sake."
   },
   "features": {
     "deepfake": {
-      "feature1": "Fraud Detection",
+      "feature1": "Suspicious Activity Detection",
       "feature2": "Deepfake Analysis", 
       "feature3": "Claims Verification",
       "feature4": "SEBI Compliance"
@@ -41,6 +44,12 @@
       "feature2": "Multi-Segment Search",
       "feature3": "Real-time Verification",
       "feature4": "AI-Powered Queries"
+    },
+    "documentAnalyzer": {
+      "feature1": "PDF Text Extraction",
+      "feature2": "OCR for Images",
+      "feature3": "SEBI Pattern Detection",
+      "feature4": "Fraud Risk Scoring"
     }
   },
   "inputLabels": {
@@ -54,7 +63,7 @@
     "sebiQuery": "SEBI ke official registry database mein search kariye...\n\nSearch examples:\n• Verify kariye ki kya Zerodha SEBI registered hai\n• Saare Alternative Investment Funds list kariye\n• Multi-segment financial operators find kariye\n• 'Capital' naam waale brokers search kariye\n• Database statistics aur insights paayiye"
   },
   "buttons": {
-    "analyzeGeneral": "Fraud ke liye Analyze kariye",
+    "analyzeGeneral": "Suspicious Activity ke liye Analyze kariye",
     "verifySebi": "SEBI Registry mein Verify kariye",
     "analyzing": "Analyze kar rahe hain...",
     "useExample": "Example Use kariye"
@@ -69,7 +78,7 @@
     "currentProcess": "Current Process:",
     "analysisProgress": "Analysis Progress",
     "currentlyAnalyzing": "🔍 Currently Analyze kar rahe hain",
-    "importantTips": "💡 Important: Video Fraud kaise spot karein",
+    "importantTips": "💡 Important: Video Suspicious Activity kaise spot karein",
     "elementsAnalyzed": "✅ Elements Analyzed"
   },
   "results": {
@@ -99,12 +108,17 @@
     "affectedStocks": "Affected Stocks:",
     "credibilityScore": "Credibility Score:",
     "recommendedActions": "Recommended Actions:",
-    "sebiFraudReporting": "⚠️ SEBI Fraud Reporting Required",
-    "fraudReportingText": "Is content ko potential fraud ke roop mein flag kiya gaya hai. Doosre investors ki safety ke liye turant report kariye.",
+    "sebiSuspiciousReporting": "⚠️ SEBI Suspicious Activity Reporting Required",
+    "suspiciousReportingText": "Is content ko potential suspicious activity ke roop mein flag kiya gaya hai. Doosre investors ki safety ke liye turant report kariye.",
     "fileComplaint": "🚨 SEBI SCORES Portal par Complaint file kariye",
     "sebiTollFree": "📞 SEBI Toll-Free: 1800-266-7575 ya 1800-22-7575",
     "availableHours": "(Subah 9:00 se Shaam 6:00 tak available)",
     "saveEvidence": "💡 Report karne se pehle saare evidence (screenshots, URLs, transcripts) save kariye"
+  },
+  "disclaimer": {
+    "title": "⚠️ AI Analysis Disclaimer",
+    "content": "Yeh analysis AI-generated hai aur sirf jaankari ke liye diya gaya hai. getclarity.finance is output ke aadhar par liye gaye investment decisions ki koi zimmedari nahi leti. Hamesha apni research kariye aur qualified financial advisors se salah liye investment decisions lene se pehle. AI mein limitations aur errors ho sakte hain.",
+    "emphasis": "Financial Advice Nahi • Apne Risk Par Use Kariye • Independently Verify Kariye"
   },
   "stages": {
     "video": [
@@ -125,7 +139,7 @@
     ],
     "general": [
       "📝 Content padh rahe hain...",
-      "🚨 Fraud signals detect kar rahe hain...",
+      "🚨 Suspicious signals detect kar rahe hain...",
       "🔗 Data cross-reference kar rahe hain...",
       "✅ Analysis finalize kar rahe hain..."
     ]
