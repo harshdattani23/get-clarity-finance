@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   title: "Get Clarity Finance | Your AI Shield for Safe Investing",
   description: "Analyze suspicious messages, links, and documents to protect yourself from financial fraud. Get Clarity Finance is your AI-powered guide to smarter, safer investing.",
   manifest: '/manifest.json',
-  themeColor: '#10b981',
   icons: {
     icon: [
       {
@@ -41,6 +40,10 @@ export const metadata: Metadata = {
     ],
     shortcut: '/favicon.svg',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#10b981',
 };
 
 export default function RootLayout({
