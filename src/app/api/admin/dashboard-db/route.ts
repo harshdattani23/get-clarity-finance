@@ -62,6 +62,14 @@ export async function GET() {
       // Removed limit to get all queries
     });
 
+    // Fetch ALL agent queries from the new logging system
+    const agentQueries = await prisma.agentQuery.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+      // Removed limit to get all queries
+    });
+
     // Fetch fraud reports
     const fraudReports = await prisma.fraudReport.findMany({
       orderBy: {
@@ -144,28 +152,55 @@ export async function GET() {
       ? userProgressList.reduce((acc, user) => acc + user.progressPercentage, 0) / userProgressList.length
       : 0;
 
-    // Process verification logs for statistics
-    const totalQueries = verificationLogs.length;
-    const queriesLast7Days = verificationLogs.filter(
+    // Process agent queries for comprehensive statistics
+    const totalAgentQueries = agentQueries.length;
+    const agentQueriesLast7Days = agentQueries.filter(
+      query => new Date(query.createdAt) > sevenDaysAgo
+    ).length;
+
+    // Group agent queries by type
+    const agentQueryTypes = agentQueries.reduce((acc, query) => {
+      const agentType = query.agentType || 'unknown';
+      acc[agentType] = (acc[agentType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Calculate success rate for agent queries
+    const successfulQueries = agentQueries.filter(q => q.success).length;
+    const successRate = totalAgentQueries > 0 ? (successfulQueries / totalAgentQueries) * 100 : 0;
+
+    // Calculate average execution time
+    const queriesWithExecTime = agentQueries.filter(q => q.executionTime);
+    const avgExecutionTime = queriesWithExecTime.length > 0 
+      ? queriesWithExecTime.reduce((acc, q) => acc + (q.executionTime || 0), 0) / queriesWithExecTime.length
+      : 0;
+
+    // Process legacy verification logs for backward compatibility
+    const totalLegacyQueries = verificationLogs.length;
+    const legacyQueriesLast7Days = verificationLogs.filter(
       log => new Date(log.createdAt) > sevenDaysAgo
     ).length;
 
-    // Group queries by type (agent type)
-    const queryTypes = verificationLogs.reduce((acc, log) => {
+    // Group legacy queries by type (agent type)
+    const legacyQueryTypes = verificationLogs.reduce((acc, log) => {
       const agentType = log.searchType || 'unknown';
       acc[agentType] = (acc[agentType] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    // Calculate queries by agent for display
+    // Calculate combined queries by agent for display
     const agentQueryBreakdown = {
-      'deepfake': queryTypes['deepfake'] || queryTypes['video'] || 0,
-      'social': queryTypes['social'] || queryTypes['social-media'] || 0,
-      'announcement': queryTypes['announcement'] || queryTypes['corporate'] || 0,
-      'sebi-query': queryTypes['sebi-query'] || queryTypes['sebi'] || queryTypes['registry'] || 0,
-      'advisor-verifier': queryTypes['advisor-verifier'] || queryTypes['advisor'] || 0,
-      'other': queryTypes['other'] || queryTypes['unknown'] || 0
+      'deepfake-detector': (agentQueryTypes['deepfake-detector'] || 0) + (agentQueryTypes['deepfake-detector-v2'] || 0) + (legacyQueryTypes['deepfake'] || legacyQueryTypes['video'] || 0),
+      'social-monitor': (agentQueryTypes['social-monitor'] || 0) + (legacyQueryTypes['social'] || legacyQueryTypes['social-media'] || 0),
+      'announcement-verifier': (agentQueryTypes['announcement-verifier'] || 0) + (legacyQueryTypes['announcement'] || legacyQueryTypes['corporate'] || 0),
+      'sebi-query': (agentQueryTypes['sebi-query'] || 0) + (legacyQueryTypes['sebi-query'] || legacyQueryTypes['sebi'] || legacyQueryTypes['registry'] || 0),
+      'advisor-verifier': (agentQueryTypes['advisor-verifier'] || 0) + (legacyQueryTypes['advisor-verifier'] || legacyQueryTypes['advisor'] || 0),
+      'other': (agentQueryTypes['other'] || 0) + (legacyQueryTypes['other'] || legacyQueryTypes['unknown'] || 0)
     };
+
+    // Combine total queries
+    const totalQueries = totalAgentQueries + totalLegacyQueries;
+    const queriesLast7Days = agentQueriesLast7Days + legacyQueriesLast7Days;
 
     // Process fraud reports
     const totalReports = fraudReports.length;
@@ -189,6 +224,11 @@ export async function GET() {
         queriesLast7Days,
         totalReports,
         pendingReports,
+        // New agent query stats
+        totalAgentQueries,
+        agentQueriesLast7Days,
+        successRate: successRate.toFixed(1),
+        avgExecutionTime: Math.round(avgExecutionTime),
       },
       moduleCompletionRates,
       userProgress: userProgressList,
@@ -204,6 +244,19 @@ export async function GET() {
         legitimacyStatus: log.legitimacyStatus,
         createdAt: log.createdAt.toISOString(),
       })),
+      // Add agent queries to the response
+      agentQueries: agentQueries.slice(0, 50).map(query => ({
+        id: query.id,
+        reportId: query.reportId,
+        agentType: query.agentType,
+        query: query.query,
+        response: query.response ? query.response.substring(0, 500) + '...' : null, // Truncate for display
+        success: query.success,
+        error: query.error,
+        executionTime: query.executionTime,
+        userId: query.userId,
+        createdAt: query.createdAt.toISOString(),
+      })),
       fraudReports: fraudReports.slice(0, 10).map(report => ({
         id: report.id,
         reportId: report.reportId,
@@ -214,7 +267,8 @@ export async function GET() {
         sebiReported: report.sebiReported,
         createdAt: report.createdAt.toISOString(),
       })),
-      queryTypes,
+      queryTypes: legacyQueryTypes, // Legacy query types
+      agentQueryTypes, // New agent query types
       agentQueryBreakdown,
       fraudTypeStats,
       reportStats: {

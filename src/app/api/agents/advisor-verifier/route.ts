@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -35,7 +37,15 @@ interface AdvisorVerification {
 }
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  let reportId: string | undefined;
+  
   try {
+    // Get user info and request metadata
+    const { userId } = await auth();
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+    
     const { 
       name,
       registrationNumber,
@@ -48,6 +58,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Generate report ID for this query
+    reportId = generateReportId();
 
     // Search in SEBI database
     let intermediary = null;
@@ -219,19 +232,7 @@ export async function POST(request: NextRequest) {
       lastUpdated: 'Aug 26, 2025'
     };
 
-    // Log verification attempt
-    await prisma.verificationLog.create({
-      data: {
-        searchQuery: name || registrationNumber || '',
-        searchType: checkType,
-        found: !!intermediary,
-        riskScore,
-        legitimacyStatus: legitimacy,
-        intermediaryId: intermediary?.id
-      }
-    });
-
-    // Log high-risk cases
+    // Log high-risk cases (keeping existing fraud report system)
     if (legitimacy === 'fraudulent' || (legitimacy === 'suspicious' && riskScore > 60)) {
       await prisma.fraudReport.create({
         data: {
@@ -249,8 +250,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({
+    const executionTime = Date.now() - startTime;
+    const responseData = {
       success: true,
+      reportId, // Include the report ID in response
       verification,
       similarRegisteredEntities: similarNames.map(s => ({
         name: s.name,
@@ -264,10 +267,54 @@ export async function POST(request: NextRequest) {
         reportFraud: 'https://scores.sebi.gov.in/',
         helpline: '1800-266-7575'
       }
+    };
+    
+    // Log query using new AgentQuery system
+    await logAgentQuery({
+      agentType: 'advisor-verifier',
+      query: `Name: ${name || 'N/A'}, Reg: ${registrationNumber || 'N/A'}`,
+      response: JSON.stringify({
+        isRegistered: verification.isRegistered,
+        legitimacy: verification.verificationStatus.legitimacy,
+        riskScore: verification.verificationStatus.riskScore,
+        message: generateSummaryMessage(verification)
+      }),
+      success: true,
+      executionTime,
+      userId: userId || undefined,
+      userAgent,
+      ipAddress: userIP
     });
+    
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('Advisor verification error:', error);
+    
+    // Log error if we have a reportId
+    if (reportId) {
+      const executionTime = Date.now() - startTime;
+      try {
+        const { userId } = await auth();
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+        
+        await logAgentQuery({
+          agentType: 'advisor-verifier',
+          query: 'Error occurred during processing',
+          response: JSON.stringify({ error: 'Failed to verify advisor' }),
+          success: false,
+          executionTime,
+          userId: userId || undefined,
+          userAgent,
+          ipAddress: userIP,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      } catch (logError) {
+        console.error('Failed to log error:', logError);
+      }
+    }
+    
     return NextResponse.json(
       { error: 'Failed to verify advisor' },
       { status: 500 }
@@ -396,4 +443,8 @@ export async function PUT(request: NextRequest) {
   } finally {
     await prisma.$disconnect();
   }
+}
+
+function generateReportId(): string {
+  return `GC-AV-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }

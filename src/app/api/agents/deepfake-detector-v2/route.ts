@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  let reportId: string | undefined;
+  
   try {
+    // Get user info and request metadata
+    const { userId } = await auth();
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+    
     const { mediaUrl, mediaType, transcript, metadata } = await request.json();
 
     if (!mediaUrl && !transcript) {
@@ -190,13 +200,14 @@ Provide analysis in JSON format with:
       };
     }
 
-    // Generate report ID
-    const reportId = `GC-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Generate report ID (move this to beginning after user auth)
+    reportId = `GC-DF-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
     // Prepare detailed response
     const detailedResponse = generateDetailedResponse(analysis, isYouTubeVideo);
 
-    return NextResponse.json({
+    const executionTime = Date.now() - startTime;
+    const responseData = {
       success: true,
       analysis,
       reportId,
@@ -207,10 +218,54 @@ Provide analysis in JSON format with:
       mediaType: isYouTubeVideo ? 'YouTube Video' : mediaType || 'Text/Transcript',
       videoUrl: isYouTubeVideo ? videoUrl : undefined,
       timestamp: new Date().toISOString()
+    };
+    
+    // Log query using new AgentQuery system
+    await logAgentQuery({
+      agentType: 'deepfake-detector-v2',
+      query: isYouTubeVideo ? videoUrl || inputContent : inputContent.substring(0, 500),
+      response: JSON.stringify({
+        isDeepfake: analysis.isDeepfake,
+        riskLevel: analysis.riskLevel,
+        confidence: analysis.confidence,
+        summary: detailedResponse.summary
+      }),
+      success: true,
+      executionTime,
+      userId: userId || undefined,
+      userAgent,
+      ipAddress: userIP
     });
+    
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('Deepfake detection error:', error);
+    
+    // Log error if we have a reportId
+    if (reportId) {
+      const executionTime = Date.now() - startTime;
+      try {
+        const { userId } = await auth();
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+        
+        await logAgentQuery({
+          agentType: 'deepfake-detector-v2',
+          query: 'Error occurred during processing',
+          response: JSON.stringify({ error: 'Failed to analyze media for deepfake' }),
+          success: false,
+          executionTime,
+          userId: userId || undefined,
+          userAgent,
+          ipAddress: userIP,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      } catch (logError) {
+        console.error('Failed to log error:', logError);
+      }
+    }
+    
     return NextResponse.json(
       { 
         error: 'Failed to analyze media for deepfake',

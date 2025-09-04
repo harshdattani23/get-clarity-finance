@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 const prisma = new PrismaClient();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -219,6 +221,9 @@ async function queryDatabase(intent) {
 }
 
 export async function POST(request) {
+  const startTime = Date.now();
+  let logEntry = null;
+  
   try {
     const { question, context = {} } = await request.json();
 
@@ -228,6 +233,11 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    // Get request metadata and user info
+    const { userAgent, ipAddress } = getRequestMetadata(request);
+    const { userId } = await auth();
+    const sessionId = request.headers.get('x-session-id') || null;
 
     // Initialize Gemini model
     const model = genAI.getGenerativeModel({ 
@@ -378,10 +388,58 @@ export async function POST(request) {
       timestamp: new Date().toISOString()
     };
 
+    // Log successful query
+    const executionTime = Date.now() - startTime;
+    logEntry = await logAgentQuery({
+      agentType: 'sebi-query',
+      query: question,
+      response: aiResponse,
+      userAgent,
+      ipAddress,
+      userId,
+      sessionId,
+      success: true,
+      metadata: {
+        intent,
+        query_type: queryResults.query_type,
+        data_count: response.data_count,
+        has_data: response.has_data,
+        context
+      },
+      executionTime
+    });
+
+    // Add report ID to response if logging was successful
+    if (logEntry) {
+      response.reportId = logEntry.reportId;
+    }
+
     return NextResponse.json(response);
 
   } catch (error) {
     console.error('SEBI Query Agent error:', error);
+    
+    // Log error query
+    const executionTime = Date.now() - startTime;
+    const { userAgent, ipAddress } = getRequestMetadata(request);
+    
+    try {
+      const { question } = await request.json();
+      const { userId } = await auth();
+      
+      await logAgentQuery({
+        agentType: 'sebi-query',
+        query: question || 'Unknown query',
+        userAgent,
+        ipAddress,
+        userId,
+        success: false,
+        error: error.message,
+        executionTime
+      });
+    } catch (logError) {
+      console.error('Failed to log error query:', logError);
+    }
     
     return NextResponse.json(
       {

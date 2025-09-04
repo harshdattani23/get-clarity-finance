@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -28,7 +30,15 @@ interface DeepfakeAnalysis {
 }
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  let reportId: string | undefined;
+  
   try {
+    // Get user info and request metadata
+    const { userId } = await auth();
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+    
     const { mediaUrl, mediaType, transcript, metadata } = await request.json();
 
     if (!mediaUrl && !transcript) {
@@ -37,6 +47,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Generate report ID for this query
+    reportId = generateReportId();
 
     const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
@@ -159,34 +172,65 @@ export async function POST(request: NextRequest) {
     // Generate detailed response based on analysis
     const detailedResponse = generateDetailedResponse(analysis, isYouTubeVideo);
     
-    // Store verification log in database
-    try {
-      await prisma.verificationLog.create({
-        data: {
-          searchQuery: isYouTubeVideo ? videoUrl : inputContent.substring(0, 500),
-          searchType: 'deepfake',
-          found: analysis.isDeepfake || false,
-          riskScore: Math.round(analysis.confidence || 50),
-          legitimacyStatus: analysis.riskLevel || 'unknown'
-        }
-      });
-    } catch (logError) {
-      console.error('Failed to store verification log:', logError);
-    }
-    
-    return NextResponse.json({
+    const executionTime = Date.now() - startTime;
+    const responseData = {
       success: true,
       analysis,
-      sessionId: sessionId, // Use session ID instead of report ID for analysis
+      reportId, // Include the report ID in response
+      sessionId: sessionId,
       message: detailedResponse.summary,
       detailed: detailedResponse,
       videoAnalyzed: isYouTubeVideo,
       mediaType: isYouTubeVideo ? 'YouTube Video' : mediaType || 'Text/Transcript',
       videoUrl: isYouTubeVideo ? videoUrl : undefined
+    };
+    
+    // Log query using new AgentQuery system
+    await logAgentQuery({
+      agentType: 'deepfake-detector',
+      query: isYouTubeVideo ? videoUrl : inputContent.substring(0, 500),
+      response: JSON.stringify({
+        isDeepfake: analysis.isDeepfake,
+        riskLevel: analysis.riskLevel,
+        confidence: analysis.confidence,
+        summary: detailedResponse.summary
+      }),
+      success: true,
+      executionTime,
+      userId: userId || undefined,
+      userAgent,
+      ipAddress: userIP
     });
+    
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('Deepfake detection error:', error);
+    
+    // Log error if we have a reportId
+    if (reportId) {
+      const executionTime = Date.now() - startTime;
+      try {
+        const { userId } = await auth();
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+        
+        await logAgentQuery({
+          agentType: 'deepfake-detector',
+          query: 'Error occurred during processing',
+          response: JSON.stringify({ error: 'Failed to analyze media for deepfake' }),
+          success: false,
+          executionTime,
+          userId: userId || undefined,
+          userAgent,
+          ipAddress: userIP,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      } catch (logError) {
+        console.error('Failed to log error:', logError);
+      }
+    }
+    
     return NextResponse.json(
       { error: 'Failed to analyze media for deepfake' },
       { status: 500 }

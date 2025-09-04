@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -23,7 +25,15 @@ interface SocialMediaThreat {
 }
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  let reportId: string | undefined;
+  
   try {
+    // Get user info and request metadata
+    const { userId } = await auth();
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+    
     const { 
       content, 
       platform, 
@@ -39,6 +49,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Generate report ID for this query
+    reportId = generateReportId('SM');
 
     const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
@@ -161,32 +174,63 @@ export async function POST(request: NextRequest) {
       ? threat.threatType[0] 
       : threat.threatType;
     
-    // Store verification log in database
-    try {
-      await prisma.verificationLog.create({
-        data: {
-          searchQuery: `${platform || 'Unknown'}: ${content.substring(0, 400)}`,
-          searchType: 'social',
-          found: threat.riskScore > 50,
-          riskScore: threat.riskScore,
-          legitimacyStatus: primaryThreatType
-        }
-      });
-    } catch (logError) {
-      console.error('Failed to store verification log:', logError);
-    }
-    
-    return NextResponse.json({
+    const executionTime = Date.now() - startTime;
+    const responseData = {
       success: true,
       threat,
       alert,
-      reportId: generateReportId('SM'),
+      reportId, // Use the report ID generated earlier
       actionRequired: threat.riskScore > 70,
       message: getAlertMessage(threat.riskScore, primaryThreatType)
+    };
+    
+    // Log query using new AgentQuery system
+    await logAgentQuery({
+      agentType: 'social-monitor',
+      query: `Platform: ${platform || 'Unknown'}, Group: ${groupName || 'N/A'}, Content: ${content.substring(0, 200)}...`,
+      response: JSON.stringify({
+        threatType: primaryThreatType,
+        riskScore: threat.riskScore,
+        coordinatedActivity: threat.coordinatedActivity,
+        affectedStocks: threat.affectedStocks || [],
+        message: getAlertMessage(threat.riskScore, primaryThreatType)
+      }),
+      success: true,
+      executionTime,
+      userId: userId || undefined,
+      userAgent,
+      ipAddress: userIP
     });
+    
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('Social media monitoring error:', error);
+    
+    // Log error if we have a reportId
+    if (reportId) {
+      const executionTime = Date.now() - startTime;
+      try {
+        const { userId } = await auth();
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+        
+        await logAgentQuery({
+          agentType: 'social-monitor',
+          query: 'Error occurred during processing',
+          response: JSON.stringify({ error: 'Failed to analyze social media content' }),
+          success: false,
+          executionTime,
+          userId: userId || undefined,
+          userAgent,
+          ipAddress: userIP,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      } catch (logError) {
+        console.error('Failed to log error:', logError);
+      }
+    }
+    
     return NextResponse.json(
       { error: 'Failed to analyze social media content' },
       { status: 500 }

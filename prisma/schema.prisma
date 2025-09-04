@@ -501,6 +501,28 @@ model UserInteractionResponse {
   @@index([progressId])
 }
 
+model AgentQuery {
+  id          String   @id @default(cuid())
+  reportId    String   @unique @default(cuid()) // Unique report identifier
+  agentType   String   // sebi-query, advisor-verifier, announcement-verifier, etc.
+  query       String   // Original user query
+  response    String?  // Agent response (can be long)
+  userAgent   String?
+  ipAddress   String?
+  userId      String?  // Clerk user ID if authenticated
+  sessionId   String?  // Session identifier
+  success     Boolean  @default(true)
+  error       String?  // Error message if failed
+  metadata    Json?    // Additional context (intent, results count, etc.)
+  executionTime Int?   // Response time in milliseconds
+  createdAt   DateTime @default(now())
+  
+  @@index([agentType])
+  @@index([createdAt])
+  @@index([userId])
+  @@index([reportId])
+}
+
 enum InvestmentExperience {
   BEGINNER
   INTERMEDIATE

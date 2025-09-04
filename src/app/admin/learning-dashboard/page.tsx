@@ -35,16 +35,39 @@ interface UserProgress {
   lastActive: string;
 }
 
+interface AgentQuery {
+  id: string;
+  reportId: string;
+  agentType: string;
+  query: string;
+  response: string | null;
+  success: boolean;
+  error: string | null;
+  executionTime: number | null;
+  userId: string | null;
+  createdAt: string;
+}
+
 interface DashboardData {
   stats: {
     totalUsers: number;
     activeUsers: number;
     avgCompletionRate: string;
     recentActivity: number;
+    totalQueries: number;
+    queriesLast7Days: number;
+    totalReports: number;
+    pendingReports: number;
+    totalAgentQueries: number;
+    agentQueriesLast7Days: number;
+    successRate: string;
+    avgExecutionTime: number;
   };
   moduleCompletionRates: Record<string, number>;
   userProgress: UserProgress[];
   recentUpdates: UserProgress[];
+  agentQueries: AgentQuery[];
+  agentQueryBreakdown: Record<string, number>;
 }
 
 export default function AdminLearningDashboard() {

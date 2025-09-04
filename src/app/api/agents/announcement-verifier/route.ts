@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
+import { logAgentQuery, getRequestMetadata } from '@/lib/agentLogger';
+import { auth } from '@clerk/nextjs/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const prisma = new PrismaClient();
@@ -26,7 +28,15 @@ interface AnnouncementVerification {
 }
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  let reportId: string | undefined;
+  
   try {
+    // Get user info and request metadata
+    const { userId } = await auth();
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+    
     const {
       announcement,
       company,
@@ -43,6 +53,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
+    // Generate report ID for this query
+    reportId = generateReportId('AV');
 
     const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL_NAME! });
 
@@ -136,21 +149,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Store verification log in database
-    try {
-      await prisma.verificationLog.create({
-        data: {
-          searchQuery: `${company}: ${announcement.substring(0, 400)}`,
-          searchType: 'announcement',
-          found: verification.isAuthentic,
-          riskScore: Math.round(100 - verification.credibilityScore),
-          legitimacyStatus: verification.isAuthentic ? 'verified' : 'suspicious'
-        }
-      });
-    } catch (logError) {
-      console.error('Failed to store verification log:', logError);
-    }
-
     // Generate alert for suspicious announcements
     const alert = verification.credibilityScore < 30 ? {
       level: 'CRITICAL',
@@ -163,17 +161,63 @@ export async function POST(request: NextRequest) {
       ]
     } : null;
 
-    return NextResponse.json({
+    const executionTime = Date.now() - startTime;
+    const responseData = {
       success: true,
       verification,
       alert,
-      reportId: generateReportId('AV'),
+      reportId, // Use the report ID generated earlier
       summary: getSummaryMessage(verification),
       nextSteps: getNextSteps(verification.credibilityScore)
+    };
+    
+    // Log query using new AgentQuery system
+    await logAgentQuery({
+      agentType: 'announcement-verifier',
+      query: `Company: ${company}, Type: ${announcementType || 'General'}, Content: ${announcement.substring(0, 200)}...`,
+      response: JSON.stringify({
+        isAuthentic: verification.isAuthentic,
+        credibilityScore: verification.credibilityScore,
+        anomalies: verification.anomalies.length,
+        alertLevel: alert?.level || 'NONE',
+        summary: getSummaryMessage(verification)
+      }),
+      success: true,
+      executionTime,
+      userId: userId || undefined,
+      userAgent,
+      ipAddress: userIP
     });
+    
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('Announcement verification error:', error);
+    
+    // Log error if we have a reportId
+    if (reportId) {
+      const executionTime = Date.now() - startTime;
+      try {
+        const { userId } = await auth();
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const userIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown';
+        
+        await logAgentQuery({
+          agentType: 'announcement-verifier',
+          query: 'Error occurred during processing',
+          response: JSON.stringify({ error: 'Failed to verify announcement' }),
+          success: false,
+          executionTime,
+          userId: userId || undefined,
+          userAgent,
+          ipAddress: userIP,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      } catch (logError) {
+        console.error('Failed to log error:', logError);
+      }
+    }
+    
     return NextResponse.json(
       { error: 'Failed to verify announcement' },
       { status: 500 }
