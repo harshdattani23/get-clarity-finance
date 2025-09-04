@@ -306,7 +306,7 @@ const HeroNewsWidget: React.FC = () => {
       {/* News List - Smooth Scroll */}
       <div className="flex-1 overflow-hidden relative">
         <div 
-          className="h-full overflow-y-auto space-y-2 pr-1 scrollbar-hide"
+          className="h-full overflow-y-auto overflow-x-hidden space-y-2 pr-1 scrollbar-hide"
         >
           {news.length === 0 ? (
             <div className="text-center py-6 text-gray-500 text-sm">
