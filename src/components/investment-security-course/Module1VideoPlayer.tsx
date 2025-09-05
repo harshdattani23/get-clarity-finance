@@ -25,7 +25,7 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const videoUrl = "https://storage.googleapis.com/getclarity-audio-bucket/videos/module1/Stock_Market_Frauds.mp4";
+  const videoUrl = "https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4";
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -214,7 +214,7 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
           }
         }}
         className="w-full aspect-video object-contain"
-        poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTExODI3Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkludHJvZHVjdGlvbiB0byBTdG9jayBNYXJrZXQgRnJhdWRzPC90ZXh0Pjwvc3ZnPg=="
+        poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTExODI3Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkRldGVjdGluZyBTdXBlci1GcmF1ZDwvdGV4dD48L3N2Zz4="
         preload="metadata"
       />
 
@@ -332,7 +332,7 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
 
           <div className="flex items-center gap-2">
             <span className="text-white text-sm">
-              Introduction to Stock Market Frauds
+              Detecting Super-Fraud
             </span>
             <button
               onClick={toggleFullscreen}

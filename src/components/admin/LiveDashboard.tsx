@@ -96,17 +96,43 @@ export function LiveDashboard() {
     // Initial load
     updateStats();
     
-    // Update every 5 seconds for demo effect
-    const interval = setInterval(updateStats, 5000);
+    // Only run intervals when component is visible and tab is active
+    let interval: NodeJS.Timeout;
+    let connectionCheck: NodeJS.Timeout;
     
-    // Simulate connection status
-    const connectionCheck = setInterval(() => {
-      setIsConnected(prev => Math.random() > 0.1 ? true : prev); // 90% uptime
-    }, 2000);
+    const startIntervals = () => {
+      // Reduced update frequency to prevent interference - update every 10 seconds instead of 5
+      interval = setInterval(updateStats, 10000);
+      
+      // Simulate connection status - check every 5 seconds instead of 2
+      connectionCheck = setInterval(() => {
+        setIsConnected(prev => Math.random() > 0.1 ? true : prev); // 90% uptime
+      }, 5000);
+    };
+    
+    const stopIntervals = () => {
+      if (interval) clearInterval(interval);
+      if (connectionCheck) clearInterval(connectionCheck);
+    };
+    
+    // Only start intervals if page is visible
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopIntervals();
+      } else {
+        startIntervals();
+      }
+    };
+    
+    // Start intervals initially
+    startIntervals();
+    
+    // Listen for tab visibility changes
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     return () => {
-      clearInterval(interval);
-      clearInterval(connectionCheck);
+      stopIntervals();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [updateStats]);
 

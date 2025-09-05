@@ -42,8 +42,34 @@ export function PerformanceAnalytics() {
     };
 
     updateMetrics();
-    const interval = setInterval(updateMetrics, 3000);
-    return () => clearInterval(interval);
+    
+    let interval: NodeJS.Timeout;
+    
+    const startInterval = () => {
+      // Reduced frequency from 3s to 8s to prevent interference with other components
+      interval = setInterval(updateMetrics, 8000);
+    };
+    
+    const stopInterval = () => {
+      if (interval) clearInterval(interval);
+    };
+    
+    // Only run updates when tab is visible
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopInterval();
+      } else {
+        startInterval();
+      }
+    };
+    
+    startInterval();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      stopInterval();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const getHealthStatus = (value: number, type: 'response' | 'cache' | 'usage' | 'error') => {

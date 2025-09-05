@@ -11,8 +11,8 @@ interface CacheEntry {
 }
 
 const cache = new Map<string, CacheEntry>();
-const CACHE_DURATION = 30 * 1000; // 30 seconds cache for stock data
-const PAGINATED_CACHE_DURATION = 60 * 1000; // 1 minute for paginated data
+const CACHE_DURATION = 120 * 1000; // 2 minutes cache for stock data (longer to reduce API calls)
+const PAGINATED_CACHE_DURATION = 300 * 1000; // 5 minutes for paginated data
 
 // Cache cleanup function
 function cleanupExpiredCache() {
@@ -49,36 +49,7 @@ function setCache(key: string, data: any, duration: number = CACHE_DURATION) {
 // Periodically clean up expired cache entries
 setInterval(cleanupExpiredCache, 60 * 1000); // Clean every minute
 
-// Rate limiting
-interface RateLimit {
-  count: number;
-  resetTime: number;
-}
-
-const rateLimits = new Map<string, RateLimit>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 30; // 30 requests per minute per IP
-
-function checkRateLimit(clientIP: string): boolean {
-  const now = Date.now();
-  const limit = rateLimits.get(clientIP);
-  
-  if (!limit || now > limit.resetTime) {
-    // Reset or create new limit
-    rateLimits.set(clientIP, {
-      count: 1,
-      resetTime: now + RATE_LIMIT_WINDOW
-    });
-    return true;
-  }
-  
-  if (limit.count >= MAX_REQUESTS) {
-    return false; // Rate limit exceeded
-  }
-  
-  limit.count++;
-  return true;
-}
+// Rate limiting removed for better performance in trading application
 
 // Request deduplication
 const pendingRequests = new Map<string, Promise<any>>();
@@ -137,18 +108,23 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const requestStart = Date.now();
+  console.log(`[STOCK-DATA] New request received at ${new Date().toISOString()}`);
+  
   try {
-    // Rate limiting check
-    const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
-    if (!checkRateLimit(clientIP)) {
-      console.log(`[STOCK-DATA] Rate limit exceeded for IP: ${clientIP}`);
-      return NextResponse.json(
-        { error: 'Rate limit exceeded. Please try again later.' },
-        { status: 429 }
-      );
-    }
-
-    const { tickers, page = 1, limit = 15, sort = 'name-asc', search = '', index = 'all', industry = 'all' } = await request.json();
+    const requestBody = await request.json();
+    const { tickers, page = 1, limit = 15, sort = 'name-asc', search = '', index = 'all', industry = 'all' } = requestBody;
+    
+    console.log(`[STOCK-DATA] Request details:`, {
+      tickers: tickers ? `${tickers.length} tickers` : 'none',
+      page,
+      limit,
+      sort,
+      search,
+      index,
+      industry,
+      hasBody: Object.keys(requestBody).length > 0
+    });
 
     if (tickers && Array.isArray(tickers) && tickers.length > 0) {
       // Generate cache key for specific tickers

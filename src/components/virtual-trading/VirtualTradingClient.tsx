@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MarketFilters from './MarketFilters';
 import ScreenerView from './ScreenerView';
@@ -33,6 +33,7 @@ const VirtualTradingClient = () => {
   const [allStocks, setAllStocks] = useState<Stock[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [allStocksLoading, setAllStocksLoading] = useState(false);
   const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists'>('markets');
   const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'leaderboard' | 'achievements'>('summary');
@@ -50,71 +51,154 @@ const VirtualTradingClient = () => {
     }
   }, [isSignedIn]);
 
-  useEffect(() => {
-    const fetchStocks = async () => {
-      setLoading(true);
-      try {
-        const params = new URLSearchParams(searchParams?.toString());
-        const response = await fetch('/api/stock-data', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(params.entries())),
-        });
-        const data = await response.json();
+  // Memoize search parameters to prevent unnecessary refetches
+  const searchParamsString = useMemo(() => {
+    if (!searchParams) return '';
+    const params = new URLSearchParams(searchParams.toString());
+    // Remove any unstable params that might cause re-renders
+    const stableParams = new URLSearchParams();
+    const relevantKeys = ['page', 'search', 'sort', 'index', 'industry'];
+    relevantKeys.forEach(key => {
+      const value = params.get(key);
+      if (value) stableParams.set(key, value);
+    });
+    return stableParams.toString();
+  }, [searchParams]);
+
+  const fetchStocks = useCallback(async (params: string) => {
+    try {
+      setError(null);
+      const urlParams = new URLSearchParams(params);
+      console.log('[VirtualTradingClient] Fetching stocks with params:', Object.fromEntries(urlParams.entries()));
+      
+      const response = await fetch('/api/stock-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(urlParams.entries())),
+      });
+      
+      console.log('[VirtualTradingClient] Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('[VirtualTradingClient] Received data:', { stocksCount: data.stocks?.length || 0, totalCount: data.totalCount });
+      
+      // Only update state if we have valid data
+      if (data.stocks && Array.isArray(data.stocks)) {
         setStocks(data.stocks);
-        setTotalCount(data.totalCount);
+        setTotalCount(data.totalCount || 0);
         markMilestone('Market data loaded');
-      } catch (error) {
-        console.error('Failed to fetch stocks:', error);
-      } finally {
+      } else {
+        console.warn('[VirtualTradingClient] Received invalid data format');
+        setError('Invalid data format received');
+      }
+    } catch (error) {
+      console.error('[VirtualTradingClient] Failed to fetch stocks:', {
+        error: error,
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+      setError(error instanceof Error ? error.message : 'Failed to fetch stocks');
+      // Don't clear stocks on error to prevent flickering
+    }
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadStocks = async () => {
+      // Set loading state at the beginning
+      setLoading(true);
+      
+      // Await the fetch operation
+      await fetchStocks(searchParamsString);
+      
+      // Reset loading state only if the component is still mounted
+      if (isMounted) {
         setLoading(false);
       }
     };
-    fetchStocks();
-  }, [searchParams, markMilestone]);
+    
+    // Debounce to prevent rapid calls, but the core logic is now safer
+    const timeoutId = setTimeout(loadStocks, 800);
 
-  // Load all stocks only when needed (for portfolio view)
-  useEffect(() => {
-    if (rightColumnView === 'portfolio' && allStocks.length === 0 && isSignedIn) {
-      const fetchAllStocks = async () => {
-        setAllStocksLoading(true);
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
+  // The dependency array is now stable, preventing infinite loops.
+  }, [searchParamsString, fetchStocks]);
+
+  // Optimized all stocks loading with better caching
+  const loadAllStocks = useCallback(async () => {
+    if (allStocksLoading || allStocks.length > 0) return; // Prevent duplicate calls
+    
+    setAllStocksLoading(true);
+    try {
+      const cacheKey = 'all_stocks_cache';
+      const cached = localStorage.getItem(cacheKey);
+      
+      if (cached) {
         try {
-          const cacheKey = 'all_stocks_cache';
-          const cached = localStorage.getItem(cacheKey);
-          if (cached) {
-            const { data, timestamp } = JSON.parse(cached);
-            const isValid = (Date.now() - timestamp) < 5 * 60 * 1000; // 5 minutes cache
-            if (isValid) {
-              setAllStocks(data);
-              markMilestone('All stocks loaded from cache');
-              setAllStocksLoading(false);
-              return;
-            }
+          const { data, timestamp } = JSON.parse(cached);
+          const isValid = (Date.now() - timestamp) < 10 * 60 * 1000; // 10 minutes cache
+          if (isValid && Array.isArray(data) && data.length > 0) {
+            setAllStocks(data);
+            markMilestone('All stocks loaded from cache');
+            return;
           }
+        } catch (cacheError) {
+          console.warn('[VirtualTradingClient] Cache parse error:', cacheError);
+          localStorage.removeItem(cacheKey);
+        }
+      }
 
-          const response = await fetch('/api/stock-data', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({}),
-          });
-          const data = await response.json();
-          setAllStocks(data.stocks);
-          
-          // Cache the data
+      console.log('[VirtualTradingClient] Fetching all stocks for portfolio view');
+      
+      const response = await fetch('/api/stock-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('[VirtualTradingClient] All stocks received:', { count: data.stocks?.length || 0 });
+      
+      if (data.stocks && Array.isArray(data.stocks)) {
+        setAllStocks(data.stocks);
+        
+        // Cache the data
+        try {
           localStorage.setItem(cacheKey, JSON.stringify({
             data: data.stocks,
             timestamp: Date.now()
           }));
-          markMilestone('All stocks loaded from API');
-        } catch (error) {
-          console.error('Failed to fetch all stocks:', error);
-        } finally {
-          setAllStocksLoading(false);
+        } catch (storageError) {
+          console.warn('[VirtualTradingClient] Failed to cache data:', storageError);
         }
-      };
-      fetchAllStocks();
+        markMilestone('All stocks loaded from API');
+      }
+    } catch (error) {
+      console.error('[VirtualTradingClient] Failed to fetch all stocks:', {
+        error: error,
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    } finally {
+      setAllStocksLoading(false);
     }
-  }, [rightColumnView, allStocks.length, isSignedIn, markMilestone]);
+  }, [allStocksLoading, allStocks.length, markMilestone]);
+
+  useEffect(() => {
+    if (rightColumnView === 'portfolio' && isSignedIn && allStocks.length === 0) {
+      loadAllStocks();
+    }
+  }, [rightColumnView, isSignedIn, allStocks.length, loadAllStocks]);
 
   const currentPage = Number(searchParams?.get('page')) || 1;
   const itemsPerPage = 15;
@@ -172,6 +256,7 @@ const VirtualTradingClient = () => {
                     <ScreenerView
                       stocks={stocks}
                       loading={loading}
+                      error={error}
                     />
                     <Pagination
                       totalCount={totalCount}
