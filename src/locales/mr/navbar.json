@@ -1,8 +1,9 @@
 {
-  "title": "गेट क्लॅरिटी फायनान्स",
+  "title": "गेट क्लेरिटी फायनान्स",
   "fraudDetection": "फसवणूक शोध",
-  "learningCourses": "शिक्षण कोर्सेस", 
+  "learningCourses": "शिक्षण अभ्यासक्रम",
+  "bondsCourse": "बाँड गुंतवणूक",
   "virtualTrading": "व्हर्च्युअल ट्रेडिंग",
-  "signIn": "साइन इन करा",
-  "signUp": "साइन अप करा"
+  "signIn": "साइन इन",
+  "signUp": "साइन अप"
 }

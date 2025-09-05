@@ -22,6 +22,8 @@ import {
   Bot
 } from "lucide-react";
 import Link from "next/link";
+import { LiveDashboard } from "@/components/admin/LiveDashboard";
+import { PerformanceAnalytics } from "@/components/admin/PerformanceAnalytics";
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "dattaniharsh12@gmail.com";
 
@@ -385,6 +387,16 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Live System Monitor */}
+        <div className="mb-8">
+          <LiveDashboard />
+        </div>
+
+        {/* Performance Analytics */}
+        <div className="mb-8">
+          <PerformanceAnalytics />
         </div>
 
         {/* Module Completion Rates */}

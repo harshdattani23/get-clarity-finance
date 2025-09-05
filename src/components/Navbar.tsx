@@ -43,6 +43,7 @@ const Navbar = () => {
   const navLinks = [
     { href: '/fraud-protection', key: 'fraudDetection', icon: 'shield' },
     { href: '/investment-security-course', key: 'learningCourses', icon: 'book' },
+    { href: '/bonds-course', key: 'bondsCourse', icon: 'dollar-sign' },
     { href: '/virtual-trading', key: 'virtualTrading', icon: 'trending' },
   ];
 

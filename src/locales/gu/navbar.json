@@ -1,8 +1,9 @@
 {
   "title": "ગેટ ક્લેરિટી ફાઇનાન્સ",
-  "fraudDetection": "ફ્રોડ ડિટેક્શન", 
-  "learningCourses": "શિક્ષણ કોર્સેસ",
+  "fraudDetection": "છેતરપિંડી શોધ",
+  "learningCourses": "શિક્ષણ કોર્સ",
+  "bondsCourse": "બોન્ડ રોકાણ",
   "virtualTrading": "વર્ચ્યુઅલ ટ્રેડિંગ",
-  "signIn": "સાઇન ઇન કરો",
-  "signUp": "સાઇન અપ કરો"
+  "signIn": "સાઇન ઇન",
+  "signUp": "સાઇન અપ"
 }
