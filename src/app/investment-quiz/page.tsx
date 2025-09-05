@@ -350,10 +350,10 @@ export default function InvestmentQuiz() {
                 {t('takeQuizAgain') as string}
               </button>
               <Link
-                href="/fraud-protection"
+                href="/investment-security-course"
                 className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors inline-block"
               >
-                {t('fraudProtectionGuide') as string}
+                {t('learningCourses') as string}
               </Link>
             </div>
           </motion.div>

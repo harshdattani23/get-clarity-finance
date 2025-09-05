@@ -1,7 +1,7 @@
 'use client';
 
 import FraudMonitoringDashboard from '@/components/agents/FraudMonitoringDashboard';
-import { Shield, Target, Users, Brain, Award, ChevronRight } from 'lucide-react';
+import { Shield, Target, Users, Brain, Award, ChevronRight, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SEBIHackathonPage() {
@@ -228,11 +228,11 @@ export default function SEBIHackathonPage() {
               <ChevronRight className="w-5 h-5" />
             </Link>
             <Link 
-              href="/fraud-protection"
+              href="/investment-security-course"
               className="bg-white text-[#163300] font-bold px-8 py-4 rounded-full border-2 border-[#163300] hover:bg-gray-50 transition-all inline-flex items-center gap-2"
             >
-              Test Fraud Detection
-              <Shield className="w-5 h-5" />
+              AI Learning Courses
+              <BookOpen className="w-5 h-5" />
             </Link>
           </div>
 
