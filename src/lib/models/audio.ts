@@ -94,6 +94,18 @@ export const COURSE_INFO = {
     level: 'Advanced',
     estimatedDuration: 12, // minutes
   },
+  'comprehensive-bond-strategies': {
+    name: 'Comprehensive Bond Strategies',
+    description: 'Advanced bond investment and trading strategies',
+    level: 'Advanced',
+    estimatedDuration: 15, // minutes
+  },
+  'intro-to-bonds': {
+    name: 'Introduction to Bonds',
+    description: 'Basic bond investment fundamentals',
+    level: 'Beginner',
+    estimatedDuration: 10, // minutes
+  },
 } as const;
 
 export type CourseId = keyof typeof COURSE_INFO;

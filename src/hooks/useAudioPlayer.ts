@@ -51,8 +51,27 @@ export function useAudioPlayer(options: AudioPlayerOptions) {
     audioUrl: null,
   });
 
+  // Hardcoded URLs for comprehensive-fraud-schemes course
+  const COMPREHENSIVE_FRAUD_SCHEMES_URLS = {
+    'en': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-en.m4a',
+    'hi': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-hi.m4a',
+    'bn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-bn.m4a',
+    'gu': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-gu.m4a',
+    'kn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-kn.m4a',
+    'ml': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-ml.m4a',
+    'mr': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-mr.m4a',
+    'ta': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-ta.m4a',
+    'te': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-te.m4a',
+  } as const;
+
   // Generate the expected audio URL based on existing Google Cloud Storage structure
   const getAudioUrl = useCallback(() => {
+    // Use hardcoded URLs for comprehensive-fraud-schemes course
+    if (courseId === 'comprehensive-fraud-schemes' && moduleType === 'main') {
+      return COMPREHENSIVE_FRAUD_SCHEMES_URLS[language as keyof typeof COMPREHENSIVE_FRAUD_SCHEMES_URLS];
+    }
+    
+    // Fallback to dynamic URL generation for other courses
     const bucketName = process.env.NEXT_PUBLIC_GOOGLE_CLOUD_AUDIO_BUCKET || 'getclarity-audio-bucket';
     let filePath: string;
     

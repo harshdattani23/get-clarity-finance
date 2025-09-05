@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useUser } from '@clerk/nextjs';
 import { SignInButton } from '@clerk/nextjs';
+import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
 import CourseAudioPlayer from '@/components/CourseAudioPlayer';
@@ -17,16 +18,17 @@ import CaseStudyModal from '@/components/fraud-awareness/CaseStudyModal';
 import FraudMatchingGame from '@/components/fraud-awareness/FraudMatchingGame';
 import TimelineBuilder from '@/components/fraud-awareness/TimelineBuilder';
 import CourseCompletionCertificate from '@/components/certificates/CourseCompletionCertificate';
+import introRedFlagScenarios from '@/data/fraud-scenarios/intro-red-flags.json';
 import { moduleProgressStore } from '@/lib/module-progress-store';
 import { 
   ArrowLeft,
   ChevronRight,
   BookOpen,
-  TrendingUp,
+  AlertTriangle,
   Shield,
   CheckCircle,
   Trophy,
-  LineChart,
+  TrendingUp,
   Users,
   Zap,
   Lock,
@@ -34,23 +36,19 @@ import {
   Briefcase,
   Brain,
   Target,
-  Calculator,
+  DollarSign,
   MessageCircle,
   Phone,
   Clock,
-  Landmark,
-  Building2,
-  PieChart,
+  Calculator,
+  LineChart,
   BarChart3,
-  Layers,
-  Network,
-  Bot,
-  DollarSign
+  Landmark
 } from 'lucide-react';
 
 export default function ComprehensiveBondStrategiesPage() {
   const { t } = useTranslation('courses.comprehensive-bond-strategies');
-  const { user: clerkUser, isLoaded } = useUser();
+  const { user: clerkUser, isLoaded } = useUser(); // Get user data and loading state from Clerk
   const [overviewStep, setOverviewStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', description: '' });
@@ -88,7 +86,7 @@ export default function ComprehensiveBondStrategiesPage() {
 
   const lessonProgress = useMemo(() => {
     // Base activities that contribute to progress
-    const totalActivities = 15; // video + audio + 5 advanced scenarios + 4 strategy interactions + 3 games + calculator tools
+    const totalActivities = 11; // video + audio + 3 bond scenarios + 3 strategy interactions + 2 games + simulator
     const completedCount = completedActivities.size;
     
     // Progress based on current step and activities completed
@@ -126,27 +124,30 @@ export default function ComprehensiveBondStrategiesPage() {
           setCompletedActivities(new Set(data.completedActivities || []));
         } else if (response.status === 401) {
           console.log('User not authenticated, starting with fresh progress');
+          // User is not authenticated, start with fresh progress
           setCurrentXP(0);
           setCompletedActivities(new Set());
         } else {
           console.log('Database unavailable, starting with fresh progress');
+          // Start with fresh progress if database is unavailable
           setCurrentXP(0);
           setCompletedActivities(new Set());
         }
       } catch (error) {
         console.log('Database connection failed, starting with fresh progress:', error);
+        // Start with fresh progress if database connection fails
         setCurrentXP(0);
         setCompletedActivities(new Set());
       }
     };
 
     loadProgress();
-  }, [clerkUser]);
+  }, [clerkUser]); // Re-run when clerkUser changes
 
   const addXP = async (amount: number, activityId: string) => {
     if (completedActivities.has(activityId)) {
       console.log(`XP already awarded for ${activityId}`);
-      return;
+      return; // Don't award XP twice
     }
     
     console.log(`Awarding ${amount} XP for ${activityId}`);
@@ -174,7 +175,7 @@ export default function ComprehensiveBondStrategiesPage() {
           lessonId: 'comprehensive-bond-strategies',
           interactionId: activityId,
           xpEarned: amount,
-          interactionType: activityId.includes('advanced-scenario') ? 'SCENARIO' : 'STRATEGY',
+          interactionType: activityId.includes('red-flag') ? 'SCENARIO' : 'DECISION',
           response: 'completed',
           isCorrect: true,
         }),
@@ -194,600 +195,912 @@ export default function ComprehensiveBondStrategiesPage() {
     }
   };
 
-  const advancedScenarios = [
+  const scenarios = [
     {
       id: 1,
-      text: "A AAA-rated corporate bond is trading at a 150 basis points spread over government securities. The company announces a major acquisition funded by debt, which will increase their debt-to-equity ratio from 0.3 to 0.8. Credit rating agencies indicate they're reviewing the rating for potential downgrade.",
+      text: "A AAA-rated corporate bond offers 8% yield when similar government bonds yield 3%. The issuing company has stable revenues, experienced management, and regular dividend payments. However, their debt-to-equity ratio has increased from 0.2 to 1.8 over 18 months, they've missed two quarterly earnings calls, and recent SEC filings show accounting irregularities in subsidiary valuations.",
       options: [
-        "Hold the bond as AAA rating provides safety buffer",
-        "Sell immediately to avoid potential rating downgrade impact",
-        "Analyze the acquisition's strategic value and long-term cash flow impact before deciding"
+        "This appears attractive due to high yield and AAA rating",
+        "The high yield relative to risk-free rate and deteriorating fundamentals suggest potential credit issues masquerading as high-yield opportunity",
+        "This is likely a temporary pricing inefficiency in the bond market"
       ],
-      correct: 2,
-      explanation: "Professional bond investors analyze the underlying fundamentals. The rating review requires careful assessment of how the acquisition affects the company's ability to service debt, not just the immediate rating implications."
+      answer: "The high yield relative to risk-free rate and deteriorating fundamentals suggest potential credit issues masquerading as high-yield opportunity",
     },
     {
       id: 2,
-      text: "You're managing a bond portfolio during a period when the yield curve is inverting. 10-year government bonds yield 3.2% while 2-year bonds yield 3.8%. Your portfolio duration is currently 7.2 years, and you expect interest rates to rise further.",
+      text: "A municipal bond fund advertises tax-free returns of 7.2% annually while similar funds yield 4-5%. The fund has a 15-year track record, professional management team, and claims to use sophisticated tax optimization strategies. However, the fund's holdings include complex structured products, offshore municipal entities, and derivative-enhanced municipal securities with unclear tax treatment.",
       options: [
-        "Increase duration to lock in current yields",
-        "Reduce portfolio duration and increase floating rate positions", 
-        "Maintain current duration as yield curve will normalize"
+        "This represents innovative municipal bond strategy with superior tax efficiency",
+        "The excessive yield premium and complex structured products suggest potential tax fraud or regulatory violations disguised as advanced municipal investing",
+        "This is normal variation in municipal bond fund performance"
       ],
-      correct: 1,
-      explanation: "In an inverted yield curve environment with expectations of rising rates, reducing duration minimizes interest rate risk. Floating rate bonds provide protection against rising rates as their payments adjust upward."
+      answer: "The excessive yield premium and complex structured products suggest potential tax fraud or regulatory violations disguised as advanced municipal investing",
     },
     {
       id: 3,
-      text: "An emerging market corporate bond denominated in USD offers a 9.5% yield. The same issuer's local currency bonds yield 12.8%. The local currency has depreciated 15% against USD in the past year, and inflation is running at 8%.",
+      text: "An emerging market sovereign bond offers 12% yield in hard currency when similar rated sovereigns yield 8-9%. The country has maintained payment history, growing economy, and strong commodity exports. However, recent political changes led to appointment of officials with histories of financial misconduct, sudden changes in fiscal transparency reporting, and unusual accumulation of short-term debt relative to reserves.",
       options: [
-        "Choose USD bond to eliminate currency risk",
-        "Select local currency bond for higher nominal yield",
-        "Hedge currency exposure and choose based on real yield analysis"
+        "This appears to be normal emerging market risk premium variation",
+        "The governance deterioration and fiscal opacity combined with excessive yield suggest potential sovereign debt irregularities or impending selective default",
+        "This reflects temporary political uncertainty with strong fundamental support"
       ],
-      correct: 2,
-      explanation: "Sophisticated investors consider real yields after inflation and currency risk. Hedging allows you to separate credit risk from currency risk and make optimal allocation decisions based on risk-adjusted returns."
+      answer: "The governance deterioration and fiscal opacity combined with excessive yield suggest potential sovereign debt irregularities or impending selective default",
     },
-    {
-      id: 4,
-      text: "A municipal bond offers a 4.2% tax-free yield. Your marginal tax rate is 35%, and equivalent taxable corporate bonds yield 6.8%. However, the municipality faces budget challenges and has unfunded pension obligations of $2.1 billion.",
-      options: [
-        "Choose municipal bond for tax-equivalent yield of 6.46%",
-        "Accept the corporate bond's higher after-tax yield",
-        "Assess the municipality's fiscal sustainability before deciding"
-      ],
-      correct: 2,
-      explanation: "While the tax-equivalent yield (4.2% ÷ 0.65 = 6.46%) appears attractive, unfunded pension obligations represent a significant credit risk that requires thorough analysis of the municipality's ability to meet obligations."
-    },
-    {
-      id: 5,
-      text: "You're considering a convertible bond with a 3.5% coupon, convertible into stock at $45 per share. The stock currently trades at $42, has 28% volatility, and the bond trades at 102% of par. The bond has 5 years to maturity.",
-      options: [
-        "Buy for bond floor protection with equity upside",
-        "Wait for stock price to approach conversion level",
-        "Evaluate the option value using Black-Scholes framework"
-      ],
-      correct: 2,
-      explanation: "Convertible bonds contain embedded options that require sophisticated valuation. The option value depends on volatility, time to expiration, and the relationship between stock price and conversion price, not just current price levels."
-    }
   ];
 
-  const bondStrategies = [
-    {
-      id: 'duration_matching',
-      icon: <Clock className="w-8 h-8" />,
-      title: 'Duration Matching',
-      description: 'Align bond portfolio duration with investment horizon to minimize interest rate risk',
-      techniques: ['Asset-Liability matching', 'Immunization strategies', 'Duration hedging'],
-      example: 'A pension fund matches 15-year average duration with 15-year liability duration'
-    },
-    {
-      id: 'yield_curve',
-      icon: <LineChart className="w-8 h-8" />,
-      title: 'Yield Curve Strategies',
-      description: 'Capitalize on yield curve shape changes through positioning and timing',
-      techniques: ['Barbell strategy', 'Bullet strategy', 'Butterfly spreads'],
-      example: 'Combining 2-year and 30-year bonds (barbell) vs 10-year bonds (bullet)'
-    },
-    {
-      id: 'credit_analysis',
-      icon: <BarChart3 className="w-8 h-8" />,
-      title: 'Credit Analysis',
-      description: 'Deep fundamental analysis for credit risk assessment and opportunity identification',
-      techniques: ['Cash flow analysis', 'Peer comparison', 'Scenario modeling'],
-      example: 'Analyzing debt coverage ratios and business cycle sensitivity for corporate bonds'
-    },
-    {
-      id: 'sector_rotation',
-      icon: <Layers className="w-8 h-8" />,
-      title: 'Sector Rotation',
-      description: 'Tactical allocation across sectors based on economic cycles and credit conditions',
-      techniques: ['Economic cycle analysis', 'Sector spread monitoring', 'Relative value assessment'],
-      example: 'Overweighting utilities in recession, technology in expansion phases'
-    }
-  ];
+  const handleCompleteLesson = async () => {
+    try {
+      // Mark lesson as complete in the backend
+      await fetch('/api/lessons/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          lessonId: 'comprehensive-bond-strategies',
+          courseId: 'clx2no2g0000008l8g8r8g8r8',
+        }),
+      });
 
-  const advancedConcepts = [
-    {
-      icon: <Calculator className="w-6 h-6" />,
-      title: 'Convexity Analysis',
-      description: 'Second-order price sensitivity for advanced duration management'
-    },
-    {
-      icon: <Network className="w-6 h-6" />,
-      title: 'Credit Derivatives',
-      description: 'CDS, synthetic bonds, and credit risk transfer mechanisms'
-    },
-    {
-      icon: <Bot className="w-6 h-6" />,
-      title: 'Quantitative Models',
-      description: 'Monte Carlo simulation, option-adjusted spreads, and risk modeling'
-    },
-    {
-      icon: <PieChart className="w-6 h-6" />,
-      title: 'Portfolio Optimization',
-      description: 'Modern portfolio theory application to bond portfolio construction'
-    }
-  ];
+      // Mark the entire module as complete and unlock next modules
+      const completeResponse = await fetch('/api/courses/bond-awareness/complete-module', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          moduleId: 'comprehensive-bond-strategies',
+        }),
+      });
 
-  const handleStrategyClick = (strategy: any) => {
-    addXP(20, `strategy-${strategy.id}`);
-    setModalContent({
-      title: strategy.title,
-      description: `${strategy.description}\n\nKey Techniques:\n${strategy.techniques.join(', ')}\n\nExample: ${strategy.example}`
-    });
+      if (completeResponse.ok) {
+        const data = await completeResponse.json();
+        console.log('Module completed successfully:', data);
+        console.log('Unlocked modules:', data.unlockedModules);
+      }
+      
+      // Also save to localStorage for persistence
+      if (clerkUser?.id) {
+        moduleProgressStore.markModuleComplete(clerkUser.id, 'comprehensive-bond-strategies', currentXP || 100);
+        console.log('Module progress saved to localStorage');
+      }
+
+      // Generate certificate immediately
+      await generateCertificate();
+
+    } catch (error) {
+      console.error('Failed to mark lesson as complete', error);
+      // Still show certificate even if backend fails
+      await generateCertificate();
+    }
+  };
+
+  const generateCertificate = async () => {
+    try {
+      if (!clerkUser?.id) {
+        console.error('No authenticated user found for certificate generation');
+        return;
+      }
+
+      // Check if certificate already exists in database
+      try {
+        const existingCertResponse = await fetch(`/api/certificates/lookup?moduleId=comprehensive-bond-strategies&courseId=bond-strategies-course`, {
+          credentials: 'include'
+        });
+        
+        if (existingCertResponse.ok) {
+          const existingCert = await existingCertResponse.json();
+          if (existingCert.exists && existingCert.certificate) {
+            console.log('Found existing certificate, using stored completion date:', existingCert.certificate.completionDate);
+            setCertificateData({
+              id: existingCert.certificate.id,
+              userName: existingCert.certificate.userName,
+              courseName: existingCert.certificate.courseName,
+              totalXP: existingCert.certificate.totalXP,
+              moduleCount: existingCert.certificate.moduleCount,
+              completedModules: existingCert.certificate.certificateData?.completedModules || [],
+              completionDate: existingCert.certificate.completionDate,
+              publicUrl: existingCert.certificate.publicUrl
+            });
+            setShowCertificate(true);
+            return;
+          }
+        }
+      } catch (checkError) {
+        console.log('Could not check existing certificate, will create new one:', checkError);
+      }
+
+      // Determine the completion date (for new certificates)
+      let completionDate = new Date().toISOString();
+      
+      // Try to get actual course completion date from the new database structure
+      try {
+        const moduleProgressResponse = await fetch('/api/courses/investment-security/modules', {
+          credentials: 'include'
+        });
+        
+        if (moduleProgressResponse.ok) {
+          const moduleData = await moduleProgressResponse.json();
+          const bondModule = moduleData.modules.find((m: any) => m.id === 'comprehensive-bond-strategies');
+          
+          if (bondModule && bondModule.progress === 100) {
+            // Try to get the completion date from ModuleProgress or CourseEnrollment
+            const completionResponse = await fetch('/api/user/course-completion-date?moduleId=comprehensive-bond-strategies', {
+              credentials: 'include'
+            });
+            
+            if (completionResponse.ok) {
+              const completionData = await completionResponse.json();
+              if (completionData.completionDate) {
+                completionDate = completionData.completionDate;
+                console.log('Using actual completion date from course progress:', completionDate);
+              }
+            }
+          }
+        }
+      } catch (progressError) {
+        console.log('Could not get course progress completion date:', progressError);
+      }
+      
+      // Fallback to reasonable historical date if no specific completion date found
+      if (completionDate === new Date().toISOString()) {
+        try {
+          const userResponse = await fetch('/api/user/me', {
+            credentials: 'include'
+          });
+          
+          if (userResponse.ok) {
+            const userData = await userResponse.json();
+            if (userData.createdAt) {
+              const userCreatedAt = new Date(userData.createdAt);
+              const estimatedCompletion = new Date(userCreatedAt.getTime() + 24 * 60 * 60 * 1000);
+              completionDate = estimatedCompletion.toISOString();
+              console.log('Using estimated completion date based on user creation:', completionDate);
+            }
+          }
+        } catch (dateError) {
+          console.log('Could not get user creation date, using fixed historical date:', dateError);
+          completionDate = '2025-08-13T00:00:00.000Z';
+        }
+      }
+      
+      const completedModules = [
+        {
+          id: 'comprehensive-bond-strategies',
+          title: 'Comprehensive Bond Strategies',
+          xpEarned: currentXP || 100,
+          completedAt: completionDate,
+          completed: true
+        }
+      ];
+
+      // Get user name from Clerk user or use fallback
+      const userName = clerkUser?.fullName || 
+        (clerkUser?.firstName && clerkUser?.lastName ? `${clerkUser.firstName} ${clerkUser.lastName}` : null) ||
+        clerkUser?.firstName ||
+        clerkUser?.username ||
+        clerkUser?.primaryEmailAddress?.emailAddress ||
+        'Course Participant';
+      
+      console.log('Certificate generation - userName selected:', userName, 'from clerkUser:', clerkUser);
+      console.log('Certificate completion date:', completionDate);
+      
+      const certificateData = {
+        userName: userName,
+        courseName: 'Bond Investment Course - Comprehensive Bond Strategies',
+        totalXP: currentXP || 100,
+        moduleCount: 1,
+        completedModules,
+        completionDate: completionDate
+      };
+
+      // Store certificate in database
+      try {
+        const storeResponse = await fetch('/api/certificates', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            userClerkId: clerkUser.id,
+            moduleId: 'comprehensive-bond-strategies',
+            courseId: 'bond-strategies-course',
+            courseName: certificateData.courseName,
+            userName: certificateData.userName,
+            totalXP: certificateData.totalXP,
+            moduleCount: certificateData.moduleCount,
+            completedModules: certificateData.completedModules,
+            completionDate: certificateData.completionDate
+          })
+        });
+
+        if (storeResponse.ok) {
+          const storeData = await storeResponse.json();
+          console.log('Certificate stored in database:', storeData);
+          setCertificateData({
+            id: storeData.certificate.id,
+            ...certificateData,
+            publicUrl: storeData.publicUrl
+          });
+        } else {
+          console.log('Certificate storage failed, using local data');
+          setCertificateData({
+            id: `CERT-BOND-STRATEGIES-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+            ...certificateData
+          });
+        }
+      } catch (storeError) {
+        console.log('Certificate storage error, using local data:', storeError);
+        setCertificateData({
+          id: `CERT-BOND-STRATEGIES-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+          ...certificateData
+        });
+      }
+      
+      setShowCertificate(true);
+      
+    } catch (error) {
+      console.error('Certificate generation error:', error);
+      // Fallback: create certificate data directly
+      const userName = clerkUser?.fullName || 
+        (clerkUser?.firstName && clerkUser?.lastName ? `${clerkUser.firstName} ${clerkUser.lastName}` : null) ||
+        clerkUser?.firstName ||
+        clerkUser?.username ||
+        clerkUser?.primaryEmailAddress?.emailAddress ||
+        'Course Participant';
+        
+      // Use historical date for fallback certificate too
+      const historicalCompletionDate = '2025-08-13T00:00:00.000Z';
+      
+      const fallbackCertificate = {
+        id: `CERT-BOND-STRATEGIES-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+        userName: userName,
+        courseName: 'Bond Investment Course - Comprehensive Bond Strategies',
+        totalXP: currentXP || 100,
+        moduleCount: 1,
+        completedModules: [
+          {
+            id: 'comprehensive-bond-strategies',
+            title: 'Comprehensive Bond Strategies',
+            xpEarned: currentXP || 100,
+            completedAt: historicalCompletionDate,
+            completed: true
+          }
+        ],
+        completionDate: historicalCompletionDate
+      };
+      setCertificateData(fallbackCertificate);
+      setShowCertificate(true);
+    }
+  };
+
+  const openModal = (title: string, description: string) => {
+    setModalContent({ title, description });
     setIsModalOpen(true);
   };
 
-  const handleScenarioComplete = (scenarioId: number, isCorrect: boolean) => {
-    if (isCorrect) {
-      addXP(30, `advanced-scenario-${scenarioId}`);
-      setCurrentQuizScore(prev => prev + 1);
-      
-      if (currentQuizScore + 1 === 5) {
-        setAchievements(prev => [...prev, 'Bond Strategist Master']);
-        setShowCelebration(true);
-        setTimeout(() => setShowCelebration(false), 3000);
-      }
-    }
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  const calculateLevel = (xp: number) => Math.floor(xp / 100) + 1;
-  const getXPForNextLevel = (xp: number) => ((Math.floor(xp / 100) + 1) * 100) - xp;
-
+  // Show loading state while Clerk is loading
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <motion.div
-            className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full mx-auto mb-4"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.p
-            className="text-lg font-medium text-green-800"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            Loading Advanced Bond Strategies...
-          </motion.p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading course...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show sign-in prompt if user is not authenticated
+  if (!clerkUser) {
+    return (
+      <div className="min-h-screen bg-gray-50 text-gray-800">
+        {/* Header */}
+        <div className="bg-white border-b sticky top-0 z-10">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Link 
+                  href="/investment-security-course"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </Link>
+                <div>
+                  <p className="text-xs text-gray-500">Module 3</p>
+                  <h1 className="text-lg font-semibold">Comprehensive Bond Strategies</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sign-in Required Content */}
+        <div className="container mx-auto px-6 py-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-lg p-8 shadow-lg border border-gray-200"
+            >
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-8 h-8 text-blue-600" />
+              </div>
+              
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Sign In Required
+              </h2>
+              
+              <p className="text-gray-600 mb-6">
+                To access this bond investment course and earn your personalized certificate, 
+                please sign in to your account.
+              </p>
+              
+              <div className="space-y-4">
+                <SignInButton mode="modal">
+                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                    Sign In to Start Course
+                  </button>
+                </SignInButton>
+                
+                <div className="text-sm text-gray-500">
+                  <p>✓ Track your progress</p>
+                  <p>✓ Earn XP and achievements</p>
+                  <p>✓ Get your personalized certificate</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-white border-b sticky top-0 z-10">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link
+            <div className="flex items-center gap-4">
+              <Link 
                 href="/investment-security-course"
-                className="flex items-center text-green-600 hover:text-green-800 transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Back to Course Hub
+                <ArrowLeft className="w-5 h-5" />
               </Link>
-              <div className="h-6 w-px bg-green-200"></div>
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="w-6 h-6 text-green-600" />
-                <h1 className="text-xl font-bold text-green-900">Comprehensive Bond Strategies</h1>
+              <div>
+                <p className="text-xs text-gray-500">{t('header.module') as string}</p>
+                <h1 className="text-lg font-semibold">{t('header.title') as string}</h1>
               </div>
             </div>
             
-            <div className="flex items-center space-x-6">
-              {/* Progress Bar */}
-              <div className="hidden sm:flex items-center space-x-2">
-                <span className="text-sm font-medium text-green-700">Progress:</span>
-                <div className="w-32 bg-green-200 rounded-full h-2">
+            {/* Progress Bar */}
+            <div className="hidden md:flex items-center gap-4">
+              <div className="w-48">
+                <div className="flex justify-between text-xs text-gray-600 mb-1">
+                  <span>{t('header.progress') as string}</span>
+                  <span>{lessonProgress}%</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div 
-                    className="bg-green-600 h-2 rounded-full transition-all duration-500"
+                    className="h-full bg-green-500 transition-all duration-500"
                     style={{ width: `${lessonProgress}%` }}
                   />
                 </div>
-                <span className="text-sm font-medium text-green-700">{Math.round(lessonProgress)}%</span>
               </div>
-              
-              {/* XP Display */}
-              <div className="flex items-center space-x-2 bg-green-100 rounded-full px-4 py-2">
-                <Zap className="w-4 h-4 text-yellow-500" />
-                <span className="text-sm font-bold text-green-900">{currentXP} XP</span>
-                <span className="text-xs text-green-600">Level {calculateLevel(currentXP)}</span>
+              <div className="flex items-center gap-2 text-sm relative">
+                <Trophy className="w-4 h-4 text-yellow-500" />
+                <span>{currentXP} XP</span>
+                {showXPAnimation && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: -20 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute -top-6 left-0 text-green-500 font-bold text-sm pointer-events-none"
+                  >
+                    +{lastXPEarned} XP
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* XP Animation */}
-      {showXPAnimation && (
-        <motion.div
-          className="fixed top-24 right-8 bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full font-bold shadow-lg z-50"
-          initial={{ opacity: 0, y: -50, scale: 0.5 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          +{lastXPEarned} XP
-        </motion.div>
-      )}
 
-      {/* Celebration Animation */}
-      {showCelebration && (
-        <motion.div
-          className="fixed inset-0 flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+      {/* Content */}
+      <div className="container mx-auto px-6 py-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-xl p-8 shadow-2xl text-center">
-            <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-green-900 mb-2">Achievement Unlocked!</h2>
-            <p className="text-green-700">Bond Strategist Master - Expert in professional bond strategies!</p>
+          {/* Stepper */}
+          <div className="flex justify-between items-center mb-8">
+            <div className="flex items-center gap-4">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 2 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 2 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 3 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 3 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
+              <div className={`h-1 flex-1 ${overviewStep >= 4 ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${overviewStep >= 4 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}`}>4</div>
+            </div>
           </div>
-        </motion.div>
-      )}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Course Overview */}
-            <motion.div
-              className="bg-white rounded-xl shadow-lg p-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="bg-green-100 rounded-full p-2">
-                  <BookOpen className="w-6 h-6 text-green-600" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-green-900">Professional Bond Strategy Mastery</h2>
-                  <p className="text-green-600">Advanced • 2 hours • 250 XP</p>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-green-700">Course Progress</span>
-                  <span className="text-sm text-green-600">{Math.round(lessonProgress)}% complete</span>
-                </div>
-                <div className="w-full bg-green-200 rounded-full h-3">
-                  <motion.div 
-                    className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${lessonProgress}%` }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </div>
-              </div>
-
-              {/* Step Navigation */}
-              <div className="flex space-x-1 mb-6">
-                {[1, 2, 3, 4].map((step) => (
-                  <button
-                    key={step}
-                    onClick={() => setOverviewStep(step)}
-                    className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                      overviewStep === step
-                        ? 'bg-green-600 text-white'
-                        : overviewStep > step
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
-                    Step {step}
-                  </button>
-                ))}
-              </div>
-
-              {/* Step Content */}
-              {overviewStep === 1 && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="space-y-6"
-                >
-                  <div>
-                    <h3 className="text-lg font-semibold text-green-900 mb-3">Advanced Bond Portfolio Management</h3>
-                    <p className="text-green-700 mb-4">
-                      Master institutional-grade bond strategies including duration management, yield curve positioning, credit analysis, and sophisticated risk management techniques used by professional portfolio managers.
-                    </p>
-                  </div>
-
-                  <ClientOnly>
-                    <Module1VideoPlayer 
-                      onComplete={() => addXP(30, 'advanced-intro-video-watched')}
-                    />
-                  </ClientOnly>
-
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {advancedConcepts.map((concept, index) => (
-                      <div key={index} className="bg-green-50 rounded-lg p-4 text-center">
-                        <div className="text-green-600 mb-2 flex justify-center">
-                          {concept.icon}
-                        </div>
-                        <h4 className="font-semibold text-green-900 mb-1">{concept.title}</h4>
-                        <p className="text-xs text-green-600">{concept.description}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => setOverviewStep(2)}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
-                  >
-                    Continue to Professional Strategies
-                    <ChevronRight className="w-5 h-5 ml-2" />
-                  </button>
-                </motion.div>
-              )}
-
-              {overviewStep === 2 && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="space-y-6"
-                >
-                  <div>
-                    <h3 className="text-lg font-semibold text-green-900 mb-3">Professional Bond Strategies</h3>
-                    <p className="text-green-700 mb-4">
-                      Explore sophisticated strategies used by institutional investors, hedge funds, and professional bond managers to optimize risk-adjusted returns across different market environments.
-                    </p>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {bondStrategies.map((strategy) => (
-                      <motion.div
-                        key={strategy.id}
-                        className="bg-green-50 rounded-lg p-4 cursor-pointer hover:bg-green-100 transition-colors"
-                        whileHover={{ scale: 1.02 }}
-                        onClick={() => handleStrategyClick(strategy)}
-                      >
-                        <div className="text-green-600 mb-3 flex justify-center">
-                          {strategy.icon}
-                        </div>
-                        <h4 className="font-semibold text-green-900 mb-2">{strategy.title}</h4>
-                        <p className="text-sm text-green-600 mb-3">{strategy.description}</p>
-                        <div className="flex flex-wrap gap-1">
-                          {strategy.techniques.map((technique, idx) => (
-                            <span key={idx} className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded">
-                              {technique}
-                            </span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <ClientOnly>
-                    <CourseAudioPlayer 
-                      onComplete={() => addXP(25, 'advanced-strategies-audio')}
-                      courseId="module1"
-                      language="en"
-                    />
-                  </ClientOnly>
-
-                  <button
-                    onClick={() => setOverviewStep(3)}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
-                  >
-                    Continue to Advanced Scenarios
-                    <ChevronRight className="w-5 h-5 ml-2" />
-                  </button>
-                </motion.div>
-              )}
-
-              {overviewStep === 3 && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="space-y-6"
-                >
-                  <div>
-                    <h3 className="text-lg font-semibold text-green-900 mb-3">Advanced Decision Scenarios</h3>
-                    <p className="text-green-700 mb-4">
-                      Test your mastery with complex, real-world scenarios that require sophisticated analysis and professional-level decision making skills.
-                    </p>
-                  </div>
-
-                  <div className="space-y-6">
-                    {advancedScenarios.map((scenario) => (
-                      <div key={scenario.id} className="bg-green-50 rounded-lg p-6">
-                        <h4 className="font-semibold text-green-900 mb-3">Advanced Scenario {scenario.id}</h4>
-                        <p className="text-green-700 mb-4">{scenario.text}</p>
-                        
-                        <div className="space-y-2">
-                          {scenario.options.map((option, index) => (
-                            <button
-                              key={index}
-                              onClick={() => {
-                                const isCorrect = index === scenario.correct;
-                                handleScenarioComplete(scenario.id, isCorrect);
-                                alert(`${isCorrect ? '✅ Excellent Analysis!' : '❌ Consider This:'} ${scenario.explanation}`);
-                              }}
-                              className="w-full text-left p-3 bg-white rounded-lg hover:bg-green-100 transition-colors border border-green-200"
-                            >
-                              {option}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => setOverviewStep(4)}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
-                  >
-                    Complete Advanced Course
-                    <ChevronRight className="w-5 h-5 ml-2" />
-                  </button>
-                </motion.div>
-              )}
-
-              {overviewStep === 4 && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="space-y-6 text-center"
-                >
-                  <div>
-                    <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-green-900 mb-3">Professional Mastery Achieved!</h3>
-                    <p className="text-green-700 mb-4">
-                      You've mastered advanced bond strategies and earned <strong>{currentXP} XP</strong>. You're now equipped with institutional-level bond investment expertise.
-                    </p>
-                  </div>
-
-                  <div className="bg-green-50 rounded-lg p-6">
-                    <h4 className="font-semibold text-green-900 mb-3">Advanced Skills Acquired:</h4>
-                    <ul className="text-left text-green-700 space-y-2">
-                      <li>✅ Professional portfolio management techniques</li>
-                      <li>✅ Sophisticated yield curve strategies</li>
-                      <li>✅ Advanced credit risk assessment</li>
-                      <li>✅ Institutional-level decision making</li>
-                      <li>✅ Quantitative bond analysis methods</li>
-                      <li>✅ Professional risk management approaches</li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Trophy className="w-5 h-5 text-yellow-600" />
-                        <span className="font-semibold text-yellow-800">Professional Certification Ready</span>
-                      </div>
-                      <p className="text-sm text-yellow-700">
-                        You've completed both bond courses and are qualified for advanced bond investment certification.
-                      </p>
+            {overviewStep === 1 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">Step 1: Understanding Advanced Bond Investment Strategies</h2>
+                
+                {/* XP Overview Section */}
+                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 mb-6 border border-yellow-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                      <Trophy className="w-5 h-5 text-white" />
                     </div>
-                    
-                    <Link
-                      href="/investment-security-course"
-                      className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
-                    >
-                      Return to Course Hub
-                    </Link>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">Earn XP by Learning!</h3>
+                      <p className="text-sm text-gray-600">Complete activities to gain experience points and track your progress</p>
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </motion.div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Progress Stats */}
-            <motion.div
-              className="bg-white rounded-xl shadow-lg p-6"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <h3 className="font-semibold text-green-900 mb-4">Advanced Progress</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-green-600">Level {calculateLevel(currentXP)}</span>
-                    <span className="text-green-600">{getXPForNextLevel(currentXP)} XP to next level</span>
-                  </div>
-                  <div className="w-full bg-green-200 rounded-full h-2">
-                    <div 
-                      className="bg-green-600 h-2 rounded-full"
-                      style={{ width: `${((currentXP % 100) / 100) * 100}%` }}
-                    />
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-blue-600 font-bold text-xs">📹</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Watch Video</p>
+                        <p className="text-xs text-gray-500">20 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                        <span className="text-purple-600 font-bold text-xs">🎵</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Listen Audio</p>
+                        <p className="text-xs text-gray-500">15 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <span className="text-green-600 font-bold text-xs">🎯</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Interactive</p>
+                        <p className="text-xs text-gray-500">10-25 XP</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                        <span className="text-red-600 font-bold text-xs">🚩</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">Spot Red Flags</p>
+                        <p className="text-xs text-gray-500">15 XP each</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="bg-green-50 rounded-lg p-3">
-                    <div className="text-2xl font-bold text-green-600">{currentXP}</div>
-                    <div className="text-xs text-green-500">Total XP</div>
+                {/* Video Section */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold">Advanced Bond Investment Video</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+20 XP</span>
+                    </div>
                   </div>
-                  <div className="bg-green-50 rounded-lg p-3">
-                    <div className="text-2xl font-bold text-green-600">{completedActivities.size}</div>
-                    <div className="text-xs text-green-500">Activities</div>
+                  <p className="text-sm text-gray-600 mb-4">Learn about sophisticated bond investment strategies • 12 minutes</p>
+                  
+                  <div className="relative mb-4">
+                    <ClientOnly>
+                      <Module1VideoPlayer 
+                        onComplete={() => addXP(20, 'video-completed')}
+                        isCompleted={completedActivities.has('video-completed')}
+                      />
+                    </ClientOnly>
+                  </div>
+                  
+                  {completedActivities.has('video-completed') && (
+                    <div className="flex items-center gap-2 text-green-600 text-sm">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Video completed (+20 XP)</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Audio Section */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold">Audio Lesson</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+15 XP</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">Listen to the comprehensive audio version • 10 minutes</p>
+                  
+                  <div className="relative mb-4">
+                    <ClientOnly>
+                      <CourseAudioPlayer 
+                        courseId="comprehensive-bond-strategies"
+                        language={clerkUser?.publicMetadata?.language as any || 'en'}
+                        className="mb-4"
+                        onComplete={() => addXP(15, 'audio-completed')}
+                        isCompleted={completedActivities.has('audio-completed')}
+                      />
+                    </ClientOnly>
+                  </div>
+                  
+                  {completedActivities.has('audio-completed') && (
+                    <div className="flex items-center gap-2 text-green-600 text-sm">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Audio lesson completed (+15 XP)</span>
+                    </div>
+                  )}
+                </div>
+
+                
+                <div className="bg-gray-50 rounded-lg p-6 mb-6">
+                  <h3 className="text-lg font-semibold mb-4">Advanced Bond Investment Strategies</h3>
+                  <p className="text-gray-700 mb-4">Professional bond investment goes beyond basic buy-and-hold strategies. Advanced investors use sophisticated techniques including duration management, yield curve positioning, credit analysis, and risk-adjusted return optimization to maximize performance across different market environments.</p>
+                  <p className="text-gray-700 mb-4">Unlike simple bond ladder strategies, advanced approaches integrate quantitative analysis, macroeconomic forecasting, and dynamic risk management to create resilient portfolios that can adapt to changing market conditions.</p>
+                  
+                  <div className="mt-4">
+                    <h4 className="font-medium mb-3">Advanced Strategy Characteristics:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <span><strong>Duration Management:</strong> Active adjustment of portfolio duration based on interest rate forecasts and yield curve analysis</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <span><strong>Credit Analysis:</strong> Deep fundamental research to identify credit opportunities and avoid deteriorating issuers</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <span><strong>Yield Curve Strategies:</strong> Positioning across different maturities to capitalize on curve movements and shape changes</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <span><strong>Sector Rotation:</strong> Tactical allocation across government, corporate, municipal, and international bonds based on relative value</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <span><strong>Risk Management:</strong> Sophisticated hedging techniques and portfolio optimization to manage interest rate and credit risks</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Achievements */}
-            {achievements.length > 0 && (
-              <motion.div
-                className="bg-white rounded-xl shadow-lg p-6"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <h3 className="font-semibold text-green-900 mb-4">Professional Achievements</h3>
-                <div className="space-y-2">
-                  {achievements.map((achievement, index) => (
-                    <div key={index} className="flex items-center space-x-2 bg-yellow-50 rounded-lg p-2">
-                      <Trophy className="w-4 h-4 text-yellow-500" />
-                      <span className="text-sm font-medium text-yellow-800">{achievement}</span>
-                    </div>
-                  ))}
+                
+                <div className="flex justify-end">
+                  <button onClick={() => setOverviewStep(2)} className="bg-blue-500 text-white px-6 py-2 rounded-lg">Next</button>
                 </div>
               </motion.div>
             )}
 
-            {/* Course Prerequisites */}
-            <motion.div
-              className="bg-white rounded-xl shadow-lg p-6"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <h3 className="font-semibold text-green-900 mb-4">Prerequisites Met</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm text-green-700">Bond Investment Fundamentals</span>
+            {overviewStep === 2 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-6">Step 2: Advanced Bond Investment Techniques</h2>
+                
+                {/* Basic Bond Strategy Cards - Educational First */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-semibold mb-6 text-gray-800">Professional Bond Strategies</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {['duration_laddering', 'yield_curve_positioning', 'credit_analysis'].map((strategyType, index) => (
+                      <motion.div 
+                        key={strategyType}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => {
+                          addXP(10, `strategy-type-${strategyType}`);
+                          // Add confetti effect for first time clicks
+                          if (!completedActivities.has(`strategy-type-${strategyType}`)) {
+                            setShowCelebration(true);
+                            setTimeout(() => setShowCelebration(false), 1500);
+                          }
+                        }}
+                        className={`p-6 border rounded-xl cursor-pointer transition-all hover:scale-105 hover:shadow-xl relative overflow-hidden ${
+                          completedActivities.has(`strategy-type-${strategyType}`) 
+                            ? 'border-green-400 bg-gradient-to-br from-green-50 to-green-100' 
+                            : 'border-gray-200 hover:border-blue-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50'
+                        }`}
+                      >
+                        {/* Animated background pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="w-full h-full bg-gradient-to-br from-blue-200 to-purple-200 rounded-xl" />
+                        </div>
+                        
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div className={`w-3 h-3 rounded-full ${
+                                strategyType === 'duration_laddering' ? 'bg-red-400' :
+                                strategyType === 'yield_curve_positioning' ? 'bg-orange-400' : 'bg-purple-400'
+                              }`} />
+                              <h3 className="font-bold text-gray-800">{
+                                strategyType === 'duration_laddering' ? 'Duration Laddering' :
+                                strategyType === 'yield_curve_positioning' ? 'Yield Curve Positioning' : 'Credit Analysis'
+                              }</h3>
+                            </div>
+                            {completedActivities.has(`strategy-type-${strategyType}`) && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                              >
+                                <CheckCircle className="w-6 h-6 text-green-500" />
+                              </motion.div>
+                            )}
+                          </div>
+                          
+                          <p className="text-sm text-gray-700 mb-4">{
+                            strategyType === 'duration_laddering' ? 'Systematic approach to managing interest rate risk through strategic duration allocation across different maturity segments, combined with active rebalancing based on yield curve movements and rate forecasting.' :
+                            strategyType === 'yield_curve_positioning' ? 'Advanced strategies that capitalize on yield curve shape changes through barbell, bullet, and butterfly positioning, utilizing sophisticated analysis of term structure dynamics and relative value opportunities.' : 
+                            'Comprehensive fundamental analysis of bond issuers including cash flow modeling, peer comparison, industry analysis, and scenario stress testing to identify credit opportunities and avoid deteriorating situations.'
+                          }</p>
+                          
+                          {!completedActivities.has(`strategy-type-${strategyType}`) && (
+                            <div className="flex items-center gap-2">
+                              <Zap className="w-4 h-4 text-blue-500" />
+                              <p className="text-xs text-blue-600 font-medium">Click to explore (+10 XP)</p>
+                            </div>
+                          )}
+                          
+                          {completedActivities.has(`strategy-type-${strategyType}`) && (
+                            <div className="flex items-center gap-2">
+                              <Trophy className="w-4 h-4 text-yellow-500" />
+                              <p className="text-xs text-green-600 font-medium">Mastered! +10 XP</p>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm text-green-700">Financial Market Knowledge</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm text-green-700">Risk Management Basics</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </main>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => setIsModalOpen(false)}
-        >
-          <motion.div
-            className="bg-white rounded-xl p-6 max-w-lg w-full"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-xl font-bold text-green-900 mb-3">{modalContent.title}</h3>
-            <p className="text-green-700 whitespace-pre-line">{modalContent.description}</p>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-            >
-              Close
-            </button>
+                {/* Interactive Games Section */}
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Advanced Bond Analysis Exercises</h3>
+                    <p className="text-gray-600">Master sophisticated bond investment through complex scenario analysis</p>
+                  </div>
+
+                  {/* Advanced Bond Portfolio Analysis */}
+                  <div className="bg-white rounded-lg p-6 border border-gray-200">
+                    <h3 className="text-xl font-semibold mb-4">Multi-Asset Bond Portfolio Analysis</h3>
+                    <p className="text-gray-600 mb-6">Analyze complex bond portfolios that span multiple sectors, credit qualities, and geographic regions</p>
+                    
+                    <FraudMatchingGame 
+                      onComplete={(score) => {
+                        addXP(35, 'advanced-portfolio-analysis-completed');
+                        setCurrentQuizScore(score);
+                        if (score >= 85) {
+                          setShowCelebration(true);
+                          setTimeout(() => setShowCelebration(false), 3000);
+                        }
+                      }}
+                      isCompleted={completedActivities.has('advanced-portfolio-analysis-completed')}
+                    />
+                  </div>
+
+                  {/* Complex Bond Strategy Timeline Builder */}
+                  <div className="bg-white rounded-lg p-6 border border-gray-200">
+                    <h3 className="text-xl font-semibold mb-4">Sophisticated Bond Strategy Timeline</h3>
+                    <p className="text-gray-600 mb-4">Reconstruct the development of a complex multi-strategy bond portfolio involving interest rate cycles and credit opportunities</p>
+                    
+                    <TimelineBuilder 
+                      events={[
+                        { id: '1', text: 'Initialize core government bond position for duration anchor', stage: 'early' },
+                        { id: '2', text: 'Add high-grade corporate bonds during credit spread widening', stage: 'early' },
+                        { id: '3', text: 'Implement barbell strategy with short and long duration positions', stage: 'early' },
+                        { id: '4', text: 'Rotate into emerging market bonds during stabilization phase', stage: 'middle' },
+                        { id: '5', text: 'Deploy credit-focused strategies in distressed sectors', stage: 'middle' },
+                        { id: '6', text: 'Adjust duration positioning based on yield curve analysis', stage: 'middle' },
+                        { id: '7', text: 'Harvest gains and rebalance portfolio allocations', stage: 'end' },
+                        { id: '8', text: 'Optimize tax efficiency and prepare for next cycle', stage: 'end' }
+                      ]}
+                      onComplete={() => addXP(30, 'complex-strategy-timeline-completed')}
+                      isCompleted={completedActivities.has('complex-strategy-timeline-completed')}
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(1)} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">Back</button>
+                  <button onClick={() => setOverviewStep(3)} className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">Next</button>
+                </div>
+              </motion.div>
+            )}
+
+            {overviewStep === 3 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">Step 3: Advanced Red Flag Detection</h2>
+                <p className="text-gray-700 mb-6">Master the identification of sophisticated risks in bond investments, including complex credit issues, interest rate traps, and market manipulation schemes that can appear in seemingly legitimate bond offerings.</p>
+                
+                {/* Advanced Red Flag Analysis */}
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <h3 className="text-xl font-semibold mb-4 text-gray-800">🚩 Sophisticated Bond Risk Recognition</h3>
+                  <p className="text-gray-600 mb-6">Analyze complex scenarios involving seemingly attractive bond investments that may harbor sophisticated risks or fraudulent schemes. These scenarios require advanced analytical skills to identify subtle indicators that suggest problematic investments beneath professional facades. Each scenario awards 25 XP when completed correctly.</p>
+                  
+                  <SpotTheRedFlag 
+                    scenarios={scenarios}
+                    onScenarioComplete={(scenarioId: number, isCorrect: boolean) => {
+                      if (isCorrect) {
+                        addXP(25, `advanced-red-flag-scenario-${scenarioId}`);
+                      }
+                    }}
+                  />
+                </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(2)} className="bg-gray-200 px-6 py-2 rounded-lg">Back</button>
+                  <button onClick={() => setOverviewStep(4)} className="bg-green-500 text-white px-6 py-2 rounded-lg">Continue to Simulator</button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step 4: Advanced Bond Investment Simulator */}
+            {overviewStep === 4 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <h2 className="text-2xl font-bold mb-4">Advanced Bond Investment Simulator</h2>
+                <p className="text-gray-700 mb-6">Conduct comprehensive analysis of complex bond investment scenarios using advanced portfolio management techniques. Apply sophisticated risk analysis and strategic positioning skills in realistic institutional-level scenarios!</p>
+                
+                <div className="bg-white rounded-lg p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold">Multi-Strategy Bond Portfolio Management</h3>
+                    <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+                      <Trophy className="w-4 h-4 text-yellow-600" />
+                      <span className="text-yellow-700 font-medium">+50 XP</span>
+                    </div>
+                  </div>
+                  
+                  <FraudSimulator 
+                    onComplete={() => {
+                      addXP(50, 'advanced-bond-simulator-completed');
+                      handleCompleteLesson();
+                    }}
+                    isCompleted={completedActivities.has('advanced-bond-simulator-completed')}
+                  />
+                  
+                  {completedActivities.has('advanced-bond-simulator-completed') && (
+                    <div className="bg-green-50 rounded-lg p-4 mt-4 border border-green-200">
+                      <div className="flex items-center gap-2 text-green-600 text-sm mb-2">
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Advanced Bond Analysis Completed (+50 XP) - Course Complete! 🎉</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Congratulations! You've successfully mastered the Comprehensive Bond Strategies course and can now implement institutional-level bond investment strategies.</p>
+                      <button
+                        onClick={() => {
+                          console.log('=== CERTIFICATE GENERATION DEBUG ===');
+                          console.log('Main View Certificate clicked');
+                          console.log('Current certificateData:', certificateData);
+                          console.log('Current XP:', currentXP);
+                          console.log('Raw clerkUser object:', clerkUser);
+                          console.log('clerkUser keys:', clerkUser ? Object.keys(clerkUser) : 'null');
+                          console.log('clerkUser.username:', clerkUser?.username);
+                          console.log('clerkUser.primaryEmailAddress:', clerkUser?.primaryEmailAddress?.emailAddress);
+                          console.log('clerkUser.fullName:', clerkUser?.fullName);
+                          console.log('clerkUser.firstName:', clerkUser?.firstName);
+                          console.log('clerkUser.lastName:', clerkUser?.lastName);
+                          
+                          // Try different name fields that might come from Clerk
+                          const possibleUserNames = {
+                            username: clerkUser?.username,
+                            email: clerkUser?.primaryEmailAddress?.emailAddress,
+                            fullName: clerkUser?.fullName,
+                            firstName: clerkUser?.firstName,
+                            lastName: clerkUser?.lastName,
+                            publicMetadata: clerkUser?.publicMetadata,
+                            unsafeMetadata: clerkUser?.unsafeMetadata
+                          };
+                          console.log('All possible name fields:', possibleUserNames);
+                          
+                          // Determine the best user name to use
+                          let userName = 'Course Participant';
+                          if (clerkUser?.fullName) {
+                            userName = clerkUser.fullName;
+                            console.log('Using fullName field:', userName);
+                          } else if (clerkUser?.firstName && clerkUser?.lastName) {
+                            userName = `${clerkUser.firstName} ${clerkUser.lastName}`;
+                            console.log('Using firstName + lastName:', userName);
+                          } else if (clerkUser?.firstName) {
+                            userName = clerkUser.firstName;
+                            console.log('Using firstName only:', userName);
+                          } else if (clerkUser?.username) {
+                            userName = clerkUser.username;
+                            console.log('Using username:', userName);
+                          } else if (clerkUser?.primaryEmailAddress?.emailAddress) {
+                            userName = clerkUser.primaryEmailAddress.emailAddress;
+                            console.log('Using email:', userName);
+                          } else {
+                            console.log('No user data available, using fallback:', userName);
+                          }
+                          
+                          // Use historical date for debug certificate too
+                          const historicalCompletionDate = '2025-08-13T00:00:00.000Z';
+                          
+                          const mainCertificate = {
+                            id: `CERT-BOND-STRATEGIES-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+                            userName: userName,
+                            courseName: 'Bond Investment Course - Comprehensive Bond Strategies',
+                            totalXP: currentXP || 100,
+                            moduleCount: 1,
+                            completedModules: [
+                              {
+                                id: 'comprehensive-bond-strategies',
+                                title: 'Comprehensive Bond Strategies',
+                                xpEarned: currentXP || 100,
+                                completedAt: historicalCompletionDate,
+                                completed: true
+                              }
+                            ],
+                            completionDate: historicalCompletionDate
+                          };
+                          
+                          console.log('Final userName selected:', userName);
+                          console.log('Generated certificate data:', mainCertificate);
+                          setCertificateData(mainCertificate);
+                          setShowCertificate(true);
+                          console.log('Certificate modal should be showing now');
+                          console.log('=== END CERTIFICATE DEBUG ===');
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105"
+                      >
+                        <Trophy className="w-4 h-4" />
+                        View Certificate
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex justify-between">
+                  <button onClick={() => setOverviewStep(3)} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">Back</button>
+                  <Link
+                    href="/investment-security-course"
+                    className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                  >
+                    Complete Course 🏆
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+
           </motion.div>
-        </motion.div>
+      </div>
+      <CaseStudyModal 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+        title={modalContent.title} 
+        description={modalContent.description} 
+      />
+      
+      {/* Certificate Modal */}
+      {showCertificate && certificateData && (
+        <CourseCompletionCertificate
+          userName={certificateData.userName}
+          courseName={certificateData.courseName}
+          completionDate={certificateData.completionDate}
+          moduleCount={certificateData.moduleCount}
+          completedModules={certificateData.completedModules}
+          certificateId={certificateData.id}
+          onClose={() => setShowCertificate(false)}
+        />
       )}
     </div>
   );
 }
+
