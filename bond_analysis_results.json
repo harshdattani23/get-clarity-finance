@@ -1,0 +1,404 @@
+{
+  "summary": {
+    "total_tested": 20,
+    "successful": 6,
+    "partial_success": 14,
+    "failed": 0
+  },
+  "detailed_results": {
+    "successful": [
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "NHPC33",
+          "coupon": "8.67%",
+          "issue_name": "NHPC 8.67% 2033",
+          "issue_date": "02-Nov-2013",
+          "mat_date": "02-Nov-2033",
+          "isin": "INE848E07534",
+          "last_traded_price": 129.0962,
+          "status": "Permitted"
+        },
+        "ticker": "NHPC.NS",
+        "stock_data": {
+          "name": "NHPC Limited",
+          "current_price": 77.82,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 781803061248,
+          "pe_ratio": 29.255638
+        },
+        "bond_price": 129.0962
+      },
+      {
+        "bond": {
+          "sectype": "PT",
+          "security": "IRFC27",
+          "coupon": "10.04%",
+          "issue_name": "IRFC 10.04% 2027(S-54B)",
+          "issue_date": "07-Jun-2007",
+          "mat_date": "07-Jun-2027",
+          "isin": "INE053F09EO6",
+          "last_traded_price": 115.9259,
+          "status": "Listed"
+        },
+        "ticker": "IRFC.NS",
+        "stock_data": {
+          "name": "Indian Railway Finance Corporation Limited",
+          "current_price": 123.46,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 1614362968064,
+          "pe_ratio": 24.16047
+        },
+        "bond_price": 115.9259
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "NTPC34",
+          "coupon": "8.61%",
+          "issue_name": "NTPC 8.61% 2034 (S-LI C)",
+          "issue_date": "04-Mar-2014",
+          "mat_date": "04-Mar-2034",
+          "isin": "INE733E07JM3",
+          "last_traded_price": 115.5727,
+          "status": "Listed"
+        },
+        "ticker": "NTPC.NS",
+        "stock_data": {
+          "name": "NTPC Limited",
+          "current_price": 328.7,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 3188741898240,
+          "pe_ratio": 18.040617
+        },
+        "bond_price": 115.5727
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "HUD27",
+          "coupon": "8.20%",
+          "issue_name": "HUDCO 8.20% 2027 TF S2",
+          "issue_date": "07-Mar-2012",
+          "mat_date": "05-Mar-2027",
+          "isin": "INE031A07840",
+          "last_traded_price": 114.2181,
+          "status": "Permitted"
+        },
+        "ticker": "HUDCO.NS",
+        "stock_data": {
+          "name": "Housing and Urban Development Corporation Limited",
+          "current_price": 215.39,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 431189262336,
+          "pe_ratio": 15.518011
+        },
+        "bond_price": 114.2181
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "IRFC27",
+          "coupon": "7.39%",
+          "issue_name": "IRFC 7.39% 2027 TX FREE S 83-A",
+          "issue_date": "06-Dec-2012",
+          "mat_date": "06-Dec-2027",
+          "isin": "INE053F09IA6",
+          "last_traded_price": 111.5612,
+          "status": "Listed"
+        },
+        "ticker": "IRFC.NS",
+        "stock_data": {
+          "name": "Indian Railway Finance Corporation Limited",
+          "current_price": 123.46,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 1614362968064,
+          "pe_ratio": 24.16047
+        },
+        "bond_price": 111.5612
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "NTPC29",
+          "coupon": "8.63%",
+          "issue_name": "NTPC 8.63% 2029 (S-LI B)",
+          "issue_date": "04-Mar-2014",
+          "mat_date": "04-Mar-2029",
+          "isin": "INE733E07JL5",
+          "last_traded_price": 111.1411,
+          "status": "Listed"
+        },
+        "ticker": "NTPC.NS",
+        "stock_data": {
+          "name": "NTPC Limited",
+          "current_price": 328.7,
+          "currency": "INR",
+          "exchange": "NSI",
+          "market_cap": 3188741898240,
+          "pe_ratio": 18.040617
+        },
+        "bond_price": 111.1411
+      }
+    ],
+    "partial_success": [
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2043",
+          "coupon": "9.23%",
+          "issue_name": "GOI LOAN 9.23% 2043",
+          "issue_date": "23-Dec-2013",
+          "mat_date": "23-Dec-2043",
+          "isin": "IN0020130079",
+          "last_traded_price": 123.5369,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2041",
+          "coupon": "8.83%",
+          "issue_name": "GOI LOAN 8.83% 2041",
+          "issue_date": "12-Dec-2011",
+          "mat_date": "12-Dec-2041",
+          "isin": "IN0020110063",
+          "last_traded_price": 122.9187,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "RECL28",
+          "coupon": "8.46%",
+          "issue_name": "RECL 8.46% 2028 SERIES 3B",
+          "issue_date": "29-Aug-2013",
+          "mat_date": "29-Aug-2028",
+          "isin": "INE020B07HN3",
+          "last_traded_price": 119.5447,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2030",
+          "coupon": "9.20%",
+          "issue_name": "GOI LOAN 9.20% 2030",
+          "issue_date": "30-Sep-2013",
+          "mat_date": "30-Sep-2030",
+          "isin": "IN0020130053",
+          "last_traded_price": 114.3686,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2045",
+          "coupon": "8.13%",
+          "issue_name": "GOI LOAN 8.13% 2045",
+          "issue_date": "22-Jun-2015",
+          "mat_date": "22-Jun-2045",
+          "isin": "IN0020150044",
+          "last_traded_price": 114.1918,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "PT",
+          "security": "PGC29",
+          "coupon": "9.35%",
+          "issue_name": "PGCIL 9.35% 2029 (S-XXXVI-N)",
+          "issue_date": "29-Aug-2011",
+          "mat_date": "29-Aug-2029",
+          "isin": "INE752E07IZ7",
+          "last_traded_price": 113.7732,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2042",
+          "coupon": "8.30%",
+          "issue_name": "GOI LOAN 8.30% 2042",
+          "issue_date": "31-Dec-2012",
+          "mat_date": "31-Dec-2042",
+          "isin": "IN0020120062",
+          "last_traded_price": 113.6991,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2040",
+          "coupon": "8.30%",
+          "issue_name": "GOI LOAN 8.30% 2040",
+          "issue_date": "02-Jul-2010",
+          "mat_date": "02-Jul-2040",
+          "isin": "IN0020100031",
+          "last_traded_price": 112.708,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "DB",
+          "security": "RECL28",
+          "coupon": "8.46%",
+          "issue_name": "RECL 8.46% 2028 Tr.1 S 2A TF",
+          "issue_date": "24-Sep-2013",
+          "mat_date": "24-Sep-2028",
+          "isin": "INE020B07HP8",
+          "last_traded_price": 112.3059,
+          "status": "Permitted"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2049",
+          "coupon": "7.72%",
+          "issue_name": "GOI Loan 7.72% 2049",
+          "issue_date": "15-Apr-2019",
+          "mat_date": "15-Jun-2049",
+          "isin": "IN0020190032",
+          "last_traded_price": 112.1739,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2044",
+          "coupon": "8.17%",
+          "issue_name": "GOI LOAN 8.17% 2044",
+          "issue_date": "01-Dec-2014",
+          "mat_date": "01-Dec-2044",
+          "isin": "IN0020140078",
+          "last_traded_price": 112.1317,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "DB",
+          "security": "RECL28",
+          "coupon": "8.71%",
+          "issue_name": "RECL 8.71% 2028 Tr.1 S 2B TF",
+          "issue_date": "24-Sep-2013",
+          "mat_date": "24-Sep-2028",
+          "isin": "INE020B07HS2",
+          "last_traded_price": 112.0423,
+          "status": "Permitted"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "PF",
+          "security": "RECL28",
+          "coupon": "8.54%",
+          "issue_name": "RECL 8.54% 2028 Tax FE BDSS-4B",
+          "issue_date": "11-Oct-2013",
+          "mat_date": "11-Oct-2028",
+          "isin": "INE020B07HV6",
+          "last_traded_price": 111.6515,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      },
+      {
+        "bond": {
+          "sectype": "GS",
+          "security": "CG2032",
+          "coupon": "8.28%",
+          "issue_name": "GOI LOAN 8.28%2032(NATBK.RECAP",
+          "issue_date": "15-Feb-2007",
+          "mat_date": "15-Feb-2032",
+          "isin": "IN0020060086",
+          "last_traded_price": 111.5307,
+          "status": "Listed"
+        },
+        "ticker": null,
+        "partial_data": {
+          "trailingPegRatio": null
+        }
+      }
+    ],
+    "failed": [],
+    "analysis": {}
+  },
+  "recommendations": {
+    "for_actual_bond_prices": [
+      "Use NSE/BSE APIs",
+      "Bloomberg Terminal/API",
+      "RBI/CCIL data sources"
+    ],
+    "for_yahoo_finance_usage": [
+      "Get issuer stock data for credit analysis",
+      "Monitor issuer financial health",
+      "Track creditworthiness indicators"
+    ]
+  }
+}

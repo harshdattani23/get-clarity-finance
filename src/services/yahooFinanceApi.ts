@@ -222,7 +222,13 @@ class YahooFinanceService {
   /**
    * Calculate percentage change
    */
-  calculateChange(current: number, previous: number): { change: number; changePercent: number } {
+  calculateChange(current: number | null | undefined, previous: number | null | undefined): { change: number; changePercent: number } {
+    // Handle null, undefined, or invalid values
+    if (current === null || current === undefined || previous === null || previous === undefined || 
+        isNaN(current) || isNaN(previous) || previous === 0) {
+      return { change: 0, changePercent: 0 };
+    }
+    
     const change = current - previous;
     const changePercent = (change / previous) * 100;
     return { change, changePercent };

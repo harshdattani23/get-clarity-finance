@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
@@ -56,7 +57,8 @@ export default function BondsCoursePage() {
   const { t } = useTranslation('bonds-course');
   const [bondPrices, setBondPrices] = useState<StockInfo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [mounted, setMounted] = useState(false);
   
   // Calculator states
   const [faceValue, setFaceValue] = useState(1000);
@@ -79,6 +81,7 @@ export default function BondsCoursePage() {
   const bondSymbols = getBondSymbols();
 
   useEffect(() => {
+    setMounted(true);
     fetchBondPrices();
     const interval = setInterval(fetchBondPrices, 60000); // Update every minute
     return () => clearInterval(interval);
@@ -136,14 +139,16 @@ export default function BondsCoursePage() {
     }
   };
 
-  const getPriceChangeIcon = (current: number, previous: number) => {
+  const getPriceChangeIcon = (current: number | null | undefined, previous: number | null | undefined) => {
+    if (!current || !previous) return <Minus className="w-4 h-4 text-gray-500" />;
     const change = current - previous;
     if (change > 0) return <ArrowUp className="w-4 h-4 text-green-500" />;
     if (change < 0) return <ArrowDown className="w-4 h-4 text-red-500" />;
     return <Minus className="w-4 h-4 text-gray-500" />;
   };
 
-  const getPriceChangeColor = (current: number, previous: number) => {
+  const getPriceChangeColor = (current: number | null | undefined, previous: number | null | undefined) => {
+    if (!current || !previous) return "text-gray-500";
     const change = current - previous;
     if (change > 0) return "text-green-500";
     if (change < 0) return "text-red-500";
@@ -173,7 +178,7 @@ export default function BondsCoursePage() {
             </button>
           </div>
           <div className="mt-2 text-sm text-gray-500">
-            Last updated: {lastUpdated.toLocaleTimeString()}
+            Last updated: {mounted && lastUpdated ? lastUpdated.toLocaleTimeString() : 'Loading...'}
           </div>
         </div>
       </div>
@@ -265,18 +270,24 @@ export default function BondsCoursePage() {
                           </div>
                         <div className="text-right">
                           <div className="flex items-center space-x-2">
-                            {getPriceChangeIcon(bond.currentPrice, bond.previousClose)}
+                            {bond.currentPrice && bond.previousClose ? getPriceChangeIcon(bond.currentPrice, bond.previousClose) : null}
                             <span className="text-xl font-bold text-gray-900">
-                              {yahooFinanceService.formatCurrency(bond.currentPrice, bond.currency)}
+                              {bond.currentPrice ? yahooFinanceService.formatCurrency(bond.currentPrice, bond.currency) : 'N/A'}
                             </span>
                           </div>
                           <div className={`text-sm ${getPriceChangeColor(bond.currentPrice, bond.previousClose)}`}>
-                            {yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).change >= 0 ? '+' : ''}
-                            {yahooFinanceService.formatCurrency(
-                              yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).change, 
-                              bond.currency
-                            )} 
-                            ({yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).changePercent.toFixed(2)}%)
+                            {bond.currentPrice && bond.previousClose ? (
+                              <>
+                                {yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).change >= 0 ? '+' : ''}
+                                {yahooFinanceService.formatCurrency(
+                                  yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).change, 
+                                  bond.currency
+                                )} 
+                                ({yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).changePercent.toFixed(2)}%)
+                              </>
+                            ) : (
+                              'N/A'
+                            )}
                           </div>
                           </div>
                         </div>
@@ -313,23 +324,23 @@ export default function BondsCoursePage() {
                         <div>
                           <span className="text-gray-500">High:</span>
                           <span className="ml-1 font-medium">
-                            {yahooFinanceService.formatCurrency(bond.dayHigh, bond.currency)}
+                            {bond.dayHigh ? yahooFinanceService.formatCurrency(bond.dayHigh, bond.currency) : 'N/A'}
                           </span>
                         </div>
                         <div>
                           <span className="text-gray-500">Low:</span>
                           <span className="ml-1 font-medium">
-                            {yahooFinanceService.formatCurrency(bond.dayLow, bond.currency)}
+                            {bond.dayLow ? yahooFinanceService.formatCurrency(bond.dayLow, bond.currency) : 'N/A'}
                           </span>
                         </div>
                         <div>
                           <span className="text-gray-500">Volume:</span>
-                          <span className="ml-1 font-medium">{bond.volume.toLocaleString()}</span>
+                          <span className="ml-1 font-medium">{bond.volume ? bond.volume.toLocaleString() : 'N/A'}</span>
                         </div>
                         <div>
                           <span className="text-gray-500">Market Cap:</span>
                           <span className="ml-1 font-medium">
-                            {yahooFinanceService.formatLargeNumber(bond.marketCap, bond.currency)}
+                            {bond.marketCap ? yahooFinanceService.formatLargeNumber(bond.marketCap, bond.currency) : 'N/A'}
                           </span>
                         </div>
                         </div>
@@ -414,7 +425,7 @@ export default function BondsCoursePage() {
                     type="number"
                     value={faceValue}
                     onChange={(e) => setFaceValue(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     min="100"
                     step="100"
                   />
@@ -428,7 +439,7 @@ export default function BondsCoursePage() {
                     type="number"
                     value={couponRate}
                     onChange={(e) => setCouponRate(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     min="0"
                     max="20"
                     step="0.1"
@@ -443,7 +454,7 @@ export default function BondsCoursePage() {
                     type="number"
                     value={yearsToMaturity}
                     onChange={(e) => setYearsToMaturity(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     min="1"
                     max="30"
                   />
@@ -457,7 +468,7 @@ export default function BondsCoursePage() {
                     type="number"
                     value={marketPrice}
                     onChange={(e) => setMarketPrice(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     min="100"
                     step="1"
                   />
