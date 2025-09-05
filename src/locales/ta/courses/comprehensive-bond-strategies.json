@@ -1,0 +1,129 @@
+{
+  "header": {
+    "module": "Bond Module 2",
+    "title": "Comprehensive Bond Strategies",
+    "progress": "Progress", 
+    "xp": "+250 XP"
+  },
+  "steps": {
+    "step1": "Professional Portfolio Management",
+    "step2": "Advanced Yield Strategies",
+    "step3": "Risk Management Techniques", 
+    "step4": "Strategy Simulator"
+  },
+  "overview": {
+    "video": {
+      "title": "Advanced Bond Strategy Video",
+      "duration": "Master institutional bond strategies • 15 minutes"
+    },
+    "section1": {
+      "title": "Professional Bond Portfolio Management",
+      "p1": "Advanced bond portfolio management involves sophisticated strategies used by institutional investors, pension funds, and professional asset managers to optimize risk-adjusted returns across different market environments and economic cycles.",
+      "p2": "These strategies go beyond basic buy-and-hold approaches, incorporating dynamic duration management, yield curve positioning, sector rotation, and credit analysis to create robust portfolios that can perform well in various market conditions.",
+      "p3": "Professional Bond Management Techniques:",
+      "list": [
+        "Duration Matching: Aligning portfolio duration with investment horizon to minimize interest rate risk",
+        "Yield Curve Strategies: Capitalizing on yield curve shape changes through barbell, bullet, and butterfly positioning",
+        "Credit Analysis: Deep fundamental analysis for identifying undervalued credits and avoiding defaults", 
+        "Sector Rotation: Tactical allocation across sectors based on economic cycles and credit conditions",
+        "Quantitative Models: Using advanced analytics for portfolio optimization and risk management"
+      ]
+    },
+    "section2": {
+      "title": "Advanced Bond Investment Strategies",
+      "duration_matching": {
+        "title": "Duration Matching Strategy",
+        "description": "Sophisticated approach to align bond portfolio duration with specific liability schedules or investment horizons, using mathematical models to immunize portfolios against interest rate changes while maximizing returns within risk constraints."
+      },
+      "yield_curve": {
+        "title": "Yield Curve Positioning",
+        "description": "Advanced strategies that capitalize on changes in yield curve shape, including barbell strategies (short and long maturities), bullet strategies (concentrated maturities), and butterfly spreads that profit from curve steepening or flattening."
+      },
+      "credit_analysis": {
+        "title": "Professional Credit Analysis", 
+        "description": "Institutional-level credit analysis incorporating cash flow modeling, peer comparison, industry analysis, and scenario testing to identify mispriced credits and construct portfolios with optimal risk-return profiles."
+      },
+      "sector_rotation": {
+        "title": "Dynamic Sector Allocation",
+        "description": "Systematic approach to rotating between different bond sectors (government, corporate, high-yield, emerging markets) based on economic cycle analysis, relative value assessment, and credit spread movements."
+      }
+    },
+    "interactiveGames": {
+      "title": "Advanced Strategy Implementation Exercises", 
+      "subtitle": "Master professional bond strategies through complex scenario analysis and portfolio construction",
+      "portfolioOptimization": {
+        "title": "Multi-Asset Bond Portfolio Optimization",
+        "description": "Construct optimal bond portfolios using modern portfolio theory and advanced risk management techniques"
+      },
+      "yieldCurveStrategy": {
+        "title": "Dynamic Yield Curve Strategy Builder",
+        "description": "Develop sophisticated yield curve strategies for different interest rate environments and economic scenarios"
+      }
+    }
+  },
+  "simulator": {
+    "title": "Professional Bond Strategy Simulator",
+    "description": "Apply advanced bond strategies in realistic market environments using institutional-level tools and analysis. Test your mastery of professional portfolio management techniques in dynamic market conditions!",
+    "strategiesTitle": "Advanced Strategy Implementation",
+    "completionMessage": "Professional Strategy Mastery Achieved (+75 XP) - Course Complete! 🎉",
+    "congratsMessage": "Congratulations! You've successfully mastered comprehensive bond strategies and can now implement institutional-level portfolio management techniques."
+  },
+  "riskManagement": {
+    "title": "Advanced Bond Risk Management",
+    "description": "Master sophisticated risk management techniques including convexity analysis, credit risk assessment, liquidity management, and scenario analysis for professional bond portfolio management.",
+    "analysisTitle": "Complex Bond Strategy Analysis",
+    "analysisDescription": "Analyze complex bond investment scenarios that require advanced analytical skills and professional-level decision making. These scenarios test your ability to navigate sophisticated market conditions and apply institutional-grade investment strategies. Each scenario awards 30 XP when completed correctly."
+  },
+  "scenarios": {
+    "scenario1": {
+      "text": "A AAA-rated corporate bond is trading at a 150 basis points spread over government securities. The company announces a major acquisition funded by debt, which will increase their debt-to-equity ratio from 0.3 to 0.8. Credit rating agencies indicate they're reviewing the rating for potential downgrade. How should a professional bond manager respond?",
+      "options": [
+        "Hold the bond as AAA rating provides sufficient safety buffer for the spread tightening",
+        "Sell immediately to avoid any potential rating downgrade impact on portfolio performance",
+        "Conduct thorough analysis of the acquisition's strategic value and long-term cash flow impact before making investment decisions"
+      ],
+      "answer": "Conduct thorough analysis of the acquisition's strategic value and long-term cash flow impact before making investment decisions"
+    },
+    "scenario2": {
+      "text": "You're managing a bond portfolio during a period when the yield curve is inverting. 10-year government bonds yield 3.2% while 2-year bonds yield 3.8%. Your portfolio duration is currently 7.2 years, and you expect interest rates to rise further based on central bank communications. What's the optimal portfolio adjustment?",
+      "options": [
+        "Increase duration to lock in current higher yields before rates rise further",
+        "Reduce portfolio duration and increase allocation to floating rate securities to minimize interest rate risk",
+        "Maintain current duration as inverted yield curves typically normalize within 6 months"
+      ],
+      "answer": "Reduce portfolio duration and increase allocation to floating rate securities to minimize interest rate risk"
+    },
+    "scenario3": {
+      "text": "An emerging market corporate bond denominated in USD offers a 9.5% yield, while the same issuer's local currency bonds yield 12.8%. The local currency has depreciated 15% against USD in the past year, inflation is running at 8%, and you have access to currency hedging instruments. What's the most sophisticated investment approach?",
+      "options": [
+        "Choose USD bond to completely eliminate currency risk and accept the lower yield",
+        "Select local currency bond for the higher nominal yield despite currency volatility",
+        "Use currency hedging to separate credit risk from currency risk and make allocation decisions based on risk-adjusted real returns"
+      ],
+      "answer": "Use currency hedging to separate credit risk from currency risk and make allocation decisions based on risk-adjusted real returns"
+    },
+    "scenario4": {
+      "text": "A municipal bond offers a 4.2% tax-free yield. Your marginal tax rate is 35%, equivalent taxable corporate bonds yield 6.8%, and the municipality faces budget challenges with unfunded pension obligations of $2.1 billion against annual revenues of $1.8 billion. What's the professional investment decision?",
+      "options": [
+        "Choose municipal bond as the tax-equivalent yield of 6.46% is competitive with corporate bonds",
+        "Accept the corporate bond's higher after-tax yield of 4.42% for better risk-adjusted returns",
+        "Conduct comprehensive analysis of the municipality's fiscal sustainability, debt service capacity, and pension obligation management before making investment decisions"
+      ],
+      "answer": "Conduct comprehensive analysis of the municipality's fiscal sustainability, debt service capacity, and pension obligation management before making investment decisions"
+    },
+    "scenario5": {
+      "text": "You're considering a convertible bond with a 3.5% coupon, convertible into stock at $45 per share. The stock currently trades at $42, has 28% implied volatility, the bond trades at 102% of par, and has 5 years to maturity. Interest rates are expected to remain stable. How should this be analyzed professionally?",
+      "options": [
+        "Buy for the bond floor protection combined with unlimited equity upside potential",
+        "Wait for the stock price to move closer to the conversion price before investing", 
+        "Use sophisticated option valuation models like Black-Scholes to determine if the embedded option is fairly priced relative to the bond's total cost"
+      ],
+      "answer": "Use sophisticated option valuation models like Black-Scholes to determine if the embedded option is fairly priced relative to the bond's total cost"
+    }
+  },
+  "completion": {
+    "title": "Professional Bond Strategy Mastery Achieved!",
+    "subtitle": "You've successfully completed the most advanced bond strategy course and can now implement institutional-level portfolio management techniques.",
+    "button": "Return to Investment Hub"
+  }
+}

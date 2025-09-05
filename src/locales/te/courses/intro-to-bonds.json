@@ -1,0 +1,168 @@
+{
+  "header": {
+    "module": "Bond Module 1",
+    "title": "Introduction to Bond Investments", 
+    "progress": "Lesson Progress",
+    "xp": "+100 XP"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "simulator": "Bond Calculator",
+    "quiz": "Quiz"
+  },
+  "overview": {
+    "video": {
+      "title": "Video: What are Bonds?",
+      "duration": "Duration: 8 minutes"
+    },
+    "section1": {
+      "title": "Understanding Bond Investments",
+      "p1": "Bonds are debt securities that represent loans made by investors to governments or corporations. When you buy a bond, you're essentially lending money to the issuer in exchange for periodic interest payments and the return of your principal at maturity.",
+      "p2": "Bonds are considered safer investments compared to stocks because they provide predictable income and have a higher claim on assets in case of bankruptcy. They play a crucial role in diversified investment portfolios and are essential for long-term wealth building.",
+      "p3": "Key bond characteristics include:",
+      "list": [
+        "Face Value: The principal amount repaid at maturity",
+        "Coupon Rate: The annual interest rate paid to bondholders", 
+        "Maturity Date: When the bond expires and principal is repaid",
+        "Yield to Maturity: Total return if held until maturity"
+      ]
+    },
+    "section2": {
+      "title": "Types of Bonds Available in India",
+      "government": {
+        "title": "Government Bonds",
+        "description": "Securities issued by the central or state governments, considered the safest bond investments with government backing."
+      },
+      "corporate": {
+        "title": "Corporate Bonds",
+        "description": "Bonds issued by companies to raise capital for business operations, offering higher yields but with credit risk."
+      },
+      "municipal": {
+        "title": "Municipal Bonds",
+        "description": "Bonds issued by local governments for public projects, often providing tax benefits to investors."
+      },
+      "psu": {
+        "title": "PSU Bonds",
+        "description": "Bonds issued by Public Sector Undertakings, backed by government ownership and strong fundamentals."
+      },
+      "inflation_linked": {
+        "title": "Inflation-Indexed Bonds",
+        "description": "Bonds where principal and interest payments are adjusted for inflation, protecting purchasing power."
+      },
+      "tax_free": {
+        "title": "Tax-Free Bonds",
+        "description": "Bonds issued by government agencies where interest income is exempt from income tax."
+      }
+    },
+    "section3": {
+      "title": "RBI's Role in Bond Markets",
+      "p1": "The Reserve Bank of India (RBI) plays a crucial role in the Indian bond market by regulating monetary policy, managing government debt issuance, and maintaining market liquidity.",
+      "p2": "Key functions of RBI in bond markets include:",
+      "list": [
+        "Setting interest rates that influence bond yields across the market",
+        "Managing the issuance and trading of government securities",
+        "Regulating market participants and ensuring fair trading practices",
+        "Providing liquidity support through various monetary policy tools",
+        "Maintaining market stability through intervention when necessary"
+      ],
+      "link": "Learn about RBI's Open Market Operations →"
+    },
+    "button": {
+      "practice": "Continue to Bond Scenarios"
+    },
+    "steps": {
+      "step1": "Bond Basics",
+      "step2": "Bond Types",
+      "step3": "Market Role"
+    },
+    "interactiveGames": {
+      "title": "🎮 Bond Learning Games",
+      "subtitle": "Now that you know the basics, test your knowledge with these interactive challenges!",
+      "bondMatchingChallenge": {
+        "title": "🎯 Bond Type Matching",
+        "description": "Match each bond type with its key characteristics! Drag and drop to learn:"
+      },
+      "yieldCalculator": {
+        "title": "📊 Bond Yield Calculator",
+        "description": "Calculate yields and understand bond pricing dynamics:"
+      }
+    },
+    "caseStudies": {
+      "government": {
+        "title": "Government Bond Success Story",
+        "description": "How conservative investors built wealth through G-Secs"
+      },
+      "corporate": {
+        "title": "Corporate Bond Analysis",
+        "description": "Evaluating credit risk and returns in corporate bonds"
+      }
+    },
+    "spotTheBondRisk": {
+      "title": "Identify Bond Investment Risks",
+      "scenario1": "A friend recommends a corporate bond offering 15% annual returns. Which is the biggest concern?",
+      "options1": {
+        "0": "The company operates in a stable industry",
+        "1": "The unusually high return suggests significant credit risk",
+        "2": "The bond has a 5-year maturity period"
+      },
+      "answer1": "The unusually high return suggests significant credit risk",
+      "scenario2": "You're considering a government bond vs. a fixed deposit. Which factor is most important?",
+      "options2": {
+        "0": "Government bonds are traded on exchanges providing liquidity",
+        "1": "Fixed deposits have DICGC insurance coverage",
+        "2": "Both options should be evaluated based on your risk profile and investment horizon"
+      },
+      "answer2": "Both options should be evaluated based on your risk profile and investment horizon",
+      "scenario3": "An agent offers you a 'government-guaranteed' bond with 12% returns through a mobile app. What's concerning?",
+      "options3": {
+        "0": "Legitimate government bonds don't offer such high returns",
+        "1": "The mobile app platform seems convenient",
+        "2": "Government guarantee sounds reliable"
+      },
+      "answer3": "Legitimate government bonds don't offer such high returns",
+      "correct": "Correct! This is a key warning sign for potential bond fraud.",
+      "incorrect": "Not quite. The correct answer is \"{answer}\". This is important to remember."
+    }
+  },
+  "simulator": {
+    "button": {
+      "quiz": "Continue to Quiz"
+    }
+  },
+  "quiz": {
+    "title": "Test Your Bond Knowledge",
+    "subtitle": "Answer these questions to complete the lesson and earn your XP rewards!",
+    "q1": {
+      "question": "1. What is the primary benefit of including bonds in an investment portfolio?",
+      "options": [
+        "Guaranteed high returns",
+        "Predictable income and portfolio diversification",
+        "Immediate liquidity like savings accounts"
+      ]
+    },
+    "q2": {
+      "question": "2. Which type of bond is considered safest for Indian investors?",
+      "options": [
+        "High-yield corporate bonds",
+        "Government securities (G-Secs)",
+        "Foreign currency bonds"
+      ]
+    },
+    "q3": {
+      "question": "3. What does 'yield to maturity' represent in bond investing?",
+      "options": [
+        "Only the annual coupon payments",
+        "The total return if the bond is held until it matures",
+        "The current market price of the bond"
+      ]
+    },
+    "button": {
+      "submit": "Submit Quiz"
+    }
+  },
+  "completion": {
+    "title": "Bond Fundamentals Complete!",
+    "subtitle": "You've earned 100 XP",
+    "button": "Continue to Advanced Bond Strategies"
+  }
+}

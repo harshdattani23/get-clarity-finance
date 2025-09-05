@@ -1,0 +1,314 @@
+[
+  {
+    "category": "Government Securities",
+    "description": "Indian Government Treasury Bills and Bonds",
+    "instruments": [
+      {
+        "name": "Government of India 7.16% 2029",
+        "symbol": "IN0020190031.NS",
+        "type": "Government Bond",
+        "coupon": 7.16,
+        "maturity": "2029",
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      },
+      {
+        "name": "Government of India 6.45% 2029",
+        "symbol": "IN0020200048.NS",
+        "type": "Government Bond", 
+        "coupon": 6.45,
+        "maturity": "2029",
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      },
+      {
+        "name": "Government of India 7.17% 2030",
+        "symbol": "IN0020210035.NS",
+        "type": "Government Bond",
+        "coupon": 7.17,
+        "maturity": "2030",
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      },
+      {
+        "name": "Government of India 6.54% 2032",
+        "symbol": "IN0020220032.NS",
+        "type": "Government Bond",
+        "coupon": 6.54,
+        "maturity": "2032",
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      }
+    ]
+  },
+  {
+    "category": "Corporate Bonds",
+    "description": "High-grade corporate debt securities from Indian companies",
+    "instruments": [
+      {
+        "name": "Housing & Urban Development Corporation",
+        "symbol": "540376.BO",
+        "type": "Corporate Bond",
+        "rating": "AAA",
+        "issuer": "HUDCO",
+        "sector": "Infrastructure",
+        "currency": "INR"
+      },
+      {
+        "name": "Tata Consultancy Services Corporate Debt",
+        "symbol": "532540.BO",
+        "type": "Corporate Bond",
+        "rating": "AAA",
+        "issuer": "TCS",
+        "sector": "Information Technology",
+        "currency": "INR"
+      },
+      {
+        "name": "Reliance Industries Corporate Bonds",
+        "symbol": "500325.BO",
+        "type": "Corporate Bond",
+        "rating": "AA+",
+        "issuer": "Reliance Industries",
+        "sector": "Oil & Gas",
+        "currency": "INR"
+      },
+      {
+        "name": "HDFC Bank Corporate Bonds",
+        "symbol": "500180.BO",
+        "type": "Corporate Bond",
+        "rating": "AAA",
+        "issuer": "HDFC Bank",
+        "sector": "Financial Services",
+        "currency": "INR"
+      },
+      {
+        "name": "ICICI Bank Corporate Bonds",
+        "symbol": "532215.BO", 
+        "type": "Corporate Bond",
+        "rating": "AAA",
+        "issuer": "ICICI Bank",
+        "sector": "Financial Services",
+        "currency": "INR"
+      },
+      {
+        "name": "Axis Bank Corporate Bonds",
+        "symbol": "532215.BO",
+        "type": "Corporate Bond", 
+        "rating": "AA+",
+        "issuer": "Axis Bank",
+        "sector": "Financial Services",
+        "currency": "INR"
+      }
+    ]
+  },
+  {
+    "category": "Bond ETFs",
+    "description": "Exchange-traded funds focused on bond investments",
+    "instruments": [
+      {
+        "name": "CPSE Bond ETF",
+        "symbol": "CPSEETF.NS",
+        "type": "Bond ETF",
+        "rating": "AAA",
+        "issuer": "Central Public Sector Enterprises",
+        "focus": "PSU Bonds",
+        "currency": "INR",
+        "expense_ratio": 0.0005
+      },
+      {
+        "name": "Bharat Bond ETF 2030",
+        "symbol": "BHARTBOND.NS",
+        "type": "Bond ETF",
+        "rating": "AAA",
+        "issuer": "Edelweiss Asset Management",
+        "focus": "Government backed PSU bonds",
+        "maturity": "2030",
+        "currency": "INR",
+        "expense_ratio": 0.0005
+      },
+      {
+        "name": "Bharat Bond ETF 2031",
+        "symbol": "BHART31.NS",
+        "type": "Bond ETF", 
+        "rating": "AAA",
+        "issuer": "Edelweiss Asset Management",
+        "focus": "Government backed PSU bonds",
+        "maturity": "2031",
+        "currency": "INR",
+        "expense_ratio": 0.0005
+      },
+      {
+        "name": "SBI Liquid Assets ETF",
+        "symbol": "LIQUIDETF.NS",
+        "type": "Liquid ETF",
+        "rating": "AAA",
+        "issuer": "SBI Mutual Fund",
+        "focus": "Money market and short-term debt",
+        "currency": "INR",
+        "expense_ratio": 0.05
+      },
+      {
+        "name": "Aditya Birla SL PSU Bond ETF",
+        "symbol": "ABSLPSETF.NS",
+        "type": "Bond ETF",
+        "rating": "AAA", 
+        "issuer": "Aditya Birla Sun Life",
+        "focus": "Public Sector Undertaking bonds",
+        "currency": "INR",
+        "expense_ratio": 0.05
+      }
+    ]
+  },
+  {
+    "category": "State Government Bonds",
+    "description": "Bonds issued by Indian state governments",
+    "instruments": [
+      {
+        "name": "Maharashtra State Government Bond 7.25% 2029",
+        "symbol": "MAHSGB729.NS",
+        "type": "State Government Bond",
+        "coupon": 7.25,
+        "maturity": "2029",
+        "rating": "AAA",
+        "issuer": "Government of Maharashtra",
+        "currency": "INR"
+      },
+      {
+        "name": "Gujarat State Government Bond 7.17% 2030",
+        "symbol": "GUJSGB717.NS", 
+        "type": "State Government Bond",
+        "coupon": 7.17,
+        "maturity": "2030",
+        "rating": "AAA",
+        "issuer": "Government of Gujarat",
+        "currency": "INR"
+      },
+      {
+        "name": "Tamil Nadu State Government Bond 7.30% 2029",
+        "symbol": "TNSGB730.NS",
+        "type": "State Government Bond",
+        "coupon": 7.30,
+        "maturity": "2029", 
+        "rating": "AAA",
+        "issuer": "Government of Tamil Nadu",
+        "currency": "INR"
+      }
+    ]
+  },
+  {
+    "category": "Infrastructure Bonds",
+    "description": "Tax-saving infrastructure bonds with special benefits",
+    "instruments": [
+      {
+        "name": "Indian Railway Finance Corporation",
+        "symbol": "IRFC.NS",
+        "type": "Infrastructure Bond",
+        "rating": "AAA",
+        "issuer": "IRFC",
+        "sector": "Railways",
+        "tax_benefit": true,
+        "currency": "INR"
+      },
+      {
+        "name": "National Highways Authority of India",
+        "symbol": "NHAI.NS",
+        "type": "Infrastructure Bond",
+        "rating": "AAA",
+        "issuer": "NHAI",
+        "sector": "Highways",
+        "tax_benefit": true,
+        "currency": "INR"
+      },
+      {
+        "name": "Power Finance Corporation",
+        "symbol": "PFC.NS",
+        "type": "Infrastructure Bond",
+        "rating": "AAA",
+        "issuer": "PFC",
+        "sector": "Power",
+        "tax_benefit": true,
+        "currency": "INR"
+      },
+      {
+        "name": "REC Limited Infrastructure Bonds",
+        "symbol": "RECLTD.NS", 
+        "type": "Infrastructure Bond",
+        "rating": "AAA",
+        "issuer": "REC Limited",
+        "sector": "Power",
+        "tax_benefit": true,
+        "currency": "INR"
+      }
+    ]
+  },
+  {
+    "category": "Treasury Bills",
+    "description": "Short-term government securities with maturity less than one year",
+    "instruments": [
+      {
+        "name": "91-Day Treasury Bill",
+        "symbol": "TB91D.NS",
+        "type": "Treasury Bill",
+        "maturity_days": 91,
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      },
+      {
+        "name": "182-Day Treasury Bill", 
+        "symbol": "TB182D.NS",
+        "type": "Treasury Bill",
+        "maturity_days": 182,
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      },
+      {
+        "name": "364-Day Treasury Bill",
+        "symbol": "TB364D.NS",
+        "type": "Treasury Bill", 
+        "maturity_days": 364,
+        "rating": "AAA",
+        "issuer": "Government of India",
+        "currency": "INR"
+      }
+    ]
+  },
+  {
+    "category": "Municipal Bonds",
+    "description": "Bonds issued by municipal corporations and local authorities",
+    "instruments": [
+      {
+        "name": "Mumbai Municipal Corporation Bond",
+        "symbol": "MMCB.NS",
+        "type": "Municipal Bond",
+        "rating": "AA+",
+        "issuer": "Mumbai Municipal Corporation",
+        "currency": "INR",
+        "tax_exempt": true
+      },
+      {
+        "name": "Delhi Development Authority Bond", 
+        "symbol": "DDAB.NS",
+        "type": "Municipal Bond",
+        "rating": "AA+",
+        "issuer": "Delhi Development Authority",
+        "currency": "INR",
+        "tax_exempt": true
+      },
+      {
+        "name": "Pune Municipal Corporation Bond",
+        "symbol": "PMCB.NS",
+        "type": "Municipal Bond",
+        "rating": "AA",
+        "issuer": "Pune Municipal Corporation", 
+        "currency": "INR",
+        "tax_exempt": true
+      }
+    ]
+  }
+]

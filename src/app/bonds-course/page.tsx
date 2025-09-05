@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { yahooFinanceService, type StockInfo } from '@/services/yahooFinanceApi';
+import bondInstruments from '@/data/bonds/bond-instruments.json';
 
 interface BondCalculation {
   bondPrice: number;
@@ -28,6 +29,27 @@ interface BondCalculation {
   maturityValue: number;
   totalReturn: number;
   annualizedReturn: number;
+}
+
+interface BondInstrument {
+  name: string;
+  symbol: string;
+  type: string;
+  rating?: string;
+  issuer: string;
+  currency: string;
+  coupon?: number;
+  maturity?: string;
+  sector?: string;
+  focus?: string;
+  tax_benefit?: boolean;
+  tax_exempt?: boolean;
+  expense_ratio?: number;
+  maturity_days?: number;
+}
+
+interface BondMetadata extends BondInstrument {
+  category: string;
 }
 
 export default function BondsCoursePage() {
@@ -43,31 +65,18 @@ export default function BondsCoursePage() {
   const [marketPrice, setMarketPrice] = useState(950);
   const [calculation, setCalculation] = useState<BondCalculation | null>(null);
 
-  // Real Indian Bonds, Debt Securities and Fixed Income Instruments
-  const bondSymbols = [
-    // Government Securities and Treasury Bills
-    'IN0020170037.NS', // Govt of India 7.16% 2023
-    'IN0020180034.NS', // Govt of India 8.15% 2022 
-    'IN0020190031.NS', // Govt of India 6.45% 2029
-    'IN0020200048.NS', // Govt of India 7.17% 2030
-    
-    // Corporate Bonds from Major Indian Companies
-    '540376.BO',     // HUDCO (Housing & Urban Development Corporation)
-    '532540.BO',     // TCS (Tata Consultancy Services) - has debt instruments
-    '500325.BO',     // Reliance Industries - bonds available
-    '500696.BO',     // Hinduja Global Solutions - corporate bonds
-    
-    // Debt/Bond ETFs and Mutual Funds (Most Reliable)
-    'CPSEETF.NS',    // CPSE Bond ETF - Central Public Sector Enterprises
-    'BHARTBOND.NS',  // Bharat Bond ETF 2030 (Government backed)
-    'LIQUIDETF.NS',  // SBI Liquid Assets ETF
-    'ABSLPSETF.NS',  // Aditya Birla SL PSU Bond ETF
-    
-    // Alternative: Major Banks with Bond Exposure
-    '500180.BO',     // HDFC Bank (issues corporate bonds)
-    '532215.BO',     // Axis Bank (corporate bonds)
-    '507685.BO',     // Wipro (corporate debt)
-  ];
+  // Extract symbols from bond instruments JSON data
+  const getBondSymbols = (): string[] => {
+    const symbols: string[] = [];
+    bondInstruments.forEach(category => {
+      category.instruments.forEach((instrument: BondInstrument) => {
+        symbols.push(instrument.symbol);
+      });
+    });
+    return symbols;
+  };
+  
+  const bondSymbols = getBondSymbols();
 
   useEffect(() => {
     fetchBondPrices();
@@ -196,19 +205,64 @@ export default function BondsCoursePage() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {bondPrices.map((bond, index) => (
-                    <motion.div
-                      key={bond.symbol}
-                      className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{bond.shortName}</h3>
-                          <p className="text-sm text-gray-600">{bond.symbol}</p>
-                        </div>
+                  {bondPrices.map((bond, index) => {
+                    // Find metadata for this bond
+                    const getBondMetadata = (symbol: string): BondMetadata | null => {
+                      for (const category of bondInstruments) {
+                        const instrument = category.instruments.find((inst: BondInstrument) => inst.symbol === symbol);
+                        if (instrument) {
+                          return { ...instrument, category: category.category } as BondMetadata;
+                        }
+                      }
+                      return null;
+                    };
+                    
+                    const metadata = getBondMetadata(bond.symbol);
+                    
+                    return (
+                      <motion.div
+                        key={bond.symbol}
+                        className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="flex items-center space-x-2">
+                              <h3 className="font-semibold text-gray-900">{metadata?.name || bond.shortName}</h3>
+                              {metadata?.rating && (
+                                <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                  metadata.rating === 'AAA' ? 'bg-green-100 text-green-800' :
+                                  metadata.rating.startsWith('AA') ? 'bg-blue-100 text-blue-800' :
+                                  'bg-yellow-100 text-yellow-800'
+                                }`}>
+                                  {metadata.rating}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center space-x-4 text-sm text-gray-600">
+                              <span>{bond.symbol}</span>
+                              {metadata && (
+                                <>
+                                  <span>•</span>
+                                  <span>{metadata.type}</span>
+                                  {metadata.issuer && (
+                                    <>
+                                      <span>•</span>
+                                      <span>{metadata.issuer}</span>
+                                    </>
+                                  )}
+                                  {metadata.coupon && (
+                                    <>
+                                      <span>•</span>
+                                      <span>{metadata.coupon}% coupon</span>
+                                    </>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          </div>
                         <div className="text-right">
                           <div className="flex items-center space-x-2">
                             {getPriceChangeIcon(bond.currentPrice, bond.previousClose)}
@@ -224,10 +278,38 @@ export default function BondsCoursePage() {
                             )} 
                             ({yahooFinanceService.calculateChange(bond.currentPrice, bond.previousClose).changePercent.toFixed(2)}%)
                           </div>
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        
+                        {/* Additional bond-specific information */}
+                        {metadata && (
+                          <div className="mt-3 pt-3 border-t border-gray-100">
+                            <div className="flex flex-wrap gap-2">
+                              {metadata.tax_benefit && (
+                                <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+                                  Tax Benefit
+                                </span>
+                              )}
+                              {metadata.tax_exempt && (
+                                <span className="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded">
+                                  Tax Exempt
+                                </span>
+                              )}
+                              {metadata.maturity && (
+                                <span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded">
+                                  Maturity: {metadata.maturity}
+                                </span>
+                              )}
+                              {metadata.focus && (
+                                <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                                  {metadata.focus}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
                           <span className="text-gray-500">High:</span>
                           <span className="ml-1 font-medium">
@@ -250,9 +332,10 @@ export default function BondsCoursePage() {
                             {yahooFinanceService.formatLargeNumber(bond.marketCap, bond.currency)}
                           </span>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               )}
             </motion.div>
