@@ -39,7 +39,9 @@ import {
   Layers,
   Network,
   Bot,
-  LineChart
+  LineChart,
+  Landmark,
+  Building2
 } from 'lucide-react';
 
 interface Module {
@@ -108,6 +110,47 @@ const FinancialSecurityEducationHub: NextPage = () => {
       color: 'red',
       tags: ['Fraud Awareness']
     },
+    // Bond Investment Modules (Following fraud pattern)
+    {
+      id: 'intro-to-bonds',
+      icon: <DollarSign className="w-6 h-6" />,
+      duration: '45 mins',
+      difficulty: 'Beginner',
+      xpReward: 100,
+      progress: 0,
+      locked: false,
+      course: 'fundamentals',
+      prerequisites: [],
+      lessons: [
+        { id: 'what-are-bonds', title: 'What are Bonds?', type: 'video', completed: false },
+        { id: 'bond-vs-stock', title: 'Bonds vs Stocks', type: 'interactive', completed: false },
+        { id: 'bond-basics', title: 'Bond Basic Concepts', type: 'quiz', completed: false },
+        { id: 'bond-market', title: 'Indian Bond Market Overview', type: 'video', completed: false },
+        { id: 'basic-case-studies', title: 'Basic Bond Investment Cases', type: 'case-study', completed: false }
+      ],
+      color: 'blue',
+      tags: ['Bond Fundamentals']
+    },
+    {
+      id: 'comprehensive-bond-strategies',
+      icon: <TrendingUp className="w-6 h-6" />,
+      duration: '2 hours',
+      difficulty: 'Advanced',
+      xpReward: 250,
+      progress: 0,
+      locked: false,
+      course: 'fundamentals',
+      prerequisites: ['intro-to-bonds'],
+      lessons: [
+        { id: 'advanced-pricing', title: 'Advanced Bond Pricing Models', type: 'interactive', completed: false },
+        { id: 'portfolio-strategies', title: 'Professional Bond Portfolio Strategies', type: 'video', completed: false },
+        { id: 'risk-management', title: 'Bond Risk Management Techniques', type: 'case-study', completed: false },
+        { id: 'institutional-trading', title: 'Institutional Bond Trading', type: 'interactive', completed: false },
+        { id: 'advanced-analysis', title: 'Advanced Bond Analysis Methods', type: 'quiz', completed: false }
+      ],
+      color: 'green',
+      tags: ['Bond Fundamentals']
+    },
     {
       id: 'comprehensive-fraud-schemes',
       icon: <TrendingDown className="w-6 h-6" />,
@@ -148,8 +191,8 @@ const FinancialSecurityEducationHub: NextPage = () => {
       description: 'Comprehensive market knowledge from basics to advanced analysis',
       color: 'blue',
       icon: <PieChart className="w-8 h-8" />,
-      moduleCount: 1,
-      totalDuration: '4 hours',
+      moduleCount: 3,
+      totalDuration: '4.5 hours',
       difficulty: 'Intermediate',
       certification: 'Market Analysis Professional'
     },

@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "title": "The High-Return Government Bond Offer",
+    "detailedScenario": "Meet Suresh, a 45-year-old businessman from Mumbai. He receives a call from someone claiming to be from 'National Bond Advisory Services.' The caller, Rakesh, says they are offering exclusive 'government-guaranteed bonds' with 12% annual returns, much higher than current bank fixed deposits. Rakesh claims these bonds are issued by the Government of India but are only available through their firm due to a 'special arrangement with RBI.' He provides a professional-looking website and asks Suresh to transfer ₹10 lakhs immediately via cryptocurrency payment to 'secure the allocation before rates drop.' Rakesh mentions that 'senior government officials and ministers are also investing' and creates urgency by saying only 24 hours remain. When Suresh asks why payment must be in cryptocurrency for a government bond, Rakesh claims it's for 'faster processing and tax advantages.'",
+    "character": "Suresh - Businessman",
+    "setting": "Mumbai Phone Call",
+    "options": [
+      {
+        "text": "Government guarantee makes this completely safe, and 12% return is reasonable for government bonds",
+        "isCorrect": false,
+        "explanation": "Current government bonds in India typically yield 6-8%. A 12% guarantee from the government would be widely available through banks and exchanges, not exclusive phone offers.",
+        "icon": "🏛️"
+      },
+      {
+        "text": "Cryptocurrency payment requirement for government bonds is a major red flag",
+        "isCorrect": true,
+        "explanation": "Legitimate government bonds are never purchased with cryptocurrency. All government securities are traded through regulated exchanges and banks using standard banking channels.",
+        "icon": "⚠️"
+      },
+      {
+        "text": "The special RBI arrangement and exclusive access sound like a privileged opportunity",
+        "isCorrect": false,
+        "explanation": "RBI does not create 'special arrangements' for private firms. All government bond issuances are transparent and available to all qualified investors through proper channels.",
+        "icon": "🏦"
+      },
+      {
+        "text": "The 24-hour deadline shows this is a time-sensitive opportunity that shouldn't be missed",
+        "isCorrect": false,
+        "explanation": "Creating artificial urgency is a classic fraud tactic. Legitimate government bond offerings have extended periods for applications and don't require immediate decisions.",
+        "icon": "⏰"
+      }
+    ],
+    "correctAnswer": "Cryptocurrency payment requirement for government bonds is a major red flag",
+    "learningPoint": "Authentic government bonds are purchased through registered brokers, banks, or direct from RBI/exchanges. They never require cryptocurrency payments or exclusive phone-based purchasing."
+  },
+  {
+    "id": 2,
+    "title": "The Corporate Bond App Investment",
+    "detailedScenario": "Meera, a 32-year-old software engineer from Bangalore, sees an advertisement on social media for 'BondEzy App - India's #1 Corporate Bond Platform.' The app claims to offer AAA-rated corporate bonds with 15% annual returns, comparing favorably to 6% bank FDs. The app has professional design, customer testimonials, and claims partnerships with 'leading Indian corporations.' When Meera downloads the app, it shows a portfolio of bonds from recognizable company names like Tata, Reliance, and Infosys. The app offers a special 'new user bonus' - invest ₹2 lakhs within 7 days and get an additional 2% return. Customer support chat shows other users making large investments and sharing their profit screenshots. However, when Meera tries to research these specific bond offerings on official stock exchanges, she cannot find any matching securities. The app's terms and conditions are vague about regulatory compliance.",
+    "character": "Meera - Software Engineer", 
+    "setting": "Bangalore Mobile App",
+    "options": [
+      {
+        "text": "AAA-rated bonds with 15% returns offer excellent risk-adjusted returns for conservative investing",
+        "isCorrect": false,
+        "explanation": "Legitimate AAA-rated corporate bonds in India typically yield 7-9%. A 15% yield would indicate extremely high risk, not AAA rating.",
+        "icon": "📊"
+      },
+      {
+        "text": "The inability to verify these bonds on official exchanges is a serious red flag",
+        "isCorrect": true,
+        "explanation": "All legitimate corporate bonds are listed and tradeable on recognized exchanges like NSE or BSE. If bonds cannot be verified independently, they likely don't exist.",
+        "icon": "🔍"
+      },
+      {
+        "text": "The professional app design and recognizable company names provide credibility",
+        "isCorrect": false,
+        "explanation": "Apps can be professionally designed by fraudsters, and company names can be used without authorization. Always verify through official company channels or exchange listings.",
+        "icon": "📱"
+      },
+      {
+        "text": "The new user bonus and time-limited offer show the platform values new customers",
+        "isCorrect": false,
+        "explanation": "Legitimate investment platforms don't typically offer 'bonuses' that enhance returns. This is a common tactic to rush investors into making decisions without proper verification.",
+        "icon": "🎁"
+      }
+    ],
+    "correctAnswer": "The inability to verify these bonds on official exchanges is a serious red flag",
+    "learningPoint": "Always verify corporate bonds through official stock exchanges (NSE/BSE) or the company's investor relations pages. Legitimate bonds have transparent listings with verifiable details."
+  },
+  {
+    "id": 3,
+    "title": "The Fixed Deposit vs Bond Dilemma",
+    "detailedScenario": "Rajesh, a 50-year-old retired government officer from Delhi, has ₹15 lakhs in savings. His bank relationship manager suggests moving from 5.5% fixed deposits to government bonds yielding 7.2%. However, Rajesh's neighbor, who claims to be a 'financial advisor,' tells him about 'infrastructure bonds' offering 11% returns with 'government backing similar to G-Secs.' The neighbor shows official-looking documents and mentions these bonds fund 'national highway projects.' The neighbor explains that these bonds are not available through banks because they are 'wholesale instruments for sophisticated investors' but he can arrange them through his 'institutional connections.' He asks for immediate payment via demand draft and promises monthly interest payouts starting next month. When Rajesh asks about liquidity and exit options, the neighbor says early exit is possible with just a 1% penalty.",
+    "character": "Rajesh - Retired Government Officer",
+    "setting": "Delhi Home Meeting",
+    "options": [
+      {
+        "text": "Moving from 5.5% FD to 7.2% government bonds represents a reasonable upgrade for better returns",
+        "isCorrect": true,
+        "explanation": "This is a legitimate comparison. Government bonds offer higher yields than bank FDs and are backed by government guarantee, representing a reasonable risk-reward upgrade.",
+        "icon": "📈"
+      },
+      {
+        "text": "The 11% infrastructure bonds with government backing sound like an excellent opportunity",
+        "isCorrect": false,
+        "explanation": "While infrastructure bonds exist, 11% yields would require very high risk. Legitimate infrastructure bonds would be available through proper financial institutions, not neighborhood arrangements.",
+        "icon": "🏗️"
+      },
+      {
+        "text": "The 'wholesale instrument' explanation and institutional connections sound sophisticated and exclusive",
+        "isCorrect": false,
+        "explanation": "This is a common tactic to make investors feel they're getting special access. Legitimate wholesale instruments have clear regulatory frameworks and don't require informal arrangements.",
+        "icon": "🏢"
+      },
+      {
+        "text": "Monthly interest payouts and easy exit options make this more attractive than regular bonds",
+        "isCorrect": false,
+        "explanation": "While some bonds do offer monthly payouts, the combination of high yield, government backing, and easy liquidity is unrealistic. This appears designed to sound too good to be true.",
+        "icon": "💰"
+      }
+    ],
+    "correctAnswer": "Moving from 5.5% FD to 7.2% government bonds represents a reasonable upgrade for better returns",
+    "learningPoint": "Legitimate government bonds available through banks and authorized dealers offer reasonable yield improvements over FDs. Be skeptical of unofficial arrangements promising significantly higher returns with similar safety."
+  },
+  {
+    "id": 4,
+    "title": "The Tax-Free Bond Promotion",
+    "detailedScenario": "Kavitha, a 38-year-old chartered accountant from Chennai, receives an email from 'Premium Tax Solutions' about 'exclusive tax-free bonds' offering 9% annual returns completely exempt from income tax. The email claims these bonds are issued by 'government infrastructure agencies' and are only available to 'high-net-worth clients and professionals.' The bonds require a minimum investment of ₹5 lakhs and promise that returns will not be reported to income tax authorities, providing 'complete tax efficiency.' The email includes testimonials from other CAs and mentions that 'only 500 allocations are available nationwide.' When Kavitha researches legitimate tax-free bonds, she finds they currently offer yields around 5.5-6.5% and are available through regular financial institutions. The email provider asks for payment through a private bank account rather than institutional channels.",
+    "character": "Kavitha - Chartered Accountant",
+    "setting": "Chennai Email Offer",
+    "options": [
+      {
+        "text": "9% tax-free returns would provide excellent after-tax yields compared to taxable investments",
+        "isCorrect": false,
+        "explanation": "Legitimate tax-free bonds in India currently offer much lower yields (5.5-6.5%). A 9% tax-free yield would be significantly above market rates and highly suspicious.",
+        "icon": "💰"
+      },
+      {
+        "text": "The significantly higher yield compared to legitimate tax-free bonds is a major warning sign",
+        "isCorrect": true,
+        "explanation": "This is correct. The yield being 3-4% higher than legitimate tax-free bonds available in the market indicates this is likely fraudulent.",
+        "icon": "⚠️"
+      },
+      {
+        "text": "Exclusive access for professionals and limited allocation indicates a premium opportunity",
+        "isCorrect": false,
+        "explanation": "Creating false exclusivity is a common fraud tactic. Legitimate tax-free bonds are available to all eligible investors through proper channels, not exclusive email offers.",
+        "icon": "🎯"
+      },
+      {
+        "text": "Not reporting returns to tax authorities provides additional tax benefits beyond the exemption",
+        "isCorrect": false,
+        "explanation": "Even tax-free bonds must be properly reported for tax compliance. Any suggestion of hiding investments from tax authorities indicates illegal activity.",
+        "icon": "🏛️"
+      }
+    ],
+    "correctAnswer": "The significantly higher yield compared to legitimate tax-free bonds is a major warning sign",
+    "learningPoint": "Know the current market rates for legitimate tax-free bonds and be suspicious of offers significantly exceeding market yields. Always verify through authorized financial institutions and exchanges."
+  },
+  {
+    "id": 5,
+    "title": "The Foreign Currency Bond Opportunity",
+    "detailedScenario": "Amit, a 33-year-old NRI working in Dubai, receives a WhatsApp message about 'USD-denominated corporate bonds' issued by 'Indian companies for international investors.' The sender, claiming to be from 'Global India Securities,' offers bonds yielding 8% in USD, which seems attractive compared to US Treasury yields around 4%. The bonds are supposedly issued by well-known Indian IT companies like TCS and Infosys for their overseas operations. The minimum investment is $50,000, and payment must be made to a Dubai-based bank account 'for faster processing.' The seller claims these bonds provide currency hedging benefits for NRIs and are 'pre-approved for NRI investment.' However, when Amit checks the companies' official websites and investor relations pages, he finds no mention of these specific USD bond issuances. The seller becomes evasive when asked for official prospectus documents or SEBI approval letters.",
+    "character": "Amit - NRI in Dubai",
+    "setting": "Dubai WhatsApp Message",
+    "options": [
+      {
+        "text": "USD-denominated bonds from Indian IT companies would provide excellent currency diversification for NRIs",
+        "isCorrect": false,
+        "explanation": "While some Indian companies do issue foreign currency bonds, they would be properly documented and available through legitimate channels, not WhatsApp offers.",
+        "icon": "💱"
+      },
+      {
+        "text": "The 8% USD yield offers attractive returns compared to US Treasury rates",
+        "isCorrect": false,
+        "explanation": "While the yield differential seems attractive, the lack of verification through official company sources and informal offering method are major red flags.",
+        "icon": "📊"
+      },
+      {
+        "text": "The inability to verify these bonds through official company channels is highly suspicious",
+        "isCorrect": true,
+        "explanation": "Legitimate corporate bond issuances are always documented on company websites and in regulatory filings. The absence of such documentation indicates likely fraud.",
+        "icon": "🔍"
+      },
+      {
+        "text": "Pre-approved NRI status and Dubai banking arrangements show professional international setup",
+        "isCorrect": false,
+        "explanation": "Fraudsters often target NRIs with claims of special arrangements and offshore banking to appear legitimate. Always verify through official channels in India.",
+        "icon": "🌍"
+      }
+    ],
+    "correctAnswer": "The inability to verify these bonds through official company channels is highly suspicious",
+    "learningPoint": "Even for international investments, always verify through official company sources and regulatory authorities. Legitimate foreign currency bonds by Indian companies are transparently documented and regulated."
+  }
+]

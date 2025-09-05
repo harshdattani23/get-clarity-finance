@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
-import { ShieldCheck, Menu, Globe, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, Globe, ChevronDown } from 'lucide-react';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { useTranslation } from '@/hooks/useTranslation';
 import { usePathname } from 'next/navigation';
@@ -73,8 +74,14 @@ const Navbar = () => {
     <header className="bg-[#163300] sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center justify-between h-22 py-5 border-b border-white/10">
-          <Link href="/" className="flex items-center gap-2">
-            <ShieldCheck className="w-8 h-8 text-white" />
+          <Link href="/" className="flex items-center gap-3">
+            <Image 
+              src="/favicon.svg" 
+              alt="Get Clarity Finance Logo" 
+              width={32} 
+              height={32} 
+              className="w-8 h-8"
+            />
             <span className="font-['Inter_Tight',_sans-serif] text-2xl sm:text-3xl font-semibold text-white tracking-tight whitespace-nowrap">
               {t('title') as string}
             </span>

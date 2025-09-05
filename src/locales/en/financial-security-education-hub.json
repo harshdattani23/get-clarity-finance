@@ -129,6 +129,19 @@
       "description": "Mutual funds, ETFs, bonds, and alternative investments",
       "course": "portfolio_management",
       "prerequisites": ["investment-philosophy"]
+    },
+    
+    "intro-to-bonds": {
+      "title": "Introduction to Bond Investment",
+      "description": "Learn about bond basics and the Indian bond market fundamentals",
+      "course": "fundamentals",
+      "prerequisites": []
+    },
+    "comprehensive-bond-strategies": {
+      "title": "Comprehensive Bond Strategies",
+      "description": "Master advanced bond pricing, portfolio strategies, and professional bond trading techniques",
+      "course": "fundamentals",
+      "prerequisites": ["intro-to-bonds"]
     }
   },
   "courseStats": {
@@ -139,8 +152,8 @@
       "certification": "Fraud Detection Specialist"
     },
     "fundamentals": {
-      "modules": 1,
-      "duration": "4 hours",
+      "modules": 3,
+      "duration": "4.5 hours",
       "difficulty": "Intermediate",
       "certification": "Market Analysis Professional"
     },
