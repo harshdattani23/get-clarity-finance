@@ -26,39 +26,11 @@ const COURSE_MODULES = [
     xpReward: 100,
   },
   {
-    slug: 'intermediate-frauds',
-    title: 'Intermediate Fraud Schemes',
+    slug: 'comprehensive-fraud-schemes',
+    title: 'Comprehensive Fraud Schemes',
     order: 2,
-    difficulty: CourseDifficulty.INTERMEDIATE,
-    xpReward: 200,
-  },
-  {
-    slug: 'ponzi-schemes',
-    title: 'Ponzi Schemes',
-    order: 3,
-    difficulty: CourseDifficulty.INTERMEDIATE,
-    xpReward: 150,
-  },
-  {
-    slug: 'pump-dump',
-    title: 'Pump & Dump Schemes',
-    order: 4,
-    difficulty: CourseDifficulty.INTERMEDIATE,
-    xpReward: 150,
-  },
-  {
-    slug: 'fake-advisors',
-    title: 'Fake Investment Advisors',
-    order: 5,
-    difficulty: CourseDifficulty.INTERMEDIATE,
-    xpReward: 150,
-  },
-  {
-    slug: 'insider-trading',
-    title: 'Insider Trading & Market Manipulation',
-    order: 6,
     difficulty: CourseDifficulty.ADVANCED,
-    xpReward: 200,
+    xpReward: 250,
   },
 ] as const;
 

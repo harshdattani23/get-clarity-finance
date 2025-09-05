@@ -87,14 +87,14 @@ const FinancialSecurityEducationHub: NextPage = () => {
   const { t } = useTranslation('financial-security-education-hub');
   const { user: clerkUser } = useUser();
   const [modules, setModules] = useState<Module[]>([
-    // Fraud Awareness Modules
+    // Investment Security Course Modules (Only modules with existing pages)
     {
       id: 'intro-to-frauds',
       icon: <AlertTriangle className="w-6 h-6" />,
       duration: '45 mins',
       difficulty: 'Beginner',
       xpReward: 100,
-      progress: 100,
+      progress: 0,
       locked: false,
       course: 'fraud_awareness',
       prerequisites: [],
@@ -106,153 +106,27 @@ const FinancialSecurityEducationHub: NextPage = () => {
         { id: 'case-studies', title: 'Major Fraud Case Studies', type: 'case-study', completed: false }
       ],
       color: 'red',
-      tags: ['Awareness']
+      tags: ['Fraud Awareness']
     },
     {
       id: 'comprehensive-fraud-schemes',
       icon: <TrendingDown className="w-6 h-6" />,
-      duration: '3 hours',
-      difficulty: 'Intermediate',
-      xpReward: 400,
+      duration: '2 hours',
+      difficulty: 'Advanced',
+      xpReward: 250,
       progress: 0,
       locked: false,
       course: 'fraud_awareness',
       prerequisites: ['intro-to-frauds'],
       lessons: [
-        { id: 'ponzi-mechanics', title: 'How Ponzi Schemes Work', type: 'interactive', completed: false },
-        { id: 'pyramid-vs-ponzi', title: 'Pyramid vs Ponzi Schemes', type: 'video', completed: false },
-        { id: 'pump-dump-mechanics', title: 'Pump & Dump Process', type: 'interactive', completed: false },
-        { id: 'social-media-manipulation', title: 'Social Media Manipulation', type: 'video', completed: false },
-        { id: 'penny-stock-risks', title: 'Penny Stock Scams', type: 'case-study', completed: false },
-        { id: 'insider-trading-basics', title: 'Insider Trading Fundamentals', type: 'video', completed: false },
-        { id: 'circular-trading', title: 'Circular Trading Explained', type: 'case-study', completed: false },
-        { id: 'detection-tools', title: 'Fraud Detection Tools & Techniques', type: 'interactive', completed: false },
-        { id: 'indian-fraud-cases', title: 'Major Indian Fraud Cases', type: 'case-study', completed: false },
-        { id: 'comprehensive-quiz', title: 'Comprehensive Fraud Detection Quiz', type: 'quiz', completed: false }
+        { id: 'advanced-networks', title: 'Multi-Layered Fraud Networks', type: 'interactive', completed: false },
+        { id: 'technology-integration', title: 'AI-Driven Market Manipulation', type: 'video', completed: false },
+        { id: 'regulatory-arbitrage', title: 'Regulatory Arbitrage Exploitation', type: 'case-study', completed: false },
+        { id: 'professional-enablers', title: 'Professional Enablers & Corruption', type: 'interactive', completed: false },
+        { id: 'detection-advanced', title: 'Advanced Detection Techniques', type: 'quiz', completed: false }
       ],
       color: 'orange',
-      tags: ['Awareness']
-    },
-    {
-      id: 'advanced-market-manipulation',
-      icon: <Network className="w-6 h-6" />,
-      duration: '2 hours',
-      difficulty: 'Advanced',
-      xpReward: 500,
-      progress: 0,
-      locked: false,
-      course: 'fraud_awareness',
-      prerequisites: ['comprehensive-fraud-schemes'],
-      lessons: [
-        { id: 'sophisticated-schemes', title: 'Sophisticated Market Manipulation', type: 'interactive', completed: false },
-        { id: 'cross-border-frauds', title: 'Cross-Border Investment Scams', type: 'case-study', completed: false },
-        { id: 'ai-powered-frauds', title: 'AI-Powered Market Manipulation', type: 'video', completed: false },
-        { id: 'regulatory-arbitrage', title: 'Regulatory Arbitrage & Loopholes', type: 'interactive', completed: false },
-        { id: 'dark-web-schemes', title: 'Dark Web Investment Frauds', type: 'case-study', completed: false },
-        { id: 'professional-detection', title: 'Professional Detection Techniques', type: 'quiz', completed: false }
-      ],
-      color: 'indigo',
-      tags: ['Awareness']
-    },
-
-    // Stock Market Fundamentals (Combined)
-    {
-      id: 'comprehensive-stock-market-mastery',
-      icon: <PieChart className="w-6 h-6" />,
-      duration: '4 hours',
-      difficulty: 'Intermediate',
-      xpReward: 400,
-      progress: 0,
-      locked: false,
-      course: 'fundamentals',
-      prerequisites: [],
-      lessons: [
-        { id: 'what-is-stock', title: 'What is a Stock?', type: 'video', completed: false },
-        { id: 'stock-types', title: 'Types of Stocks', type: 'interactive', completed: false },
-        { id: 'market-mechanics', title: 'How Markets Work', type: 'video', completed: false },
-        { id: 'trading-basics', title: 'Trading Basics', type: 'quiz', completed: false },
-        { id: 'financial-statements', title: 'Reading Financial Statements', type: 'interactive', completed: false },
-        { id: 'ratio-analysis', title: 'Financial Ratio Analysis', type: 'video', completed: false },
-        { id: 'valuation-methods', title: 'Company Valuation', type: 'case-study', completed: false },
-        { id: 'technical-analysis', title: 'Technical Analysis Fundamentals', type: 'interactive', completed: false },
-        { id: 'market-psychology', title: 'Market Psychology & Behavioral Finance', type: 'video', completed: false },
-        { id: 'comprehensive-market-quiz', title: 'Comprehensive Market Analysis Quiz', type: 'quiz', completed: false }
-      ],
-      color: 'blue',
-      tags: ['Market Knowledge']
-    },
-    
-    // Algorithmic Trading & HFT (Combined)
-    {
-      id: 'advanced-algorithmic-hft-trading',
-      icon: <Cpu className="w-6 h-6" />,
-      duration: '12 hours',
-      difficulty: 'Advanced',
-      xpReward: 1200,
-      progress: 0,
-      locked: false,
-      course: 'algorithmic_trading',
-      prerequisites: ['comprehensive-stock-market-mastery'],
-      lessons: [
-        { id: 'algo-intro', title: 'Introduction to Algorithmic Trading', type: 'video', completed: false },
-        { id: 'market-microstructure', title: 'Market Microstructure', type: 'interactive', completed: false },
-        { id: 'trading-infrastructure', title: 'Trading Infrastructure', type: 'video', completed: false },
-        { id: 'programming-basics', title: 'Programming for Trading', type: 'interactive', completed: false },
-        { id: 'hft-intro', title: 'High-Frequency Trading Basics', type: 'video', completed: false },
-        { id: 'market-making', title: 'Market Making Strategies', type: 'interactive', completed: false },
-        { id: 'arbitrage-strategies', title: 'Arbitrage Techniques', type: 'case-study', completed: false },
-        { id: 'latency-optimization', title: 'Latency Optimization', type: 'video', completed: false },
-        { id: 'ml-basics', title: 'Machine Learning Fundamentals', type: 'video', completed: false },
-        { id: 'feature-engineering', title: 'Feature Engineering', type: 'interactive', completed: false },
-        { id: 'deep-learning', title: 'Deep Learning Applications', type: 'case-study', completed: false },
-        { id: 'nlp-trading', title: 'NLP for Trading', type: 'interactive', completed: false },
-        { id: 'risk-management-algo', title: 'Algorithmic Risk Management', type: 'video', completed: false },
-        { id: 'backtesting-strategies', title: 'Backtesting & Strategy Validation', type: 'interactive', completed: false },
-        { id: 'regulatory-compliance', title: 'Regulatory Compliance & Ethics', type: 'case-study', completed: false },
-        { id: 'advanced-trading-quiz', title: 'Advanced Trading Systems Quiz', type: 'quiz', completed: false }
-      ],
-      color: 'purple',
-      tags: ['Market Knowledge']
-    },
-
-    // Portfolio Management
-    {
-      id: 'investment-philosophy',
-      icon: <TrendingUp className="w-6 h-6" />,
-      duration: '3 hours',
-      difficulty: 'Intermediate',
-      xpReward: 300,
-      progress: 0,
-      locked: false,
-      course: 'portfolio_management',
-      prerequisites: ['comprehensive-stock-market-mastery'],
-      lessons: [
-        { id: 'investment-principles', title: 'Investment Principles', type: 'video', completed: false },
-        { id: 'portfolio-theory', title: 'Modern Portfolio Theory', type: 'interactive', completed: false },
-        { id: 'diversification', title: 'Diversification Strategies', type: 'video', completed: false },
-        { id: 'asset-allocation', title: 'Asset Allocation Models', type: 'quiz', completed: false }
-      ],
-      color: 'green',
-      tags: ['Market Knowledge']
-    },
-    {
-      id: 'investment-vehicles',
-      icon: <Layers className="w-6 h-6" />,
-      duration: '4 hours',
-      difficulty: 'Intermediate',
-      xpReward: 350,
-      progress: 0,
-      locked: false,
-      course: 'portfolio_management',
-      prerequisites: ['investment-philosophy'],
-      lessons: [
-        { id: 'mutual-funds', title: 'Mutual Funds Deep Dive', type: 'video', completed: false },
-        { id: 'etfs', title: 'Exchange-Traded Funds', type: 'interactive', completed: false },
-        { id: 'bonds', title: 'Fixed Income Securities', type: 'video', completed: false },
-        { id: 'alternatives', title: 'Alternative Investments', type: 'case-study', completed: false }
-      ],
-      color: 'teal',
-      tags: ['Market Knowledge']
+      tags: ['Fraud Awareness']
     }
   ]);
 
@@ -979,13 +853,23 @@ const FinancialSecurityEducationHub: NextPage = () => {
                           <span>Module Completed!</span>
                         </div>
                         {module.id === 'intro-to-frauds' && (
-                          <button
-                            onClick={handleCourseCompletion}
-                            className="w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105"
-                          >
-                            <Award className="w-4 h-4" />
-                            Get Certificate
-                          </button>
+                          clerkUser ? (
+                            <button
+                              onClick={handleCourseCompletion}
+                              className="w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105"
+                            >
+                              <Award className="w-4 h-4" />
+                              Get Certificate
+                            </button>
+                          ) : (
+                            <Link
+                              href="/sign-up"
+                              className="w-full flex items-center justify-center gap-2 text-sm font-bold rounded-full px-4 py-2 bg-lime-400 text-black hover:bg-lime-500 transition-all transform hover:scale-105"
+                            >
+                              <Award className="w-4 h-4" />
+                              Sign Up for Certificate
+                            </Link>
+                          )
                         )}
                       </div>
                     ) : (

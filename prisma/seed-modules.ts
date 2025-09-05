@@ -12,32 +12,8 @@ async function main() {
     return;
   }
 
-  const newModules = [
-    {
-      id: 'clx2p4qj0000108l8g8r8g8r8',
-      slug: 'advanced-fee-schemes',
-      title: 'Advanced Fee & High-Yield Schemes',
-      order: 7,
-      difficulty: CourseDifficulty.INTERMEDIATE,
-      xpReward: 150,
-    },
-    {
-      id: 'clx2p4qj0000208l8g8r8g8r8',
-      slug: 'spoofing-wash-trading',
-      title: 'Spoofing & Wash Trading',
-      order: 8,
-      difficulty: CourseDifficulty.ADVANCED,
-      xpReward: 200,
-    },
-    {
-      id: 'clx2p4qj0000308l8g8r8g8r8',
-      slug: 'broker-fraud',
-      title: 'Broker-Related Fraud',
-      order: 9,
-      difficulty: CourseDifficulty.INTERMEDIATE,
-      xpReward: 150,
-    },
-  ];
+// No additional modules to seed - all modules are managed via API setup
+const newModules: any[] = [];
 
   for (const moduleData of newModules) {
     await prisma.courseModule.upsert({

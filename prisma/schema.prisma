@@ -16,6 +16,7 @@ model User {
   updatedAt            DateTime              @updatedAt
   onboarded            Boolean               @default(false)
   virtualCash          Decimal               @default(100000.00)
+  certificates         Certificate[]
   CourseEnrollment     CourseEnrollment[]
   courseProgress       CourseProgress[]
   leaderboardEntries   LeaderboardEntry[]
@@ -24,7 +25,6 @@ model User {
   achievements         UserAchievement[]
   virtualTrades        VirtualTrade[]
   watchlists           Watchlist[]
-  certificates         Certificate[]
 }
 
 model CourseProgress {
@@ -330,7 +330,7 @@ model CourseBadge {
   criteria         Json
   xpValue          Int                @default(100)
   createdAt        DateTime           @default(now())
-  CourseEnrollment CourseEnrollment[]
+  CourseEnrollment CourseEnrollment[] @relation("CourseBadgeToCourseEnrollment")
 }
 
 model CourseEnrollment {
@@ -348,7 +348,7 @@ model CourseEnrollment {
   LessonProgress LessonProgress[]
   ModuleProgress ModuleProgress[]
   QuizAttempt    QuizAttempt[]
-  CourseBadge    CourseBadge[]
+  CourseBadge    CourseBadge[]    @relation("CourseBadgeToCourseEnrollment")
 
   @@unique([userClerkId, courseId])
   @@index([courseId])
@@ -375,17 +375,17 @@ model CourseLesson {
 }
 
 model CourseModule {
-  id           String         @id
+  id           String           @id
   courseId     String
-  title        String         @default("Untitled")
   slug         String
-  order        Int            @default(0)
-  difficulty   CourseDifficulty @default(BEGINNER)
-  xpReward     Int            @default(50)
-  createdAt    DateTime       @default(now())
+  order        Int              @default(0)
+  xpReward     Int              @default(50)
+  createdAt    DateTime         @default(now())
   updatedAt    DateTime
+  difficulty   CourseDifficulty @default(BEGINNER)
+  title        String           @default("Untitled")
   CourseLesson CourseLesson[]
-  Course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  Course       Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId, order])
   @@unique([courseId, slug])
@@ -503,21 +503,21 @@ model UserInteractionResponse {
 }
 
 model AgentQuery {
-  id          String   @id @default(cuid())
-  reportId    String   @unique @default(cuid()) // Unique report identifier
-  agentType   String   // sebi-query, advisor-verifier, announcement-verifier, etc.
-  query       String   // Original user query
-  response    String?  // Agent response (can be long)
-  userAgent   String?
-  ipAddress   String?
-  userId      String?  // Clerk user ID if authenticated
-  sessionId   String?  // Session identifier
-  success     Boolean  @default(true)
-  error       String?  // Error message if failed
-  metadata    Json?    // Additional context (intent, results count, etc.)
-  executionTime Int?   // Response time in milliseconds
-  createdAt   DateTime @default(now())
-  
+  id            String   @id @default(cuid())
+  reportId      String   @unique @default(cuid())
+  agentType     String
+  query         String
+  response      String?
+  userAgent     String?
+  ipAddress     String?
+  userId        String?
+  sessionId     String?
+  success       Boolean  @default(true)
+  error         String?
+  metadata      Json?
+  executionTime Int?
+  createdAt     DateTime @default(now())
+
   @@index([agentType])
   @@index([createdAt])
   @@index([userId])
@@ -525,20 +525,20 @@ model AgentQuery {
 }
 
 model FileMetadata {
-  id              String   @id @default(cuid())
-  fileId          String   @unique // doc_timestamp_randomstring
-  originalName    String
-  encryptedPath   String   // Path in Google Cloud Storage
-  fileSize        Int
-  mimeType        String
-  uploadedBy      String?
-  uploadedAt      DateTime @default(now())
+  id               String    @id @default(cuid())
+  fileId           String    @unique
+  originalName     String
+  encryptedPath    String
+  fileSize         Int
+  mimeType         String
+  uploadedBy       String?
+  uploadedAt       DateTime  @default(now())
   analysisReportId String?
-  encryptionKey   String   // Encrypted with master key (contains key, iv, tag)
-  accessLevel     String   @default("private") // private, internal, admin
-  expiresAt       DateTime?
-  isActive        Boolean  @default(true)
-  
+  encryptionKey    String
+  accessLevel      String    @default("private")
+  expiresAt        DateTime?
+  isActive         Boolean   @default(true)
+
   @@index([uploadedBy])
   @@index([uploadedAt])
   @@index([expiresAt])
@@ -550,10 +550,10 @@ model FileAccessLog {
   fileId     String
   accessedBy String?
   accessedAt DateTime @default(now())
-  accessType String   // upload, download, analyze, delete
+  accessType String
   ipAddress  String?
   userAgent  String?
-  
+
   @@index([fileId])
   @@index([accessedBy])
   @@index([accessedAt])
@@ -572,14 +572,14 @@ model Certificate {
   completionDate  DateTime
   issuedAt        DateTime @default(now())
   publicUrl       String?
-  certificateData Json?    // Store full certificate data as JSON
+  certificateData Json?
   user            User     @relation(fields: [userClerkId], references: [clerkId])
-  
+
+  @@unique([userClerkId, courseId, moduleId])
   @@index([userClerkId])
   @@index([courseId])
   @@index([moduleId])
   @@index([completionDate])
-  @@unique([userClerkId, courseId, moduleId])
 }
 
 enum InvestmentExperience {
@@ -643,7 +643,6 @@ enum CourseDifficulty {
   ADVANCED
 }
 
-
 enum EnrollmentStatus {
   ENROLLED
   IN_PROGRESS
@@ -678,4 +677,29 @@ enum QuestionType {
   TRUE_FALSE
   SCENARIO
   VERIFICATION
+}
+
+model JobLog {
+  id                   Int       @id @default(autoincrement())
+  jobName              String
+  startTime            DateTime
+  endTime              DateTime?
+  status               JobStatus
+  totalStocks          Int?
+  successCount         Int?
+  errorCount           Int?
+  errorMessage         String?
+  executionTimeSeconds Int?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([startTime])
+  @@index([jobName])
+  @@index([status])
+}
+
+enum JobStatus {
+  RUNNING
+  SUCCESS
+  FAILED
 }

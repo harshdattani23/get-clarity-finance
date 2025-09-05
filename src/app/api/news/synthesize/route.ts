@@ -261,7 +261,7 @@ export async function GET(request: NextRequest) {
       // For non-English languages, show appropriate message
       const errorMessage = params.lang !== 'en' 
         ? `News in ${params.lang} requires API connection` 
-        : 'News data is updated 3 times daily';
+        : 'News service temporarily unavailable';
       
       return NextResponse.json(
         {
@@ -270,7 +270,7 @@ export async function GET(request: NextRequest) {
           model: 'none',
           cached: false,
           queriedAt: new Date().toISOString(),
-          warnings: ['No cached news available. Please wait for the next update cycle.'],
+          warnings: ['News service configuration pending. Please check back later.'],
           error: errorMessage,
         },
         { status: 200 } // Return 200 with empty data instead of error
@@ -325,7 +325,11 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('News synthesis error:', error);
     
-    // Return error response
+    // Check if it's a Perplexity API authentication error
+    const isAuthError = error instanceof Error && 
+      (error.message.includes('401') || error.message.includes('Authorization'));
+    
+    // Return appropriate response based on error type
     return NextResponse.json(
       {
         items: [],
@@ -333,10 +337,10 @@ export async function GET(request: NextRequest) {
         model: 'none',
         cached: false,
         queriedAt: new Date().toISOString(),
-        warnings: ['Failed to synthesize news'],
-        error: error instanceof Error ? error.message : 'Unknown error',
+        warnings: [isAuthError ? 'News service configuration pending. Please check back later.' : 'Failed to synthesize news'],
+        error: isAuthError ? 'News service temporarily unavailable' : (error instanceof Error ? error.message : 'Unknown error'),
       },
-      { status: 503 }
+      { status: isAuthError ? 200 : 503 } // Return 200 for auth errors to avoid breaking UI
     );
   }
 }
@@ -374,9 +378,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           items: [],
-          warnings: ['API key not configured'],
+          lang: body.lang || 'en',
+          model: 'none',
+          cached: false,
+          queriedAt: new Date().toISOString(),
+          warnings: ['News service configuration pending. Please check back later.'],
+          error: 'News service temporarily unavailable',
         },
-        { status: 503 }
+        { status: 200 } // Return 200 to avoid breaking UI
       );
     }
 
@@ -409,13 +418,21 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('News synthesis error:', error);
     
+    // Check if it's a Perplexity API authentication error
+    const isAuthError = error instanceof Error && 
+      (error.message.includes('401') || error.message.includes('Authorization'));
+    
     return NextResponse.json(
       {
         items: [],
-        warnings: ['Failed to synthesize news'],
-        error: error instanceof Error ? error.message : 'Unknown error',
+        lang: 'en',
+        model: 'none',
+        cached: false,
+        queriedAt: new Date().toISOString(),
+        warnings: [isAuthError ? 'News service configuration pending. Please check back later.' : 'Failed to synthesize news'],
+        error: isAuthError ? 'News service temporarily unavailable' : (error instanceof Error ? error.message : 'Unknown error'),
       },
-      { status: 503 }
+      { status: isAuthError ? 200 : 503 } // Return 200 for auth errors to avoid breaking UI
     );
   }
 }

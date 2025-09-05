@@ -169,23 +169,19 @@ export default function AdminLearningDashboard() {
   const getModuleStatus = (user: UserProgress) => {
     const modules = [
       { id: "intro-to-frauds", name: "Introduction to Frauds", completed: user.completedModules.includes("intro-to-frauds") },
-      { id: "intermediate-frauds", name: "Intermediate Frauds", completed: user.completedModules.includes("intermediate-frauds") },
-      { id: "advanced-frauds", name: "Advanced Frauds", completed: user.completedModules.includes("advanced-frauds") },
-      { id: "prevention", name: "Prevention Strategies", completed: user.completedModules.includes("prevention") },
+      { id: "comprehensive-fraud-schemes", name: "Comprehensive Fraud Schemes", completed: user.completedModules.includes("comprehensive-fraud-schemes") },
     ];
     return modules;
   };
 
   const getCurrentModule = (user: UserProgress) => {
-    const moduleOrder = ["intro-to-frauds", "intermediate-frauds", "advanced-frauds", "prevention"];
-    if (user.completedModules.length === 4) return "Completed";
+    const moduleOrder = ["intro-to-frauds", "comprehensive-fraud-schemes"];
+    if (user.completedModules.length === 2) return "Completed";
     for (const module of moduleOrder) {
       if (!user.completedModules.includes(module)) {
         const moduleNames: Record<string, string> = {
           "intro-to-frauds": "Introduction to Frauds",
-          "intermediate-frauds": "Intermediate Frauds",
-          "advanced-frauds": "Advanced Frauds",
-          "prevention": "Prevention Strategies"
+          "comprehensive-fraud-schemes": "Comprehensive Fraud Schemes"
         };
         return moduleNames[module];
       }
