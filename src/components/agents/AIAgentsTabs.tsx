@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle, FileSearch, Upload } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/hooks/useTranslation';
+import AIDisclaimer from '@/components/ui/AIDisclaimer';
 
 interface TabContent {
   id: string;
@@ -1475,6 +1476,13 @@ export default function AIAgentsTabs() {
                     </div>
                   )}
 
+                  {/* AI Disclaimer for Fraud Detection */}
+                  <AIDisclaimer 
+                    context="fraud-detection"
+                    variant="compact"
+                    className="mt-4"
+                  />
+                  
                   {/* SEBI Action */}
                   {((analysisResult.threat?.riskScore && analysisResult.threat.riskScore > 70) || 
                     (analysisResult.verification?.credibilityScore !== undefined && analysisResult.verification.credibilityScore < 30) || 

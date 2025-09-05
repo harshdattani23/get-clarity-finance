@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Send, Mic, MicOff, Volume2, VolumeX, AlertTriangle, Shield, Zap, Phone, Power, PowerOff } from 'lucide-react';
+import AIDisclaimer from '@/components/ui/AIDisclaimer';
 
 interface StreamingMessage {
   id: string;
@@ -694,6 +695,14 @@ export default function GeminiLiveChat() {
             Click the power button to start a live session with audio support.
           </p>
         )}
+        
+        {/* AI Disclaimer */}
+        <div className="mt-2">
+          <AIDisclaimer 
+            variant="inline" 
+            context="investment-advice"
+          />
+        </div>
       </div>
     </div>
   );

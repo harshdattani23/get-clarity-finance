@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MarketFilters from './MarketFilters';
 import ScreenerView from './ScreenerView';
@@ -9,30 +9,39 @@ import AcknowledgementModal from './AcknowledgementModal';
 import { PortfolioProvider } from '@/contexts/virtual-trading/PortfolioContext';
 import { WatchlistProvider } from '@/contexts/virtual-trading/WatchlistContext';
 import ClientOnly from '../ClientOnly';
-import IndexTicker from './IndexTicker';
-import ScrollingTicker from './ScrollingTicker';
+
+// Lazy load ticker components for better initial performance
+const IndexTicker = lazy(() => import('./IndexTicker'));
+const ScrollingTicker = lazy(() => import('./ScrollingTicker'));
 import PortfolioSummary from './PortfolioSummary';
 import TradingActions from './TradingActions';
-import Pagination from './Pagination'; // Import Pagination
-import { usePathname } from 'next/navigation'; // Get pathname
+import Pagination from './Pagination';
+import { usePathname } from 'next/navigation';
 import WatchlistManager from './WatchlistManager';
 import { useUser } from '@clerk/nextjs';
 import LoginPrompt from './LoginPrompt';
-import PortfolioView from './PortfolioView'; // Import the new component
-import Leaderboard from './Leaderboard';
-import Achievements from './Achievements';
 import { Stock } from '@/lib/trading-data';
+import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
+
+// Lazy load heavy components
+const PortfolioView = lazy(() => import('./PortfolioView'));
+const Leaderboard = lazy(() => import('./Leaderboard'));
+const Achievements = lazy(() => import('./Achievements'));
 
 const VirtualTradingClient = () => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [allStocks, setAllStocks] = useState<Stock[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [allStocksLoading, setAllStocksLoading] = useState(false);
   const [leftColumnView, setLeftColumnView] = useState<'markets' | 'watchlists'>('markets');
   const [rightColumnView, setRightColumnView] = useState<'summary' | 'portfolio' | 'leaderboard' | 'achievements'>('summary');
   const searchParams = useSearchParams();
-  const pathname = usePathname(); // Get pathname
+  const pathname = usePathname();
   const { isSignedIn } = useUser();
+  
+  // Performance monitoring
+  const { markMilestone } = usePerformanceMonitor('VirtualTradingClient');
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -44,32 +53,68 @@ const VirtualTradingClient = () => {
   useEffect(() => {
     const fetchStocks = async () => {
       setLoading(true);
-      const params = new URLSearchParams(searchParams?.toString());
-      const response = await fetch('/api/stock-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(params.entries())),
-      });
-      const data = await response.json();
-      setStocks(data.stocks);
-      setTotalCount(data.totalCount);
-      setLoading(false);
+      try {
+        const params = new URLSearchParams(searchParams?.toString());
+        const response = await fetch('/api/stock-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(params.entries())),
+        });
+        const data = await response.json();
+        setStocks(data.stocks);
+        setTotalCount(data.totalCount);
+        markMilestone('Market data loaded');
+      } catch (error) {
+        console.error('Failed to fetch stocks:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchStocks();
-  }, [searchParams]);
+  }, [searchParams, markMilestone]);
 
+  // Load all stocks only when needed (for portfolio view)
   useEffect(() => {
-    const fetchAllStocks = async () => {
-      const response = await fetch('/api/stock-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
-      });
-      const data = await response.json();
-      setAllStocks(data.stocks);
-    };
-    fetchAllStocks();
-  }, []);
+    if (rightColumnView === 'portfolio' && allStocks.length === 0 && isSignedIn) {
+      const fetchAllStocks = async () => {
+        setAllStocksLoading(true);
+        try {
+          const cacheKey = 'all_stocks_cache';
+          const cached = localStorage.getItem(cacheKey);
+          if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            const isValid = (Date.now() - timestamp) < 5 * 60 * 1000; // 5 minutes cache
+            if (isValid) {
+              setAllStocks(data);
+              markMilestone('All stocks loaded from cache');
+              setAllStocksLoading(false);
+              return;
+            }
+          }
+
+          const response = await fetch('/api/stock-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({}),
+          });
+          const data = await response.json();
+          setAllStocks(data.stocks);
+          
+          // Cache the data
+          localStorage.setItem(cacheKey, JSON.stringify({
+            data: data.stocks,
+            timestamp: Date.now()
+          }));
+          markMilestone('All stocks loaded from API');
+        } catch (error) {
+          console.error('Failed to fetch all stocks:', error);
+        } finally {
+          setAllStocksLoading(false);
+        }
+      };
+      fetchAllStocks();
+    }
+  }, [rightColumnView, allStocks.length, isSignedIn, markMilestone]);
 
   const currentPage = Number(searchParams?.get('page')) || 1;
   const itemsPerPage = 15;
@@ -81,8 +126,24 @@ const VirtualTradingClient = () => {
           <WarningBanner />
           <AcknowledgementModal />
           <ClientOnly>
-            <IndexTicker />
-            <ScrollingTicker />
+            <Suspense fallback={
+              <div className="bg-slate-800 border-b border-slate-700">
+                <div className="h-16 flex items-center justify-center">
+                  <div className="animate-pulse text-gray-400">Loading market data...</div>
+                </div>
+              </div>
+            }>
+              <IndexTicker />
+            </Suspense>
+            <Suspense fallback={
+              <div className="bg-slate-800 border-b border-slate-700">
+                <div className="h-12 flex items-center justify-center">
+                  <div className="animate-pulse text-gray-400">Loading ticker...</div>
+                </div>
+              </div>
+            }>
+              <ScrollingTicker />
+            </Suspense>
           </ClientOnly>
           <div className="container mx-auto p-4">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -160,7 +221,16 @@ const VirtualTradingClient = () => {
                   )}
                 </div>
                 {rightColumnView === 'leaderboard' ? (
-                  <Leaderboard />
+                  <Suspense fallback={
+                    <div className="bg-slate-800 rounded-lg p-8">
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mr-3"></div>
+                        <span className="text-gray-300">Loading leaderboard...</span>
+                      </div>
+                    </div>
+                  }>
+                    <Leaderboard />
+                  </Suspense>
                 ) : isSignedIn ? (
                   <>
                     {rightColumnView === 'summary' && (
@@ -169,8 +239,32 @@ const VirtualTradingClient = () => {
                         <TradingActions />
                       </>
                     )}
-                    {rightColumnView === 'portfolio' && <PortfolioView allStocks={allStocks} />}
-                    {rightColumnView === 'achievements' && <Achievements />}
+                    {rightColumnView === 'portfolio' && (
+                      <Suspense fallback={
+                        <div className="bg-slate-800 rounded-lg p-8">
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mr-3"></div>
+                            <span className="text-gray-300">
+                              {allStocksLoading ? 'Loading portfolio data...' : 'Loading portfolio view...'}
+                            </span>
+                          </div>
+                        </div>
+                      }>
+                        <PortfolioView allStocks={allStocks} />
+                      </Suspense>
+                    )}
+                    {rightColumnView === 'achievements' && (
+                      <Suspense fallback={
+                        <div className="bg-slate-800 rounded-lg p-8">
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mr-3"></div>
+                            <span className="text-gray-300">Loading achievements...</span>
+                          </div>
+                        </div>
+                      }>
+                        <Achievements />
+                      </Suspense>
+                    )}
                   </>
                 ) : (
                   <LoginPrompt />
