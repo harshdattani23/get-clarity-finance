@@ -1,8 +1,9 @@
 {
   "title": "গেট ক্ল্যারিটি ফাইন্যান্স",
-  "fraudDetection": "জালিয়াতি চিহ্নিতকরণ",
+  "fraudDetection": "জালিয়াতি চিহ্নিতকরণ",
   "learningCourses": "শিক্ষা কোর্সসমূহ",
-  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
+  "bondsCourse": "বন্ড বিনিয়োগ",
+  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
   "signIn": "সাইন ইন করুন",
   "signUp": "সাইন আপ করুন"
 }

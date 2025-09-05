@@ -207,6 +207,13 @@ export default function AdminDashboard() {
                 Audio Chapters
               </Link>
               <Link
+                href="/admin/system-health"
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+              >
+                <Activity className="w-4 h-4" />
+                System Health
+              </Link>
+              <Link
                 href="/admin/learning-dashboard"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
               >

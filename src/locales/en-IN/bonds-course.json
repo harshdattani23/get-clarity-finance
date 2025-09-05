@@ -1,0 +1,109 @@
+{
+  "title": "Master Bond Investment",
+  "subtitle": "From Government Securities to Corporate Bonds - Learn to build a professional fixed-income portfolio",
+  "modules": "Modules",
+  "content": "Content",
+  "yourLevel": "Your Level",
+  "totalXP": "Total XP",
+  "courseProgress": "Course Progress",
+  "completed": "Completed",
+  "xpToNextLevel": "XP to Next Level",
+  "bondInvestmentLearningPath": "Bond Investment Learning Path",
+  "progress": "Progress",
+  "modulesCompleted": "Modules Completed",
+  "earn": "Earn",
+  "searchModules": "Search Modules",
+  "searchPlaceholder": "Search by title, description or tags...",
+  "filterByStatus": "Filter by Status",
+  "allModules": "All Modules",
+  "available": "Available",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+  "filterByCourse": "Filter by Course",
+  "allCourses": "All Courses",
+  "filterByTag": "Filter by Tag",
+  "allTags": "All Tags",
+  "lessons": "Lessons",
+  "xpReward": "XP Reward",
+  "prerequisites": "Prerequisites",
+  "completeFirst": "Complete First",
+  "locked": "Locked",
+  "review": "Review",
+  "startLearning": "Start Learning",
+  "noModulesFound": "No modules found",
+  "tryAdjusting": "Try adjusting your search or filter criteria",
+  "continueLearning": "Continue Learning",
+  
+  "courses": {
+    "bondFundamentals": {
+      "title": "Bond Market Fundamentals",
+      "description": "Master bond basics, types, and market structure",
+      "certification": "Bond Fundamentals Certificate"
+    },
+    "governmentBonds": {
+      "title": "Government Securities",
+      "description": "Comprehensive guide to Government Bonds and Treasury Securities",
+      "certification": "Government Security Specialist"
+    },
+    "corporateBonds": {
+      "title": "Corporate Bond Analysis",
+      "description": "Analyse Corporate Bonds, Credit Risk, and Issuer Evaluation",
+      "certification": "Corporate Bond Analyst"
+    },
+    "bondAnalysis": {
+      "title": "Bond Pricing and Risk Analysis",
+      "description": "Advanced Bond Pricing, Yield Calculation, and Risk Management",
+      "certification": "Bond Analysis Professional"
+    },
+    "bondPortfolio": {
+      "title": "Bond Portfolio Management",
+      "description": "Professional Bond Portfolio Construction and Management",
+      "certification": "Bond Portfolio Manager"
+    },
+    "advancedBonds": {
+      "title": "Advanced Bond Strategies",
+      "description": "Sophisticated techniques for institutional bond investment",
+      "certification": "Advanced Bond Strategist"
+    }
+  },
+  
+  "modules": {
+    "bondBasics": {
+      "title": "Bond Basics",
+      "description": "Learn the fundamentals of what bonds are and how they work"
+    },
+    "bondTypes": {
+      "title": "Bond Types",
+      "description": "Explore different categories of bonds and their characteristics"
+    },
+    "bondPricing": {
+      "title": "Bond Pricing",
+      "description": "Master bond valuation, yield calculation, and pricing models"
+    },
+    "governmentBonds": {
+      "title": "Government Bonds",
+      "description": "Deep insights into Treasury Bills, Government Securities, and SDLs"
+    },
+    "corporateBonds": {
+      "title": "Corporate Bonds",
+      "description": "Analyse corporate bonds, credit ratings, and issuer evaluation"
+    },
+    "bondRisksReturns": {
+      "title": "Bond Risks and Returns",
+      "description": "Understanding and managing various bond investment risks"
+    },
+    "bondTradingInvesting": {
+      "title": "Bond Trading and Investing",
+      "description": "Learn to buy and trade bonds in Indian markets"
+    },
+    "bondPortfolioManagement": {
+      "title": "Bond Portfolio Management",
+      "description": "Build and manage professional bond portfolios"
+    },
+    "advancedBondStrategies": {
+      "title": "Advanced Bond Strategies",
+      "description": "Sophisticated techniques for institutional bond investment"
+    }
+  }
+}
