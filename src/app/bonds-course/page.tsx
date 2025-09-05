@@ -43,16 +43,30 @@ export default function BondsCoursePage() {
   const [marketPrice, setMarketPrice] = useState(950);
   const [calculation, setCalculation] = useState<BondCalculation | null>(null);
 
-  // Popular Indian bonds and bond ETFs
+  // Real Indian Bonds, Debt Securities and Fixed Income Instruments
   const bondSymbols = [
-    'BHARTBOND.NS',  // Bharat Bond ETF
-    'CPSEETF.NS',    // CPSE Bond ETF  
-    'LIQUIDETF.NS',  // Liquid ETF
-    'GOLDSHARE.NS',  // Gold Shares
-    'BANKBEES.NS',   // Bank Nifty ETF
-    'NIFTYBEES.NS',  // Nifty ETF (includes bond exposure)
-    'JUNIORBEES.NS', // Junior Nifty ETF
-    'CONSUMBEES.NS', // Consumer ETF
+    // Government Securities and Treasury Bills
+    'IN0020170037.NS', // Govt of India 7.16% 2023
+    'IN0020180034.NS', // Govt of India 8.15% 2022 
+    'IN0020190031.NS', // Govt of India 6.45% 2029
+    'IN0020200048.NS', // Govt of India 7.17% 2030
+    
+    // Corporate Bonds from Major Indian Companies
+    '540376.BO',     // HUDCO (Housing & Urban Development Corporation)
+    '532540.BO',     // TCS (Tata Consultancy Services) - has debt instruments
+    '500325.BO',     // Reliance Industries - bonds available
+    '500696.BO',     // Hinduja Global Solutions - corporate bonds
+    
+    // Debt/Bond ETFs and Mutual Funds (Most Reliable)
+    'CPSEETF.NS',    // CPSE Bond ETF - Central Public Sector Enterprises
+    'BHARTBOND.NS',  // Bharat Bond ETF 2030 (Government backed)
+    'LIQUIDETF.NS',  // SBI Liquid Assets ETF
+    'ABSLPSETF.NS',  // Aditya Birla SL PSU Bond ETF
+    
+    // Alternative: Major Banks with Bond Exposure
+    '500180.BO',     // HDFC Bank (issues corporate bonds)
+    '532215.BO',     // Axis Bank (corporate bonds)
+    '507685.BO',     // Wipro (corporate debt)
   ];
 
   useEffect(() => {
