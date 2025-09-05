@@ -1,10 +1,29 @@
 import { NextRequest } from 'next/server';
 import GeminiLiveService from '@/services/geminiLiveService';
 
+// Global service instance for session persistence
+let globalLiveService: GeminiLiveService | null = null;
+
+function getLiveService(): GeminiLiveService {
+  if (!globalLiveService) {
+    globalLiveService = new GeminiLiveService();
+  }
+  return globalLiveService;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, chatHistory = [], options = {} } = body;
+    const { message, chatHistory = [], options = {}, action = 'chat' } = body;
+
+    // Handle different actions
+    if (action === 'initialize') {
+      return await handleInitialize(options);
+    } else if (action === 'close') {
+      return await handleClose();
+    } else if (action === 'voice') {
+      return await handleVoiceInput(body);
+    }
 
     if (!message || typeof message !== 'string') {
       return new Response(
@@ -31,8 +50,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Initialize Gemini Live service
-    const liveService = new GeminiLiveService();
+    // Get live service instance with error handling
+    let liveService;
+    try {
+      liveService = getLiveService();
+    } catch (error) {
+      console.error('Failed to initialize live service:', error);
+      
+      // Return error response immediately
+      return new Response(
+        JSON.stringify({ 
+          error: 'Live service initialization failed',
+          message: 'I apologize, but the live chat service is currently experiencing technical difficulties. Please try the regular chat or contact SEBI at 1800-266-7575.',
+          details: error instanceof Error ? error.message : 'Unknown error'
+        }),
+        { 
+          status: 503,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
 
     // Check for fraud urgency first
     const urgencyCheck = await liveService.detectFraudUrgency(message);
@@ -57,45 +94,74 @@ export async function POST(req: NextRequest) {
             );
           }
 
-          // Start streaming the response
-          const responseGenerator = liveService.streamResponse(message, chatHistory, options);
+          // Start streaming the live response
+          const responseGenerator = liveService.streamLiveResponse(message, chatHistory, options);
           
           let fullResponse = '';
           let chunkCount = 0;
           
           for await (const chunk of responseGenerator) {
-            fullResponse += chunk;
-            chunkCount++;
-            
-            const streamData = {
-              type: 'text_chunk',
-              content: chunk,
-              fullContent: fullResponse,
-              chunkIndex: chunkCount,
-              isComplete: false,
-              timestamp: new Date().toISOString()
-            };
-            
-            controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify(streamData)}\n\n`)
-            );
+            if (chunk.type === 'text_chunk') {
+              fullResponse = chunk.fullContent || fullResponse;
+              chunkCount++;
+              
+              const streamData = {
+                type: 'text_chunk',
+                content: chunk.content,
+                fullContent: fullResponse,
+                chunkIndex: chunkCount,
+                isComplete: false,
+                timestamp: new Date().toISOString()
+              };
+              
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify(streamData)}\n\n`)
+              );
+              
+            } else if (chunk.type === 'audio_chunk') {
+              const audioData = {
+                type: 'audio_chunk',
+                audioData: chunk.audioData,
+                fullContent: fullResponse,
+                timestamp: new Date().toISOString()
+              };
+              
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify(audioData)}\n\n`)
+              );
+              
+            } else if (chunk.type === 'completion') {
+              fullResponse = chunk.fullContent || fullResponse;
+              
+              // Send completion signal
+              const completionData = {
+                type: 'completion',
+                fullContent: fullResponse,
+                audioData: chunk.audioData,
+                totalChunks: chunkCount,
+                urgencyInfo: urgencyCheck,
+                timestamp: new Date().toISOString()
+              };
+              
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify(completionData)}\n\n`)
+              );
+              
+            } else if (chunk.type === 'error') {
+              const errorData = {
+                type: 'error',
+                message: chunk.content,
+                timestamp: new Date().toISOString()
+              };
+              
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify(errorData)}\n\n`)
+              );
+            }
             
             // Add a small delay to make streaming visible
-            await new Promise(resolve => setTimeout(resolve, 50));
+            await new Promise(resolve => setTimeout(resolve, 30));
           }
-          
-          // Send completion signal
-          const completionData = {
-            type: 'completion',
-            fullContent: fullResponse,
-            totalChunks: chunkCount,
-            urgencyInfo: urgencyCheck,
-            timestamp: new Date().toISOString()
-          };
-          
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify(completionData)}\n\n`)
-          );
           
         } catch (error) {
           console.error('Live streaming error:', error);
@@ -133,6 +199,116 @@ export async function POST(req: NextRequest) {
       JSON.stringify({ 
         error: 'Internal server error',
         message: 'I encountered an error while processing your live chat request. Please try again.'
+      }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+}
+
+// Handler for initializing live session
+async function handleInitialize(options: any) {
+  try {
+    const liveService = getLiveService();
+    await liveService.initializeLiveSession(options);
+    
+    return new Response(
+      JSON.stringify({
+        status: 'initialized',
+        message: 'Live session initialized successfully',
+        sessionActive: liveService.isSessionActive(),
+        audioEnabled: options.enableAudio || false
+      }),
+      { 
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  } catch (error) {
+    console.error('Session initialization error:', error);
+    return new Response(
+      JSON.stringify({
+        status: 'error',
+        message: 'Failed to initialize live session'
+      }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+}
+
+// Handler for closing live session
+async function handleClose() {
+  try {
+    const liveService = getLiveService();
+    liveService.closeSession();
+    globalLiveService = null; // Reset global instance
+    
+    return new Response(
+      JSON.stringify({
+        status: 'closed',
+        message: 'Live session closed successfully'
+      }),
+      { 
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  } catch (error) {
+    console.error('Session close error:', error);
+    return new Response(
+      JSON.stringify({
+        status: 'error',
+        message: 'Error closing live session'
+      }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+}
+
+// Handler for voice input
+async function handleVoiceInput(body: any) {
+  try {
+    const { audioData, mimeType } = body;
+    
+    if (!audioData) {
+      return new Response(
+        JSON.stringify({ error: 'Audio data is required' }),
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+    
+    const liveService = getLiveService();
+    
+    // Convert base64 audio data for processing
+    const binaryData = Buffer.from(audioData, 'base64');
+    // Note: Blob is not available in Node.js, but we can still process the data
+    
+    const result = await liveService.processVoiceInputBuffer(binaryData, mimeType || 'audio/wav');
+    
+    return new Response(
+      JSON.stringify({
+        status: 'processed',
+        message: result
+      }),
+      { 
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  } catch (error) {
+    console.error('Voice input error:', error);
+    return new Response(
+      JSON.stringify({
+        status: 'error',
+        message: 'Failed to process voice input'
       }),
       { 
         status: 500,

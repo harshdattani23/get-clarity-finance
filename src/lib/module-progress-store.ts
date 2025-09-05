@@ -93,41 +93,17 @@ class ModuleProgressStore {
 
   // Get unlocked modules based on completion
   getUnlockedModules(userId: string): Record<string, boolean> {
-    const progress = this.getUserProgress(userId);
-    const modules = progress?.modules || {};
-
+    // All modules are unlocked by default
     const unlocked: Record<string, boolean> = {
-      'intro-to-frauds': true, // Always unlocked
-      'intermediate-frauds': false,
-      'ponzi-schemes': false,
-      'pump-dump': false,
-      'digital-frauds': false,
-      'fake-advisors': false,
-      'insider-trading': false,
-      'spoofing-wash-trading': false
+      'intro-to-frauds': true,
+      'intermediate-frauds': true,
+      'ponzi-schemes': true,
+      'pump-dump': true,
+      'digital-frauds': true,
+      'fake-advisors': true,
+      'insider-trading': true,
+      'spoofing-wash-trading': true
     };
-
-    // Check if intro module is completed
-    if (modules['intro-to-frauds']?.completed) {
-      // Unlock all intermediate modules
-      unlocked['intermediate-frauds'] = true;
-      unlocked['ponzi-schemes'] = true;
-      unlocked['pump-dump'] = true;
-      unlocked['digital-frauds'] = true;
-      unlocked['fake-advisors'] = true;
-    }
-
-    // Check if all intermediate modules are completed
-    const intermediateModules = ['intermediate-frauds', 'ponzi-schemes', 'pump-dump', 'digital-frauds', 'fake-advisors'];
-    const allIntermediateCompleted = intermediateModules.every(
-      id => modules[id]?.completed === true
-    );
-
-    if (allIntermediateCompleted) {
-      // Unlock advanced modules
-      unlocked['insider-trading'] = true;
-      unlocked['spoofing-wash-trading'] = true;
-    }
 
     return unlocked;
   }

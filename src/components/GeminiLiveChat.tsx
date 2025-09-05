@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Send, Mic, MicOff, Volume2, VolumeX, AlertTriangle, Shield, Zap, Phone } from 'lucide-react';
+import { Send, Mic, MicOff, Volume2, VolumeX, AlertTriangle, Shield, Zap, Phone, Power, PowerOff } from 'lucide-react';
 
 interface StreamingMessage {
   id: string;
@@ -11,6 +11,7 @@ interface StreamingMessage {
   isStreaming?: boolean;
   riskLevel?: 'low' | 'medium' | 'high' | 'critical';
   urgencyAction?: string;
+  audioData?: string;
 }
 
 interface UrgencyAlert {
@@ -26,9 +27,16 @@ export default function GeminiLiveChat() {
   const [isSpeakingEnabled, setIsSpeakingEnabled] = useState(false);
   const [urgencyAlert, setUrgencyAlert] = useState<UrgencyAlert | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [isSessionActive, setIsSessionActive] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [isSessionLoading, setIsSessionLoading] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -56,6 +64,94 @@ export default function GeminiLiveChat() {
     } catch (error) {
       console.error('Service status check failed:', error);
       setIsConnected(false);
+    }
+  };
+
+  const initializeSession = async () => {
+    try {
+      setIsSessionLoading(true);
+      console.log('Initializing session with audio enabled:', audioEnabled);
+      
+      const response = await fetch('/api/chat/live', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'initialize',
+          options: {
+            enableAudio: audioEnabled,
+            temperature: 0.7
+          }
+        })
+      });
+      
+      console.log('Session init response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Session initialization failed:', errorText);
+        return;
+      }
+      
+      const data = await response.json();
+      console.log('Session init response:', data);
+      
+      if (data.status === 'initialized') {
+        setIsSessionActive(true);
+        console.log('Live session initialized successfully');
+      } else {
+        console.error('Session initialization failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Failed to initialize session:', error);
+    } finally {
+      setIsSessionLoading(false);
+    }
+  };
+
+  const closeSession = async () => {
+    try {
+      setIsSessionLoading(true);
+      console.log('Closing session');
+      
+      const response = await fetch('/api/chat/live', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'close'
+        })
+      });
+      
+      console.log('Session close response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Session close failed:', errorText);
+        return;
+      }
+      
+      const data = await response.json();
+      console.log('Session close response:', data);
+      
+      if (data.status === 'closed') {
+        setIsSessionActive(false);
+        console.log('Live session closed successfully');
+      } else {
+        console.error('Session close failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Failed to close session:', error);
+    } finally {
+      setIsSessionLoading(false);
+    }
+  };
+
+  const toggleSession = async () => {
+    console.log('Toggle session clicked, current state:', isSessionActive);
+    
+    if (isSessionActive) {
+      await closeSession();
+    } else {
+      await initializeSession();
     }
   };
 
@@ -104,25 +200,55 @@ export default function GeminiLiveChat() {
     };
 
     setMessages(prev => [...prev, assistantMessage]);
+    
+    // First, check if the service is available
+    try {
+      const statusResponse = await fetch('/api/chat/live', {
+        method: 'GET'
+      });
+      
+      if (!statusResponse.ok && statusResponse.status === 503) {
+        throw new Error('Live chat service is temporarily unavailable due to configuration issues.');
+      }
+    } catch (statusError) {
+      console.error('Service availability check failed:', statusError);
+      // Continue to main request as status check failure doesn't necessarily mean the service is down
+    }
 
     try {
-      const response = await fetch('/api/chat/live', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: currentInput,
-          chatHistory: messages.slice(-8), // Send last 8 messages for context
-          options: {
-            temperature: 0.7,
-            enableVoice: isVoiceEnabled
-          }
-        }),
-      });
+          const response = await fetch('/api/chat/live', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: currentInput,
+              chatHistory: messages.slice(-8), // Send last 8 messages for context
+              options: {
+                temperature: 0.7,
+                enableVoice: isVoiceEnabled,
+                enableAudio: audioEnabled
+              }
+            }),
+          });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        // Get detailed error information
+        let errorMessage = 'Failed to send message';
+        try {
+          const errorData = await response.json();
+          if (response.status === 503) {
+            errorMessage = 'Live chat service is currently unavailable. Please check your API configuration or try again later.';
+          } else if (errorData.message) {
+            errorMessage = errorData.message;
+          } else if (errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch (parseError) {
+          console.error('Could not parse error response:', parseError);
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const reader = response.body?.getReader();
@@ -161,6 +287,19 @@ export default function GeminiLiveChat() {
                       : msg
                   )
                 );
+              } else if (data.type === 'audio_chunk') {
+                // Handle audio data
+                if (data.audioData && audioEnabled) {
+                  playAudioData(data.audioData);
+                }
+                
+                setMessages(prev =>
+                  prev.map(msg =>
+                    msg.id === assistantMessageId
+                      ? { ...msg, audioData: data.audioData }
+                      : msg
+                  )
+                );
               } else if (data.type === 'completion') {
                 setMessages(prev =>
                   prev.map(msg =>
@@ -170,19 +309,24 @@ export default function GeminiLiveChat() {
                           content: data.fullContent, 
                           isStreaming: false,
                           riskLevel: data.urgencyInfo?.riskLevel,
-                          urgencyAction: data.urgencyInfo?.suggestedAction
+                          urgencyAction: data.urgencyInfo?.suggestedAction,
+                          audioData: data.audioData
                         }
                       : msg
                   )
                 );
                 
-                // If speaking is enabled, speak the response
-                if (isSpeakingEnabled && 'speechSynthesis' in window) {
-                  const utterance = new SpeechSynthesisUtterance(data.fullContent);
-                  utterance.rate = 1.0;
-                  utterance.pitch = 1.0;
-                  utterance.volume = 0.8;
-                  speechSynthesis.speak(utterance);
+                // Play native audio if available, otherwise use TTS
+                if (isSpeakingEnabled) {
+                  if (data.audioData && audioEnabled) {
+                    playAudioData(data.audioData);
+                  } else if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(data.fullContent);
+                    utterance.rate = 1.0;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 0.8;
+                    speechSynthesis.speak(utterance);
+                  }
                 }
               } else if (data.type === 'error') {
                 setMessages(prev =>
@@ -202,12 +346,26 @@ export default function GeminiLiveChat() {
 
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Determine error message based on error type
+      let errorContent = 'I encountered an error processing your request. Please try again or contact SEBI at 1800-266-7575 if urgent.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('unavailable') || error.message.includes('configuration')) {
+          errorContent = '🔧 Live chat service is currently unavailable due to configuration issues. Please try the regular chat or contact SEBI directly at 1800-266-7575 for immediate assistance.';
+        } else if (error.message.includes('API')) {
+          errorContent = '⚠️ There seems to be a connectivity issue. Please check your internet connection and try again. For urgent matters, contact SEBI at 1800-266-7575.';
+        } else {
+          errorContent = `❌ Error: ${error.message}. If this persists, please contact SEBI at 1800-266-7575 for assistance.`;
+        }
+      }
+      
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessageId
             ? { 
                 ...msg, 
-                content: 'I encountered an error processing your request. Please try again or contact SEBI at 1800-266-7575 if urgent.',
+                content: errorContent,
                 isStreaming: false 
               }
             : msg
@@ -225,16 +383,105 @@ export default function GeminiLiveChat() {
     }
   };
 
-  const toggleVoiceInput = () => {
-    setIsVoiceEnabled(!isVoiceEnabled);
-    // Voice input functionality would be implemented here
-  };
 
   const toggleSpeaking = () => {
     setIsSpeakingEnabled(!isSpeakingEnabled);
     if (!isSpeakingEnabled) {
       speechSynthesis.cancel();
     }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        await sendVoiceMessage(audioBlob);
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Failed to start recording:', error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      
+      // Stop all tracks
+      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+    }
+  };
+
+  const sendVoiceMessage = async (audioBlob: Blob) => {
+    try {
+      const arrayBuffer = await audioBlob.arrayBuffer();
+      const base64Audio = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+      
+      const response = await fetch('/api/chat/live', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'voice',
+          audioData: base64Audio,
+          mimeType: audioBlob.type
+        })
+      });
+      
+      const data = await response.json();
+      console.log('Voice message sent:', data);
+    } catch (error) {
+      console.error('Failed to send voice message:', error);
+    }
+  };
+
+  const playAudioData = (base64AudioData: string) => {
+    try {
+      const binaryString = atob(base64AudioData);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      
+      const audioBlob = new Blob([bytes], { type: 'audio/wav' });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.src = audioUrl;
+        audioPlayerRef.current.play();
+      } else {
+        const audio = new Audio(audioUrl);
+        audioPlayerRef.current = audio;
+        audio.play();
+      }
+    } catch (error) {
+      console.error('Failed to play audio:', error);
+    }
+  };
+
+  const toggleVoiceInput = async () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      await startRecording();
+    }
+  };
+
+  const toggleAudio = () => {
+    setAudioEnabled(!audioEnabled);
   };
 
   return (
@@ -253,8 +500,8 @@ export default function GeminiLiveChat() {
             <p className="text-xs text-gray-600">
               {isConnected ? (
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  Real-time fraud detection
+                  <span className={`w-2 h-2 ${isSessionActive ? 'bg-green-500' : 'bg-yellow-500'} rounded-full`}></span>
+                  {isSessionActive ? 'Live session active' : 'Ready to connect'}
                 </span>
               ) : (
                 'Connecting...'
@@ -265,11 +512,41 @@ export default function GeminiLiveChat() {
         
         <div className="flex items-center gap-2">
           <button
+            onClick={toggleSession}
+            className={`p-2 rounded-lg transition-colors ${
+              isSessionActive ? 'bg-green-100 text-green-600' : 
+              isSessionLoading ? 'bg-yellow-100 text-yellow-600' : 
+              'bg-gray-100 text-gray-600'
+            } ${isSessionLoading ? 'animate-pulse' : ''}`}
+            title={isSessionLoading ? 'Connecting...' : isSessionActive ? 'Close live session' : 'Start live session'}
+            disabled={!isConnected || isSessionLoading}
+          >
+            {isSessionLoading ? (
+              <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+            ) : isSessionActive ? (
+              <Power className="w-4 h-4" />
+            ) : (
+              <PowerOff className="w-4 h-4" />
+            )}
+          </button>
+
+          <button
+            onClick={toggleAudio}
+            className={`p-2 rounded-lg transition-colors ${
+              audioEnabled ? 'bg-purple-100 text-purple-600' : 'text-gray-400 hover:text-gray-600'
+            }`}
+            title="Toggle native audio"
+            disabled={!isConnected}
+          >
+            <Zap className={`w-4 h-4 ${audioEnabled ? '' : 'opacity-50'}`} />
+          </button>
+          
+          <button
             onClick={toggleSpeaking}
             className={`p-2 rounded-lg transition-colors ${
               isSpeakingEnabled ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'
             }`}
-            title="Toggle text-to-speech"
+            title="Toggle audio output"
           >
             {isSpeakingEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
           </button>
@@ -277,15 +554,20 @@ export default function GeminiLiveChat() {
           <button
             onClick={toggleVoiceInput}
             className={`p-2 rounded-lg transition-colors ${
+              isRecording ? 'bg-red-100 text-red-600 animate-pulse' : 
               isVoiceEnabled ? 'bg-green-100 text-green-600' : 'text-gray-400 hover:text-gray-600'
             }`}
-            title="Toggle voice input"
+            title={isRecording ? 'Stop recording' : 'Start voice input'}
+            disabled={!isSessionActive}
           >
-            {isVoiceEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
+            {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
           </button>
 
-          <div className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full border">
-            Live
+          <div className={`text-xs px-2 py-1 rounded-full border ${
+            isSessionActive ? 'text-green-600 bg-green-50 border-green-200' : 
+            'text-gray-500 bg-white border-gray-200'
+          }`}>
+            {isSessionActive ? 'Live' : 'Offline'}
           </div>
         </div>
       </div>
@@ -389,12 +671,12 @@ export default function GeminiLiveChat() {
               placeholder="Ask about fraud detection, investment verification, or SEBI regulations..."
               className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               rows={1}
-              disabled={!isConnected || isStreaming}
+              disabled={!isConnected || !isSessionActive || isStreaming}
             />
           </div>
           <button
             onClick={sendMessage}
-            disabled={!inputMessage.trim() || !isConnected || isStreaming}
+            disabled={!inputMessage.trim() || !isConnected || !isSessionActive || isStreaming}
             className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <Send className="w-5 h-5" />
@@ -404,6 +686,12 @@ export default function GeminiLiveChat() {
         {!isConnected && (
           <p className="text-xs text-red-500 mt-2">
             Live chat service is temporarily unavailable. Please try again later.
+          </p>
+        )}
+        
+        {isConnected && !isSessionActive && (
+          <p className="text-xs text-blue-600 mt-2">
+            Click the power button to start a live session with audio support.
           </p>
         )}
       </div>

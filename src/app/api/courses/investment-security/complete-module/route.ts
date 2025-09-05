@@ -57,40 +57,17 @@ export async function POST(request: NextRequest) {
 }
 
 function getUnlockedModules(userProgress: Record<string, { progress: number; completed: boolean }>) {
+  // All modules are unlocked by default
   const modules = {
     'intro-to-frauds': { difficulty: 'beginner', unlocked: true },
-    'intermediate-frauds': { difficulty: 'intermediate', unlocked: false },
-    'ponzi-schemes': { difficulty: 'intermediate', unlocked: false },
-    'pump-dump': { difficulty: 'intermediate', unlocked: false },
-    'digital-frauds': { difficulty: 'intermediate', unlocked: false },
-    'fake-advisors': { difficulty: 'intermediate', unlocked: false },
-    'insider-trading': { difficulty: 'advanced', unlocked: false },
-    'spoofing-wash-trading': { difficulty: 'advanced', unlocked: false }
+    'intermediate-frauds': { difficulty: 'intermediate', unlocked: true },
+    'ponzi-schemes': { difficulty: 'intermediate', unlocked: true },
+    'pump-dump': { difficulty: 'intermediate', unlocked: true },
+    'digital-frauds': { difficulty: 'intermediate', unlocked: true },
+    'fake-advisors': { difficulty: 'intermediate', unlocked: true },
+    'insider-trading': { difficulty: 'advanced', unlocked: true },
+    'spoofing-wash-trading': { difficulty: 'advanced', unlocked: true }
   };
-
-  // Check if intro module is completed
-  const introCompleted = userProgress['intro-to-frauds']?.completed === true;
-
-  // If intro is completed, unlock all intermediate modules
-  if (introCompleted) {
-    modules['intermediate-frauds'].unlocked = true;
-    modules['ponzi-schemes'].unlocked = true;
-    modules['pump-dump'].unlocked = true;
-    modules['digital-frauds'].unlocked = true;
-    modules['fake-advisors'].unlocked = true;
-  }
-
-  // Check if all intermediate modules are completed
-  const intermediateModules = ['intermediate-frauds', 'ponzi-schemes', 'pump-dump', 'digital-frauds', 'fake-advisors'];
-  const allIntermediateCompleted = intermediateModules.every(
-    moduleId => userProgress[moduleId]?.completed === true
-  );
-
-  // If all intermediate modules are completed, unlock advanced modules
-  if (allIntermediateCompleted) {
-    modules['insider-trading'].unlocked = true;
-    modules['spoofing-wash-trading'].unlocked = true;
-  }
 
   return modules;
 }

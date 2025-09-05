@@ -6,6 +6,9 @@ import { CourseDifficulty, ProgressStatus } from '@prisma/client';
 // Mock storage for demo purposes when database is not available
 const mockModuleProgress: Record<string, number> = {};
 
+// Override storage to unlock all modules
+const unlockOverride: Record<string, boolean> = {};
+
 // Cache constants for better performance
 const COURSE_SLUGS = ['investment-security-course', 'fraud-awareness-course'];
 const MOCK_MODULES = [
@@ -24,7 +27,7 @@ const MOCK_MODULES = [
     title: 'Intermediate Fraud Schemes',
     difficulty: 'INTERMEDIATE' as const,
     order: 2,
-    locked: true,
+    locked: false,
     progress: 0
   },
   {
@@ -33,7 +36,7 @@ const MOCK_MODULES = [
     title: 'Ponzi Schemes',
     difficulty: 'INTERMEDIATE' as const,
     order: 3,
-    locked: true,
+    locked: false,
     progress: 0
   },
   {
@@ -42,7 +45,7 @@ const MOCK_MODULES = [
     title: 'Pump & Dump Schemes',
     difficulty: 'INTERMEDIATE' as const,
     order: 4,
-    locked: true,
+    locked: false,
     progress: 0
   },
   {
@@ -51,7 +54,7 @@ const MOCK_MODULES = [
     title: 'Fake Investment Advisors',
     difficulty: 'INTERMEDIATE' as const,
     order: 5,
-    locked: true,
+    locked: false,
     progress: 0
   },
   {
@@ -60,7 +63,7 @@ const MOCK_MODULES = [
     title: 'Insider Trading & Market Manipulation',
     difficulty: 'ADVANCED' as const,
     order: 6,
-    locked: true, 
+    locked: false, 
     progress: 0
   },
   {
@@ -69,7 +72,7 @@ const MOCK_MODULES = [
     title: 'Digital Investment Frauds',
     difficulty: 'INTERMEDIATE' as const,
     order: 7,
-    locked: true,
+    locked: false,
     progress: 0
   }
 ] as const;
@@ -163,21 +166,8 @@ export async function GET(request: NextRequest) {
     );
 
     const processedModules = course.CourseModule.map(module => {
-      let locked = true;
-      if (module.difficulty === CourseDifficulty.BEGINNER) {
-        locked = false;
-      } else if (
-        module.difficulty === CourseDifficulty.INTERMEDIATE &&
-        allBeginnerCompleted
-      ) {
-        locked = false;
-      } else if (
-        module.difficulty === CourseDifficulty.ADVANCED &&
-        allBeginnerCompleted &&
-        allIntermediateCompleted
-      ) {
-        locked = false;
-      }
+      // All modules are unlocked by default
+      let locked = false;
 
       const totalLessons = module.CourseLesson.length;
       const completedLessons = module.CourseLesson.filter(l =>
@@ -207,10 +197,20 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('[COURSE_MODULES_GET]', error);
     
+    // Get userId for fallback case
+    let fallbackUserId = '';
+    try {
+      const authResult = await auth();
+      fallbackUserId = authResult.userId || '';
+    } catch (e) {
+      // Ignore auth errors in fallback
+    }
+    
     // Simple fallback without additional API calls for better performance
     const fallbackModules = MOCK_MODULES.map(module => ({
       ...module,
-      progress: mockModuleProgress[module.slug] || 0
+      progress: mockModuleProgress[module.slug] || 0,
+      locked: false // All modules are unlocked by default
     }));
     
     return NextResponse.json(fallbackModules);
@@ -219,8 +219,25 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
     const body = await request.json();
-    const { moduleId, progress } = body;
+    const { moduleId, progress, unlockAll } = body;
+
+    // Handle unlock all request
+    if (unlockAll) {
+      unlockOverride[userId] = true;
+      console.log(`Unlock override enabled for user ${userId}`);
+      return NextResponse.json({
+        success: true,
+        message: 'All modules unlocked successfully!',
+        unlockOverride: true
+      });
+    }
 
     if (!moduleId || progress === undefined) {
       return NextResponse.json(

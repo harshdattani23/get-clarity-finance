@@ -1,0 +1,107 @@
+{
+  "header": {
+    "module": "Module 2",
+    "title": "Comprehensive Fraud Schemes",
+    "progress": "Progress",
+    "xp": "+400 XP"
+  },
+  "steps": {
+    "step1": "Advanced Fraud Networks",
+    "step2": "Sophisticated Techniques", 
+    "step3": "Red Flag Detection",
+    "step4": "Investigation Simulator"
+  },
+  "overview": {
+    "video": {
+      "title": "Advanced Fraud Detection Video",
+      "duration": "Learn about sophisticated fraud schemes • 12 minutes"
+    },
+    "section1": {
+      "title": "Advanced Multi-Layered Fraud Networks",
+      "p1": "Modern sophisticated fraud operations function as complex criminal enterprises with multiple interconnected layers. These networks employ advanced financial engineering, regulatory arbitrage, and cross-jurisdictional structures to evade SEBI detection and maximise investor exploitation.",
+      "p2": "Unlike simple Ponzi schemes, these operations integrate legitimate business activities with fraudulent components, creating a hybrid model that can operate undetected for years while generating massive illicit profits across Indian and international markets.",
+      "p3": "Advanced Network Characteristics:",
+      "list": [
+        "Layered Corporate Structures: Multiple shell companies across different states and jurisdictions to obscure beneficial ownership and fund flows",
+        "Technology Integration: AI-driven social media manipulation on WhatsApp groups, algorithmic trading facades, and cryptocurrency obfuscation techniques",
+        "Regulatory Arbitrage: Exploiting differences between SEBI, RBI regulations and enforcement gaps between Indian states",
+        "Professional Enablers: Corrupt chartered accountants, company secretaries, and financial advisors who provide legitimacy and regulatory cover",
+        "Market Manipulation Integration: Coordinated pump-and-dump schemes in small-cap stocks combined with insider trading operations"
+      ]
+    },
+    "section2": {
+      "title": "Modern Fraud Techniques",
+      "techPonzi": {
+        "title": "Tech-Enabled Ponzi",
+        "description": "Sophisticated schemes leveraging AI algorithms for WhatsApp and Telegram manipulation, fake blockchain projects promising high returns, and algorithmic trading platforms that execute coordinated market manipulation in NSE and BSE while appearing as legitimate fintech operations."
+      },
+      "hybridSchemes": {
+        "title": "Hybrid Schemes", 
+        "description": "Complex operations combining legitimate Portfolio Management Services (PMS) activities with fraudulent investment pools, using real stock market profits to pay early investors while simultaneously operating parallel Ponzi structures for retail clients through different entities registered across Indian states."
+      },
+      "legitimateFronts": {
+        "title": "Legitimate Business Fronts",
+        "description": "Elaborate networks of legitimate businesses (CA firms, NBFC companies, audit firms) that provide credible cover for fraudulent activities, employing qualified professionals and maintaining real operations to pass SEBI and RBI scrutiny while facilitating large-scale investment fraud across India."
+      }
+    },
+    "interactiveGames": {
+      "title": "Advanced Fraud Analysis Exercises",
+      "subtitle": "Master sophisticated fraud detection through complex Indian market scenarios",
+      "networkAnalysis": {
+        "title": "Multi-State Fraud Network Analysis",
+        "description": "Analyse complex fraud networks that span multiple Indian states, regulatory systems, and corporate structures registered under different ROCs"
+      },
+      "timelineBuilder": {
+        "title": "Sophisticated Fraud Operation Timeline", 
+        "description": "Reconstruct the evolution of a complex multi-layered fraud scheme involving SEBI regulatory arbitrage and technology manipulation across Indian financial markets"
+      }
+    }
+  },
+  "simulator": {
+    "title": "Advanced Fraud Investigation Simulator",
+    "description": "Conduct comprehensive analysis of complex fraud networks using advanced investigative techniques. Apply sophisticated pattern recognition and multi-jurisdictional analysis skills in realistic high-stakes Indian market scenarios!",
+    "investigationTitle": "Multi-Jurisdictional Fraud Investigation",
+    "completionMessage": "Advanced Investigation Completed (+50 XP) - Course Complete! 🎉",
+    "congratsMessage": "Congratulations! You've successfully mastered the Comprehensive Fraud Schemes course and can now identify sophisticated multi-layered fraud operations in Indian markets."
+  },
+  "redFlags": {
+    "title": "Advanced Red Flag Detection",
+    "description": "Master the identification of sophisticated fraud indicators in complex, seemingly legitimate operations that employ professional facades and SEBI compliance as cover.",
+    "quizTitle": "Sophisticated Fraud Pattern Recognition",
+    "quizDescription": "Analyse complex Indian market scenarios involving seemingly legitimate operations that may harbour sophisticated fraud schemes. These scenarios require advanced analytical skills to identify subtle indicators that suggest fraudulent activity beneath professional facades. Each scenario awards 25 XP when completed correctly."
+  },
+  "scenarios": {
+    "scenario1": {
+      "text": "An investment firm operates with a SEBI-registered subsidiary in Mumbai, maintains offices in 12 Indian cities, employs former SEBI officials, and offers diversified PMS strategies. However, their primary fund consistently shows 2.8% monthly returns regardless of market conditions, client statements show positions in unlisted equity that cannot be independently verified, and new investor capital requirements have increased 300% in the past 6 months.",
+      "options": [
+        "This appears legitimate due to SEBI compliance and professional team",
+        "The consistent returns and unverifiable positions suggest a sophisticated hybrid fraud using regulatory arbitrage", 
+        "This is likely a legitimate but highly exclusive investment opportunity"
+      ],
+      "answer": "The consistent returns and unverifiable positions suggest a sophisticated hybrid fraud using regulatory arbitrage"
+    },
+    "scenario2": {
+      "text": "A fintech platform uses AI-driven social media sentiment analysis to execute trades on NSE and BSE, has partnerships with major brokers, published research on algorithmic trading, and maintains transparent fee structures. Yet their algorithm shows unusual trading patterns during low-volume periods, WhatsApp mentions of their platform spike 400% before major announcements, and blockchain analysis reveals coordinated UPI wallet activities from their institutional trading desk.",
+      "options": [
+        "This represents legitimate innovation in algorithmic trading with proper research backing",
+        "The unusual trading patterns and coordinated activities indicate market manipulation disguised as legitimate fintech operations",
+        "This is normal competitive behaviour in Indian algorithmic trading markets"
+      ],
+      "answer": "The unusual trading patterns and coordinated activities indicate market manipulation disguised as legitimate fintech operations"
+    },
+    "scenario3": {
+      "text": "A private wealth management group has operated for 15 years, manages ₹15,000 crore in assets, employs 200+ staff across multiple offices, undergoes annual third-party audits by Big 4 firms, and maintains SEBI registration. However, recent regulatory filings show discrepancies in asset valuations, their custodian relationships have changed three times in two years, and HNI clients report inability to withdraw more than ₹350 crore annually despite contractual terms allowing larger redemptions.",
+      "options": [
+        "This appears to be normal operational challenges for a large wealth management firm",
+        "The valuation discrepancies and withdrawal restrictions suggest liquidity issues masking potential fraud despite legitimate appearance",
+        "This reflects prudent risk management in volatile Indian market conditions"
+      ],
+      "answer": "The valuation discrepancies and withdrawal restrictions suggest liquidity issues masking potential fraud despite legitimate appearance"
+    }
+  },
+  "completion": {
+    "title": "Advanced Fraud Detection Mastery Achieved!",
+    "subtitle": "You've successfully completed the most advanced fraud detection course and can now identify sophisticated multi-layered fraud operations in Indian financial markets.",
+    "button": "Continue to Next Module"
+  }
+}

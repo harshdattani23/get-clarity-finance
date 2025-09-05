@@ -115,7 +115,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
       difficulty: 'Intermediate',
       xpReward: 400,
       progress: 0,
-      locked: true,
+      locked: false,
       course: 'fraud_awareness',
       prerequisites: ['intro-to-frauds'],
       lessons: [
@@ -140,7 +140,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
       difficulty: 'Advanced',
       xpReward: 500,
       progress: 0,
-      locked: true,
+      locked: false,
       course: 'fraud_awareness',
       prerequisites: ['comprehensive-fraud-schemes'],
       lessons: [
@@ -190,7 +190,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
       difficulty: 'Advanced',
       xpReward: 1200,
       progress: 0,
-      locked: true,
+      locked: false,
       course: 'algorithmic_trading',
       prerequisites: ['comprehensive-stock-market-mastery'],
       lessons: [
@@ -223,7 +223,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
       difficulty: 'Intermediate',
       xpReward: 300,
       progress: 0,
-      locked: true,
+      locked: false,
       course: 'portfolio_management',
       prerequisites: ['comprehensive-stock-market-mastery'],
       lessons: [
@@ -242,7 +242,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
       difficulty: 'Intermediate',
       xpReward: 350,
       progress: 0,
-      locked: true,
+      locked: false,
       course: 'portfolio_management',
       prerequisites: ['investment-philosophy'],
       lessons: [
@@ -318,6 +318,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
     id: string;
     userName: string;
     courseName: string;
+    totalXP: number;
     moduleCount: number;
     completedModules: Array<{
       id: string;
@@ -329,7 +330,6 @@ const FinancialSecurityEducationHub: NextPage = () => {
     completionDate: string;
     publicUrl?: string;
   } | null>(null);
-
   useEffect(() => {
     // Simulate loading animation
     setTimeout(() => setShowAnimation(false), 500); // Reduced from 1000ms to 500ms
@@ -601,6 +601,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
             id: lookupData.certificate.id,
             userName: lookupData.certificate.userName,
             courseName: lookupData.certificate.courseName,
+            totalXP: lookupData.certificate.totalXP || 0,
             moduleCount: lookupData.certificate.moduleCount,
             completedModules: lookupData.certificate.certificateData?.completedModules || [],
             completionDate: lookupData.certificate.completionDate,
@@ -659,6 +660,7 @@ const FinancialSecurityEducationHub: NextPage = () => {
           id: data.certificate.id,
           userName: data.certificate.userName,
           courseName: data.certificate.courseName,
+          totalXP: totalXP || completedModules.reduce((sum, m) => sum + m.xpEarned, 0),
           moduleCount: data.certificate.moduleCount,
           completedModules: completedModules,
           completionDate: data.certificate.completionDate,

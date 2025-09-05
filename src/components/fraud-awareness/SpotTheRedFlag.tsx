@@ -13,20 +13,25 @@ interface Scenario {
 
 interface SpotTheRedFlagProps {
   scenarios: Scenario[];
+  onScenarioComplete?: (scenarioId: number, isCorrect: boolean) => void;
 }
 
-export default function SpotTheRedFlag({ scenarios }: SpotTheRedFlagProps) {
+export default function SpotTheRedFlag({ scenarios, onScenarioComplete }: SpotTheRedFlagProps) {
   const [selected, setSelected] = useState<{ [key: number]: string | null }>({});
   const [isCorrect, setIsCorrect] = useState<{ [key: number]: boolean | null }>({});
 
   const handleSelect = (scenarioId: number, option: string) => {
     setSelected(prev => ({ ...prev, [scenarioId]: option }));
     const scenario = scenarios.find(s => s.id === scenarioId);
-    if (scenario && scenario.answer === option) {
+    const correct = scenario && scenario.answer === option;
+    if (correct) {
       setIsCorrect(prev => ({ ...prev, [scenarioId]: true }));
     } else {
       setIsCorrect(prev => ({ ...prev, [scenarioId]: false }));
     }
+    
+    // Call the completion callback if provided
+    onScenarioComplete?.(scenarioId, correct || false);
   };
 
   return (

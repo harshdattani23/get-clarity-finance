@@ -8,7 +8,7 @@ import { SignInButton } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
-import Module1AudioPlayer from '@/components/investment-security-course/Module1AudioPlayer';
+import CourseAudioPlayer from '@/components/CourseAudioPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import SpotTheRedFlag from '@/components/fraud-awareness/SpotTheRedFlag';
@@ -730,7 +730,10 @@ export default function IntroToFraudsPage() {
                   
                   <div className="relative mb-4">
                     <ClientOnly>
-                      <Module1AudioPlayer 
+                      <CourseAudioPlayer 
+                        courseId="intro-to-frauds"
+                        language={clerkUser?.publicMetadata?.language as any || 'en'}
+                        className="mb-4"
                         onComplete={() => addXP(15, 'audio-completed')}
                         isCompleted={completedActivities.has('audio-completed')}
                       />
