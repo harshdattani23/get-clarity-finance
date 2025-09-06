@@ -640,7 +640,7 @@ export default function IntroToBondsPage() {
 
             {overviewStep === 1 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-4">Step 1: Understanding Bond Investment Fundamentals</h2>
+                <h2 className="text-2xl font-bold mb-4">{t('overview.section1.title') as string}</h2>
                 
                 {/* XP Overview Section */}
                 <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 mb-6 border border-yellow-200">
@@ -696,13 +696,13 @@ export default function IntroToBondsPage() {
                 {/* Video Section */}
                 <div className="bg-white rounded-lg p-6 mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">Bond Investment Fundamentals Video</h3>
+                    <h3 className="text-lg font-semibold">{t('overview.video.title') as string}</h3>
                     <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
                       <Trophy className="w-4 h-4 text-yellow-600" />
                       <span className="text-yellow-700 font-medium">+20 XP</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">Learn about bond investment basics and fundamentals • 12 minutes</p>
+                  <p className="text-sm text-gray-600 mb-4">{t('overview.video.duration') as string}</p>
                   
                   <div className="relative mb-4">
                     <ClientOnly>
@@ -755,32 +755,18 @@ export default function IntroToBondsPage() {
                 
                 <div className="bg-gray-50 rounded-lg p-6 mb-6">
                   <h3 className="text-lg font-semibold mb-4">Introduction to Bond Investment</h3>
-                  <p className="text-gray-700 mb-4">Bonds are debt securities that represent loans made by investors to borrowers, typically corporations or governments. When you buy a bond, you're essentially lending money to the issuer in exchange for periodic interest payments and the return of the principal amount at maturity.</p>
-                  <p className="text-gray-700 mb-4">Understanding bonds is crucial for building a diversified investment portfolio. Bonds offer predictable income streams, capital preservation potential, and can serve as a hedge against stock market volatility.</p>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p1') as string}</p>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p2') as string}</p>
                   
                   <div className="mt-4">
-                    <h4 className="font-medium mb-3">Key Bond Fundamentals:</h4>
+                    <h4 className="font-medium mb-3">{t('overview.section1.p3') as string}</h4>
                     <ul className="space-y-2 text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span><strong>Face Value (Par Value):</strong> The amount the bond will be worth at maturity, typically $1,000 for corporate bonds</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span><strong>Coupon Rate:</strong> The annual interest rate paid on the bond's face value</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span><strong>Maturity Date:</strong> When the bond expires and the principal is repaid to the investor</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span><strong>Yield:</strong> The actual return on investment considering the bond's current market price</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span><strong>Credit Risk:</strong> The risk that the issuer may default on interest or principal payments</span>
-                      </li>
+                      {(t('overview.section1.list') as string[]).map((item, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -793,7 +779,7 @@ export default function IntroToBondsPage() {
 
             {overviewStep === 2 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-6">Step 2: Types of Bond Investments</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('overview.section2.title') as string}</h2>
                 
                 {/* Basic Bond Type Cards - Educational First */}
                 <div className="mb-8">
@@ -832,8 +818,8 @@ export default function IntroToBondsPage() {
                                 bondType === 'corporate_bonds' ? 'bg-orange-400' : 'bg-purple-400'
                               }`} />
                               <h3 className="font-bold text-gray-800">{
-                                bondType === 'government_bonds' ? 'Government Bonds' :
-                                bondType === 'corporate_bonds' ? 'Corporate Bonds' : 'Municipal Bonds'
+                                bondType === 'government_bonds' ? t('overview.section2.government.title') as string :
+                                bondType === 'corporate_bonds' ? t('overview.section2.corporate.title') as string : t('overview.section2.municipal.title') as string
                               }</h3>
                             </div>
                             {completedActivities.has(`bond-type-${bondType}`) && (
@@ -848,9 +834,9 @@ export default function IntroToBondsPage() {
                           </div>
                           
                           <p className="text-sm text-gray-700 mb-4">{
-                            bondType === 'government_bonds' ? 'Issued by national governments, these bonds are generally considered the safest investment with lower yields but high creditworthiness. They include Treasury bonds, notes, and bills with varying maturities and serve as benchmarks for other bond pricing.' :
-                            bondType === 'corporate_bonds' ? 'Issued by companies to raise capital for operations, expansion, or refinancing. They offer higher yields than government bonds but carry credit risk. Corporate bonds range from investment-grade (high quality) to high-yield (junk) bonds based on the issuer\'s creditworthiness.' : 
-                            'Issued by states, cities, and local governments to fund public projects like schools, roads, and hospitals. Municipal bonds often provide tax advantages, with interest typically exempt from federal taxes and sometimes state and local taxes for residents.'
+                            bondType === 'government_bonds' ? t('overview.section2.government.description') as string :
+                            bondType === 'corporate_bonds' ? t('overview.section2.corporate.description') as string : 
+                            t('overview.section2.municipal.description') as string
                           }</p>
                           
                           {!completedActivities.has(`bond-type-${bondType}`) && (
@@ -933,7 +919,7 @@ export default function IntroToBondsPage() {
                 
                 {/* Advanced Red Flag Analysis */}
                 <div className="bg-white rounded-lg p-6 mb-6">
-                  <h3 className="text-xl font-semibold mb-4 text-gray-800">🚩 Bond Investment Red Flag Recognition</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-gray-800">{t('overview.spotTheBondRisk.title') as string}</h3>
                   <p className="text-gray-600 mb-6">Analyze scenarios involving bond investment offers that may contain red flags or fraudulent elements. These scenarios require careful analysis to identify warning signs that suggest problematic investments. Each scenario awards 25 XP when completed correctly.</p>
                   
                   <SpotTheRedFlag 
@@ -948,7 +934,7 @@ export default function IntroToBondsPage() {
                 
                 <div className="flex justify-between">
                   <button onClick={() => setOverviewStep(2)} className="bg-gray-200 px-6 py-2 rounded-lg">Back</button>
-                  <button onClick={() => setOverviewStep(4)} className="bg-green-500 text-white px-6 py-2 rounded-lg">Continue to Simulator</button>
+                  <button onClick={() => setOverviewStep(4)} className="bg-green-500 text-white px-6 py-2 rounded-lg">{t('overview.button.practice') as string}</button>
                 </div>
               </motion.div>
             )}
@@ -956,8 +942,8 @@ export default function IntroToBondsPage() {
             {/* Step 4: Bond Investment Simulator */}
             {overviewStep === 4 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-4">Bond Investment Decision Simulator</h2>
-                <p className="text-gray-700 mb-6">Practice making bond investment decisions in realistic scenarios. Apply your knowledge of bond fundamentals, risk assessment, and portfolio construction in interactive simulations!</p>
+                <h2 className="text-2xl font-bold mb-4">{t('simulator.title') as string}</h2>
+                <p className="text-gray-700 mb-6">{t('simulator.description') as string}</p>
                 
                 <div className="bg-white rounded-lg p-6 mb-6">
                   <div className="flex items-center justify-between mb-4">

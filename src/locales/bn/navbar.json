@@ -2,7 +2,9 @@
   "title": "গেট ক্ল্যারিটি ফাইন্যান্স",
   "learningCourses": "শিক্ষা কোর্সসমূহ",
   "bondsCourse": "বন্ড ক্যালকুলেটর ও ডেটা",
-  "virtualTrading": "ভার্চুয়াল ট্রেডিং",
+  "virtualTrading": "ভারচুয়াল ট্রেডিং",
+  "fraudDetectionTools": "দুর্নীতি শনাক্তকরণ সরঞ্জাম",
+  "tools": "বিনিয়োগ সরঞ্জাম",
   "signIn": "সাইন ইন করুন",
   "signUp": "সাইন আপ করুন"
 }

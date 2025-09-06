@@ -640,7 +640,7 @@ export default function ComprehensiveBondStrategiesPage() {
 
             {overviewStep === 1 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-4">Step 1: Understanding Advanced Bond Investment Strategies</h2>
+                <h2 className="text-2xl font-bold mb-4">{t('overview.section1.title') as string}</h2>
                 
                 {/* XP Overview Section */}
                 <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 mb-6 border border-yellow-200">
@@ -696,13 +696,13 @@ export default function ComprehensiveBondStrategiesPage() {
                 {/* Video Section */}
                 <div className="bg-white rounded-lg p-6 mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">Advanced Bond Investment Video</h3>
+                    <h3 className="text-lg font-semibold">{t('overview.video.title') as string}</h3>
                     <div className="flex items-center gap-2 text-sm bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
                       <Trophy className="w-4 h-4 text-yellow-600" />
                       <span className="text-yellow-700 font-medium">+20 XP</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">Learn about sophisticated bond investment strategies • 12 minutes</p>
+                  <p className="text-sm text-gray-600 mb-4">{t('overview.video.duration') as string}</p>
                   
                   <div className="relative mb-4">
                     <ClientOnly>
@@ -754,9 +754,9 @@ export default function ComprehensiveBondStrategiesPage() {
 
                 
                 <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                  <h3 className="text-lg font-semibold mb-4">Advanced Bond Investment Strategies</h3>
-                  <p className="text-gray-700 mb-4">Professional bond investment goes beyond basic buy-and-hold strategies. Advanced investors use sophisticated techniques including duration management, yield curve positioning, credit analysis, and risk-adjusted return optimization to maximize performance across different market environments.</p>
-                  <p className="text-gray-700 mb-4">Unlike simple bond ladder strategies, advanced approaches integrate quantitative analysis, macroeconomic forecasting, and dynamic risk management to create resilient portfolios that can adapt to changing market conditions.</p>
+                  <h3 className="text-lg font-semibold mb-4">{t('overview.section1.title') as string}</h3>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p1') as string}</p>
+                  <p className="text-gray-700 mb-4">{t('overview.section1.p2') as string}</p>
                   
                   <div className="mt-4">
                     <h4 className="font-medium mb-3">Advanced Strategy Characteristics:</h4>
@@ -793,7 +793,7 @@ export default function ComprehensiveBondStrategiesPage() {
 
             {overviewStep === 2 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-6">Step 2: Advanced Bond Investment Techniques</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('steps.step2') as string}</h2>
                 
                 {/* Basic Bond Strategy Cards - Educational First */}
                 <div className="mb-8">
@@ -832,8 +832,8 @@ export default function ComprehensiveBondStrategiesPage() {
                                 strategyType === 'yield_curve_positioning' ? 'bg-orange-400' : 'bg-purple-400'
                               }`} />
                               <h3 className="font-bold text-gray-800">{
-                                strategyType === 'duration_laddering' ? 'Duration Laddering' :
-                                strategyType === 'yield_curve_positioning' ? 'Yield Curve Positioning' : 'Credit Analysis'
+                                strategyType === 'duration_laddering' ? t('overview.section2.duration_matching.title') as string :
+                                strategyType === 'yield_curve_positioning' ? t('overview.section2.yield_curve.title') as string : t('overview.section2.credit_analysis.title') as string
                               }</h3>
                             </div>
                             {completedActivities.has(`strategy-type-${strategyType}`) && (
@@ -848,9 +848,9 @@ export default function ComprehensiveBondStrategiesPage() {
                           </div>
                           
                           <p className="text-sm text-gray-700 mb-4">{
-                            strategyType === 'duration_laddering' ? 'Systematic approach to managing interest rate risk through strategic duration allocation across different maturity segments, combined with active rebalancing based on yield curve movements and rate forecasting.' :
-                            strategyType === 'yield_curve_positioning' ? 'Advanced strategies that capitalize on yield curve shape changes through barbell, bullet, and butterfly positioning, utilizing sophisticated analysis of term structure dynamics and relative value opportunities.' : 
-                            'Comprehensive fundamental analysis of bond issuers including cash flow modeling, peer comparison, industry analysis, and scenario stress testing to identify credit opportunities and avoid deteriorating situations.'
+                            strategyType === 'duration_laddering' ? t('overview.section2.duration_matching.description') as string :
+                            strategyType === 'yield_curve_positioning' ? t('overview.section2.yield_curve.description') as string : 
+                            t('overview.section2.credit_analysis.description') as string
                           }</p>
                           
                           {!completedActivities.has(`strategy-type-${strategyType}`) && (
@@ -875,14 +875,14 @@ export default function ComprehensiveBondStrategiesPage() {
                 {/* Interactive Games Section */}
                 <div className="space-y-6">
                   <div className="text-center">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Advanced Bond Analysis Exercises</h3>
-                    <p className="text-gray-600">Master sophisticated bond investment through complex scenario analysis</p>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{t('overview.interactiveGames.title') as string}</h3>
+                    <p className="text-gray-600">{t('overview.interactiveGames.subtitle') as string}</p>
                   </div>
 
                   {/* Advanced Bond Portfolio Analysis */}
                   <div className="bg-white rounded-lg p-6 border border-gray-200">
-                    <h3 className="text-xl font-semibold mb-4">Multi-Asset Bond Portfolio Analysis</h3>
-                    <p className="text-gray-600 mb-6">Analyze complex bond portfolios that span multiple sectors, credit qualities, and geographic regions</p>
+                    <h3 className="text-xl font-semibold mb-4">{t('overview.interactiveGames.portfolioOptimization.title') as string}</h3>
+                    <p className="text-gray-600 mb-6">{t('overview.interactiveGames.portfolioOptimization.description') as string}</p>
                     
                     <FraudMatchingGame 
                       onComplete={(score) => {
@@ -928,7 +928,7 @@ export default function ComprehensiveBondStrategiesPage() {
 
             {overviewStep === 3 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-4">Step 3: Advanced Red Flag Detection</h2>
+                <h2 className="text-2xl font-bold mb-4">{t('steps.step3') as string}</h2>
                 <p className="text-gray-700 mb-6">Master the identification of sophisticated risks in bond investments, including complex credit issues, interest rate traps, and market manipulation schemes that can appear in seemingly legitimate bond offerings.</p>
                 
                 {/* Advanced Red Flag Analysis */}
@@ -956,8 +956,8 @@ export default function ComprehensiveBondStrategiesPage() {
             {/* Step 4: Advanced Bond Investment Simulator */}
             {overviewStep === 4 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h2 className="text-2xl font-bold mb-4">Advanced Bond Investment Simulator</h2>
-                <p className="text-gray-700 mb-6">Conduct comprehensive analysis of complex bond investment scenarios using advanced portfolio management techniques. Apply sophisticated risk analysis and strategic positioning skills in realistic institutional-level scenarios!</p>
+                <h2 className="text-2xl font-bold mb-4">{t('simulator.title') as string}</h2>
+                <p className="text-gray-700 mb-6">{t('simulator.description') as string}</p>
                 
                 <div className="bg-white rounded-lg p-6 mb-6">
                   <div className="flex items-center justify-between mb-4">

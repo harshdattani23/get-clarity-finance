@@ -45,6 +45,7 @@ const Navbar = () => {
     { href: '/investment-security-course', key: 'learningCourses', icon: 'book' },
     { href: '/bonds-course', key: 'bondsCourse', icon: 'dollar-sign' },
     { href: '/virtual-trading', key: 'virtualTrading', icon: 'trending' },
+    { href: '/fraud-detection-tools', key: 'fraudDetectionTools', icon: 'shield' },
   ];
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const Navbar = () => {
               height={32} 
               className="w-8 h-8"
             />
-            <span className="font-['Inter_Tight',_sans-serif] text-2xl sm:text-3xl font-semibold text-white tracking-tight whitespace-nowrap">
+            <span className="font-['Inter_Tight',_sans-serif] text-xl sm:text-2xl font-semibold text-white tracking-tight whitespace-nowrap">
               {t('title') as string}
             </span>
           </Link>

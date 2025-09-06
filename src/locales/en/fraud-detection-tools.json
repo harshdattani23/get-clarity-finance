@@ -1,0 +1,10 @@
+{
+  "title": "Fraud Detection Tools",
+  "subtitle": "A suite of tools to help you detect and avoid financial fraud.",
+  "deepfakeDetector.title": "Deepfake Detector",
+  "deepfakeDetector.description": "Analyze videos to detect deepfakes and manipulated media.",
+  "socialMonitor.title": "Social Media Monitor",
+  "socialMonitor.description": "Monitor social media for pump & dump schemes and other financial scams.",
+  "advisorVerifier.title": "Advisor Verifier",
+  "advisorVerifier.description": "Verify if your financial advisor is registered with SEBI."
+}

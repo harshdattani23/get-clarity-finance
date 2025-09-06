@@ -125,6 +125,8 @@
     }
   },
   "simulator": {
+    "title": "Bond Investment Decision Simulator",
+    "description": "Practice making bond investment decisions in realistic scenarios. Apply your knowledge of bond fundamentals, risk assessment, and portfolio construction in interactive simulations!",
     "button": {
       "quiz": "Continue to Quiz"
     }
