@@ -8,7 +8,7 @@ import { SignInButton } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
-import EnhancedAudioPlayer from '@/components/EnhancedAudioPlayer';
+import CourseAudioPlayer from '@/components/CourseAudioPlayer';
 import ClientOnly from '@/components/ClientOnly';
 import { useTranslation } from '@/hooks/useTranslation';
 import SpotTheRedFlag from '@/components/fraud-awareness/SpotTheRedFlag';
@@ -736,7 +736,9 @@ export default function IntroToBondsPage() {
                   
                   <div className="relative mb-4">
                     <ClientOnly>
-                      <EnhancedAudioPlayer 
+                      <CourseAudioPlayer 
+                        courseId="intro-to-bonds"
+                        language={clerkUser?.publicMetadata?.language as any || 'en'}
                         defaultLanguage={clerkUser?.publicMetadata?.language as any || 'en'}
                         className="mb-4"
                         onComplete={() => addXP(15, 'audio-completed')}
