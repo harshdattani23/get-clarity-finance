@@ -703,6 +703,7 @@ export default function ComprehensiveFraudSchemesPage() {
                   <div className="relative mb-4">
                     <ClientOnly>
                       <Module1VideoPlayer 
+                        defaultLanguage={clerkUser?.publicMetadata?.language as any || 'en'}
                         onComplete={() => addXP(20, 'video-completed')}
                         isCompleted={completedActivities.has('video-completed')}
                       />

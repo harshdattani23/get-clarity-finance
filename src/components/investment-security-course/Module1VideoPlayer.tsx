@@ -3,13 +3,32 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, RotateCcw, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
 
+interface Language {
+  code: string;
+  name: string;
+  nativeName: string;
+}
+
 interface Module1VideoPlayerProps {
   className?: string;
   onComplete?: () => void;
   isCompleted?: boolean;
+  defaultLanguage?: string;
 }
 
-export default function Module1VideoPlayer({ className = '', onComplete, isCompleted = false }: Module1VideoPlayerProps) {
+const languages: Language[] = [
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिंदी' },
+  { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી' },
+  { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+  { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
+  { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
+  { code: 'te', name: 'Telugu', nativeName: 'తెలుగు' },
+  { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ' },
+  { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം' },
+];
+
+export default function Module1VideoPlayer({ className = '', onComplete, isCompleted = false, defaultLanguage = 'en' }: Module1VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -20,12 +39,58 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [hasTriggeredComplete, setHasTriggeredComplete] = useState(isCompleted);
+  const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const videoUrl = "https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4";
+  // Hardcoded video URLs for each language (using same English video for all languages for now)
+  const getVideoUrl = (language: string) => {
+    const videoUrls: { [key: string]: string } = {
+      'en': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'hi': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'gu': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'mr': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'bn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'ta': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'te': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'kn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      'ml': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+    };
+    return videoUrls[language] || videoUrls['en'];
+  };
+
+  const videoUrl = getVideoUrl(selectedLanguage);
+
+  // Get font class based on language
+  const getFontClass = (langCode: string) => {
+    const fontMap: { [key: string]: string } = {
+      'hi': 'font-hindi',
+      'mr': 'font-marathi',
+      'gu': 'font-gujarati',
+      'bn': 'font-bengali',
+      'ta': 'font-tamil',
+      'te': 'font-telugu',
+      'kn': 'font-kannada',
+      'ml': 'font-malayalam',
+      'en': 'font-english'
+    };
+    return fontMap[langCode] || 'font-english';
+  };
+
+  // Reload video when language changes
+  useEffect(() => {
+    if (videoRef.current) {
+      const wasPlaying = isPlaying;
+      videoRef.current.load();
+      setCurrentTime(0);
+      setIsPlaying(false);
+      setError(null);
+      // Reset completion state when language changes
+      setHasTriggeredComplete(isCompleted);
+    }
+  }, [selectedLanguage, isCompleted]);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -175,18 +240,28 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
 
   return (
     <div className={`${className}`}>
-      {/* Language Note */}
-      <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-        <div className="flex items-center gap-2 text-sm">
-          <div className="flex items-center gap-1">
-            <span className="text-blue-600 font-medium">📹 Video:</span>
-            <span className="text-gray-700">Available in English only</span>
+      {/* Language Selector */}
+      <div className="mb-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold text-gray-900">Select Language:</h3>
+          <div className="text-xs text-gray-500 bg-yellow-100 px-2 py-1 rounded">
+            Video content is in English with subtitles
           </div>
-          <div className="text-gray-400">•</div>
-          <div className="flex items-center gap-1">
-            <span className="text-green-600 font-medium">🎵 Audio:</span>
-            <span className="text-gray-700">Available in multiple languages below</span>
-          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setSelectedLanguage(lang.code)}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                selectedLanguage === lang.code
+                  ? 'bg-blue-500 text-white shadow-sm'
+                  : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <span className={`${getFontClass(lang.code)}`}>{lang.nativeName}</span>
+            </button>
+          ))}
         </div>
       </div>
       
@@ -332,7 +407,7 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
 
           <div className="flex items-center gap-2">
             <span className="text-white text-sm">
-              Detecting Super-Fraud
+              Detecting Super-Fraud ({languages.find(l => l.code === selectedLanguage)?.name || 'English'})
             </span>
             <button
               onClick={toggleFullscreen}

@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useUser } from '@clerk/nextjs';
 import FraudSimulator from '@/components/fraud-awareness/FraudSimulator';
 
 import Module1VideoPlayer from '@/components/investment-security-course/Module1VideoPlayer';
@@ -57,6 +58,7 @@ interface QuizResult {
 
 export default function PonziSchemesPage() {
   const { t } = useTranslation('courses.ponzi-schemes');
+  const { user: clerkUser, isLoaded } = useUser();
   const [currentSection, setCurrentSection] = useState<'overview' | 'simulator' | 'quiz'>('overview');
   const [overviewStep, setOverviewStep] = useState(1);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
@@ -347,6 +349,7 @@ export default function PonziSchemesPage() {
                   <div className="relative mb-4">
                     <ClientOnly>
                       <Module1VideoPlayer 
+                        defaultLanguage={clerkUser?.publicMetadata?.language as any || 'en'}
                         onComplete={() => addXP(20, 'ponzi-video-completed')}
                         isCompleted={completedActivities.has('ponzi-video-completed')}
                       />
