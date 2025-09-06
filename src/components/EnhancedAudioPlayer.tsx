@@ -45,74 +45,145 @@ const languages: Language[] = [
 ];
 
 // Audio configuration from Google Cloud Storage bucket
-const AUDIO_BASE_URL = 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/module1/';
-
-// Actual audio tracks from your Google Cloud bucket
-const audioTracks: AudioTrack[] = [
-  { 
-    id: 'module1-en', 
-    title: 'Module 1: Understanding Stock Market Frauds', 
-    duration: '8:40', 
-    language: 'en', 
-    audioUrl: `${AUDIO_BASE_URL}english.m4a` 
-  },
-  { 
-    id: 'module1-hi', 
-    title: 'मॉड्यूल 1: शेयर बाजार धोखाधड़ी को समझना', 
-    duration: '8:50', 
-    language: 'hi', 
-    audioUrl: `${AUDIO_BASE_URL}hindi.m4a` 
-  },
-  { 
-    id: 'module1-gu', 
-    title: 'મોડ્યુલ 1: સ્ટોક માર્કેટ ફ્રોડને સમજવું', 
-    duration: '8:30', 
-    language: 'gu', 
-    audioUrl: `${AUDIO_BASE_URL}gujarati.m4a` 
-  },
-  { 
-    id: 'module1-mr', 
-    title: 'मॉड्यूल 1: शेअर मार्केट फसवणूक समजून घेणे', 
-    duration: '8:48', 
-    language: 'mr', 
-    audioUrl: `${AUDIO_BASE_URL}marathi.m4a` 
-  },
-  { 
-    id: 'module1-ta', 
-    title: 'தொகுதி 1: பங்குச் சந்தை மோசடியைப் புரிந்துகொள்ளுதல்', 
-    duration: '9:04', 
-    language: 'ta', 
-    audioUrl: `${AUDIO_BASE_URL}tamil.m4a` 
-  },
-  { 
-    id: 'module1-te', 
-    title: 'మాడ్యూల్ 1: స్టాక్ మార్కెట్ మోసం అర్థం చేసుకోవడం', 
-    duration: '8:58', 
-    language: 'te', 
-    audioUrl: `${AUDIO_BASE_URL}telugu.m4a` 
-  },
-  { 
-    id: 'module1-kn', 
-    title: 'ಮಾಡ್ಯೂಲ್ 1: ಸ್ಟಾಕ್ ಮಾರ್ಕೆಟ್ ವಂಚನೆಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು', 
-    duration: '8:32', 
-    language: 'kn', 
-    audioUrl: `${AUDIO_BASE_URL}Kannada.m4a` 
-  },
-  { 
-    id: 'module1-ml', 
-    title: 'മൊഡ്യൂൾ 1: സ്റ്റോക്ക് മാര്‍ക്കറ്റ് വഞ്ചന മനസ്സിലാക്കുക', 
-    duration: '9:02', 
-    language: 'ml', 
-    audioUrl: `${AUDIO_BASE_URL}malyalam.m4a` 
-  },
-  { 
-    id: 'module1-bn', 
-    title: 'মডিউল ১: স্টক মার্কেট জালিয়াতি বোঝা', 
-    duration: '8:47', 
-    language: 'bn', 
-    audioUrl: `${AUDIO_BASE_URL}bengali.m4a` 
+const getAudioTracks = (courseId: string = 'intro-to-frauds'): AudioTrack[] => {
+  if (courseId === 'intro-to-bonds') {
+    // Bond course audio tracks
+    const BOND_AUDIO_BASE_URL = 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/intro-to-bonds/';
+    return [
+      { 
+        id: 'bonds-en', 
+        title: 'Introduction to Bond Investments', 
+        duration: '8:30', 
+        language: 'en', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-en.m4a` 
+      },
+      { 
+        id: 'bonds-hi', 
+        title: 'बॉन्ड निवेश का परिचय', 
+        duration: '8:40', 
+        language: 'hi', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-hi.m4a` 
+      },
+      { 
+        id: 'bonds-gu', 
+        title: 'બોન્ડ રોકાણનો પરિચય', 
+        duration: '8:20', 
+        language: 'gu', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-gu.m4a` 
+      },
+      { 
+        id: 'bonds-mr', 
+        title: 'बॉण्ड गुंतवणुकीचा परिचय', 
+        duration: '8:35', 
+        language: 'mr', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-mr.m4a` 
+      },
+      { 
+        id: 'bonds-ta', 
+        title: 'பத்திர முதலீட்டின் அறிமுகம்', 
+        duration: '8:50', 
+        language: 'ta', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-ta.m4a` 
+      },
+      { 
+        id: 'bonds-te', 
+        title: 'బాండ్ పెట్టుబడుల పరిచయం', 
+        duration: '8:45', 
+        language: 'te', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-te.m4a` 
+      },
+      { 
+        id: 'bonds-kn', 
+        title: 'ಬಾಂಡ್ ಹೂಡಿಕೆಗಳ ಪರಿಚಯ', 
+        duration: '8:25', 
+        language: 'kn', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-kn.m4a` 
+      },
+      { 
+        id: 'bonds-ml', 
+        title: 'ബോണ്ട് നിക്ഷേപങ്ങളുടെ ആമുഖം', 
+        duration: '8:55', 
+        language: 'ml', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-ml.m4a` 
+      },
+      { 
+        id: 'bonds-bn', 
+        title: 'বন্ড বিনিয়োগের ভূমিকা', 
+        duration: '8:40', 
+        language: 'bn', 
+        audioUrl: `${BOND_AUDIO_BASE_URL}intro-to-bonds-bn.m4a` 
+      }
+    ];
+  } else {
+    // Default fraud course audio tracks
+    const FRAUD_AUDIO_BASE_URL = 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/module1/';
+    return [
+      { 
+        id: 'module1-en', 
+        title: 'Module 1: Understanding Stock Market Frauds', 
+        duration: '8:40', 
+        language: 'en', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}english.m4a` 
+      },
+      { 
+        id: 'module1-hi', 
+        title: 'मॉड्यूल 1: शेयर बाजार धोखाधड़ी को समझना', 
+        duration: '8:50', 
+        language: 'hi', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}hindi.m4a` 
+      },
+      { 
+        id: 'module1-gu', 
+        title: 'મોડ્યુલ 1: સ્ટોક માર્કેટ ફ્રોડને સમજવું', 
+        duration: '8:30', 
+        language: 'gu', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}gujarati.m4a` 
+      },
+      { 
+        id: 'module1-mr', 
+        title: 'मॉड्यूल 1: शेअर मार्केट फसवणूक समजून घेणे', 
+        duration: '8:48', 
+        language: 'mr', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}marathi.m4a` 
+      },
+      { 
+        id: 'module1-ta', 
+        title: 'தொகுதி 1: பங்குச் சந்தை மோசடியைப் புரிந்துகொள்ளுதல்', 
+        duration: '9:04', 
+        language: 'ta', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}tamil.m4a` 
+      },
+      { 
+        id: 'module1-te', 
+        title: 'మాడ్యూల్ 1: స్టాక్ మార్కెట్ మోసం అర్థం చేసుకోవడం', 
+        duration: '8:58', 
+        language: 'te', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}telugu.m4a` 
+      },
+      { 
+        id: 'module1-kn', 
+        title: 'ಮಾಡ್ಯೂಲ್ 1: ಸ್ಟಾಕ್ ಮಾರ್ಕೆಟ್ ವಂಚನೆಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು', 
+        duration: '8:32', 
+        language: 'kn', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}Kannada.m4a` 
+      },
+      { 
+        id: 'module1-ml', 
+        title: 'മൊഡ്യൂൾ 1: സ്റ്റോക്ക് മാര്‍ക്കറ്റ് വഞ്ചന മനസ്സിലാക്കുക', 
+        duration: '9:02', 
+        language: 'ml', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}malyalam.m4a` 
+      },
+      { 
+        id: 'module1-bn', 
+        title: 'মডিউল ১: স্টক মার্কেট জালিয়াতি বোঝা', 
+        duration: '8:47', 
+        language: 'bn', 
+        audioUrl: `${FRAUD_AUDIO_BASE_URL}bengali.m4a` 
+      }
+    ];
   }
-];
+};
 
 const EnhancedAudioPlayer = ({ className = "", courseId, defaultLanguage = 'en', onComplete, isCompleted }: EnhancedAudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -138,6 +209,9 @@ const EnhancedAudioPlayer = ({ className = "", courseId, defaultLanguage = 'en',
   const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
   const [filteredTracks, setFilteredTracks] = useState<AudioTrack[]>([]);
   
+  // Get course-specific audio tracks
+  const audioTracks = getAudioTracks(courseId);
+  
   // Filter tracks by selected language
   useEffect(() => {
     const tracks = audioTracks.filter(track => track.language === selectedLanguage);
@@ -148,7 +222,7 @@ const EnhancedAudioPlayer = ({ className = "", courseId, defaultLanguage = 'en',
     setCurrentTime(0);
     setIsPlaying(false);
     setError(null);
-  }, [selectedLanguage]);
+  }, [selectedLanguage, courseId, audioTracks]);
 
   const currentTrack = filteredTracks[currentTrackIndex];
 
