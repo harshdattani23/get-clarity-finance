@@ -1,0 +1,192 @@
+/* Enhanced Multi-language Font Support */
+
+/* Import Google Fonts for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Devanagari (Hindi, Marathi) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Gujarati */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Bengali */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Tamil */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Telugu */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Kannada */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Malayalam */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Root font variables */
+:root {
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  
+  /* Language-specific fonts */
+  --font-devanagari: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  --font-gujarati: 'Noto Sans Gujarati', 'Inter', sans-serif;
+  --font-bengali: 'Noto Sans Bengali', 'Inter', sans-serif;
+  --font-tamil: 'Noto Sans Tamil', 'Inter', sans-serif;
+  --font-telugu: 'Noto Sans Telugu', 'Inter', sans-serif;
+  --font-kannada: 'Noto Sans Kannada', 'Inter', sans-serif;
+  --font-malayalam: 'Noto Sans Malayalam', 'Inter', sans-serif;
+}
+
+/* Base typography */
+body {
+  font-family: var(--font-primary);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Language-specific font classes */
+.font-hindi,
+.font-marathi {
+  font-family: var(--font-devanagari);
+}
+
+.font-gujarati {
+  font-family: var(--font-gujarati);
+}
+
+.font-bengali {
+  font-family: var(--font-bengali);
+}
+
+.font-tamil {
+  font-family: var(--font-tamil);
+}
+
+.font-telugu {
+  font-family: var(--font-telugu);
+}
+
+.font-kannada {
+  font-family: var(--font-kannada);
+}
+
+.font-malayalam {
+  font-family: var(--font-malayalam);
+}
+
+.font-english,
+.font-hinglish {
+  font-family: var(--font-primary);
+}
+
+/* Monospace for time display */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Enhanced text rendering */
+.enhanced-text {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 1, 'tnum' 0, 'onum' 1, 'lnum' 0, 'dlig' 1;
+}
+
+/* Audio player specific typography */
+.audio-player-title {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.audio-player-subtitle {
+  font-weight: 400;
+  letter-spacing: -0.0125em;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.audio-player-time {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.0125em;
+}
+
+.audio-player-controls {
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: -0.0125em;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .audio-player-title {
+    font-size: 1.125rem;
+  }
+  
+  .audio-player-subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .audio-player-title {
+    font-size: 1rem;
+  }
+  
+  .audio-player-subtitle {
+    font-size: 0.8125rem;
+  }
+  
+  .audio-player-controls {
+    font-size: 0.8125rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .audio-player-title,
+  .audio-player-subtitle,
+  .audio-player-time,
+  .audio-player-controls {
+    font-weight: 600;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  body {
+    font-weight: 400;
+  }
+  
+  .audio-player-title {
+    font-weight: 700;
+  }
+}
+
+/* Font loading optimization */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+}
+
+/* Fallback fonts for better performance */
+.font-fallback {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}

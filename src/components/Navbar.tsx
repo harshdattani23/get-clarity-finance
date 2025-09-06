@@ -14,6 +14,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isToolsMenuOpen, setIsToolsMenuOpen] = useState(false);
   const languageContext = useContext(LanguageContext);
   const currentLanguage = languageContext?.language || 'en';
   
@@ -41,10 +42,13 @@ const Navbar = () => {
     setIsLanguageMenuOpen(false);
   };
 
-  const navLinks = [
+  const mainNavLinks = [
     { href: '/investment-security-course', key: 'learningCourses', icon: 'book' },
+    { href: '/virtual-trading', key: 'virtualTrading', icon: 'trending' }
+  ];
+
+  const toolsLinks = [
     { href: '/bonds-course', key: 'bondsCourse', icon: 'dollar-sign' },
-    { href: '/virtual-trading', key: 'virtualTrading', icon: 'trending' },
     { href: '/fraud-detection-tools', key: 'fraudDetectionTools', icon: 'shield' },
   ];
 
@@ -64,11 +68,14 @@ const Navbar = () => {
       if (isLanguageMenuOpen && !target.closest('.language-dropdown')) {
         setIsLanguageMenuOpen(false);
       }
+      if (isToolsMenuOpen && !target.closest('.tools-dropdown')) {
+        setIsToolsMenuOpen(false);
+      }
     };
     
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isLanguageMenuOpen]);
+  }, [isLanguageMenuOpen, isToolsMenuOpen]);
 
   return (
     <header className="bg-[#163300] sticky top-0 z-50">
@@ -87,13 +94,13 @@ const Navbar = () => {
             </span>
           </Link>
           
-          <div className="hidden md:flex items-center gap-12">
-            <nav className="flex items-center gap-4">
-              {navLinks.map((link) => (
+          <div className="hidden md:flex items-center gap-6 lg:gap-12">
+            <nav className="flex items-center gap-3 lg:gap-4">
+              {mainNavLinks.map((link) => (
                 <Link
                   key={link.key}
                   href={link.href}
-                  className={`px-2.5 py-1 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`px-2 lg:px-2.5 py-1 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
                     pathname === link.href
                       ? 'text-white bg-white/10'
                       : 'text-white/80 hover:text-white'
@@ -102,13 +109,40 @@ const Navbar = () => {
                   {t(link.key) as string}
                 </Link>
               ))}
+              <div className="relative tools-dropdown">
+                <button
+                  onClick={() => setIsToolsMenuOpen(!isToolsMenuOpen)}
+                  className="flex items-center gap-2 px-2 lg:px-2.5 py-1 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+                >
+                  <span>{t('tools') as string}</span>
+                  <ChevronDown size={14} className="opacity-60" />
+                </button>
+                {isToolsMenuOpen && (
+                  <div className="absolute left-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                    {toolsLinks.map((link) => (
+                      <Link
+                        key={link.key}
+                        href={link.href}
+                        onClick={() => setIsToolsMenuOpen(false)}
+                        className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
+                          pathname === link.href
+                            ? 'bg-green-50 text-green-700 font-medium'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {t(link.key) as string}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </nav>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 lg:gap-4">
               {/* Language Selector */}
               <div className="relative language-dropdown">
                 <button
                   onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors border border-white/30 hover:border-white/50 min-w-[120px] lg:min-w-[140px]"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors border border-white/30 hover:border-white/50 min-w-[100px] lg:min-w-[120px]"
                   title="Change Language / भाषा बदलें"
                 >
                   <Globe size={16} className="flex-shrink-0" />
@@ -166,7 +200,7 @@ const Navbar = () => {
         <div className="md:hidden bg-[#163300] border-t border-white/10">
           <div className="container mx-auto px-4 sm:px-6 py-4">
             <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {mainNavLinks.map((link) => (
                 <Link
                   key={link.key}
                   href={link.href}
