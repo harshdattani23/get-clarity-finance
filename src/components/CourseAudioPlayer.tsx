@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Loader2, Globe } from 'lucide-react';
 import useAudioPlayer from '@/hooks/useAudioPlayer';
-import { LanguageCode, CourseId } from '@/lib/models/audio';
+import { LanguageCode, CourseId, LANGUAGE_INFO } from '@/lib/models/audio';
 
 interface CourseAudioPlayerProps {
   courseId: CourseId;
@@ -14,6 +14,7 @@ interface CourseAudioPlayerProps {
   showFullControls?: boolean;
   onComplete?: () => void;
   isCompleted?: boolean;
+  defaultLanguage?: LanguageCode;
 }
 
 export default function CourseAudioPlayer({
@@ -25,8 +26,15 @@ export default function CourseAudioPlayer({
   showFullControls = true,
   onComplete,
   isCompleted = false,
+  defaultLanguage,
 }: CourseAudioPlayerProps) {
   const [isMuted, setIsMuted] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<LanguageCode>(defaultLanguage || language);
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const languageMenuRef = useRef<HTMLDivElement>(null);
+
+  // Available languages for audio (matching the uploaded files)
+  const availableLanguages: LanguageCode[] = ['en', 'hi', 'gu', 'mr', 'bn', 'ta', 'te', 'kn', 'ml'];
 
   const {
     isLoading,
@@ -45,7 +53,7 @@ export default function CourseAudioPlayer({
     toggleMute,
   } = useAudioPlayer({
     courseId,
-    language,
+    language: currentLanguage,
     moduleType,
     sectionId,
     onEnded: () => {
@@ -78,6 +86,28 @@ export default function CourseAudioPlayer({
     toggleMute();
   };
 
+  const handleLanguageChange = (newLanguage: LanguageCode) => {
+    setCurrentLanguage(newLanguage);
+    setShowLanguageMenu(false);
+  };
+
+  // Close language menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+        setShowLanguageMenu(false);
+      }
+    };
+
+    if (showLanguageMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showLanguageMenu]);
+
   if (error) {
     return (
       <div className={`flex items-center justify-center p-4 bg-red-50 border border-red-200 rounded-lg ${className}`}>
@@ -99,6 +129,48 @@ export default function CourseAudioPlayer({
 
   return (
     <div className={`bg-white border border-gray-200 rounded-lg p-4 ${className}`}>
+      {/* Language Selector */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-gray-700">Audio Language:</span>
+          <div className="relative" ref={languageMenuRef}>
+            <button
+              onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+              className="flex items-center gap-2 px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{LANGUAGE_INFO[currentLanguage]?.flag} {LANGUAGE_INFO[currentLanguage]?.name}</span>
+            </button>
+            
+            {showLanguageMenu && (
+              <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[200px]">
+                <div className="py-1 max-h-48 overflow-y-auto">
+                  {availableLanguages.map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => handleLanguageChange(lang)}
+                      className={`w-full text-left px-3 py-2 hover:bg-gray-50 transition-colors flex items-center gap-2 ${
+                        currentLanguage === lang ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                      }`}
+                    >
+                      <span className="text-lg">{LANGUAGE_INFO[lang]?.flag}</span>
+                      <span className="text-sm font-medium">{LANGUAGE_INFO[lang]?.name}</span>
+                      <span className="text-xs text-gray-500 ml-auto">{LANGUAGE_INFO[lang]?.nativeName}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {currentLanguage !== (defaultLanguage || language) && (
+          <div className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded">
+            Audio will reload in {LANGUAGE_INFO[currentLanguage]?.name}
+          </div>
+        )}
+      </div>
+      
       {/* Progress Bar */}
       <div className="mb-4">
         <div

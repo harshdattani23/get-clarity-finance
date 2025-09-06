@@ -14,6 +14,7 @@ interface Module1VideoPlayerProps {
   onComplete?: () => void;
   isCompleted?: boolean;
   defaultLanguage?: string;
+  courseId?: string;
 }
 
 const languages: Language[] = [
@@ -28,7 +29,7 @@ const languages: Language[] = [
   { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം' },
 ];
 
-export default function Module1VideoPlayer({ className = '', onComplete, isCompleted = false, defaultLanguage = 'en' }: Module1VideoPlayerProps) {
+export default function Module1VideoPlayer({ className = '', onComplete, isCompleted = false, defaultLanguage = 'en', courseId }: Module1VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -45,20 +46,37 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Hardcoded video URLs for each language (using same English video for all languages for now)
+  // Hardcoded video URLs for each language based on course
   const getVideoUrl = (language: string) => {
-    const videoUrls: { [key: string]: string } = {
-      'en': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'hi': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'gu': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'mr': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'bn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'ta': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'te': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'kn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-      'ml': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
-    };
-    return videoUrls[language] || videoUrls['en'];
+    if (courseId === 'intro-to-bonds') {
+      // Intro to Bonds course videos
+      const bondVideoUrls: { [key: string]: string } = {
+        'en': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-en.mp4',
+        'hi': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-hi.mp4',
+        'gu': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-gu.mp4',
+        'mr': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-mr.mp4',
+        'bn': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-bn.mp4',
+        'ta': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-ta.mp4',
+        'te': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-te.mp4',
+        'kn': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-kn.mp4',
+        'ml': 'https://storage.googleapis.com/getclarity-audio-bucket/videos/intro-to-bonds/intro-to-bonds-video-ml.mp4',
+      };
+      return bondVideoUrls[language] || bondVideoUrls['en'];
+    } else {
+      // Default fraud detection course videos
+      const videoUrls: { [key: string]: string } = {
+        'en': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'hi': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'gu': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'mr': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'bn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'ta': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'te': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'kn': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+        'ml': 'https://storage.googleapis.com/getclarity-audio-bucket/lessons/comprehensive-fraud-schemes/comprehensive-fraud-schemes-video.mp4',
+      };
+      return videoUrls[language] || videoUrls['en'];
+    }
   };
 
   const videoUrl = getVideoUrl(selectedLanguage);
@@ -244,9 +262,6 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
       <div className="mb-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold text-gray-900">Select Language:</h3>
-          <div className="text-xs text-gray-500 bg-yellow-100 px-2 py-1 rounded">
-            Video content is in English with subtitles
-          </div>
         </div>
         <div className="flex flex-wrap gap-2">
           {languages.map((lang) => (
@@ -407,7 +422,7 @@ export default function Module1VideoPlayer({ className = '', onComplete, isCompl
 
           <div className="flex items-center gap-2">
             <span className="text-white text-sm">
-              Detecting Super-Fraud ({languages.find(l => l.code === selectedLanguage)?.name || 'English'})
+              {courseId === 'intro-to-bonds' ? 'Introduction to Bonds' : 'Detecting Super-Fraud'} ({languages.find(l => l.code === selectedLanguage)?.name || 'English'})
             </span>
             <button
               onClick={toggleFullscreen}

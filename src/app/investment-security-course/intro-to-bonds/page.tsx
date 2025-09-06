@@ -708,6 +708,7 @@ export default function IntroToBondsPage() {
                     <ClientOnly>
                       <Module1VideoPlayer 
                         defaultLanguage={clerkUser?.publicMetadata?.language as any || 'en'}
+                        courseId="intro-to-bonds"
                         onComplete={() => addXP(20, 'video-completed')}
                         isCompleted={completedActivities.has('video-completed')}
                       />
@@ -738,6 +739,7 @@ export default function IntroToBondsPage() {
                       <CourseAudioPlayer 
                         courseId="intro-to-bonds"
                         language={clerkUser?.publicMetadata?.language as any || 'en'}
+                        defaultLanguage={clerkUser?.publicMetadata?.language as any || 'en'}
                         className="mb-4"
                         onComplete={() => addXP(15, 'audio-completed')}
                         isCompleted={completedActivities.has('audio-completed')}
