@@ -14,7 +14,6 @@ interface Language {
   code: string;
   name: string;
   nativeName: string;
-  flag: string;
 }
 
 interface AudioTrack {
@@ -34,15 +33,15 @@ interface EnhancedAudioPlayerProps {
 }
 
 const languages: Language[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
-  { code: 'hi', name: 'Hindi', nativeName: 'हिंदी', flag: '🇮🇳' },
-  { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી', flag: '🇮🇳' },
-  { code: 'mr', name: 'Marathi', nativeName: 'मराठी', flag: '🇮🇳' },
-  { code: 'bn', name: 'Bengali', nativeName: 'বাংলা', flag: '🇧🇩' },
-  { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்', flag: '🇮🇳' },
-  { code: 'te', name: 'Telugu', nativeName: 'తెలుగు', flag: '🇮🇳' },
-  { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം', flag: '🇮🇳' },
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिंदी' },
+  { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી' },
+  { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+  { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
+  { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
+  { code: 'te', name: 'Telugu', nativeName: 'తెలుগు' },
+  { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ' },
+  { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം' },
 ];
 
 // Audio configuration from Google Cloud Storage bucket
@@ -351,7 +350,6 @@ const EnhancedAudioPlayer = ({ className = "", courseId, defaultLanguage = 'en',
                   : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
               }`}
             >
-              <span>{lang.flag}</span>
               <span className={`${getFontClass(lang.code)}`}>{lang.nativeName}</span>
             </button>
           ))}
