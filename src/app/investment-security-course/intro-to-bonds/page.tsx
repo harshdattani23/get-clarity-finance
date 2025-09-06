@@ -764,12 +764,25 @@ export default function IntroToBondsPage() {
                   <div className="mt-4">
                     <h4 className="font-medium mb-3">{t('overview.section1.p3') as string}</h4>
                     <ul className="space-y-2 text-gray-700">
-                      {(t('overview.section1.list') as string[]).map((item, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
+                      {Array.isArray(t('overview.section1.list')) 
+                        ? (t('overview.section1.list') as string[]).map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                              <span>{item}</span>
+                            </li>
+                          ))
+                        : [
+                            "Face Value: The principal amount repaid at maturity",
+                            "Coupon Rate: The annual interest rate paid to bondholders",
+                            "Maturity Date: When the bond expires and principal is repaid",
+                            "Yield to Maturity: Total return if held until maturity"
+                          ].map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                              <span>{item}</span>
+                            </li>
+                          ))
+                      }
                     </ul>
                   </div>
                 </div>
