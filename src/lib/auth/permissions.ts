@@ -63,15 +63,15 @@ export async function getUserRole(userId: string): Promise<UserRole> {
     const userEmail = user.emailAddresses
       .find(email => email.id === user.primaryEmailAddressId)?.emailAddress;
     
-    // Define admin emails (move these to environment variables)
+    // Define admin emails from environment variables only
     const ADMIN_EMAILS = [
-      process.env.ADMIN_EMAIL_1 || 'dattaniharsh12@gmail.com',
+      process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_ADMIN_EMAIL,
       process.env.ADMIN_EMAIL_2,
       process.env.ADMIN_EMAIL_3,
     ].filter(Boolean);
 
     const SUPER_ADMIN_EMAILS = [
-      process.env.SUPER_ADMIN_EMAIL || 'dattaniharsh12@gmail.com',
+      process.env.SUPER_ADMIN_EMAIL || process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_ADMIN_EMAIL,
     ].filter(Boolean);
 
     if (userEmail && SUPER_ADMIN_EMAILS.includes(userEmail)) {
