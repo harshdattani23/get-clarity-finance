@@ -6,6 +6,14 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "dattaniharsh12@gmail.com";
 
 export async function GET() {
   try {
+    // Check if DATABASE_URL is available
+    if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes('dummy')) {
+      return NextResponse.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
+
     // Check authentication
     const { userId } = await auth();
     if (!userId) {

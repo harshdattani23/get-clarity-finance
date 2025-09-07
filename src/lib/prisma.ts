@@ -7,10 +7,17 @@ declare global {
 
 // Function to create a new PrismaClient with proper configuration
 function createPrismaClient() {
+  // During build time, DATABASE_URL might be undefined, so we need to handle this case
+  const databaseUrl = process.env.DATABASE_URL;
+  
+  // If DATABASE_URL is not available (e.g., during build), provide a dummy URL
+  // This allows the build to complete successfully without database connection
+  const fallbackUrl = "postgresql://dummy:dummy@localhost:5432/dummy";
+  
   return new PrismaClient({
     datasources: {
       db: {
-        url: process.env.DATABASE_URL,
+        url: databaseUrl || fallbackUrl,
       },
     },
     // Configure connection pool to prevent "too many connections" error
