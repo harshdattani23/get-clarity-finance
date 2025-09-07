@@ -14,6 +14,10 @@
     "title": "Latest Market Updates",
     "live": "LIVE"
   },
+  "podcasts": {
+    "title": "Daily Podcasts",
+    "live": "Multi-Language"
+  },
   "agents": {
     "title": "AI-Powered Fraud Detection Agents",
     "subtitle": "Test our advanced AI agents that protect investors from various types of financial fraud in real-time."

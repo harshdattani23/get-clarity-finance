@@ -1,7 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 export default async function AdminLayout({
   children,
@@ -45,12 +45,29 @@ export default async function AdminLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8 py-4">
             <a
+              href="/admin"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              Dashboard
+            </a>
+            <a
+              href="/admin/market-podcast"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              🎧 Market Podcast
+            </a>
+            <a
               href="/admin/audio-upload"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
               Audio Upload
             </a>
-            {/* Add more admin navigation items here */}
+            <a
+              href="/admin/system-health"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              System Health
+            </a>
           </nav>
         </div>
       </div>

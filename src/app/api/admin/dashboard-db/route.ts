@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "dattaniharsh12@gmail.com";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "dattaniharsh12@gmail.com";
 
 export async function GET() {
   try {

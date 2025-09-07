@@ -25,7 +25,7 @@ import Link from "next/link";
 import { LiveDashboard } from "@/components/admin/LiveDashboard";
 import { PerformanceAnalytics } from "@/components/admin/PerformanceAnalytics";
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "dattaniharsh12@gmail.com";
+const ADMIN_EMAIL = "dattaniharsh12@gmail.com"; // Use hardcoded since this runs on client-side
 
 interface DashboardStats {
   totalUsers: number;
@@ -111,25 +111,12 @@ export default function AdminDashboard() {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Admin authentication is handled by the layout
   useEffect(() => {
-    if (isLoaded && !userId) {
-      router.push("/sign-in");
+    if (isLoaded && userId) {
+      fetchDashboardData();
     }
-  }, [isLoaded, userId, router]);
-
-  useEffect(() => {
-    if (user) {
-      const userEmail = user.emailAddresses.find(
-        (email) => email.id === user.primaryEmailAddressId
-      )?.emailAddress;
-
-      if (userEmail !== ADMIN_EMAIL) {
-        router.push("/");
-      } else {
-        fetchDashboardData();
-      }
-    }
-  }, [user, router]);
+  }, [isLoaded, userId]);
 
   const fetchDashboardData = async () => {
     try {

@@ -582,6 +582,77 @@ model Certificate {
   @@index([completionDate])
 }
 
+model JobLog {
+  id                   Int       @id @default(autoincrement())
+  jobName              String
+  startTime            DateTime
+  endTime              DateTime?
+  status               JobStatus
+  totalStocks          Int?
+  successCount         Int?
+  errorCount           Int?
+  errorMessage         String?
+  executionTimeSeconds Int?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([startTime])
+  @@index([jobName])
+  @@index([status])
+  @@index([jobName], map: "idx_job_log_job_name")
+  @@index([startTime], map: "idx_job_log_start_time")
+  @@index([status], map: "idx_job_log_status")
+}
+
+model PodcastEpisode {
+  id            String             @id @default(cuid())
+  title         String
+  summary       String
+  category      PodcastCategory    @default(REGULATORY)
+  importance    PodcastImportance  @default(MEDIUM)
+  podcastTitle  String
+  marketSummary String
+  audioUrl      String?
+  audioDuration Int?
+  audioStatus   PodcastAudioStatus @default(NOT_GENERATED)
+  requestId     String?
+  publishedAt   DateTime           @default(now())
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  language      String             @default("English")
+  date          DateTime           @default(now())
+  keyPoints     PodcastKeyPoint[]
+  sources       PodcastSource[]
+
+  @@unique([date, language])
+  @@index([date])
+  @@index([publishedAt])
+  @@index([category])
+  @@index([audioStatus])
+  @@index([language, date])
+}
+
+model PodcastKeyPoint {
+  id        String         @id @default(cuid())
+  episodeId String
+  point     String
+  order     Int
+  episode   PodcastEpisode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@index([episodeId])
+}
+
+model PodcastSource {
+  id          String         @id @default(cuid())
+  episodeId   String
+  title       String?
+  url         String
+  publishedAt String?
+  episode     PodcastEpisode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@index([episodeId])
+}
+
 enum InvestmentExperience {
   BEGINNER
   INTERMEDIATE
@@ -679,27 +750,28 @@ enum QuestionType {
   VERIFICATION
 }
 
-model JobLog {
-  id                   Int       @id @default(autoincrement())
-  jobName              String
-  startTime            DateTime
-  endTime              DateTime?
-  status               JobStatus
-  totalStocks          Int?
-  successCount         Int?
-  errorCount           Int?
-  errorMessage         String?
-  executionTimeSeconds Int?
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-
-  @@index([startTime])
-  @@index([jobName])
-  @@index([status])
-}
-
 enum JobStatus {
   RUNNING
   SUCCESS
+  FAILED
+}
+
+enum PodcastCategory {
+  SEBI
+  RBI
+  POLICY
+  REGULATORY
+}
+
+enum PodcastImportance {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum PodcastAudioStatus {
+  NOT_GENERATED
+  GENERATING
+  COMPLETED
   FAILED
 }

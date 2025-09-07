@@ -4,7 +4,7 @@ import Link from 'next/link';
 import ContentAnalyzer from '@/components/ContentAnalyzer';
 import HowItWorks from '@/components/home/HowItWorks';
 import { Shield, TrendingUp, BookOpen, AlertTriangle, Play } from 'lucide-react';
-import HeroNewsWidget from '@/components/home/HeroNewsWidget';
+import HeroMediaWidget from '@/components/home/HeroMediaWidget';
 import AIAgentsTabs from '@/components/agents/AIAgentsTabs';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className="bg-white text-gray-800">
-      {/* Enhanced Hero Section with News Widget */}
+      {/* Enhanced Hero Section with Podcast & News Widgets */}
       <section className="bg-[#163300] text-white relative overflow-hidden">
         <div className="container mx-auto px-6 pt-12 md:pt-14 pb-20 md:pb-24">
           <div className="grid lg:grid-cols-12 gap-8">
@@ -74,16 +74,16 @@ export default function Home() {
 
             </div>
             
-            {/* Right Content - News Widget Box */}
+            {/* Right Content - Unified Media Widget */}
             <div className="lg:col-span-5">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 lg:p-6 h-full max-h-[500px] flex flex-col">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-base lg:text-lg font-semibold text-white">{t('news.title') as string}</h3>
-                  <span className="text-xs text-lime-400 font-medium animate-pulse">{t('news.live') as string}</span>
+                  <h3 className="text-base lg:text-lg font-semibold text-white">📱 News & Podcasts</h3>
+                  <span className="text-xs text-lime-400 font-medium animate-pulse">LIVE</span>
                 </div>
                 <div className="bg-white rounded-xl overflow-hidden flex-1 min-h-0">
                   <div className="h-full p-3">
-                    <HeroNewsWidget />
+                    <HeroMediaWidget />
                   </div>
                 </div>
               </div>
