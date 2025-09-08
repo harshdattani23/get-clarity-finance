@@ -22,11 +22,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: v.error, code: 'INVALID_INPUT_NOT_CHAT' }, { status: 400 });
     }
 
-    // Initialize Google GenAI
-    const ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-    });
-
     // Detect input type
     const inputContent = transcript || mediaUrl || '';
     const isYouTubeVideo = inputContent.includes('youtube.com/watch') || inputContent.includes('youtu.be/');
@@ -34,14 +29,17 @@ export async function POST(request: NextRequest) {
     
     // Generate unique session ID
     const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    // Configuration with thinking and tools (enhanced approach)
+
+    // Initialize Google GenAI - EXACT AI STUDIO STRUCTURE
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+    });
     const tools = [
       {
-        googleSearch: {}
-      }
+        googleSearch: {
+        }
+      },
     ];
-    
     const config = {
       thinkingConfig: {
         thinkingBudget: -1,
@@ -49,41 +47,28 @@ export async function POST(request: NextRequest) {
       tools,
       systemInstruction: [
         {
-          text: `CRITICAL INSTRUCTION: You MUST analyze ONLY the specific YouTube video provided in this request.
-
-SESSION ID: ${sessionId}
+          text: `SESSION ID: ${sessionId}
 TIMESTAMP: ${new Date().toISOString()}
 
-🎯 TARGET VIDEO TO ANALYZE:
+ANALYZE THIS SPECIFIC CONTENT:
 ${isYouTubeVideo ? `YouTube Video URL: ${videoUrl}` : `Content: ${inputContent}`}
 
-⚠️ STRICT REQUIREMENTS:
-1. You MUST analyze ONLY the video at the URL above
-2. DO NOT analyze any other video (like Patrick Boyle videos or cached content)
-3. DO NOT use cached information from previous analyses
-4. Each analysis request is completely independent
-5. VERIFY the video URL matches: ${videoUrl}
-
-🔍 ANALYSIS TASK:
 As a deepfake detection expert for SEBI (Securities and Exchange Board of India), analyze the EXACT content provided above for potential suspicious activity.
+
+DO NOT analyze any other video or content. DO NOT use cached information from previous analyses.
+Each analysis request is independent - analyze the content fresh.
 
 Media Type: ${isYouTubeVideo ? 'YouTube Video' : mediaType || 'text'}
 
-${isYouTubeVideo ? `📹 VIDEO ANALYSIS REQUIREMENTS:
-First, VERIFY you are analyzing the correct video by confirming:
-- The video URL is: ${videoUrl}
-- Extract the video ID: ${videoUrl?.split('v=')[1]?.split('&')[0] || 'unknown'}
-
-Then extract the ACTUAL content from THIS SPECIFIC video:
-1. The ACTUAL video title (not from any other video)
-2. The ACTUAL channel name (not Patrick Boyle or any other channel)
-3. What THIS specific video is about
-4. Topics discussed in THIS video only
-5. Speaker claims made in THIS video only
-6. Investment claims made in THIS video only
-7. Duration of THIS video only
-
-IF YOU ANALYZE THE WRONG VIDEO, THIS IS A CRITICAL ERROR!` : 'Analyze this content:'}
+${isYouTubeVideo ? `IMPORTANT: Analyze THIS SPECIFIC YouTube video from the URL above.
+First, extract the ACTUAL content from THIS video:
+1. The ACTUAL video title
+2. The ACTUAL channel name 
+3. What THIS video is specifically about
+4. Topics discussed in THIS video
+5. Speaker claims made in THIS video
+6. Investment claims made in THIS video
+7. Duration of THIS video` : 'Analyze this content:'}
 
 Check for these deepfake indicators:
 1. Unnatural speech patterns or lip sync issues
@@ -110,10 +95,7 @@ IMPORTANT DISTINCTION:
 - Educational content about markets = NOT SUSPICIOUS
 - "Transfer money to this account" = HIGHLY SUSPICIOUS
 
-📋 REQUIRED OUTPUT FORMAT:
 Provide analysis in JSON format with:
-- videoUrl: "${videoUrl}" (MUST match the input URL exactly)
-- videoId: "${videoUrl?.split('v=')[1]?.split('&')[0] || 'unknown'}" (extracted from URL)
 - isDeepfake (boolean)
 - confidence (0-100)
 - indicators (array of detected issues)
@@ -124,24 +106,13 @@ Provide analysis in JSON format with:
         }
       ],
     };
-
     const model = 'gemini-2.5-flash';
-    
-    // Prepare content based on input type with explicit video verification
     const contents = [
       {
         role: 'user',
         parts: [
           {
-            text: isYouTubeVideo ? 
-              `🎯 CRITICAL: Analyze THIS EXACT YouTube video (URL: ${videoUrl}) for deepfake and suspicious activity indicators.
-              
-              VIDEO ID TO VERIFY: ${videoUrl?.split('v=')[1]?.split('&')[0] || 'unknown'}
-              
-              ⚠️ WARNING: Do NOT analyze any other video. Do NOT use cached content. This must be the specific video at the URL above.
-              
-              Please confirm in your response that you analyzed the correct video by including the actual video title and channel name from THIS specific URL.` :
-              inputContent,
+            text: isYouTubeVideo ? videoUrl : inputContent,
           },
         ],
       },
@@ -152,14 +123,14 @@ Provide analysis in JSON format with:
     console.log('Session ID:', sessionId);
     console.log('Using model:', model);
 
-    // Generate response using streaming
+    // Generate response using streaming - EXACT AI STUDIO METHOD
     const response = await ai.models.generateContentStream({
       model,
       config,
       contents,
     });
-
-    // Collect the streamed response
+    
+    // Collect the streamed response - EXACT AI STUDIO LOOP
     let fullResponse = '';
     for await (const chunk of response) {
       if (chunk.text) {
