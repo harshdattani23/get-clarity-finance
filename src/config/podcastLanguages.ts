@@ -9,6 +9,8 @@ export interface PodcastLanguage {
   nativeName: string;     // Display name in native language
   autoContentCode: string; // Exact string for AutoContent API (case sensitive)
   enabled: boolean;       // Whether podcast generation is enabled for this language
+  flag: string;          // Flag emoji for the language
+  displayName: string;   // Preferred display name for UI
 }
 
 // Supported languages for podcast generation
@@ -17,71 +19,91 @@ export const PODCAST_LANGUAGES: Record<string, PodcastLanguage> = {
     code: 'en',
     label: 'English',
     nativeName: 'English',
-    autoContentCode: 'English',
+    autoContentCode: 'English', // AutoContent accepts 'English'
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'English',
   },
   hi: {
     code: 'hi',
     label: 'Hindi',
     nativeName: 'हिंदी',
-    autoContentCode: 'हिन्दी',
+    autoContentCode: 'हिन्दी', // Exact string from AutoContent API: हिन्दी
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Hindi',
   },
   mr: {
     code: 'mr',
     label: 'Marathi',
     nativeName: 'मराठी',
-    autoContentCode: 'मराठी',
+    autoContentCode: 'मराठी', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Marathi',
   },
   gu: {
     code: 'gu',
     label: 'Gujarati',
     nativeName: 'ગુજરાતી',
-    autoContentCode: 'ગુજરાતી',
+    autoContentCode: 'ગુજરાતી', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Gujarati',
   },
   ta: {
     code: 'ta',
     label: 'Tamil',
     nativeName: 'தமிழ்',
-    autoContentCode: 'தமிழ்',
+    autoContentCode: 'தமிழ்', // Native script - if this fails, will fallback to English
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Tamil',
   },
   te: {
     code: 'te',
     label: 'Telugu',
     nativeName: 'తెలుగు',
-    autoContentCode: 'తెలుగు',
+    autoContentCode: 'తెలుగు', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Telugu',
   },
   bn: {
     code: 'bn',
     label: 'Bengali',
     nativeName: 'বাংলা',
-    autoContentCode: 'বাংলা',
+    autoContentCode: 'বাংলা', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Bengali',
   },
   kn: {
     code: 'kn',
     label: 'Kannada',
     nativeName: 'ಕನ್ನಡ',
-    autoContentCode: 'ಕನ್ನಡ',
+    autoContentCode: 'ಕನ್ನಡ', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Kannada',
   },
   ml: {
     code: 'ml',
     label: 'Malayalam',
     nativeName: 'മലയാളം',
-    autoContentCode: 'മലയാളം',
+    autoContentCode: 'മലയാളം', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Malayalam',
   },
   pa: {
     code: 'pa',
     label: 'Punjabi',
     nativeName: 'ਪੰਜਾਬੀ',
-    autoContentCode: 'ਪੰਜਾਬੀ',
+    autoContentCode: 'ਪੰਜਾਬੀ', // Exact string from AutoContent API docs
     enabled: true,
+    flag: '🇮🇳',
+    displayName: 'Punjabi',
   },
 } as const;
 
@@ -95,6 +117,12 @@ export function getAutoContentLanguageCode(languageCode: string): string {
 export function getLanguageDisplayName(languageCode: string): string {
   const language = PODCAST_LANGUAGES[languageCode];
   return language?.nativeName || language?.label || 'English';
+}
+
+// Get language label for database storage (English names)
+export function getLanguageLabelForDatabase(languageCode: string): string {
+  const language = PODCAST_LANGUAGES[languageCode];
+  return language?.label || 'English';
 }
 
 // Get list of enabled languages for UI dropdown

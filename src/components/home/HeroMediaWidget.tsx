@@ -52,7 +52,7 @@ const HeroMediaWidget: React.FC = () => {
 
   // Podcast state
   const [podcastData, setPodcastData] = useState<PodcastData | null>(null);
-  const [selectedPodcastLanguage, setSelectedPodcastLanguage] = useState<string>('en');
+  const [selectedPodcastLanguage, setSelectedPodcastLanguage] = useState<string>('all');
   const [showPodcastLanguageMenu, setShowPodcastLanguageMenu] = useState(false);
   const [playingEpisode, setPlayingEpisode] = useState<string | null>(null);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
@@ -61,6 +61,9 @@ const HeroMediaWidget: React.FC = () => {
   const [volume, setVolume] = useState(1);
   const [isBuffering, setIsBuffering] = useState(false);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const [selectedDateFilter, setSelectedDateFilter] = useState<string>('all');
+  const [showDateMenu, setShowDateMenu] = useState(false);
+  const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set());
   
   const languages = getEnabledPodcastLanguages();
 
@@ -107,7 +110,7 @@ const HeroMediaWidget: React.FC = () => {
     try {
       setError(null);
       
-      const response = await fetch('/api/podcast-playlist');
+      const response = await fetch('/api/podcast-rss');
       const data: PodcastData = await response.json();
       
       if (!response.ok) {
@@ -184,12 +187,36 @@ const HeroMediaWidget: React.FC = () => {
     }
   };
 
+  const handleDateFilterChange = (dateFilter: string) => {
+    setSelectedDateFilter(dateFilter);
+    setShowDateMenu(false);
+  };
+
+  const toggleDateExpansion = (date: string) => {
+    const newExpanded = new Set(expandedDates);
+    if (newExpanded.has(date)) {
+      newExpanded.delete(date);
+    } else {
+      newExpanded.add(date);
+    }
+    setExpandedDates(newExpanded);
+  };
+
   // Helper function to get the database language name from language code
   const getDatabaseLanguageName = (languageCode: string) => {
-    if (languageCode === 'en') return 'English';
-    const language = languages.find(lang => lang.code === languageCode);
-    // Use autoContentCode which matches the database language names
-    return language?.autoContentCode || 'English';
+    // Map language codes to the exact language names used in RSS feed
+    const languageMap: Record<string, string> = {
+      'en': 'English',
+      'hi': 'Hindi',
+      'bn': 'Bengali', 
+      'ta': 'Tamil',
+      'gu': 'Gujarati',
+      'mr': 'Marathi',
+      'te': 'Telugu',
+      'kn': 'Kannada'
+    };
+    
+    return languageMap[languageCode] || 'English';
   };
 
   const handlePlayPause = (episode: PodcastEpisode) => {
@@ -282,18 +309,28 @@ const HeroMediaWidget: React.FC = () => {
     return `${formatDuration(current)} / ${formatDuration(total)}`;
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string, showFullDate = false) => {
     const date = new Date(dateString);
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
+    if (showFullDate) {
+      return date.toLocaleDateString('en-IN', { 
+        weekday: 'long',
+        day: 'numeric', 
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+
     if (date.toDateString() === today.toDateString()) {
-      return 'Today';
+      return `Today, ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}`;
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday';
+      return `Yesterday, ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}`;
     } else {
       return date.toLocaleDateString('en-IN', { 
+        weekday: 'short',
         day: 'numeric', 
         month: 'short' 
       });
@@ -346,14 +383,59 @@ const HeroMediaWidget: React.FC = () => {
 
   // Process podcast data by date and language
   const selectedLanguageName = getDatabaseLanguageName(selectedPodcastLanguage);
-  const episodesByDate = podcastData?.episodes
-    .filter(episode => episode.language === selectedLanguageName)
+  
+  // Apply date filtering
+  const getFilteredEpisodes = () => {
+    let filtered = podcastData?.episodes || [];
+    
+    // Language filter
+    if (selectedPodcastLanguage !== 'all') {
+      filtered = filtered.filter(episode => episode.language === selectedLanguageName);
+    }
+    
+    // Date filter
+    if (selectedDateFilter !== 'all') {
+      const today = new Date();
+      const filterDate = new Date();
+      
+      switch (selectedDateFilter) {
+        case 'today':
+          filterDate.setHours(0, 0, 0, 0);
+          filtered = filtered.filter(episode => {
+            const episodeDate = new Date(episode.date);
+            return episodeDate >= filterDate;
+          });
+          break;
+        case 'last-3-days':
+          filterDate.setDate(today.getDate() - 3);
+          filterDate.setHours(0, 0, 0, 0);
+          filtered = filtered.filter(episode => {
+            const episodeDate = new Date(episode.date);
+            return episodeDate >= filterDate;
+          });
+          break;
+        case 'this-week':
+          const startOfWeek = new Date(today);
+          startOfWeek.setDate(today.getDate() - today.getDay());
+          startOfWeek.setHours(0, 0, 0, 0);
+          filtered = filtered.filter(episode => {
+            const episodeDate = new Date(episode.date);
+            return episodeDate >= startOfWeek;
+          });
+          break;
+      }
+    }
+    
+    return filtered;
+  };
+  
+  const episodesByDate = getFilteredEpisodes()
     .reduce((acc, episode) => {
       const date = episode.date;
       if (!acc[date]) acc[date] = [];
       acc[date].push(episode);
       return acc;
-    }, {} as Record<string, PodcastEpisode[]>) || {};
+    }, {} as Record<string, PodcastEpisode[]>);
 
   const dates = Object.keys(episodesByDate).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
 
@@ -494,7 +576,22 @@ const HeroMediaWidget: React.FC = () => {
           <div>
             {/* Podcast Language Filters */}
             <div className="flex flex-wrap gap-1.5 mb-2">
-              {languages.slice(0, 4).map((language) => (
+              {/* All Languages Button */}
+              <button
+                onClick={() => handlePodcastLanguageChange('all')}
+                className={`group relative px-2 py-1 rounded text-xs font-medium transition-all duration-300 ${
+                  selectedPodcastLanguage === 'all'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md scale-105'
+                    : 'bg-white/90 text-gray-700 hover:bg-white hover:shadow-sm'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-1">
+                  <span className="text-xs">🌐</span>
+                  <span>All</span>
+                </span>
+              </button>
+              
+              {languages.slice(0, 5).map((language) => (
                 <button
                   key={language.code}
                   onClick={() => handlePodcastLanguageChange(language.code)}
@@ -511,7 +608,7 @@ const HeroMediaWidget: React.FC = () => {
                 </button>
               ))}
               
-              {languages.length > 4 && (
+              {languages.length > 6 && (
                 <div className="relative">
                   <button
                     onClick={() => setShowPodcastLanguageMenu(!showPodcastLanguageMenu)}
@@ -525,7 +622,7 @@ const HeroMediaWidget: React.FC = () => {
                   
                   {showPodcastLanguageMenu && (
                     <div className="absolute left-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                      {languages.slice(4).map((language) => (
+                      {languages.slice(6).map((language) => (
                         <button
                           key={language.code}
                           onClick={() => handlePodcastLanguageChange(language.code)}
@@ -541,6 +638,53 @@ const HeroMediaWidget: React.FC = () => {
                   )}
                 </div>
               )}
+              
+              {/* Date Filter */}
+              <div className="relative ml-2">
+                <button
+                  onClick={() => setShowDateMenu(!showDateMenu)}
+                  className="group relative px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-300"
+                >
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-2.5 h-2.5" />
+                    <span>
+                      {selectedDateFilter === 'all' ? 'All Dates' : 
+                       selectedDateFilter === 'today' ? 'Today' :
+                       selectedDateFilter === 'last-3-days' ? 'Last 3 Days' :
+                       selectedDateFilter === 'this-week' ? 'This Week' : 'All Dates'
+                      }
+                    </span>
+                    <ChevronRight className={`w-2.5 h-2.5 transition-transform ${
+                      showDateMenu ? 'rotate-90' : ''
+                    }`} />
+                  </span>
+                </button>
+                
+                {showDateMenu && (
+                  <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    {[
+                      { value: 'all', label: 'All Dates', icon: '📅' },
+                      { value: 'today', label: 'Today', icon: '🗓️' },
+                      { value: 'last-3-days', label: 'Last 3 Days', icon: '📆' },
+                      { value: 'this-week', label: 'This Week', icon: '🗓️' }
+                    ].map((filter) => (
+                      <button
+                        key={filter.value}
+                        onClick={() => handleDateFilterChange(filter.value)}
+                        className={`w-full text-left px-3 py-2 text-xs hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center justify-between ${
+                          selectedDateFilter === filter.value ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                        }`}
+                      >
+                        <span className="flex items-center gap-1.5">
+                          <span>{filter.icon}</span>
+                          <span>{filter.label}</span>
+                        </span>
+                        {selectedDateFilter === filter.value && <span className="text-blue-600">✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -552,7 +696,7 @@ const HeroMediaWidget: React.FC = () => {
             <span>
               {activeTab === 'news' 
                 ? `Market news in ${SUPPORTED_LANGUAGES[selectedNewsLanguage].nativeName}`
-                : `Daily podcasts in ${languages.find(lang => lang.code === selectedPodcastLanguage)?.nativeName || 'English'}`
+                : `Daily podcasts in ${selectedPodcastLanguage === 'all' ? 'All Languages' : languages.find(lang => lang.code === selectedPodcastLanguage)?.nativeName || 'English'}`
               }
             </span>
           </div>
@@ -646,7 +790,7 @@ const HeroMediaWidget: React.FC = () => {
             dates.length === 0 ? (
               <div className="text-center py-6 text-gray-500 text-sm">
                 <Headphones className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-                <p>No podcasts available in {languages.find(lang => lang.code === selectedPodcastLanguage)?.nativeName || 'English'}</p>
+                <p>No podcasts available in {selectedPodcastLanguage === 'all' ? 'any language' : languages.find(lang => lang.code === selectedPodcastLanguage)?.nativeName || 'English'}</p>
                 <p className="text-xs mt-1">Generate content in admin panel</p>
               </div>
             ) : (
@@ -657,22 +801,42 @@ const HeroMediaWidget: React.FC = () => {
 
                   return (
                     <div key={date} className="space-y-1">
-                      {/* Date Header */}
-                      <div className="flex items-center gap-2 px-2 py-1">
+                      {/* Date Header - Clickable and Expandable */}
+                      <button 
+                        onClick={() => toggleDateExpansion(date)}
+                        className="w-full flex items-center gap-2 px-2 py-1.5 hover:bg-gray-50 rounded-lg transition-colors group"
+                      >
+                        <ChevronRight className={`w-3 h-3 text-gray-400 transition-transform ${
+                          expandedDates.has(date) ? 'rotate-90' : ''
+                        }`} />
                         <Calendar className="w-3 h-3 text-gray-400" />
-                        <span className="text-xs font-medium text-gray-600">
+                        <span className="text-xs font-medium text-gray-600 group-hover:text-gray-800">
                           {formatDate(date)}
                         </span>
-                        <div className="flex-1 h-px bg-gray-200"></div>
+                        <div className="flex-1 h-px bg-gray-200 group-hover:bg-gray-300"></div>
+                        <span className="text-xs text-gray-500 font-medium">
+                          {dateEpisodes.length} episode{dateEpisodes.length > 1 ? 's' : ''}
+                        </span>
                         <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                           hasAudio ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'
                         }`}>
-                          {hasAudio ? '🎧 Available' : '📝 Text Only'}
+                          {hasAudio ? '🎧' : '📝'}
                         </span>
-                      </div>
-
-                      {/* Episodes for this date */}
-                      {dateEpisodes.map((episode, index) => (
+                      </button>
+                      
+                      {/* Expandable Date Details with Episodes */}
+                      {expandedDates.has(date) && (
+                        <div className="mx-2 mb-2 space-y-2">
+                          {/* Date Info Header */}
+                          <div className="px-4 py-1 text-xs text-gray-500 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between">
+                              <span>{formatDate(date, true)}</span>
+                              <span>{dateEpisodes.length} episodes available</span>
+                            </div>
+                          </div>
+                          
+                          {/* Episodes for this date - only show when expanded */}
+                          {dateEpisodes.map((episode, index) => (
                         <div 
                           key={episode.id} 
                           className={`bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-3 hover:from-blue-50 hover:to-blue-100 transition-all duration-300 group transform hover:scale-[1.02] hover:shadow-md animate-fadeInUp`}
@@ -814,6 +978,8 @@ const HeroMediaWidget: React.FC = () => {
                           </div>
                         </div>
                       ))}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

@@ -57,6 +57,12 @@ export default async function AdminLayout({
               🎧 Market Podcast
             </a>
             <a
+              href="/admin/podcast-manager"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              🎙️ Podcast Manager
+            </a>
+            <a
               href="/admin/audio-upload"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
