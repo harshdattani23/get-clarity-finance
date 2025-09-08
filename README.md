@@ -13,7 +13,7 @@
 
 ## 🎯 Project Overview
 
-Get Clarity Finance is a comprehensive AI-powered platform built for the **[Securities Market Hackathon at GFF 2025](https://uat.globalfintechfest.com/gff-hackathons/sebi-hackathon)**, powered by **BSE, CDSL, KFINTECH, NSDL and SEBI**. Our solution directly addresses the critical fraud prevention challenges outlined in the hackathon while enhancing investor education and market accessibility.
+Get Clarity Finance is a comprehensive AI-powered platform built for the **[Securities Market Hackathon at GFF 2025](https://uat.globalfintechfest.com/gff-hackathons/sebi-hackathon)**, powered by **BSE, CDSL, KFINTECH, NSDL and SEBI**. Our solution directly addresses the critical fraud prevention challenges outlined in the hackathon while enhancing investor education and market accessibility through daily multi-language podcasts, interactive learning, and real-time fraud detection.
 
 ## 🎯 **SEBI Hackathon Problem Statement: Fraud Prevention**
 
@@ -271,6 +271,23 @@ app/
 - Certificate generation upon completion
 - Multilingual audio narration
 
+### 🎧 **Daily Market Podcasts**
+
+**Multi-Language Audio Content:**
+- **10 Indian Languages** - Hindi, English, Bengali, Gujarati, Marathi, Tamil, Telugu, Kannada, Malayalam, Punjabi
+- **Daily Episodes** - Fresh market analysis and regulatory updates
+- **RSS Integration** - Live feed from AutoContent API
+- **Smart Playback** - Single audio instance to prevent conflicts
+- **Mobile Optimized** - Responsive design for all devices
+
+**Podcast Features:**
+- **Auto-Expand Today** - Current day episodes visible by default
+- **Language Priority** - Hindi first, English second
+- **Download Support** - Save episodes for offline listening
+- **Progress Tracking** - Resume playback from last position
+- **Volume Controls** - Integrated audio player with slider
+- **Date Organization** - Episodes grouped by publication date
+
 ### 🎮 **Virtual Trading Simulator**
 
 **Realistic Market Environment with Live Data:**
@@ -306,13 +323,58 @@ app/
 
 **Database**: PostgreSQL with Prisma ORM for type-safe data management
 
+### 🎧 **AI-Powered Multi-Language Podcasts**
+
+**Daily Market Podcast Episodes in 10 Languages:**
+- **🇮🇳 Hindi (हिंदी)** - Primary language, auto-expanded daily episodes
+- **🇬🇧 English** - Secondary language for urban professionals
+- **🇧🇩 Bengali (বাংলা)** - Eastern financial hub coverage
+- **🇮🇳 Gujarati (ગુજરાતી)** - Business community focused
+- **🇮🇳 Marathi (मराठी)** - Financial capital Mumbai region
+- **🇮🇳 Tamil (தமிழ்)** - South Indian market coverage
+- **🇮🇳 Telugu (తెలుగు)** - Tech corridor regions
+- **🇮🇳 Kannada (ಕನ್ನಡ)** - IT capital Bangalore
+- **🇮🇳 Malayalam (മലയാളം)** - Kerala & Gulf diaspora
+- **🇮🇳 Punjabi (ਪੰਜਾਬੀ)** - Northern business centers
+
+**🎙️ Podcast Features:**
+- **RSS Feed Integration** - Live updates from AutoContent API
+- **Smart Audio Player** - Single-instance playback (no conflicts)
+- **Today's Episodes Auto-Expanded** - Immediate access to latest content
+- **Language Priority** - Hindi first, English second in filters
+- **Date-Based Organization** - Episodes grouped by publication date
+- **Download Support** - Offline listening capabilities
+- **Progress Tracking** - Resume from where you left off
+- **Volume Controls** - Integrated audio controls with volume slider
+
+**📱 Home Page Integration:**
+```typescript
+// Multi-language podcast widget on homepage
+<HeroMediaWidget>
+  <PodcastTab>
+    <LanguageFilters priority={['hi', 'en', 'mr', 'gu', 'ta']} />
+    <DateFilters autoExpand="today" />
+    <EpisodeList grouped_by_date />
+    <AudioPlayer single_instance />
+  </PodcastTab>
+</HeroMediaWidget>
+```
+
+**🔥 Technical Implementation:**
+- **RSS Feed Parser** - Real-time podcast episode fetching
+- **Audio Conflict Prevention** - Only one episode plays at a time
+- **Language Detection** - Automatic content categorization
+- **Responsive Design** - Mobile-first podcast consumption
+- **SEO Optimized** - Episode metadata for search engines
+
 ### 🌐 **Multilingual Support**
 
 **10 Major Indian Languages:**
 - **Complete Coverage:** English, Hindi, Bengali, Gujarati, Marathi
-- **Partial Coverage:** Tamil, Telugu, Kannada, Malayalam
+- **Partial Coverage:** Tamil, Telugu, Kannada, Malayalam, Punjabi
 - **Cultural Context:** Region-specific financial terminology
 - **Audio Narration:** Multi-language course content
+- **Daily Podcasts:** Live market updates in native languages
 
 ---
 
@@ -523,6 +585,35 @@ GET /api/news?sector=banking&limit=10
 GET /api/indices
 ```
 
+### 🎧 **Podcast Content**
+
+```typescript
+// Multi-Language Podcast Episodes
+GET /api/podcast-rss
+// Returns: {
+//   episodes: PodcastEpisode[],
+//   totalEpisodes: number,
+//   totalWithAudio: number,
+//   dateRange: { start: string, end: string, days: number }
+// }
+
+// Episode Structure
+interface PodcastEpisode {
+  id: string;
+  date: string; // YYYY-MM-DD
+  language: string; // "Hindi", "English", etc.
+  languageCode: string; // "hi", "en", etc.
+  title: string;
+  summary: string;
+  audioUrl?: string; // MP3 file URL
+  audioDuration?: number; // seconds
+  keyPoints: string[];
+  category: string; // "sebi", "rbi", etc.
+  importance: string; // "high", "medium", "low"
+  createdAt: string; // ISO timestamp
+}
+```
+
 ### 👤 **User Management**
 
 ```typescript
@@ -551,6 +642,8 @@ GET /api/progress/[courseId]
 - `CoursePlayer` - Interactive course viewer
 - `AIAgentsTabs` - Fraud detection agents
 - `CertificateDisplay` - Course completion certificates
+- `HeroMediaWidget` - Home page podcast and news widget
+- `PodcastPlayer` - Multi-language audio player with controls
 
 **Admin Components:**
 - `SystemHealthDashboard` - Real-time monitoring
