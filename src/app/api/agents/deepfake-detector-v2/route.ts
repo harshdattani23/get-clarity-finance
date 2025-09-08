@@ -109,41 +109,21 @@ Provide analysis in JSON format with:
       ],
     };
 
-    const model = process.env.GEMINI_MODEL_NAME!;
+    const model = 'gemini-2.5-flash';
     
     // Prepare content based on input type
-    let contents;
-    if (isYouTubeVideo) {
-      // For YouTube videos, use fileData approach (works in newer API versions)
-      contents = [
-        {
-          role: 'user',
-          parts: [
-            {
-              fileData: {
-                fileUri: videoUrl,
-                mimeType: 'video/*',
-              }
-            },
-            {
-            text: `Analyze this YouTube video for deepfake and suspicious activity indicators following the instructions provided in the system prompt.`,
-            }
-          ],
-        },
-      ];
-    } else {
-      // For text content
-      contents = [
-        {
-          role: 'user',
-          parts: [
-            {
-              text: inputContent,
-            },
-          ],
-        },
-      ];
-    }
+    const contents = [
+      {
+        role: 'user',
+        parts: [
+          {
+            text: isYouTubeVideo ? 
+              `Analyze this YouTube video for deepfake and suspicious activity indicators: ${videoUrl}` :
+              inputContent,
+          },
+        ],
+      },
+    ];
 
     // Log for debugging
     console.log('Analyzing content:', isYouTubeVideo ? videoUrl : 'Text content');
