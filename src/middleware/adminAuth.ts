@@ -1,7 +1,7 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-const ADMIN_EMAIL = 'dattaniharsh12@gmail.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
 export async function isAdmin() {
   const user = await currentUser();
