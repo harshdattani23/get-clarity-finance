@@ -15,15 +15,6 @@ export interface PodcastLanguage {
 
 // Supported languages for podcast generation
 export const PODCAST_LANGUAGES: Record<string, PodcastLanguage> = {
-  en: {
-    code: 'en',
-    label: 'English',
-    nativeName: 'English',
-    autoContentCode: 'English', // AutoContent accepts 'English'
-    enabled: true,
-    flag: '🇮🇳',
-    displayName: 'English',
-  },
   hi: {
     code: 'hi',
     label: 'Hindi',
@@ -32,6 +23,15 @@ export const PODCAST_LANGUAGES: Record<string, PodcastLanguage> = {
     enabled: true,
     flag: '🇮🇳',
     displayName: 'Hindi',
+  },
+  en: {
+    code: 'en',
+    label: 'English',
+    nativeName: 'English',
+    autoContentCode: 'English', // AutoContent accepts 'English'
+    enabled: true,
+    flag: '🇮🇳',
+    displayName: 'English',
   },
   mr: {
     code: 'mr',

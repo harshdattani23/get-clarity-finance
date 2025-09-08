@@ -63,7 +63,13 @@ const HeroMediaWidget: React.FC = () => {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [selectedDateFilter, setSelectedDateFilter] = useState<string>('all');
   const [showDateMenu, setShowDateMenu] = useState(false);
-  const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set());
+  // Get today's date in YYYY-MM-DD format to auto-expand today's episodes
+  const getTodayDateString = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+  
+  const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set([getTodayDateString()]));
   
   const languages = getEnabledPodcastLanguages();
 
@@ -141,6 +147,26 @@ const HeroMediaWidget: React.FC = () => {
     fetchData();
   }, [fetchData]);
 
+  // Auto-expand today's date whenever podcast data is loaded
+  useEffect(() => {
+    if (activeTab === 'podcasts' && podcastData) {
+      const todayDate = getTodayDateString();
+      setExpandedDates(prev => new Set([...prev, todayDate]));
+    }
+  }, [activeTab, podcastData]);
+
+  // Cleanup audio when component unmounts
+  useEffect(() => {
+    return () => {
+      if (audioElement) {
+        audioElement.pause();
+        audioElement.src = '';
+        audioElement.load();
+        audioElement.remove();
+      }
+    };
+  }, [audioElement]);
+
   const handleRefresh = () => {
     setIsRefreshing(true);
     setShowAllNews(false);
@@ -156,8 +182,12 @@ const HeroMediaWidget: React.FC = () => {
       audioElement.pause();
       audioElement.src = '';
       audioElement.load();
+      audioElement.remove();
+      setAudioElement(null);
       setPlayingEpisode(null);
       setCurrentTime(0);
+      setDuration(0);
+      setIsBuffering(false);
     }
   };
 
@@ -182,8 +212,12 @@ const HeroMediaWidget: React.FC = () => {
       audioElement.pause();
       audioElement.src = '';
       audioElement.load();
+      audioElement.remove();
+      setAudioElement(null);
       setPlayingEpisode(null);
       setCurrentTime(0);
+      setDuration(0);
+      setIsBuffering(false);
     }
   };
 
@@ -229,11 +263,20 @@ const HeroMediaWidget: React.FC = () => {
         setPlayingEpisode(null);
       }
     } else {
-      // Clean up previous audio safely
+      // ALWAYS stop any currently playing audio first
       if (audioElement) {
         audioElement.pause();
         audioElement.src = '';
         audioElement.load();
+        audioElement.remove(); // Ensure complete cleanup
+      }
+      
+      // Reset any playing state
+      if (playingEpisode) {
+        setPlayingEpisode(null);
+        setCurrentTime(0);
+        setDuration(0);
+        setIsBuffering(false);
       }
       
       // Create new audio element
@@ -252,6 +295,7 @@ const HeroMediaWidget: React.FC = () => {
       newAudio.addEventListener('ended', () => {
         setPlayingEpisode(null);
         setCurrentTime(0);
+        setDuration(0);
       });
       
       newAudio.addEventListener('waiting', () => {
@@ -262,8 +306,22 @@ const HeroMediaWidget: React.FC = () => {
         setIsBuffering(false);
       });
       
+      newAudio.addEventListener('error', () => {
+        console.error('Audio playback error for episode:', episode.id);
+        setPlayingEpisode(null);
+        setCurrentTime(0);
+        setDuration(0);
+        setIsBuffering(false);
+      });
+      
       // Start playing
-      newAudio.play().catch(console.error);
+      newAudio.play().catch((error) => {
+        console.error('Audio play failed:', error);
+        setPlayingEpisode(null);
+        setCurrentTime(0);
+        setDuration(0);
+        setIsBuffering(false);
+      });
       
       // Update state
       setAudioElement(newAudio);
