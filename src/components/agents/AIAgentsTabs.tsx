@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle, FileSearch, Upload } from 'lucide-react';
+import { Camera, MessageSquare, FileText, Shield, AlertTriangle, TrendingUp, ChevronRight, Database, Search, Users, BarChart3, Brain, Cpu, Eye, CheckCircle, FileSearch, Upload, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/hooks/useTranslation';
 import AIDisclaimer from '@/components/ui/AIDisclaimer';
@@ -26,6 +26,10 @@ interface AnalysisResult {
   videoUrl?: string;
   videoAnalyzed?: boolean;
   mediaType?: string;
+  // V3 specific fields
+  version?: string;
+  processingTime?: string;
+  success?: boolean;
   threat?: {
     threatType?: string | string[];
     riskScore?: number;
@@ -34,6 +38,35 @@ interface AnalysisResult {
   };
   analysis?: {
     riskLevel?: string;
+    confidence?: number;
+    isDeepfake?: boolean;
+    indicators?: string[];
+    recommendations?: string[];
+    // V3 AI Studio fields
+    searchQuery?: string;
+    searchResults?: string;
+    videoValidationConfirmation?: string;
+    videoIdVerification?: string;
+    technicalDetails?: {
+      videoValidation?: {
+        verified?: boolean;
+        videoIdMatch?: boolean;
+        expectedVideoId?: string;
+        expectedUrl?: string;
+      };
+      videoValidationError?: boolean;
+      validationFailed?: boolean;
+      [key: string]: any;
+    };
+    contentSummary?: {
+      title?: string;
+      channelName?: string;
+      description?: string;
+      mainTopics?: string[];
+      speakerClaims?: string[];
+      investmentClaims?: string[];
+      duration?: string;
+    };
   };
   verification?: {
     credibilityScore?: number;
@@ -55,6 +88,15 @@ interface AnalysisResult {
     confidence?: number;
     riskLevel?: string;
     timestamp?: string;
+    // V3 compliance info
+    complianceInfo?: {
+      reportId?: string;
+      sessionId?: string;
+      requiresReporting?: boolean;
+      sebiPortal?: string;
+      sebiTollFree?: string;
+    };
+    sebiReportRequired?: boolean;
   };
   nextSteps?: string[];
   // SEBI Query specific fields
@@ -296,12 +338,16 @@ export default function AIAgentsTabs() {
 
       switch (activeTab) {
         case 'deepfake':
-          // Use v2 endpoint for better YouTube video analysis
-          const useV2 = inputContent.includes('youtube.com/watch') || inputContent.includes('youtu.be/');
-          endpoint = useV2 ? '/api/agents/deepfake-detector-v2' : '/api/agents/deepfake-detector';
-          payload = { 
-            transcript: inputContent, 
+          // Use v3 endpoint for enhanced YouTube video analysis with Google Search
+          const isYouTubeVideo = inputContent.includes('youtube.com/watch') || inputContent.includes('youtu.be/');
+          endpoint = isYouTubeVideo ? '/api/agents/deepfake-detector-v3' : '/api/agents/deepfake-detector';
+          payload = isYouTubeVideo ? {
+            mediaUrl: inputContent,
             mediaType: 'video',
+            metadata: { source: 'user_input', version: 'v3-ai-studio' }
+          } : { 
+            transcript: inputContent, 
+            mediaType: 'text',
             metadata: { source: 'user_input' }
           };
           break;
@@ -1402,14 +1448,71 @@ export default function AIAgentsTabs() {
                         </div>
                       )}
 
+                      {/* AI Studio V3 Video Validation */}
+                      {analysisResult.analysis && (analysisResult.analysis as any).searchQuery && (
+                        <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-4 border border-emerald-200">
+                          <h5 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
+                            <Search className="w-4 h-4" />
+                            AI Studio V3 Validation
+                          </h5>
+                          <div className="space-y-2 text-sm">
+                            <div>
+                              <strong className="text-emerald-800">Search Query Used:</strong>
+                              <p className="text-emerald-700 bg-emerald-100 px-2 py-1 rounded font-mono text-xs mt-1">
+                                {(analysisResult.analysis as any).searchQuery}
+                              </p>
+                            </div>
+                            {(analysisResult.analysis as any).searchResults && (
+                              <div>
+                                <strong className="text-emerald-800">Search Results:</strong>
+                                <p className="text-emerald-700 text-xs">
+                                  {(analysisResult.analysis as any).searchResults}
+                                </p>
+                              </div>
+                            )}
+                            {(analysisResult.analysis as any).videoValidationConfirmation && (
+                              <div>
+                                <strong className="text-emerald-800">AI Confirmation:</strong>
+                                <p className="text-emerald-700 text-xs">
+                                  {(analysisResult.analysis as any).videoValidationConfirmation}
+                                </p>
+                              </div>
+                            )}
+                            {(analysisResult.analysis as any).videoIdVerification && (
+                              <div>
+                                <strong className="text-emerald-800">Video ID Verified:</strong>
+                                <span className="text-emerald-700 font-mono text-xs ml-2">
+                                  {(analysisResult.analysis as any).videoIdVerification}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Media Info */}
-                      {analysisResult.detailed.mediaAnalyzed && (
+                      {analysisResult.detailed && (analysisResult.detailed.mediaAnalyzed || analysisResult.version) && (
                         <div className="bg-gray-50 rounded-lg p-4">
-                          <h5 className="font-semibold text-gray-900 mb-2">Analysis Details</h5>
+                          <h5 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            <Info className="w-4 h-4" />
+                            Analysis Details
+                          </h5>
                           <div className="space-y-1 text-sm text-gray-700">
-                            <p><strong>Media Type:</strong> {analysisResult.detailed.mediaAnalyzed}</p>
-                            <p><strong>Confidence Score:</strong> {analysisResult.detailed.confidence}%</p>
-                            <p><strong>Risk Level:</strong> <span className="uppercase font-semibold">{analysisResult.detailed.riskLevel}</span></p>
+                            {analysisResult.detailed.mediaAnalyzed && (
+                              <p><strong>Media Type:</strong> {analysisResult.detailed.mediaAnalyzed}</p>
+                            )}
+                            {analysisResult.detailed.confidence !== undefined && (
+                              <p><strong>Confidence Score:</strong> {analysisResult.detailed.confidence}%</p>
+                            )}
+                            {analysisResult.detailed.riskLevel && (
+                              <p><strong>Risk Level:</strong> <span className="uppercase font-semibold">{analysisResult.detailed.riskLevel}</span></p>
+                            )}
+                            {analysisResult.version && (
+                              <p><strong>API Version:</strong> <span className="font-mono text-xs bg-gray-200 px-2 py-0.5 rounded">{analysisResult.version}</span></p>
+                            )}
+                            {analysisResult.processingTime && (
+                              <p><strong>Processing Time:</strong> {analysisResult.processingTime}</p>
+                            )}
                             {analysisResult.detailed.timestamp && (
                               <p><strong>Analyzed:</strong> {new Date(analysisResult.detailed.timestamp).toLocaleString()}</p>
                             )}

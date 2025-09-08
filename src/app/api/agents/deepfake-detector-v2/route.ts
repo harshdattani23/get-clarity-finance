@@ -106,7 +106,7 @@ Provide analysis in JSON format with:
         }
       ],
     };
-    const model = 'gemini-2.5-flash';
+    const model = 'gemini-2.5-pro';
     const contents = [
       {
         role: 'user',
