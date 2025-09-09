@@ -775,3 +775,63 @@ enum PodcastAudioStatus {
   COMPLETED
   FAILED
 }
+
+model VideoUpload {
+  id            String   @id
+  fileId        String   @unique // References FileMetadata.fileId
+  originalName  String
+  fileSize      Int
+  mimeType      String
+  uploadedBy    String
+  uploadedAt    DateTime @default(now())
+  description   String?
+  tags          String[]
+  analysisType  String   @default("comprehensive")
+  status        VideoStatus @default(UPLOADED)
+  lastAnalyzedAt DateTime?
+  metadata      Json?
+  userAgent     String?
+  ipAddress     String?
+  analyses      VideoAnalysis[]
+
+  @@index([uploadedBy])
+  @@index([uploadedAt])
+  @@index([status])
+  @@index([lastAnalyzedAt])
+}
+
+model VideoAnalysis {
+  id           String   @id
+  videoId      String
+  analysisType String   @default("comprehensive")
+  status       VideoAnalysisStatus @default(PENDING)
+  startedAt    DateTime @default(now())
+  completedAt  DateTime?
+  userId       String
+  isDeepfake   Boolean?
+  confidence   Int?
+  riskLevel    String?
+  results      Json?
+  error        String?
+  video        VideoUpload @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@index([videoId])
+  @@index([userId])
+  @@index([startedAt])
+  @@index([status])
+  @@index([riskLevel])
+}
+
+enum VideoStatus {
+  UPLOADED
+  ANALYZING
+  ANALYZED
+  ERROR
+}
+
+enum VideoAnalysisStatus {
+  PENDING
+  ANALYZING
+  COMPLETED
+  FAILED
+}

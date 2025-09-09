@@ -153,6 +153,8 @@ export default function AIAgentsTabs() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [inputContent, setInputContent] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedVideoFile, setSelectedVideoFile] = useState<File | null>(null);
+  const [videoInputMode, setVideoInputMode] = useState<'url' | 'upload'>('url');
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [thinkingStage, setThinkingStage] = useState('');
   const [thinkingProgress, setThinkingProgress] = useState(0);
@@ -165,6 +167,11 @@ export default function AIAgentsTabs() {
     if (activeTab === 'document') {
       if (!selectedFile) return;
       await analyzeDocument();
+      return;
+    }
+    if (activeTab === 'deepfake' && videoInputMode === 'upload') {
+      if (!selectedVideoFile) return;
+      await analyzeVideoUpload();
       return;
     }
     if (!inputContent.trim()) return;
@@ -418,6 +425,133 @@ export default function AIAgentsTabs() {
     }
   };
 
+  const analyzeVideoUpload = async () => {
+    if (!selectedVideoFile) return;
+    
+    setIsAnalyzing(true);
+    setAnalysisResult(null);
+    setThinkingProgress(0);
+    
+    // Video upload analysis stages
+    const stages = [
+      '📹 Uploading video securely...',
+      '🔍 Processing video content...',
+      '🧠 AI analyzing for deepfakes...',
+      '🚨 Checking fraud patterns...',
+      '⚖️ SEBI compliance verification...',
+      '📊 Calculating risk assessment...',
+      '📋 Generating comprehensive report...'
+    ];
+    
+    // Start progress animation
+    let stageIndex = 0;
+    const totalAnalysisTime = 60000; // 60 seconds for video analysis
+    const stageInterval = setInterval(() => {
+      if (stageIndex < stages.length) {
+        setThinkingStage(stages[stageIndex]);
+        const progress = (stageIndex + 1) / stages.length * 100;
+        setThinkingProgress(progress);
+        stageIndex++;
+      }
+    }, totalAnalysisTime / stages.length);
+
+    try {
+      // Step 1: Upload video
+      const formData = new FormData();
+      formData.append('video', selectedVideoFile);
+      formData.append('analysisType', 'comprehensive');
+      formData.append('description', 'AI Agent Video Analysis');
+
+      const uploadResponse = await fetch('/api/video/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const uploadData = await uploadResponse.json();
+      
+      if (!uploadData.success) {
+        throw new Error(uploadData.error || 'Video upload failed');
+      }
+
+      // Step 2: Analyze uploaded video
+      const analyzeResponse = await fetch('/api/video/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          videoId: uploadData.videoId,
+          analysisType: 'comprehensive',
+          generateTranscript: true
+        }),
+      });
+
+      const analyzeData = await analyzeResponse.json();
+      clearInterval(stageInterval);
+      
+      setThinkingProgress(100);
+      setThinkingStage('✅ Video analysis complete!');
+      
+      // Small delay to show completion
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      if (analyzeData.success) {
+        // Format the response to match the expected structure
+        const analysis = analyzeData.analysis;
+        const formattedResult = {
+          success: true,
+          message: 'Video analyzed successfully',
+          reportId: analysis.analysisId,
+          analysis: {
+            riskLevel: analysis.riskLevel || 'medium',
+            confidence: analysis.confidence || 50,
+            isDeepfake: analysis.isDeepfake || false,
+            indicators: analysis.indicators || [],
+            recommendations: analysis.recommendations || []
+          },
+          detailed: {
+            insights: analysis.technicalDetails?.editingMarkers || [],
+            investmentWarnings: analysis.fraudAnalysis?.investmentScamIndicators || [],
+            technicalFindings: [
+              `Video File: ${selectedVideoFile.name}`,
+              `File Size: ${formatFileSize(selectedVideoFile.size)}`,
+              `Risk Level: ${analysis.riskLevel || 'Unknown'}`,
+              `Deepfake Confidence: ${analysis.confidence || 0}%`,
+              `Processing Time: ${analysis.processingTime || '0ms'}`
+            ],
+            confidence: analysis.confidence || 0,
+            riskLevel: analysis.riskLevel || 'medium',
+            timestamp: analysis.timestamp || new Date().toISOString(),
+            mediaAnalyzed: 'Uploaded Video Analysis',
+            contentSummary: analysis.contentAnalysis || {}
+          },
+          nextSteps: [
+            '📞 Contact SEBI if suspicious: 1800-266-7575',
+            '💻 Report fraud at: https://scores.sebi.gov.in/',
+            '🔍 Verify any claims through official sources',
+            '💾 Save this analysis report for your records',
+            '🎥 Consider getting a second opinion for critical decisions'
+          ]
+        };
+        
+        setAnalysisResult(formattedResult);
+      } else {
+        throw new Error(analyzeData.error || 'Video analysis failed');
+      }
+    } catch (error) {
+      console.error('Video analysis error:', error);
+      clearInterval(stageInterval);
+      setAnalysisResult({ 
+        error: `Video analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        message: 'Failed to analyze uploaded video'
+      });
+    } finally {
+      setIsAnalyzing(false);
+      setThinkingStage('');
+      setThinkingProgress(0);
+    }
+  };
+
   const analyzeDocument = async () => {
     if (!selectedFile) return;
     
@@ -545,6 +679,40 @@ export default function AIAgentsTabs() {
     setAnalysisResult(null);
   };
 
+  const handleVideoFileSelection = (file: File) => {
+    // Validate video file type
+    const supportedVideoTypes = [
+      'video/mp4',
+      'video/webm',
+      'video/quicktime',
+      'video/x-msvideo',
+      'video/x-ms-wmv',
+      'video/3gpp',
+      'video/x-flv',
+      'video/x-matroska'
+    ];
+
+    if (!supportedVideoTypes.includes(file.type)) {
+      setAnalysisResult({ 
+        error: 'Unsupported video format. Please upload MP4, WebM, MOV, AVI, WMV, 3GP, FLV, or MKV files.',
+        message: 'Invalid video format'
+      });
+      return;
+    }
+
+    // Validate file size (500MB max)
+    if (file.size > 500 * 1024 * 1024) {
+      setAnalysisResult({ 
+        error: 'Video file size must be less than 500MB.',
+        message: 'File too large'
+      });
+      return;
+    }
+
+    setSelectedVideoFile(file);
+    setAnalysisResult(null);
+  };
+
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -613,6 +781,8 @@ export default function AIAgentsTabs() {
               setAnalysisResult(null);
               setInputContent('');
               setSelectedFile(null);
+              setSelectedVideoFile(null);
+              setVideoInputMode('url'); // Reset to URL mode
             }}
             className={`
               flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all
@@ -731,7 +901,130 @@ export default function AIAgentsTabs() {
 
           {/* Input Section */}
           <div className="space-y-4">
-            {activeTab === 'document' ? (
+            {activeTab === 'deepfake' ? (
+              // Video Analysis Section
+              <div>
+                {/* Mode Toggle */}
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-sm font-medium text-gray-700">Analysis Method:</span>
+                  <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button
+                      onClick={() => {
+                        setVideoInputMode('url');
+                        setSelectedVideoFile(null);
+                        setAnalysisResult(null);
+                      }}
+                      className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                        videoInputMode === 'url'
+                          ? 'bg-purple-600 text-white shadow-sm'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      🔗 YouTube URL
+                    </button>
+                    <button
+                      onClick={() => {
+                        setVideoInputMode('upload');
+                        setInputContent('');
+                        setAnalysisResult(null);
+                      }}
+                      className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                        videoInputMode === 'upload'
+                          ? 'bg-purple-600 text-white shadow-sm'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      📁 Upload Video
+                    </button>
+                  </div>
+                </div>
+
+                {videoInputMode === 'url' ? (
+                  // YouTube URL Input
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      YouTube Video URL or Suspicious Content
+                    </label>
+                    <textarea
+                      className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                      rows={5}
+                      placeholder={t('placeholders.deepfake')}
+                      value={inputContent}
+                      onChange={(e) => setInputContent(e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  // Video Upload Section
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Upload Video for Analysis
+                    </label>
+                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-purple-400 transition-colors">
+                      {selectedVideoFile ? (
+                        // Video Selected
+                        <div className="space-y-3">
+                          <Camera className="w-12 h-12 text-purple-500 mx-auto" />
+                          <div>
+                            <p className="font-medium text-gray-900">{selectedVideoFile.name}</p>
+                            <p className="text-sm text-gray-500">
+                              {formatFileSize(selectedVideoFile.size)} • {selectedVideoFile.type}
+                            </p>
+                          </div>
+                          <div className="flex gap-2 justify-center">
+                            <button
+                              onClick={() => setSelectedVideoFile(null)}
+                              className="text-sm text-gray-600 hover:text-gray-800"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        // No Video Selected
+                        <div className="space-y-3">
+                          <Upload className="w-12 h-12 text-gray-400 mx-auto" />
+                          <div>
+                            <p className="text-lg font-medium text-gray-900 mb-2">
+                              Drop your video here or click to browse
+                            </p>
+                            <p className="text-sm text-gray-500 mb-4">
+                              Supports MP4, WebM, MOV, AVI (max 500MB)
+                            </p>
+                            <input
+                              type="file"
+                              accept=".mp4,.webm,.mov,.avi,.wmv,.3gp,.flv,.mkv"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) handleVideoFileSelection(file);
+                              }}
+                              className="hidden"
+                              id="video-upload"
+                            />
+                            <label
+                              htmlFor="video-upload"
+                              className="inline-block px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 cursor-pointer transition-colors"
+                            >
+                              Select Video
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    {/* Video Analysis Tips */}
+                    <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-4">
+                      <h5 className="font-semibold text-purple-900 mb-2">💡 Video Analysis Capabilities:</h5>
+                      <ul className="space-y-1 text-sm text-purple-800">
+                        <li>• Deepfake detection using AI</li>
+                        <li>• Investment fraud pattern recognition</li>
+                        <li>• SEBI violation detection</li>
+                        <li>• Suspicious content analysis</li>
+                        <li>• Risk assessment & reporting</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : activeTab === 'document' ? (
               // Document Upload Section
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -829,8 +1122,10 @@ export default function AIAgentsTabs() {
               <button
                 onClick={analyzeContent}
                 disabled={
-                  (activeTab === 'document' && !selectedFile) || 
-                  (activeTab !== 'document' && !inputContent.trim()) || 
+                  (activeTab === 'document' && !selectedFile) ||
+                  (activeTab === 'deepfake' && videoInputMode === 'upload' && !selectedVideoFile) ||
+                  (activeTab === 'deepfake' && videoInputMode === 'url' && !inputContent.trim()) ||
+                  (activeTab !== 'document' && activeTab !== 'deepfake' && !inputContent.trim()) ||
                   isAnalyzing
                 }
                 className="px-6 py-3 bg-gradient-to-r from-[#163300] to-[#2d5a00] text-white font-semibold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
@@ -838,18 +1133,21 @@ export default function AIAgentsTabs() {
                 {isAnalyzing ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    {activeTab === 'document' ? 'Analyzing Document...' : t('buttons.analyzing')}
+                    {activeTab === 'document' ? 'Analyzing Document...' :
+                     activeTab === 'deepfake' && videoInputMode === 'upload' ? 'Analyzing Video...' :
+                     t('buttons.analyzing')}
                   </>
                 ) : (
                   <>
                     <Shield className="w-5 h-5" />
                     {activeTab === 'document' ? 'Analyze Document' :
+                     activeTab === 'deepfake' && videoInputMode === 'upload' ? 'Analyze Video' :
                      activeTab === 'sebi-query' ? t('buttons.verifySebi') : t('buttons.analyzeGeneral')}
                   </>
                 )}
               </button>
               
-              {activeTab !== 'document' && (
+              {activeTab !== 'document' && !(activeTab === 'deepfake' && videoInputMode === 'upload') && (
                 <button
                   onClick={() => setInputContent(getExampleContent())}
                   className="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-all flex items-center gap-2"
